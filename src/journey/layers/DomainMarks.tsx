@@ -35,7 +35,7 @@ function Mark({
   const x = useTransform([stageW, stageH], ([W, H]: number[]) => markPosition(i, W, H).x);
   const y = useTransform([stageW, stageH], ([W, H]: number[]) => markPosition(i, W, H).y);
   const vis = useTransform(progress, (p) => markIn(i, p));
-  const scale = useTransform(vis, (v) => 0.72 + 0.28 * easeOut(v));
+  const scale = useTransform(vis, (v) => 0.45 + 0.55 * easeOut(v)); // grows out of the bead
   const pe = useTransform(vis, (v) => (v > 0.6 ? 'auto' : 'none'));
   const side = sideFor(i);
 

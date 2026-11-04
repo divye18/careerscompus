@@ -2,16 +2,16 @@
 
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Environment, Lightformer } from '@react-three/drei';
 import { CompassRig, WORLD_CAMERA } from './CompassRig';
 
 /**
  * The shared WebGL world for the pinned journey. Loaded lazily (next/dynamic, ssr:false)
  * only on the "full" capability tier, after the hero HTML is already visible.
  *
- * - Lighting is generated locally (Lightformer rig): no remote HDR fetch.
+ * - Metals use procedural matcaps; the dial/beads use two lights. No IBL: drei <Environment>
+ *   (PMREM) blocked the main thread ~3 s on Windows/ANGLE before the compass could appear.
  * - The render loop pauses when the stage scrolls out of view.
- * - Context loss is handled by calling onFail so the page falls back to the SVG visuals.
+ * - Context loss waits up to 3 s for restoration before calling onFail (SVG fallback).
  */
 export default function WorldCanvas({ onFail }: { onFail?: () => void }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -40,23 +40,22 @@ export default function WorldCanvas({ onFail }: { onFail?: () => void }) {
         camera={WORLD_CAMERA}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         onCreated={({ gl }) => {
+          // Context loss is often transient (GPU reset, driver hiccup). preventDefault lets the
+          // browser restore it and three.js re-initialises; only fall back if it stays lost.
+          let lostTimer: number | undefined;
           gl.domElement.addEventListener('webglcontextlost', (e) => {
             e.preventDefault();
-            onFail?.();
+            lostTimer = window.setTimeout(() => onFail?.(), 3000);
           });
+          gl.domElement.addEventListener('webglcontextrestored', () => window.clearTimeout(lostTimer));
           // reveal after first frames have rendered
           requestAnimationFrame(() => requestAnimationFrame(() => setReady(true)));
         }}
       >
-        <ambientLight intensity={0.35} />
-        <directionalLight position={[-3, 5, 6]} intensity={1.3} color="#FFF3DC" />
+        {/* lights affect only the dial and beads (metals are matcaps) */}
+        <ambientLight intensity={1.15} />
+        <directionalLight position={[-3, 5, 6]} intensity={1.6} color="#FFF3DC" />
         <Suspense fallback={null}>
-          <Environment frames={1} resolution={256} environmentIntensity={0.95}>
-            <Lightformer form="rect" intensity={2.6} color="#FFF4DD" position={[-4, 5, 4]} scale={[9, 4, 1]} />
-            <Lightformer form="rect" intensity={1.1} color="#DCE6FF" position={[5, 1, 3]} scale={[5, 8, 1]} />
-            <Lightformer form="ring" intensity={1.4} color="#FFFFFF" position={[0, -2, 6]} scale={4} />
-            <Lightformer form="rect" intensity={1.8} color="#FFE7B0" position={[0, -5, -2]} scale={[10, 2, 1]} />
-          </Environment>
           <CompassRig />
         </Suspense>
       </Canvas>

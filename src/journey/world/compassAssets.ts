@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { DOMAINS } from '@/content/domains';
+import { makeMatcap, TONES } from './matcaps';
 
 /**
  * All GPU resources for the compass, created once per mounted rig and shared by every mesh.
@@ -20,20 +21,28 @@ export class CompassAssets {
     ring3: new THREE.TorusGeometry(1.72, 0.006, 8, 160),
   };
 
-  readonly brass = new THREE.MeshStandardMaterial({ color: '#C9A75A', metalness: 1, roughness: 0.3 });
-  readonly brassDark = new THREE.MeshStandardMaterial({ color: '#8E6F2E', metalness: 1, roughness: 0.42 });
-  readonly champagne = new THREE.MeshStandardMaterial({ color: '#E7CF8E', metalness: 1, roughness: 0.22 });
-  readonly faceSide = new THREE.MeshStandardMaterial({ color: '#7A5E26', metalness: 0.9, roughness: 0.5 });
+  // Metals use procedural matcaps (no IBL/PMREM: that cost ~3 s of blocking shader compile).
+  readonly matcaps = {
+    brass: makeMatcap(TONES.brass),
+    brassDark: makeMatcap(TONES.brassDark),
+    champagne: makeMatcap(TONES.champagne),
+    royal: makeMatcap(TONES.royal),
+    steel: makeMatcap(TONES.steel),
+  };
+  readonly brass = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.brass });
+  readonly brassDark = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.brassDark });
+  readonly champagne = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.champagne });
+  readonly faceSide = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.brassDark });
   readonly faceTop = new THREE.MeshStandardMaterial({ roughness: 0.78, metalness: 0 });
-  readonly ringA = new THREE.MeshStandardMaterial({ color: '#E0C27A', metalness: 1, roughness: 0.25, transparent: true });
-  readonly ringB = new THREE.MeshStandardMaterial({ color: '#3155D9', metalness: 0.6, roughness: 0.35, transparent: true });
+  readonly ringA = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.champagne, transparent: true });
+  readonly ringB = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.royal, transparent: true });
 
+  /** Needles/meridians: neutral steel matcap tinted by the per-frame colour. */
   readonly spokeMats = DOMAINS.map(
     () =>
-      new THREE.MeshStandardMaterial({
+      new THREE.MeshMatcapMaterial({
+        matcap: this.matcaps.steel,
         color: '#4F61B8',
-        metalness: 0.55,
-        roughness: 0.35,
         transparent: true,
         opacity: 0.3,
       })
@@ -70,5 +79,6 @@ export class CompassAssets {
     [this.brass, this.brassDark, this.champagne, this.faceSide, this.faceTop, this.ringA, this.ringB]
       .concat(this.spokeMats, this.beadMats)
       .forEach((m) => m.dispose());
+    Object.values(this.matcaps).forEach((t) => t.dispose());
   }
 }

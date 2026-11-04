@@ -35,6 +35,20 @@ const SERVER_SNAPSHOT: Capability = {
 };
 
 let webglCache: boolean | null = null;
+let webglRetried = false;
+/**
+ * A failed probe is NOT cached for the whole session: right after launch, or while the GPU
+ * process is busy, getContext can transiently return null on a capable machine. We retry once
+ * shortly after; only a second failure is treated as "no WebGL".
+ */
+function scheduleWebGLRetry() {
+  if (webglRetried) return;
+  webglRetried = true;
+  window.setTimeout(() => {
+    webglCache = null;
+    refresh();
+  }, 1500);
+}
 function detectWebGL(): boolean {
   if (webglCache !== null) return webglCache;
   try {
@@ -46,6 +60,7 @@ function detectWebGL(): boolean {
   } catch {
     webglCache = false;
   }
+  if (!webglCache) scheduleWebGLRetry();
   return webglCache;
 }
 

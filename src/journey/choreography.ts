@@ -25,6 +25,8 @@ export const easeInOut = (t: number) => {
   const x = clamp01(t);
   return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 };
+/** Sine ease-in-out: gentle start, no dead zone at the beginning of a scroll move. */
+export const easeInOutSine = (t: number) => -(Math.cos(Math.PI * clamp01(t)) - 1) / 2;
 /** Ease-out (ease-atlas-ish). */
 export const easeOut = (t: number) => 1 - Math.pow(1 - clamp01(t), 3);
 export const range = (v: number, a: number, b: number) => clamp01((v - a) / (b - a));
@@ -53,17 +55,17 @@ export function mixHex(a: string, b: string, t: number): string {
 
 /* ---------- pinned journey timeline (desktop) ---------- */
 /** Total pinned scroll length, in viewport heights (container = 100vh stage + this). */
-export const PINNED_SCROLL_VH = 320;
+export const PINNED_SCROLL_VH = 280;
 
 export const PINNED = {
   /** morph m goes 0 → 1 across this p range */
-  morph: [0.02, 0.56] as const,
-  arrivalTextOut: [0.0, 0.2] as const,
-  discoverTitleIn: [0.36, 0.5] as const,
-  marksIn: [0.44, 0.6] as const, // first mark starts, last mark ends ≈ +0.025*6
+  morph: [0.0, 0.6] as const,
+  arrivalTextOut: [0.0, 0.22] as const,
+  /** title lands with the last meridians (morph range) */
+  discoverTitleInM: [0.58, 0.88] as const,
   cueOut: [0.0, 0.03] as const,
   /** anchor offsets (progress) used by the Direction Rail / hash links */
-  sceneStart: { arrival: 0, discover: 0.5 } as const,
+  sceneStart: { arrival: 0, discover: 0.62 } as const,
 };
 
 export const morphAt = (p: number) => range(p, PINNED.morph[0], PINNED.morph[1]);
@@ -92,8 +94,12 @@ export interface SpokeState {
   e: number; // per-spoke eased progress 0..1
 }
 
+/**
+ * Needles keep their Arrival character while the compass travels (m < 0.24), then extend in
+ * sequence; spoke 6 lands at m ≈ 0.99.
+ */
 export function spokeEase(i: number, m: number): number {
-  return easeInOut(clamp01((m - 0.045 * i) / 0.73));
+  return easeInOut(clamp01((m - 0.24 - 0.042 * i) / 0.5));
 }
 
 export interface RigLayout {
@@ -115,9 +121,9 @@ export interface RigLayout {
 export type LayoutKind = 'wide' | 'stack';
 
 export function rigLayout(W: number, H: number, m: number, kind: LayoutKind = 'wide'): RigLayout {
-  const eP = easeInOut(range(m, 0.02, 0.55)); // position: glides to centre while the copy leaves
-  const eB = easeInOut(range(m, 0, 0.92)); // scale
-  const eT = easeInOut(range(m, 0, 0.72)); // tilt flatten
+  const eP = easeInOutSine(range(m, 0, 0.5)); // position: glides to centre while the copy leaves
+  const eB = easeInOut(range(m, 0.12, 0.85)); // scale: shrinks as the meridians take over
+  const eT = easeInOutSine(range(m, 0, 0.55)); // tilt flatten
   const base = Math.min(H, W * 0.62);
   const bezelStart = kind === 'wide' ? 0.21 * base : 0.3 * Math.min(W, H);
   const bezelEnd = kind === 'wide' ? 0.105 * base : 0.12 * Math.min(W, H);
@@ -135,8 +141,8 @@ export function rigLayout(W: number, H: number, m: number, kind: LayoutKind = 'w
     ),
     tiltX: lerp(-0.4, 0, eT),
     tiltY: lerp(0.36, 0, eT),
-    ringsOpacity: 1 - smoothstep(range(m, 0.15, 0.7)),
-    ringsScale: lerp(1, 2.1, easeInOut(range(m, 0, 0.8))),
+    ringsOpacity: 1 - smoothstep(range(m, 0.18, 0.62)),
+    ringsScale: lerp(1, 2.1, easeInOutSine(range(m, 0, 0.7))),
   };
 }
 
@@ -172,6 +178,7 @@ export function markPosition(i: number, W: number, H: number, kind: LayoutKind =
 
 /* ---------- DOM layer opacities ---------- */
 export const arrivalTextOut = (p: number) => range(p, PINNED.arrivalTextOut[0], PINNED.arrivalTextOut[1]);
-export const discoverTitleIn = (p: number) => range(p, PINNED.discoverTitleIn[0], PINNED.discoverTitleIn[1]);
-export const markIn = (i: number, p: number) =>
-  range(p, PINNED.marksIn[0] + 0.018 * i, PINNED.marksIn[0] + 0.018 * i + 0.08);
+export const discoverTitleIn = (p: number) =>
+  smoothstep(range(morphAt(p), PINNED.discoverTitleInM[0], PINNED.discoverTitleInM[1]));
+/** Each domain mark blooms from its bead exactly as its own meridian lands. */
+export const markIn = (i: number, p: number) => smoothstep(range(spokeEase(i, morphAt(p)), 0.72, 1));

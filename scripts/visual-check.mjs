@@ -31,6 +31,9 @@ const VIDEO = !!args.video;
 const PERF = !args['no-perf'];
 const PERF_ONLY = !!args['perf-only'];
 const INJECT = typeof args.inject === 'string' ? args.inject : null; // CSS injected for A/B perf experiments
+const REPEAT = +(args.repeat || 1); // scroll measurements per run (medians reported)
+const TRACE = !!args.trace; // DevTools timeline trace during one scroll pass
+const median = (a) => { const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
 fs.mkdirSync(OUT, { recursive: true });
 
 const PINNED_MARKS = [0, 0.04, 0.09, 0.14, 0.2, 0.28, 0.36, 0.44, 0.52, 0.62, 0.8, 1];
@@ -133,6 +136,20 @@ for (const run of RUNS) {
     reducedMotion: run.reducedMotion || 'no-preference',
     recordVideo: VIDEO ? { dir: path.join(OUT, 'video'), size: run.viewport } : undefined,
   });
+  await ctx.addInitScript(() => {
+    // Count React commits (renders) without React DevTools: the hook React looks for at startup.
+    window.__ccCommits = 0;
+    window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      supportsFiber: true,
+      isDisabled: false,
+      renderers: new Map(),
+      inject() { return 1; },
+      onCommitFiberRoot() { window.__ccCommits++; },
+      onCommitFiberUnmount() {},
+      onPostCommitFiberRoot() {},
+      checkDCE() {},
+    };
+  });
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
@@ -152,7 +169,27 @@ for (const run of RUNS) {
   r.horizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
 
   const shots = [];
-  if (r.presenter === 'pinned') {
+  if (VIDEO) {
+    // Recording pass: one smooth, continuous scripted scroll (no jump-scroll screenshots), with holds.
+    const range = await page.evaluate(() => {
+      const pinned = document.querySelector('[data-journey="pinned"]');
+      if (pinned) {
+        const top = pinned.getBoundingClientRect().top + window.scrollY;
+        return { from: top, to: top + pinned.offsetHeight - window.innerHeight };
+      }
+      const d = document.getElementById('act-discovery');
+      return { from: 0, to: d.getBoundingClientRect().top + window.scrollY + d.offsetHeight - window.innerHeight };
+    });
+    await sleep(2000); // hold on Arrival (entrance + idle needle drift)
+    r.recordedScroll = await measureScrollFrames(page, range.from, range.to, r.presenter === 'pinned' ? 11000 : 8000);
+    await sleep(1500); // hold on settled Discover
+    if (r.presenter === 'pinned') {
+      await page.hover('button[aria-label^="Medicine"]').catch(() => {});
+      await sleep(1200);
+      await page.hover('button[aria-label^="Design"]').catch(() => {});
+      await sleep(1200);
+    }
+  } else if (r.presenter === 'pinned') {
     const geo = await page.evaluate(() => {
       const el = document.querySelector('[data-journey="pinned"]');
       const top = el.getBoundingClientRect().top + window.scrollY;
@@ -169,7 +206,45 @@ for (const run of RUNS) {
       await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
       await sleep(800);
       r.idle = await measureIdle(page, 3000);
-      r.scroll = await measureScrollFrames(page, geo.top, geo.top + geo.len, 6000);
+      const runs = [];
+      for (let k = 0; k < REPEAT; k++) {
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+        await sleep(900);
+        const c0 = await page.evaluate(() => window.__ccCommits);
+        const m = await measureScrollFrames(page, geo.top, geo.top + geo.len, 6000);
+        m.reactCommits = (await page.evaluate(() => window.__ccCommits)) - c0;
+        runs.push(m);
+      }
+      r.scrollRuns = runs;
+      r.scroll = {
+        runs: runs.length,
+        medianAvgFps: median(runs.map((x) => x.avgFps)),
+        medianP95ms: median(runs.map((x) => x.p95ms)),
+        medianOver33: median(runs.map((x) => x.over33ms)),
+        minAvgFps: Math.min(...runs.map((x) => x.avgFps)),
+        maxAvgFps: Math.max(...runs.map((x) => x.avgFps)),
+        medianReactCommits: median(runs.map((x) => x.reactCommits)),
+        medianFrames: median(runs.map((x) => x.frames)),
+      };
+      if (TRACE) {
+        await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+        await sleep(900);
+        await browser.startTracing(page, { categories: ['devtools.timeline', 'disabled-by-default-devtools.timeline'] });
+        const m = await measureScrollFrames(page, geo.top, geo.top + geo.len, 6000);
+        const buf = await browser.stopTracing();
+        const ev = JSON.parse(buf.toString()).traceEvents || [];
+        const count = (n) => ev.filter((e) => e.name === n && (e.ph === 'X' || e.ph === 'B' || e.ph === 'I')).length;
+        const dur = (n) => Math.round(ev.filter((e) => e.name === n && e.ph === 'X').reduce((a, e) => a + (e.dur || 0), 0) / 1000);
+        r.trace = {
+          frames: m.frames,
+          paint: count('Paint'), paintMs: dur('Paint'),
+          layout: count('Layout'), layoutMs: dur('Layout'),
+          recalcStyle: count('UpdateLayoutTree'), recalcStyleMs: dur('UpdateLayoutTree'),
+          raster: count('RasterTask'), rasterMs: dur('RasterTask'),
+          gpuTaskMs: dur('GPUTask'),
+          scriptMs: dur('FunctionCall') + dur('FireAnimationFrame'),
+        };
+      }
     }
   } else {
     // flow presenter: hero, mid-transition and settled discover
@@ -190,7 +265,7 @@ for (const run of RUNS) {
   report.runs[run.name] = r;
   await ctx.close();
   await browser.close();
-  console.log(run.name, JSON.stringify({ presenter: r.presenter, reason: r.reason, vitals: r.vitals, idle: r.idle, scroll: r.scroll, errors: errors.length, overflow: r.horizontalOverflow }));
+  console.log(run.name, JSON.stringify({ presenter: r.presenter, reason: r.reason, vitals: r.vitals, idle: r.idle, scroll: r.scroll, trace: r.trace, errors: errors.length, overflow: r.horizontalOverflow }));
 }
 
 fs.writeFileSync(path.join(OUT, VIDEO ? 'report-video.json' : 'report.json'), JSON.stringify(report, null, 2));

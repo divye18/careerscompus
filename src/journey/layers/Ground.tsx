@@ -2,7 +2,7 @@
 
 import { motion, useTransform } from 'framer-motion';
 import { useJourney } from '../JourneyContext';
-import { morphAt, rigLayout, smoothstep } from '../choreography';
+import { morphAt, range, rigLayout, smoothstep } from '../choreography';
 
 const PAPER = '#F6F1E7';
 const MIST = '#EEF0F7';
@@ -16,7 +16,7 @@ export function Ground() {
   const { progress, stageW, stageH } = useJourney();
   const m = useTransform(progress, morphAt);
   // Cross-fade two static grounds (opacity is composite-only; animating background-color repaints the stage)
-  const mistOpacity = useTransform(m, (v) => smoothstep(v));
+  const mistOpacity = useTransform(m, (v) => smoothstep(range(v, 0.2, 0.9)));
 
   const glowSize = useTransform([stageW, stageH], ([W, H]: number[]) => 2.1 * rigLayout(W, H, 0).gratPx);
   const glowX = useTransform([m, stageW, stageH, glowSize], ([mm, W, H, S]: number[]) => rigLayout(W, H, mm).cx - S / 2);
