@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, createContext, useContext } from 'react';
-import { useScroll, useTransform, motion, MotionValue } from 'framer-motion';
+import { useScroll, useTransform, MotionValue } from 'framer-motion';
 
 /**
  * ScrollJourney — The backbone of the cinematic homepage.
@@ -64,8 +64,8 @@ interface JourneySectionProps {
   id?: string;
 }
 
-export function JourneySection({ children, mode, className = '', id }: JourneySectionProps) {
-  // Let the 3D CinematicEnvironment handle the actual background colors and transitions.
+export function JourneySection({ children, className = '', id }: JourneySectionProps) {
+  // The persistent Scroll3DScene layer handles the actual background colors and transitions.
   // We just ensure pointer events are managed correctly.
   return (
     <div id={id} className={`relative z-10 pointer-events-none ${className}`}>

@@ -1,7 +1,6 @@
 ﻿'use client';
 
 import { motion } from 'framer-motion';
-import { Search } from 'lucide-react';
 
 export function Hero() {
   return (

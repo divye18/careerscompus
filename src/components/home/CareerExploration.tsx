@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -45,7 +45,6 @@ export function CareerExploration() {
 
               <div className="flex flex-col group/list">
                 {careers.map((c, i) => {
-                  const isHovered = hoveredId === c.id;
                   const isOtherHovered = hoveredId !== null && hoveredId !== c.id;
 
                   return (

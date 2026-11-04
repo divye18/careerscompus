@@ -53,10 +53,17 @@ export default function Home() {
               <HowItWorks />
             </div>
           </JourneySection>
-          
           <JourneySection mode="light" id="act-guidance">
             <CounsellingCTA />
           </JourneySection>
+          
+          <JourneySection mode="light" id="act-trust">
+            <div className="py-16 sm:py-24">
+              <TrustStats />
+              <FAQSection />
+            </div>
+          </JourneySection>
+
           
           <JourneySection mode="light" id="act-future">
             <FinalCTA />

@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { MapPin, Star, ArrowRight } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 const universities = [
@@ -79,7 +79,7 @@ export function UniversityPreview() {
             </h2>
           </div>
           <p className="text-[var(--color-ch5-sand)]/80 max-w-sm text-sm font-light leading-relaxed">
-            Trace the coordinates of India's most prestigious institutions. Your academic destination is waiting on the horizon.
+            Trace the coordinates of India&apos;s most prestigious institutions. Your academic destination is waiting on the horizon.
           </p>
         </motion.div>
 
