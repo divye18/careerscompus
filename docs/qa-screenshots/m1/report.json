@@ -1,0 +1,118 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-04T19:27:20.322Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "vitals": {
+        "lcp": 2608,
+        "lcpEl": "SPAN.block italic text-[var(--color-royal-blu",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\m1\\desktop1440-s0.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1440-s1.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1440-s2.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1440-s3.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1440-s4.jpg"
+      ]
+    },
+    "desktop1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "vitals": {
+        "lcp": 2100,
+        "lcpEl": "SPAN.block italic text-[var(--color-royal-blu",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\m1\\desktop1280-p000.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p004.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p009.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p014.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p020.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p028.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p036.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p044.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p052.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p062.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p080.jpg",
+        "docs\\qa-screenshots\\m1\\desktop1280-p100.jpg"
+      ]
+    },
+    "mobile390": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [],
+      "presenter": "flow",
+      "vitals": {
+        "lcp": 1496,
+        "lcpEl": "P.max-w-[34rem] text-[17px] sm:text-lg lea",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\m1\\mobile390-s0.jpg",
+        "docs\\qa-screenshots\\m1\\mobile390-s1.jpg",
+        "docs\\qa-screenshots\\m1\\mobile390-s2.jpg",
+        "docs\\qa-screenshots\\m1\\mobile390-s3.jpg",
+        "docs\\qa-screenshots\\m1\\mobile390-s4.jpg"
+      ]
+    },
+    "reduced": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "vitals": {
+        "lcp": 1208,
+        "lcpEl": "SPAN.block italic text-[var(--color-royal-blu",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\m1\\reduced-s0.jpg",
+        "docs\\qa-screenshots\\m1\\reduced-s1.jpg",
+        "docs\\qa-screenshots\\m1\\reduced-s2.jpg",
+        "docs\\qa-screenshots\\m1\\reduced-s3.jpg",
+        "docs\\qa-screenshots\\m1\\reduced-s4.jpg"
+      ]
+    },
+    "nowebgl": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "vitals": {
+        "lcp": 1088,
+        "lcpEl": "SPAN.block italic text-[var(--color-royal-blu",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\m1\\nowebgl-s0.jpg",
+        "docs\\qa-screenshots\\m1\\nowebgl-s1.jpg",
+        "docs\\qa-screenshots\\m1\\nowebgl-s2.jpg",
+        "docs\\qa-screenshots\\m1\\nowebgl-s3.jpg",
+        "docs\\qa-screenshots\\m1\\nowebgl-s4.jpg"
+      ]
+    }
+  }
+}

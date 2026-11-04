@@ -111,6 +111,11 @@
   --color-ch7-lavender: var(--color-ch7-text);
   --color-ch7-indigo: var(--color-ch7-bg);
 
+  /* Meridian Atlas */
+  --color-bg-paper: #F6F1E7;
+  --color-bg-mist: #EEF0F7;
+  --font-atlas: var(--font-instrument), Georgia, 'Times New Roman', serif;
+
   --font-display: var(--font-plus-jakarta), sans-serif;
   --font-sans: var(--font-inter), sans-serif;
 
@@ -160,4 +165,27 @@
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* ---- Meridian Atlas motion helpers ---- */
+@keyframes atlas-ping {
+  0% { transform: scale(0.9); opacity: 0.55; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes atlas-cue {
+  0%, 100% { transform: scaleY(0.35); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+@keyframes atlas-sway {
+  0%, 100% { transform: rotate(-1.6deg); }
+  50% { transform: rotate(1.6deg); }
+}
+.atlas-sway {
+  animation: atlas-sway 9s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-sway,
+  [class*='animate-[atlas-'] {
+    animation: none !important;
+  }
 }

@@ -1,0 +1,34 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-04T19:11:49.498Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "worldReady": false,
+      "vitals": {
+        "lcp": 1628,
+        "lcpEl": "SPAN.block italic text-[var(--color-royal-blu",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 60.3,
+        "visibility": "visible"
+      },
+      "scroll": {
+        "frames": 229,
+        "avgFps": 38.2,
+        "p50ms": 16.7,
+        "p95ms": 50.3,
+        "over33ms": 36,
+        "visibility": "visible"
+      },
+      "screenshots": []
+    }
+  }
+}

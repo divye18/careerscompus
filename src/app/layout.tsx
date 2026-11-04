@@ -1,11 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter, Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+});
+
+// Display serif for the Meridian Atlas headlines (single weight; italic used for emphasis)
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-instrument',
+  weight: '400',
+  style: ['normal', 'italic'],
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -26,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${plusJakarta.variable} font-sans antialiased bg-background text-foreground`}>
+    <html lang="en" className={`${inter.variable} ${plusJakarta.variable} ${instrumentSerif.variable}`}>
+      <body className={`font-sans antialiased bg-background text-foreground`}>
         {children}
       </body>
     </html>

@@ -10,3 +10,10 @@
 7. **No fabricated trust signals.** Stats, press names, rankings, admission/placement figures, accreditation, and contact details were removed. Sample content stays only where labelled as sample.
 8. **Dead routes are not linked.** Nav/footer use homepage anchors; missing pages show "Soon". Real routes should replace these when built.
 9. **TrustStats replaced by PlatformPrinciples** (statements of intent only).
+
+10. **Replace the scroll architecture** (ScrollJourney / page-wide canvas) with a self-contained pinned stage; progress is local to the journey.
+11. **No GSAP for M1.** CSS sticky + Framer Motion MotionValues suffice; revisit at M2 with written justification.
+12. **Single choreography module** of pure functions shared by WebGL, SVG and DOM layers.
+13. **Two presenters, server renders flow.** Identical Scene 1 copy avoids layout shift on hydration.
+14. **playwright-core as dev dependency** (drives installed Chrome; no browser download) to get valid visible-browser measurements.
+15. **No video recording yet**: would require downloading Playwright's ffmpeg binary; awaiting approval. Frame sequences used instead.

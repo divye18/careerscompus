@@ -5,3 +5,9 @@
 3. Content routes: `/courses`, `/universities`, `/careers`, `/streams/[slug]`.
 4. Database (Prisma/Postgres), search, compare, counselling form.
 5. Static pages, SEO, accessibility audit, admin, launch.
+
+## Meridian Atlas status (2026-11-05)
+- [x] M0 groundwork  - [x] M1 Scenes 1–2 (awaiting review)
+- [ ] Perf follow-up: close the gap from ≈52–54 fps to ≥55 during continuous scroll
+- [ ] M2 Scene 3 Explore (seven domain worlds) — needs approval
+- [ ] M3 Courses + Universities, M4 Compare/Next step/Guidance, M5 mobile depth, M6 hardening
