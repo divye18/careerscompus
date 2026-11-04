@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nocturne Atlas — Colour Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink-950:#101014;--ink-900:#1A1A22;--aub:#241333;--plum:#43205F;
+  --ivory:#F4F0E8;--ivory-100:#ECE6DA;--silver:#A7A9B5;--silver-700:#5C5E6D;
+  --champ:#C9A96E;--champ-800:#7D6331;--cyan:#35E6E6;--cyan-800:#0A6F78;
+  --tech:#8C95FF;--med:#5FCB98;--biz:#E9B44C;--des:#EE7FA8;--law:#B993F0;--arch:#E58A64;--sci:#6DB5F2;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink-950);color:var(--ivory);font:15px/1.55 Inter,system-ui,sans-serif;width:1600px}
+.wrap{padding:56px 64px 72px}
+.serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400}
+.mono{font-family:'JetBrains Mono',Consolas,monospace}
+.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--champ)}
+h1{margin:10px 0 6px;font-size:84px;line-height:.95}
+h1 i{color:var(--champ)}
+.lede{color:var(--silver);max-width:820px;margin:0}
+h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);margin:56px 0 18px;font-weight:600}
+.sw{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.s{border-radius:8px;overflow:hidden;border:1px solid rgba(244,240,232,.08)}
+.s .c{height:96px}
+.s .m{padding:10px 12px;background:var(--ink-900);font-size:12px}
+.s .m b{display:block;font-weight:600;font-size:13px}
+.s .m span{color:var(--silver)}
+.dom{display:grid;grid-template-columns:repeat(7,1fr);gap:14px}
+.d{background:var(--ink-900);border-radius:8px;padding:14px;border:1px solid rgba(244,240,232,.08)}
+.d .row{display:flex;align-items:center;gap:10px}
+.dot{width:14px;height:14px;border-radius:50%}
+.d .nm{font-family:'Instrument Serif',Georgia,serif;font-size:26px;line-height:1}
+.d .ink{margin-top:10px;background:var(--ivory);border-radius:6px;padding:8px 10px;font-size:13px;font-weight:600}
+.d small{display:block;color:var(--silver);font-size:11px;margin-top:6px}
+.scenes{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.sc{border-radius:10px;overflow:hidden;border:1px solid rgba(244,240,232,.1)}
+.sc .f{aspect-ratio:16/10;position:relative;overflow:hidden}
+.sc .cap{padding:10px 12px;background:var(--ink-900);font-size:12px;color:var(--silver)}
+.sc .cap b{color:var(--ivory);font-weight:600;margin-right:6px}
+.t{position:absolute;left:22px;top:22px;right:22px}
+.t .k{font-size:9px;letter-spacing:.2em;text-transform:uppercase}
+.t .h{font-family:'Instrument Serif',Georgia,serif;font-size:34px;line-height:.95;margin-top:6px}
+svg{display:block}
+.rules{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.r{background:var(--ink-900);border-radius:8px;padding:16px 18px;border:1px solid rgba(244,240,232,.08)}
+.r b{color:var(--ivory)} .r p{margin:6px 0 0;color:var(--silver);font-size:13px}
+.ratio{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--silver)}
+.no{color:#ff8a8a}
+</style>
+</head>
+<body><div class="wrap">
+
+<div class="eyebrow">CareersCompus 2.0 · Colour identity proposal</div>
+<h1 class="serif">Nocturne <i>Atlas</i></h1>
+<p class="lede">Two times of day (ink night ↔ ivory paper), one material (champagne brass), one signal (electric cyan — light emitted by the compass, never a background). Values are proposals; contrast ratios are measured (WCAG 2.x).</p>
+
+<h2>Core palette</h2>
+<div class="sw">
+  <div class="s"><div class="c" style="background:#101014;border-bottom:1px solid #2a2a33"></div><div class="m"><b>Midnight · ink-950</b><span class="mono">#101014</span><div class="ratio">ivory text 16.70</div></div></div>
+  <div class="s"><div class="c" style="background:#1A1A22"></div><div class="m"><b>Ink · ink-900</b><span class="mono">#1A1A22</span><div class="ratio">raised surface</div></div></div>
+  <div class="s"><div class="c" style="background:#241333"></div><div class="m"><b>Deep Aubergine</b><span class="mono">#241333</span><div class="ratio">ivory text 15.19</div></div></div>
+  <div class="s"><div class="c" style="background:#43205F"></div><div class="m"><b>Royal Plum</b><span class="mono">#43205F</span><div class="ratio">accent scene only · 11.47</div></div></div>
+  <div class="s"><div class="c" style="background:#F4F0E8"></div><div class="m"><b>Soft Ivory</b><span class="mono">#F4F0E8</span><div class="ratio">ink text 16.70</div></div></div>
+  <div class="s"><div class="c" style="background:#ECE6DA"></div><div class="m"><b>Ivory 100</b><span class="mono">#ECE6DA</span><div class="ratio">day surface</div></div></div>
+  <div class="s"><div class="c" style="background:#A7A9B5"></div><div class="m"><b>Cool Silver</b><span class="mono">#A7A9B5</span><div class="ratio">on midnight 8.12 · <span class="no">on ivory 2.06</span></div></div></div>
+  <div class="s"><div class="c" style="background:#5C5E6D"></div><div class="m"><b>Silver 700</b><span class="mono">#5C5E6D</span><div class="ratio">on ivory 5.64</div></div></div>
+  <div class="s"><div class="c" style="background:linear-gradient(135deg,#F3D68A,#C9A96E 45%,#7D6331)"></div><div class="m"><b>Muted Champagne</b><span class="mono">#C9A96E</span><div class="ratio">on midnight 8.48 · <span class="no">on ivory 1.97</span></div></div></div>
+  <div class="s"><div class="c" style="background:#7D6331"></div><div class="m"><b>Champagne 800</b><span class="mono">#7D6331</span><div class="ratio">on ivory 4.99</div></div></div>
+  <div class="s"><div class="c" style="background:#101014;display:flex;align-items:center;justify-content:center"><div style="width:62%;height:6px;border-radius:3px;background:#35E6E6;box-shadow:0 0 18px rgba(53,230,230,.55)"></div></div><div class="m"><b>Electric Cyan · signal</b><span class="mono">#35E6E6</span><div class="ratio">on midnight 12.31 · <span class="no">on ivory 1.36</span></div></div></div>
+  <div class="s"><div class="c" style="background:#F4F0E8;display:flex;align-items:center;justify-content:center"><div style="width:62%;height:6px;border-radius:3px;background:#0A6F78"></div></div><div class="m"><b>Deep Cyan · signal (day)</b><span class="mono">#0A6F78</span><div class="ratio">on ivory 5.19</div></div></div>
+</div>
+
+<h2>Domain hues — identify (night) · ink variants (day) · cyan selects</h2>
+<div class="dom">
+  <div class="d"><div class="row"><span class="dot" style="background:var(--tech)"></span><span class="nm" style="color:var(--tech)">Technology</span></div><div class="ink" style="color:#3B44B8">Technology · 6.83</div><small>#8C95FF · 7.10 on midnight</small></div>
+  <div class="d"><div class="row"><span class="dot" style="background:var(--med)"></span><span class="nm" style="color:var(--med)">Medicine</span></div><div class="ink" style="color:#1D6E49">Medicine · 5.47</div><small>#5FCB98 · 9.48</small></div>
+  <div class="d"><div class="row"><span class="dot" style="background:var(--biz)"></span><span class="nm" style="color:var(--biz)">Business</span></div><div class="ink" style="color:#7A5512">Business · 5.89</div><small>#E9B44C · 10.03</small></div>
+  <div class="d"><div class="row"><span class="dot" style="background:var(--des)"></span><span class="nm" style="color:var(--des)">Design</span></div><div class="ink" style="color:#9E2F5A">Design · 6.14</div><small>#EE7FA8 · 7.45</small></div>
+  <div class="d"><div class="row"><span class="dot" style="background:var(--law)"></span><span class="nm" style="color:var(--law)">Law</span></div><div class="ink" style="color:#5E3A96">Law · 7.33</div><small>#B993F0 · 7.68</small></div>
+  <div class="d"><div class="row"><span class="dot" style="background:var(--arch)"></span><span class="nm" style="color:var(--arch)">Architecture</span></div><div class="ink" style="color:#99441F">Architecture · 5.77</div><small>#E58A64 · 7.37</small></div>
+  <div class="d"><div class="row"><span class="dot" style="background:var(--sci)"></span><span class="nm" style="color:var(--sci)">Science</span></div><div class="ink" style="color:#1F5E92">Science · 6.01</div><small>#6DB5F2 · 8.63</small></div>
+</div>
+
+<h2>Scene atmospheres — night → jewel rooms → dawn paper → night sky → daylight lab → plum signal → warm paper</h2>
+<div class="scenes">
+
+  <!-- 1 Arrival -->
+  <div class="sc"><div class="f" style="background:radial-gradient(42% 60% at 74% 58%,rgba(201,169,110,.20),rgba(201,169,110,0) 70%),#101014">
+    <div class="t" style="right:auto;width:200px"><div class="k" style="color:var(--champ)">01 · Arrival</div><div class="h" style="color:var(--ivory);font-size:27px">Your Future Has<br><i style="color:var(--champ)">More Than One Direction.</i></div></div>
+    <svg viewBox="0 0 400 250" style="position:absolute;inset:0">
+      <g transform="translate(318 140) scale(.86)">
+        <circle r="62" fill="none" stroke="#C9A96E" stroke-width="9"/>
+        <circle r="56" fill="#EAE3D3"/>
+        <g stroke="#A7A9B5" stroke-opacity=".55" stroke-width="2.4" stroke-linecap="round">
+          <line x1="0" y1="0" x2="-44" y2="-18"/><line x1="0" y1="0" x2="20" y2="44"/><line x1="0" y1="0" x2="-30" y2="36"/><line x1="0" y1="0" x2="46" y2="-6"/><line x1="0" y1="0" x2="-8" y2="-46"/>
+        </g>
+        <path d="M0 0 L5 -4 L30 -42 L-4 -5Z" fill="#1A1A22"/>
+        <circle cx="30" cy="-42" r="4" fill="#35E6E6"/><circle cx="30" cy="-42" r="10" fill="#35E6E6" fill-opacity=".25"/>
+        <circle r="4" fill="#C9A96E"/>
+        <ellipse rx="92" ry="34" fill="none" stroke="#C9A96E" stroke-opacity=".6" transform="rotate(-20)"/>
+        <ellipse rx="104" ry="44" fill="none" stroke="#A7A9B5" stroke-opacity=".35" transform="rotate(28)"/>
+      </g>
+      <rect x="22" y="196" width="150" height="26" rx="6" fill="#1A1A22" stroke="#35E6E6" stroke-width="1.4"/>
+      <text x="34" y="213" font-size="10" fill="#A7A9B5" font-family="Inter">Search courses, colleges…</text>
+    </svg></div>
+    <div class="cap"><b>Midnight</b> warm champagne key light · cyan only at the needle tip & focus ring</div></div>
+
+  <!-- 2 Discover -->
+  <div class="sc"><div class="f" style="background:radial-gradient(60% 70% at 50% 60%,#2a1740,#241333 60%,#1a0f26)">
+    <div class="t" style="text-align:center"><div class="k" style="color:var(--champ)">02 · Discover</div><div class="h" style="color:var(--ivory);font-size:28px">Pick a <i style="color:var(--champ)">direction.</i></div></div>
+    <svg viewBox="0 0 400 250" style="position:absolute;inset:0">
+      <g transform="translate(200 150)">
+        <circle r="84" fill="none" stroke="#C9A96E" stroke-opacity=".3"/>
+        <g stroke-width="2" stroke-linecap="round">
+          <line x2="37" y2="-76" stroke="#8C95FF"/><line x2="82" y2="-18" stroke="#5FCB98"/><line x2="65" y2="53" stroke="#E9B44C"/><line x2="0" y2="84" stroke="#EE7FA8"/><line x2="-66" y2="52" stroke="#B993F0"/><line x2="-82" y2="-19" stroke="#E58A64"/><line x2="-36" y2="-76" stroke="#6DB5F2"/>
+          <line x2="82" y2="-18" stroke="#35E6E6" stroke-width="1"/>
+        </g>
+        <circle cx="82" cy="-18" r="9" fill="none" stroke="#35E6E6" stroke-width="1.6"/>
+        <circle r="20" fill="#EAE3D3" stroke="#C9A96E" stroke-width="5"/>
+        <text x="96" y="-14" font-size="12" fill="#F4F0E8" font-family="Instrument Serif">Medicine</text>
+        <text x="-140" y="-15" font-size="12" fill="#A7A9B5" font-family="Instrument Serif">Architecture</text>
+      </g>
+    </svg></div>
+    <div class="cap"><b>Midnight → Aubergine</b> meridians as light in domain hues · cyan marks the selected one</div></div>
+
+  <!-- 3 Explore -->
+  <div class="sc"><div class="f" style="background:linear-gradient(0deg,rgba(140,149,255,.16),rgba(140,149,255,.16)),#101014">
+    <div style="position:absolute;right:-10px;bottom:-30px;font:400 150px/1 'Instrument Serif',Georgia,serif;color:rgba(140,149,255,.10)">Tech</div>
+    <div class="t"><div class="k" style="color:var(--tech)">03 · Explore · 01/07</div><div class="h" style="color:var(--ivory)">Technology</div><p style="margin:8px 0 0;font-size:11px;color:var(--silver);max-width:170px">Software, data, AI and the systems that run modern life.</p></div>
+    <svg viewBox="0 0 400 250" style="position:absolute;inset:0">
+      <g transform="translate(290 135)" fill="none" stroke="#8C95FF" stroke-width="1.6">
+        <path d="M0 -60 L52 -30 L52 30 L0 60 L-52 30 L-52 -30Z"/><path d="M0 -60 L0 0 L52 30 M0 0 L-52 30" stroke-opacity=".6"/><path d="M0 -30 L26 -15 L26 15 L0 30 L-26 15 L-26 -15Z" stroke="#F4F0E8" stroke-opacity=".5"/>
+      </g>
+      <g transform="translate(380 125)"><circle r="3" fill="#35E6E6"/><circle cy="14" r="2" fill="#A7A9B5"/><circle cy="26" r="2" fill="#A7A9B5"/></g>
+    </svg></div>
+    <div class="cap"><b>Jewel room</b> domain hue at ~16% over Midnight · one room per domain</div></div>
+
+  <!-- 4 Courses -->
+  <div class="sc"><div class="f" style="background:#F4F0E8">
+    <div class="t"><div class="k" style="color:var(--champ-800)">04 · Courses</div><div class="h" style="color:var(--ink-950)">Every direction <i>has a route.</i></div></div>
+    <svg viewBox="0 0 400 250" style="position:absolute;inset:0">
+      <path d="M30 185 C110 185 120 150 200 150 S300 120 370 120" fill="none" stroke="#101014" stroke-width="1.6"/>
+      <g font-family="Inter" font-size="10" fill="#101014">
+        <circle cx="30" cy="185" r="5" fill="#0A6F78"/><text x="22" y="205" fill="#0A6F78">You are here</text>
+        <circle cx="140" cy="168" r="4" fill="#F4F0E8" stroke="#3B44B8" stroke-width="2"/><text x="118" y="190">After Class 12</text>
+        <circle cx="250" cy="141" r="4" fill="#F4F0E8" stroke="#3B44B8" stroke-width="2"/><text x="230" y="162">B.Tech</text>
+        <circle cx="360" cy="121" r="4" fill="#F4F0E8" stroke="#3B44B8" stroke-width="2"/><text x="318" y="108">Career</text>
+      </g>
+      <text x="300" y="235" font-size="9" fill="#5C5E6D" font-family="JetBrains Mono">ILLUSTRATIVE</text>
+    </svg></div>
+    <div class="cap"><b>Dawn paper</b> ink route · domain ink colours · deep-cyan "you are here"</div></div>
+
+  <!-- 5 Universities -->
+  <div class="sc"><div class="f" style="background:radial-gradient(70% 80% at 50% 0%,#2e1a42,#241333 55%,#170c22)">
+    <div class="t"><div class="k" style="color:var(--champ)">05 · Universities</div><div class="h" style="color:var(--ivory)">Places that <i style="color:var(--champ)">could be yours.</i></div></div>
+    <svg viewBox="0 0 400 250" style="position:absolute;inset:0">
+      <g fill="#C9A96E">
+        <circle cx="70" cy="170" r="2.5"/><circle cx="96" cy="150" r="1.8"/><circle cx="120" cy="185" r="2"/><circle cx="190" cy="140" r="2.6"/><circle cx="215" cy="175" r="1.8"/><circle cx="250" cy="160" r="2.2"/><circle cx="300" cy="120" r="1.8"/><circle cx="330" cy="150" r="2.6"/><circle cx="355" cy="190" r="2"/>
+      </g>
+      <g stroke="#C9A96E" stroke-opacity=".25"><line x1="70" y1="170" x2="96" y2="150"/><line x1="190" y1="140" x2="250" y2="160"/><line x1="300" y1="120" x2="330" y2="150"/></g>
+      <circle cx="250" cy="160" r="8" fill="none" stroke="#35E6E6" stroke-width="1.4"/>
+      <rect x="262" y="166" width="120" height="40" rx="6" fill="#1A1A22" stroke="rgba(244,240,232,.12)"/>
+      <text x="272" y="182" font-size="11" fill="#F4F0E8" font-family="Inter">BITS Pilani</text>
+      <text x="272" y="197" font-size="9" fill="#A7A9B5" font-family="Inter">Pilani · Private · Sample</text>
+    </svg></div>
+    <div class="cap"><b>Night sky</b> champagne points of light · cyan only on the selected institution</div></div>
+
+  <!-- 6 Compare -->
+  <div class="sc"><div class="f" style="background:#F4F0E8">
+    <div class="t"><div class="k" style="color:var(--champ-800)">06 · Compare</div><div class="h" style="color:var(--ink-950);font-size:28px">Side by side, <i>nothing hidden.</i></div></div>
+    <svg viewBox="0 0 400 250" style="position:absolute;inset:0">
+      <rect x="22" y="104" width="356" height="124" rx="6" fill="#ECE6DA"/>
+      <g font-family="JetBrains Mono" font-size="10" fill="#101014">
+        <text x="34" y="124" fill="#5C5E6D">ATTRIBUTE</text><text x="170" y="124">Option A</text><text x="280" y="124">Option B</text>
+        <line x1="34" y1="132" x2="366" y2="132" stroke="#7D6331" stroke-opacity=".4"/>
+        <text x="34" y="152">Duration</text><text x="170" y="152">4 yrs</text><text x="280" y="152">3 yrs</text>
+        <rect x="270" y="141" width="4" height="14" fill="#0A6F78"/>
+        <text x="34" y="174">Eligibility</text><text x="170" y="174">—</text><text x="280" y="174">—</text>
+        <text x="34" y="196">Fees</text><text x="170" y="196">sample</text><text x="280" y="196">sample</text>
+        <text x="34" y="218">Exams</text><text x="170" y="218">—</text><text x="280" y="218">—</text>
+      </g>
+    </svg></div>
+    <div class="cap"><b>Daylight lab</b> ink + mono data · deep-cyan difference markers · champagne-800 rules</div></div>
+
+  <!-- 7 Next step -->
+  <div class="sc"><div class="f" style="background:radial-gradient(60% 70% at 50% 70%,#552a78,#43205F 60%,#341848)">
+    <div class="t" style="text-align:center"><div class="k" style="color:var(--champ)">07 · Next step</div><div class="h" style="color:var(--ivory);font-size:28px">From many directions <i style="color:var(--champ)">to yours.</i></div></div>
+    <svg viewBox="0 0 400 250" style="position:absolute;inset:0">
+      <g transform="translate(200 170)">
+        <g stroke="#A7A9B5" stroke-opacity=".25"><line x2="-120" y2="-40"/><line x2="120" y2="-30"/><line x2="-80" y2="50"/><line x2="90" y2="55"/></g>
+        <circle r="26" fill="#EAE3D3" stroke="#C9A96E" stroke-width="6"/>
+        <path d="M0 0 L4 -3 L0 -60 L-4 -3Z" fill="#35E6E6"/><circle cy="-60" r="10" fill="#35E6E6" fill-opacity=".25"/>
+      </g>
+      <g font-family="Inter" font-size="10" fill="#F4F0E8"><text x="22" y="236">Shortlist → Check eligibility & exams → Talk it through</text></g>
+    </svg></div>
+    <div class="cap"><b>Royal Plum (accent environment)</b> the brightest cyan moment: one needle, one heading</div></div>
+
+  <!-- 8 Guidance -->
+  <div class="sc"><div class="f" style="background:#F4F0E8">
+    <div class="t"><div class="k" style="color:var(--champ-800)">08 · Guidance</div><div class="h" style="color:var(--ink-950);font-size:28px">Talk it <i>through.</i></div></div>
+    <svg viewBox="0 0 400 250" style="position:absolute;inset:0">
+      <rect x="200" y="40" width="178" height="186" rx="8" fill="#101014"/>
+      <g font-family="Inter" font-size="9">
+        <text x="214" y="64" fill="#C9A96E" letter-spacing="1.5">REQUEST A CALLBACK</text>
+        <rect x="214" y="76" width="150" height="28" rx="4" fill="#1A1A22" stroke="rgba(244,240,232,.15)"/><text x="222" y="94" fill="#A7A9B5">Full name</text>
+        <rect x="214" y="112" width="150" height="28" rx="4" fill="#1A1A22" stroke="#35E6E6"/><text x="222" y="130" fill="#A7A9B5">Phone</text>
+        <rect x="214" y="150" width="150" height="28" rx="4" fill="#F4F0E8"/><text x="262" y="168" fill="#101014" font-weight="600">Check my details</text>
+        <text x="214" y="198" fill="#A7A9B5">Preview only: nothing is sent.</text>
+      </g>
+      <text x="22" y="120" font-size="11" fill="#5C5E6D" font-family="Inter">Calm paper scene; the</text>
+      <text x="22" y="136" font-size="11" fill="#5C5E6D" font-family="Inter">form sits in an ink panel.</text>
+    </svg></div>
+    <div class="cap"><b>Warm paper</b> ink form panel · monochrome actions · cyan focus only</div></div>
+</div>
+
+<h2>Rules that keep it from looking generic</h2>
+<div class="rules">
+  <div class="r"><b>Cyan is light, not paint.</b><p>Only where the compass emits it: needle tip, selected meridian, focus, progress. ≤5% of any frame. Never a background, gradient or button fill (one optional signal CTA in Scene 8).</p></div>
+  <div class="r"><b>Warm against cold.</b><p>Champagne brass and ivory are the warm counterweight to aubergine and cyan — the tension that separates this from purple-cyan AI templates.</p></div>
+  <div class="r"><b>Two times of day.</b><p>Night scenes alternate with ivory paper scenes; no two consecutive scenes share a ground. No purple→cyan gradients, no glow blobs, no glass.</p></div>
+</div>
+
+</div></body></html>

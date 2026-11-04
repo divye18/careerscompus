@@ -1,8 +1,33 @@
 # 04 — Visual System
 
-Status: PROPOSAL. Light Royal is treated as the **brand core**, expanded into a richer "Atlas" system.
+Status: **Colour identity under revision.** The proposed replacement is **"Nocturne Atlas"** — see
+`08_COLOUR_IDENTITY.md` (awaiting approval; nothing implemented yet). Spacing, layout, imagery, honesty
+and accessibility rules below still apply. Typography and components are amended in §0.
 
-## 1. Colour
+## 0. Nocturne Atlas — summary (PROPOSED, supersedes §1 on approval)
+
+| Role | Token | Hex |
+|---|---|---|
+| Night ground | `ink-950` Midnight | `#101014` |
+| Night raised surface | `ink-900` | `#1A1A22` |
+| Night atmosphere | `aubergine-900` Deep Aubergine | `#241333` |
+| Accent environment (Scene 7 only) | `plum-700` Royal Plum | `#43205F` |
+| Day ground / surface | `ivory-50` / `ivory-100` | `#F4F0E8` / `#ECE6DA` |
+| Neutral (night / day) | `silver-400` / `silver-700` | `#A7A9B5` / `#5C5E6D` |
+| Material: brass (night / day) | `champagne-400` / `champagne-800` | `#C9A96E` / `#7D6331` |
+| Signal (night / day) | `cyan-400` / `cyan-800` | `#35E6E6` / `#0A6F78` |
+
+Principles: two times of day (night scenes alternate with ivory paper scenes), one material (champagne brass),
+one signal (cyan = light emitted by the compass; ≤5% of a frame; never a background or gradient; never on ivory
+except `cyan-800`). Primary actions are monochrome (ivory on night, ink on day). Domain hues are redesigned for
+dark grounds and kept away from cyan's hue (table in 08 §3.3).
+
+Typography amendments: Instrument Serif + Inter retained; italics in champagne (night) or ink (day), never cyan;
+optional mono (JetBrains Mono / IBM Plex Mono) for instrument labels and data; drop Plus Jakarta Sans.
+Surface amendments: solid surfaces (no glass), depth from light/scale/type, one soft shadow for floating objects
+on night grounds.
+
+## 1. Colour (Light Royal — SUPERSEDED pending approval of 08; kept for reference)
 
 ### Grounds (scene backgrounds)
 | Token | Hex | Role |
