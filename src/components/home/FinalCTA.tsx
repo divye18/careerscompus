@@ -35,11 +35,11 @@ export function FinalCTA() {
           <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-bold text-[var(--color-accent-champagne)] mb-4">
             The Journey Continues
           </span>
-          <h2 className="text-4xl sm:text-5xl font-display font-light text-[var(--color-bg-pearl)] mb-5 leading-tight">
+          <h2 className="text-4xl sm:text-5xl font-display font-light text-[var(--color-royal-deep)] mb-5 leading-tight">
             Your Next Direction <br className="hidden sm:block" />
             <span className="italic font-serif">Starts Here.</span>
           </h2>
-          <p className="text-lg text-[var(--color-bg-pearl)] opacity-70 mb-10 max-w-xl mx-auto leading-relaxed font-light">
+          <p className="text-lg text-slate-600 mb-10 max-w-xl mx-auto leading-relaxed font-light">
             Join thousands of students who have discovered their ideal career path and university with CareersCompus.
           </p>
           
@@ -52,7 +52,7 @@ export function FinalCTA() {
             </Link>
             <Link 
               href="/counselling"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-md border border-[var(--color-bg-pearl)]/20 hover:bg-[var(--color-bg-pearl)]/10 text-[var(--color-bg-pearl)] font-medium rounded-lg transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/80 backdrop-blur-md border border-[var(--color-royal-deep)]/20 hover:bg-white text-[var(--color-royal-deep)] font-medium rounded-lg transition-colors"
             >
               Get Guidance
             </Link>

@@ -16,24 +16,24 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollYProgress, scrollY } = useScroll();
 
-  // Light theme for almost everything, dark theme at the very end (Future CTA).
+  // Light theme throughout (final CTA is light; footer sits below the fixed header).
   // 0: Pearl, 0.2: Ivory, 0.7: Ivory, 0.8: Pearl, 0.9: Lavender, 1: Royal Deep
   const textColor = useTransform(
     scrollYProgress,
     [0, 0.8, 0.9, 1],
-    ['#121936', '#121936', '#121936', '#F8F9FC']
+    ['#121936', '#121936', '#121936', '#121936']
   );
   
   const logoColor = useTransform(
     scrollYProgress,
     [0, 0.8, 0.9, 1],
-    ['#3155D9', '#3155D9', '#3155D9', '#F8F9FC']
+    ['#3155D9', '#3155D9', '#3155D9', '#3155D9']
   );
 
   const bgBorder = useTransform(
     scrollYProgress,
     [0, 0.8, 0.9, 1],
-    ['rgba(0,0,0,0.05)', 'rgba(0,0,0,0.05)', 'rgba(0,0,0,0.05)', 'rgba(255,255,255,0.1)']
+    ['rgba(0,0,0,0.05)', 'rgba(0,0,0,0.05)', 'rgba(0,0,0,0.05)', 'rgba(0,0,0,0.05)']
   );
 
   const headerBg = useTransform(
@@ -43,6 +43,7 @@ export function Header() {
   );
 
   return (
+    <>
     <motion.header 
       style={{ backgroundColor: headerBg, borderBottomColor: bgBorder }}
       className="fixed top-0 left-0 right-0 z-50 h-16 backdrop-blur-md border-b transition-colors duration-300"
@@ -107,6 +108,7 @@ export function Header() {
           </button>
         </motion.div>
       </div>
+    </motion.header>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -171,6 +173,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </>
   );
 }
