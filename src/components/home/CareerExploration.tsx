@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const careers = [
@@ -14,6 +14,15 @@ const careers = [
 
 export function CareerExploration() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+
+  // Keep the list in sync when a node is hovered directly in the 3D scene
+  useEffect(() => {
+    const onHover = (e: Event) => {
+      setHoveredId((e as CustomEvent<{ id: number | null }>).detail?.id ?? null);
+    };
+    window.addEventListener('career-hover', onHover);
+    return () => window.removeEventListener('career-hover', onHover);
+  }, []);
 
   const handleHover = (id: number | null) => {
     setHoveredId(id);

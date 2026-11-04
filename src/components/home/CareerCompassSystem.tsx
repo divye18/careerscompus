@@ -2,16 +2,23 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
+import { useReducedMotion } from 'framer-motion';
 import * as THREE from 'three';
 
+// Light Royal palette only. Names match the Career Exploration list.
 const CAREER_NODES = [
-  { id: 1, name: 'Technology', color: '#0EA5E9' },
-  { id: 2, name: 'Medicine', color: '#1E3A8A' },
-  { id: 3, name: 'Business', color: '#F59E0B' },
-  { id: 4, name: 'Data', color: '#10B981' },
-  { id: 5, name: 'Architecture', color: '#8B5CF6' },
-  { id: 6, name: 'Law', color: '#EF4444' },
+  { id: 1, name: 'Technology', color: '#3155D9' },
+  { id: 2, name: 'Medicine', color: '#D8B86A' },
+  { id: 3, name: 'Business', color: '#1E2A78' },
+  { id: 4, name: 'Data Science', color: '#BFD9FF' },
+  { id: 5, name: 'Architecture', color: '#3949AB' },
+  { id: 6, name: 'Law', color: '#121936' },
 ];
+
+function announceHover(id: number | null) {
+  window.dispatchEvent(new CustomEvent('career-hover', { detail: { id } }));
+}
 
 // Outer radius of the compass in local units (node orbit 2.4 + node radius 0.15).
 const COMPASS_RADIUS = 2.6;
@@ -23,14 +30,14 @@ export default function CareerCompassSystem() {
   const centerSphereRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Group>(null);
   
+  const reduced = !!useReducedMotion();
   const [hoveredNodeId, setHoveredNodeId] = useState<number | null>(null);
 
   useEffect(() => {
     const handleHover = (e: Event) => {
       const customEvent = e as CustomEvent;
-      if (customEvent.detail?.id) {
-        setHoveredNodeId(customEvent.detail.id);
-      }
+      // id === null means "pointer left"
+      setHoveredNodeId(customEvent.detail?.id ?? null);
     };
     const handleLeave = () => {
       setHoveredNodeId(null);
@@ -69,8 +76,10 @@ export default function CareerCompassSystem() {
     const delta = Math.min(rawDelta, 0.05);
 
     // Base continuous slow rotation
-    groupRef.current.rotation.y += delta * 0.05;
-    groupRef.current.rotation.x += delta * 0.02;
+    if (!reduced) {
+      groupRef.current.rotation.y += delta * 0.05;
+      groupRef.current.rotation.x += delta * 0.02;
+    }
 
     // Dock to the most visible [data-compass-anchor] element so the compass
     // sits beside (desktop) or below (mobile) the copy, never behind it, and
@@ -107,12 +116,12 @@ export default function CareerCompassSystem() {
         groupRef.current.position.set(targetX, targetY, 0);
         placedRef.current = true;
       } else {
-        const k = 1 - Math.exp(-6 * delta);
+        const k = reduced ? 1 : 1 - Math.exp(-6 * delta);
         groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetX, k);
         groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY, k);
       }
     }
-    const nextScale = THREE.MathUtils.lerp(groupRef.current.scale.x, targetScale, 1 - Math.exp(-6 * delta));
+    const nextScale = THREE.MathUtils.lerp(groupRef.current.scale.x, targetScale, reduced ? 1 : 1 - Math.exp(-6 * delta));
     groupRef.current.scale.setScalar(Math.max(nextScale, 0.0001));
     groupRef.current.visible = nextScale > 0.01;
   });
@@ -147,6 +156,8 @@ export default function CareerCompassSystem() {
             <NodeItem 
               key={node.id} 
               id={node.id}
+              name={node.name}
+              reduced={reduced}
               position={[x, 0, z]} 
               color={node.color}
               isHovered={hoveredNodeId === node.id}
@@ -161,13 +172,15 @@ export default function CareerCompassSystem() {
 
 interface NodeItemProps {
   id: number;
+  name: string;
+  reduced: boolean;
   position: [number, number, number];
   color: string;
   isHovered: boolean;
   shownRef: React.RefObject<number>;
 }
 
-function NodeItem({ position, color, isHovered, shownRef }: NodeItemProps) {
+function NodeItem({ id, name, reduced, position, color, isHovered, shownRef }: NodeItemProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
   
@@ -183,10 +196,12 @@ function NodeItem({ position, color, isHovered, shownRef }: NodeItemProps) {
     const targetScale = isHovered ? 1.5 : 1.0;
     const finalScale = targetScale * progressScale;
     
-    meshRef.current.scale.setScalar(THREE.MathUtils.lerp(meshRef.current.scale.x, finalScale, 10 * delta));
+    meshRef.current.scale.setScalar(
+      reduced ? finalScale : THREE.MathUtils.lerp(meshRef.current.scale.x, finalScale, 10 * delta)
+    );
     
     // Add subtle hover floating effect
-    if (isHovered) {
+    if (isHovered && !reduced) {
       const floatY = Math.sin(state.clock.elapsedTime * 4) * 0.2;
       meshRef.current.position.y = THREE.MathUtils.lerp(meshRef.current.position.y, floatY, 5 * delta);
     } else {
@@ -203,7 +218,22 @@ function NodeItem({ position, color, isHovered, shownRef }: NodeItemProps) {
   });
 
   return (
-    <mesh ref={meshRef} position={position} scale={0}>
+    <mesh
+      ref={meshRef}
+      position={position}
+      scale={0}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        if ((shownRef.current ?? 0) > 0.5) {
+          document.body.style.cursor = 'pointer';
+          announceHover(id);
+        }
+      }}
+      onPointerOut={() => {
+        document.body.style.cursor = '';
+        announceHover(null);
+      }}
+    >
       <sphereGeometry args={[0.15, 32, 32]} />
       <meshStandardMaterial 
         ref={materialRef}
@@ -213,6 +243,13 @@ function NodeItem({ position, color, isHovered, shownRef }: NodeItemProps) {
         emissive={color}
         emissiveIntensity={0}
       />
+      {isHovered && (
+        <Html center position={[0, 0.45, 0]} style={{ pointerEvents: 'none' }} zIndexRange={[20, 0]}>
+          <span className="whitespace-nowrap rounded bg-white px-2.5 py-1 text-xs font-semibold text-[#1E2A78] shadow-md border border-[#1E2A78]/15">
+            {name}
+          </span>
+        </Html>
+      )}
     </mesh>
   );
 }
