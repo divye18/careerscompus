@@ -4,11 +4,8 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, SoftShadows } from '@react-three/drei';
 import { Suspense } from 'react';
 import CareerCompassSystem from './CareerCompassSystem';
-import { useJourney } from '@/components/home/ScrollJourney';
 
 export function Scroll3DScene() {
-  const { globalProgress } = useJourney();
-
   return (
     <div className="w-full h-full">
       <Canvas shadows camera={{ position: [0, 0, 10], fov: 45 }}>
@@ -29,7 +26,7 @@ export function Scroll3DScene() {
         <Environment preset="city" environmentIntensity={0.4} />
 
         <Suspense fallback={null}>
-          <CareerCompassSystem globalProgress={globalProgress} />
+          <CareerCompassSystem />
         </Suspense>
       </Canvas>
     </div>

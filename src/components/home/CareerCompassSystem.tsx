@@ -3,11 +3,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { MotionValue } from 'framer-motion';
-
-interface CareerCompassSystemProps {
-  globalProgress: MotionValue<number>;
-}
 
 const CAREER_NODES = [
   { id: 1, name: 'Technology', color: '#0EA5E9' },
@@ -18,8 +13,13 @@ const CAREER_NODES = [
   { id: 6, name: 'Law', color: '#EF4444' },
 ];
 
-export default function CareerCompassSystem({ globalProgress }: CareerCompassSystemProps) {
+// Outer radius of the compass in local units (node orbit 2.4 + node radius 0.15).
+const COMPASS_RADIUS = 2.6;
+
+export default function CareerCompassSystem() {
   const groupRef = useRef<THREE.Group>(null);
+  const placedRef = useRef(false);
+  const nodesShownRef = useRef(0);
   const centerSphereRef = useRef<THREE.Mesh>(null);
   const ringsRef = useRef<THREE.Group>(null);
   
@@ -64,23 +64,57 @@ export default function CareerCompassSystem({ globalProgress }: CareerCompassSys
     })
   }));
 
-  useFrame((state, delta) => {
+  useFrame((state, rawDelta) => {
     if (!groupRef.current || !ringsRef.current) return;
-    const currentProgress = globalProgress.get();
+    const delta = Math.min(rawDelta, 0.05);
 
     // Base continuous slow rotation
     groupRef.current.rotation.y += delta * 0.05;
     groupRef.current.rotation.x += delta * 0.02;
 
-    // Scroll-based position mapping
-    // At progress 0: center (0,0,0)
-    // By progress 0.2: shifted to right (4,0,0)
-    const targetX = THREE.MathUtils.lerp(0, 4, Math.min(Math.max(currentProgress / 0.2, 0), 1));
-    groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetX, 5 * delta);
+    // Dock to the most visible [data-compass-anchor] element so the compass
+    // sits beside (desktop) or below (mobile) the copy, never behind it, and
+    // scrolls away with the page instead of staying fixed over later sections.
+    const { width: vw, height: vh } = state.viewport;
+    const W = state.size.width;
+    const H = state.size.height;
+    let anchor: DOMRect | null = null;
+    let anchorEl: Element | null = null;
+    let bestVisible = 0;
+    document.querySelectorAll('[data-compass-anchor]').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0) return;
+      const visiblePx = Math.max(0, Math.min(r.bottom, H) - Math.max(r.top, 0));
+      const fraction = visiblePx / Math.min(r.height, H);
+      if (fraction > bestVisible) {
+        bestVisible = fraction;
+        anchor = r;
+        anchorEl = el;
+      }
+    });
 
-    // Orbit rings expansion logic
-    const ringsScale = THREE.MathUtils.lerp(1, 2.5, Math.min(Math.max(currentProgress / 0.2, 0), 1));
-    ringsRef.current.scale.setScalar(THREE.MathUtils.lerp(ringsRef.current.scale.x, ringsScale, 5 * delta));
+    let targetScale = 0;
+    const a = anchor as DOMRect | null;
+    // Career nodes show only while docked to an anchor flagged data-compass-nodes
+    const el = anchorEl as Element | null;
+    nodesShownRef.current = a && bestVisible > 0.3 && el?.hasAttribute('data-compass-nodes') ? 1 : 0;
+    if (a && bestVisible > 0.3) {
+      const sizePx = Math.min(a.width, a.height, H * 0.9);
+      targetScale = Math.min(1.4, (sizePx * (vh / H)) / (2 * COMPASS_RADIUS));
+      const targetX = ((a.left + a.width / 2 - W / 2) / W) * vw;
+      const targetY = (-(a.top + a.height / 2 - H / 2) / H) * vh;
+      if (!placedRef.current) {
+        groupRef.current.position.set(targetX, targetY, 0);
+        placedRef.current = true;
+      } else {
+        const k = 1 - Math.exp(-6 * delta);
+        groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetX, k);
+        groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY, k);
+      }
+    }
+    const nextScale = THREE.MathUtils.lerp(groupRef.current.scale.x, targetScale, 1 - Math.exp(-6 * delta));
+    groupRef.current.scale.setScalar(Math.max(nextScale, 0.0001));
+    groupRef.current.visible = nextScale > 0.01;
   });
 
   return (
@@ -116,7 +150,7 @@ export default function CareerCompassSystem({ globalProgress }: CareerCompassSys
               position={[x, 0, z]} 
               color={node.color}
               isHovered={hoveredNodeId === node.id}
-              globalProgress={globalProgress}
+              shownRef={nodesShownRef}
             />
           );
         })}
@@ -130,19 +164,20 @@ interface NodeItemProps {
   position: [number, number, number];
   color: string;
   isHovered: boolean;
-  globalProgress: MotionValue<number>;
+  shownRef: React.RefObject<number>;
 }
 
-function NodeItem({ position, color, isHovered, globalProgress }: NodeItemProps) {
+function NodeItem({ position, color, isHovered, shownRef }: NodeItemProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
   
-  useFrame((state, delta) => {
+  useFrame((state, rawDelta) => {
     if (!meshRef.current || !materialRef.current) return;
-    const currentProgress = globalProgress.get();
-    
-    // Appear between progress 0.1 and 0.2
-    const progressScale = Math.max(0, Math.min(1, (currentProgress - 0.1) / 0.1));
+    // Clamp: after a hidden tab or stalled frame, delta is large and
+    // lerp(x, y, k * delta) would overshoot (k * delta > 1).
+    const delta = Math.min(rawDelta, 0.05);
+    // Nodes appear only while the compass is docked beside the career list
+    const progressScale = shownRef.current;
     
     // Smooth scaling for hover and scroll progress
     const targetScale = isHovered ? 1.5 : 1.0;

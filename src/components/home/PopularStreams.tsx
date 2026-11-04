@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { BookOpen, Calculator, Briefcase, Stethoscope } from 'lucide-react';
 
 const streams = [
-  { id: 1, name: 'Engineering', count: '1,200+ Courses', icon: Calculator, bg: 'from-blue-50 to-blue-100' },
-  { id: 2, name: 'Medical', count: '800+ Courses', icon: Stethoscope, bg: 'from-teal-50 to-teal-100' },
-  { id: 3, name: 'Management', count: '950+ Courses', icon: Briefcase, bg: 'from-purple-50 to-purple-100' },
-  { id: 4, name: 'Arts & Humanities', count: '1,500+ Courses', icon: BookOpen, bg: 'from-orange-50 to-orange-100' },
+  { id: 1, name: 'Engineering', count: 'Technology and applied science', icon: Calculator, bg: 'from-blue-50 to-blue-100' },
+  { id: 2, name: 'Medical', count: 'Health care and life sciences', icon: Stethoscope, bg: 'from-teal-50 to-teal-100' },
+  { id: 3, name: 'Management', count: 'Business, finance and leadership', icon: Briefcase, bg: 'from-purple-50 to-purple-100' },
+  { id: 4, name: 'Arts & Humanities', count: 'Society, language and the arts', icon: BookOpen, bg: 'from-orange-50 to-orange-100' },
 ];
 
 export function PopularStreams() {
@@ -22,7 +22,7 @@ export function PopularStreams() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`flex-1 min-w-[250px] bg-gradient-to-br ${s.bg} rounded-xl p-6 border border-white/50 shadow-sm hover:shadow-md transition-shadow cursor-pointer`}
+              className={`flex-1 min-w-[250px] bg-gradient-to-br ${s.bg} rounded-xl p-6 border border-white/50 shadow-sm hover:shadow-md transition-shadow`}
             >
               <s.icon className="w-8 h-8 text-slate-900 mb-4" />
               <h3 className="text-xl font-bold text-slate-900">{s.name}</h3>

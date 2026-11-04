@@ -4,9 +4,9 @@ import { Search, Map, BarChart, Phone } from 'lucide-react';
 
 const steps = [
   { id: 1, title: 'Discover Your Career', desc: 'Identify the right career path based on your interests.', icon: Search },
-  { id: 2, title: 'Find the Right Course', desc: 'Browse through thousands of courses matched to you.', icon: Map },
-  { id: 3, title: 'Compare Universities', desc: 'Evaluate colleges on fees, placement, and ranking.', icon: BarChart },
-  { id: 4, title: 'Get Expert Guidance', desc: 'Connect with counsellors to finalize your choice.', icon: Phone },
+  { id: 2, title: 'Find the Right Course', desc: 'Browse courses linked to the paths you are curious about.', icon: Map },
+  { id: 3, title: 'Compare Universities', desc: 'Line up universities and courses on the same criteria.', icon: BarChart },
+  { id: 4, title: 'Talk It Through', desc: 'Discuss your shortlist with family, teachers or a counsellor.', icon: Phone },
 ];
 
 export function HowItWorks() {

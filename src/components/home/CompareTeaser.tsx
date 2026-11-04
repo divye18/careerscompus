@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
 
 const comparison = {
   attributes: ['Duration', 'Eligibility', 'Avg. Fees', 'Career Paths'],
@@ -32,12 +30,14 @@ export function CompareTeaser() {
             <p className="text-lg text-[var(--color-ch6-graphite)] opacity-80 mb-8 font-light">
               Information is the antidote to uncertainty. Align universities, courses, and fees side-by-side to make your final decision.
             </p>
-            <Link 
-              href="/compare" 
-              className="inline-flex items-center gap-3 px-6 py-4 bg-[var(--color-ch6-text)] text-[var(--color-ch6-bg)] font-mono text-xs uppercase tracking-widest hover:bg-[var(--color-ch6-accent)] transition-colors w-fit"
-            >
-              Start Comparison <ArrowRight className="w-4 h-4" />
-            </Link>
+            <div>
+              <span className="inline-flex items-center gap-3 px-6 py-4 border border-[var(--color-ch6-text)]/30 text-[var(--color-ch6-text)]/80 font-mono text-xs uppercase tracking-widest w-fit">
+                Comparison tool · coming soon
+              </span>
+              <p className="mt-3 text-sm text-[var(--color-ch6-graphite)]">
+                The table shown here is a sample, not verified course data.
+              </p>
+            </div>
           </motion.div>
 
           {/* Right: Clean Editorial Table */}

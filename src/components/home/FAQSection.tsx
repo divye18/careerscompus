@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
 const faqs = [
-  { q: "How do I choose the right stream after 10th?", a: "Choosing the right stream involves understanding your interests, aptitude, and long-term career goals. Our platform offers personalized career assessments and expert counselling to help you make an informed decision." },
-  { q: "Are the university rankings reliable?", a: "Yes, our rankings are aggregated from reputed national and international ranking frameworks like NIRF, QS, and our own proprietary metrics focusing on student outcomes and placements." },
-  { q: "Can I apply to universities directly through CareersCompus?", a: "Absolutely. For partner universities, we offer a seamless one-click application process. For others, we provide detailed step-by-step guidance and official application links." },
-  { q: "Is the initial career counselling session really free?", a: "Yes, your first 30-minute discovery call with our expert counsellors is completely free, with no obligations." },
-  { q: "How accurate is the fee and placement data?", a: "We regularly update our database directly from official university records and alumni reports to ensure high accuracy in fees and placement statistics." },
+  { q: "What is CareersCompus?", a: "CareersCompus is an education discovery platform for students in India, currently in early development. It is being built to help you explore careers, compare courses and discover universities in one place. This homepage is a preview." },
+  { q: "Is the information on this page real?", a: "The courses, universities and comparison details shown here are sample content used to demonstrate the design. They are not verified data and should not be used for admission decisions. Always check details with the institution's official sources." },
+  { q: "Can I search for courses and colleges yet?", a: "Not fully. The search box on this page offers a small set of sample suggestions and jumps to the related section. A searchable directory is planned but does not exist yet." },
+  { q: "How do I choose the right stream after 10th?", a: "Start with the subjects you enjoy and do well in, look at the careers each stream can lead to, and talk it over with teachers, family or a counsellor. The career section on this page is a simple starting point for exploring options." },
+  { q: "Does the callback form send my details anywhere?", a: "No. The form is a preview: it does not send, store or share anything. When a callback service launches, this page will say so clearly." },
 ];
 
 export function FAQSection() {

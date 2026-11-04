@@ -6,11 +6,24 @@ import { Search, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 
 const NAV_LINKS = [
-  { label: 'Courses', href: '/courses' },
-  { label: 'Universities', href: '/universities' },
-  { label: 'Careers', href: '/careers' },
-  { label: 'Compare', href: '/compare' },
+  // Only the homepage exists so far, so nav items jump to homepage sections.
+  { label: 'Courses', href: '/#act-courses' },
+  { label: 'Universities', href: '/#act-universities' },
+  { label: 'Careers', href: '/#act-discovery' },
+  { label: 'Compare', href: '/#act-comparison' },
 ];
+
+function jumpTo(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+}
+
+function focusHeroSearch() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.querySelector<HTMLInputElement>('input[role="combobox"]')?.focus({ preventScroll: true });
+}
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,7 +64,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         {/* Left: Logo */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }}>
-          <Link href="/">
+          <Link href="/" className="inline-block py-3">
             <motion.span 
               className="text-2xl font-extrabold tracking-tight"
               style={{ fontFamily: 'var(--font-plus-jakarta)', color: logoColor }}
@@ -83,7 +96,7 @@ export function Header() {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }}
           className="flex items-center space-x-4"
         >
-          <button aria-label="Search" className="p-2 transition-opacity hover:opacity-70 hidden sm:block">
+          <button type="button" onClick={focusHeroSearch} aria-label="Search" className="p-2 transition-opacity hover:opacity-70 hidden sm:block">
             <motion.div style={{ color: textColor }}>
               <Search className="w-5 h-5" />
             </motion.div>
@@ -91,6 +104,8 @@ export function Header() {
           
           <motion.button 
             style={{ color: '#ffffff', backgroundColor: '#3155D9' }}
+            type="button"
+            onClick={() => jumpTo('act-guidance')}
             className="hidden sm:inline-flex items-center justify-center px-5 py-2 text-sm font-semibold rounded-full transition-transform hover:scale-105 shadow-[0_4px_15px_rgba(49,85,217,0.3)]"
           >
             Get Guidance
@@ -98,7 +113,7 @@ export function Header() {
 
           {/* Mobile Menu Toggle */}
           <button 
-            className="lg:hidden p-2 hover:opacity-70 transition-opacity"
+            className="lg:hidden p-2 min-w-[44px] min-h-[44px] inline-flex items-center justify-center hover:opacity-70 transition-opacity"
             onClick={() => setIsMobileMenuOpen(true)}
             aria-label="Open mobile menu"
           >
@@ -129,7 +144,8 @@ export function Header() {
                 CareersCompus
               </Link>
               <button 
-                className="p-2 text-[var(--color-royal-deep)]/50 hover:text-[var(--color-royal-deep)]"
+                aria-label="Close mobile menu"
+                className="p-2 min-w-[44px] min-h-[44px] inline-flex items-center justify-center text-[var(--color-royal-deep)]/70 hover:text-[var(--color-royal-deep)]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <X className="w-6 h-6" />
@@ -164,7 +180,10 @@ export function Header() {
               >
                 <button 
                   className="w-full py-4 bg-[var(--color-royal-blue)] text-white font-bold rounded-xl text-lg hover:bg-[#1E2A78] transition-colors shadow-lg"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setTimeout(() => jumpTo('act-guidance'), 250);
+                  }}
                 >
                   Get Guidance
                 </button>

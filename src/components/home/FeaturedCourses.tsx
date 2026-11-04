@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
 
 const categories = [
   {
@@ -15,8 +13,7 @@ const categories = [
       duration: '4 Years',
       fees: '₹2L – ₹15L/yr',
       level: 'Undergraduate',
-      outcomes: ['Software Engineer', 'Data Scientist', 'AI Researcher'],
-      link: '/courses/btech-cse'
+      outcomes: ['Software Engineer', 'Data Scientist', 'AI Researcher']
     }
   },
   {
@@ -28,8 +25,7 @@ const categories = [
       duration: '4 Years',
       fees: '₹1L – ₹12L/yr',
       level: 'Undergraduate',
-      outcomes: ['Mechanical Engineer', 'Robotics Specialist', 'Operations Manager'],
-      link: '/courses/btech-mech'
+      outcomes: ['Mechanical Engineer', 'Robotics Specialist', 'Operations Manager']
     }
   },
   {
@@ -41,8 +37,7 @@ const categories = [
       duration: '5.5 Years',
       fees: '₹5L – ₹50L/yr',
       level: 'Undergraduate',
-      outcomes: ['Physician', 'Surgeon', 'Medical Researcher'],
-      link: '/courses/mbbs'
+      outcomes: ['Physician', 'Surgeon', 'Medical Researcher']
     }
   },
   {
@@ -54,8 +49,7 @@ const categories = [
       duration: '2 Years',
       fees: '₹5L – ₹25L/yr',
       level: 'Postgraduate',
-      outcomes: ['Management Consultant', 'Product Manager', 'Investment Banker'],
-      link: '/courses/mba'
+      outcomes: ['Management Consultant', 'Product Manager', 'Investment Banker']
     }
   },
   {
@@ -67,8 +61,7 @@ const categories = [
       duration: '4 Years',
       fees: '₹2L – ₹10L/yr',
       level: 'Undergraduate',
-      outcomes: ['UX Designer', 'Industrial Designer', 'Art Director'],
-      link: '/courses/bdes'
+      outcomes: ['UX Designer', 'Industrial Designer', 'Art Director']
     }
   },
   {
@@ -80,8 +73,7 @@ const categories = [
       duration: '3 Years',
       fees: '₹50K – ₹5L/yr',
       level: 'Undergraduate',
-      outcomes: ['Advocate', 'Corporate Counsel', 'Legal Advisor'],
-      link: '/courses/llb'
+      outcomes: ['Advocate', 'Corporate Counsel', 'Legal Advisor']
     }
   }
 ];
@@ -173,15 +165,9 @@ export function FeaturedCourses() {
                       </div>
                     </div>
 
-                    <Link 
-                      href={activeCategory.featured.link}
-                      className="inline-flex items-center gap-3 text-sm font-medium tracking-widest uppercase text-[var(--color-ch4-text)] group hover:text-[var(--color-ch4-accent)] transition-colors"
-                    >
-                      Explore Program
-                      <span className="p-2 border border-[var(--color-ch4-text)]/20 rounded-full group-hover:border-[var(--color-ch4-accent)] transition-colors">
-                        <ArrowUpRight className="w-4 h-4" />
-                      </span>
-                    </Link>
+                    <p className="text-sm tracking-widest uppercase text-[var(--color-ch4-text)]/70">
+                      Sample content · program page coming soon
+                    </p>
                   </div>
                 </div>
               </motion.div>

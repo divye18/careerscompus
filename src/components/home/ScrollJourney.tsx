@@ -68,7 +68,7 @@ export function JourneySection({ children, className = '', id }: JourneySectionP
   // The persistent Scroll3DScene layer handles the actual background colors and transitions.
   // We just ensure pointer events are managed correctly.
   return (
-    <div id={id} className={`relative z-10 pointer-events-none ${className}`}>
+    <div id={id} className={`relative z-10 pointer-events-none scroll-mt-16 ${className}`}>
       <div className="pointer-events-auto">
         {children}
       </div>

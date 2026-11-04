@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
 
 const careers = [
   { id: 1, title: 'Technology', desc: 'Software, AI, and digital infrastructure.', color: '#3155D9' },
@@ -48,12 +46,14 @@ export function CareerExploration() {
                   const isOtherHovered = hoveredId !== null && hoveredId !== c.id;
 
                   return (
-                    <Link
+                    <div
                       key={c.id}
-                      href={'/careers/' + c.title.toLowerCase().replace(' ', '-')}
+                      tabIndex={0}
+                      onFocus={() => handleHover(c.id)}
+                      onBlur={() => handleHover(null)}
                       onMouseEnter={() => handleHover(c.id)}
                       onMouseLeave={() => handleHover(null)}
-                      className={`group flex flex-col sm:flex-row sm:items-center justify-between py-4 border-b border-[var(--color-royal-deep)]/10 transition-all duration-300 hover:pl-2 relative ${
+                      className={`group flex flex-col sm:flex-row sm:items-center justify-between py-4 border-b border-[var(--color-royal-deep)]/10 transition-all duration-300 hover:pl-2 focus-visible:pl-2 focus:outline-none relative ${
                         isOtherHovered ? 'opacity-40' : 'opacity-100'
                       }`}
                     >
@@ -65,9 +65,8 @@ export function CareerExploration() {
                       </div>
                       <div className="mt-2 sm:mt-0 flex items-center justify-between sm:justify-end gap-4 relative z-10">
                         <p className="text-xs text-[var(--color-royal-deep)] opacity-60 max-w-[180px] hidden sm:block">{c.desc}</p>
-                        <ArrowRight className="w-4 h-4 text-[var(--color-royal-blue)] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
@@ -75,7 +74,7 @@ export function CareerExploration() {
           </div>
 
           {/* Right Column: 3D Visualization Space */}
-          <div className="lg:col-span-7 h-[500px] lg:h-auto pointer-events-none">
+          <div data-compass-anchor data-compass-nodes aria-hidden="true" className="lg:col-span-7 h-[360px] sm:h-[460px] lg:h-[520px] pointer-events-none">
             {/* The global Scroll3DScene renders the interactive nodes here */}
           </div>
           

@@ -145,3 +145,19 @@
     color: var(--color-text-primary);
   }
 }
+
+/* Smooth in-page anchor scrolling (respects reduced-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Used by horizontal carousels */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

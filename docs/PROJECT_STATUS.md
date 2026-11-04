@@ -18,3 +18,8 @@ Other routes, database, auth, API, search, forms backend, tests.
 ## Notes
 - `docs/handover/` was referenced in the cleanup brief but does not exist in the repo. `docs/AUDIT-REPORT.md` is a blueprint-consistency audit, not a code audit; code issues were verified directly via lint/tsc/build.
 - Branch is `master`; there is no `main`.
+
+## Update 2026-11-05
+- Verified in browser at 1440, 1280 and 390 px: hero search, compass docking, university section, counselling form (validation + confirmation), footer, mobile menu. Screenshots: `docs/qa-screenshots/before|after`.
+- lint / tsc / build pass.
+- Still not verified: frame rate (browser pane throttles when hidden), Safari/Firefox, real touch devices. Search, forms and all data are preview/sample only (no backend).

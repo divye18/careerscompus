@@ -9,7 +9,7 @@ import { UniversityPreview } from '@/components/home/UniversityPreview';
 import { CompareTeaser } from '@/components/home/CompareTeaser';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { CounsellingCTA } from '@/components/home/CounsellingCTA';
-import { TrustStats } from '@/components/home/TrustStats';
+import { PlatformPrinciples } from '@/components/home/PlatformPrinciples';
 import { FAQSection } from '@/components/home/FAQSection';
 import { FinalCTA } from '@/components/home/FinalCTA';
 import { Scroll3DScene } from '@/components/home/Scroll3DScene';
@@ -59,7 +59,7 @@ export default function Home() {
           
           <JourneySection mode="light" id="act-trust">
             <div className="py-16 sm:py-24">
-              <TrustStats />
+              <PlatformPrinciples />
               <FAQSection />
             </div>
           </JourneySection>
