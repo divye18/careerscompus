@@ -2,7 +2,7 @@
 
 import { motion, useTransform } from 'framer-motion';
 import { useJourney } from '../JourneyContext';
-import { morphAt, range, rigLayout, smoothstep } from '../choreography';
+import { exploreIn, morphAt, range, rigLayout, smoothstep } from '../choreography';
 
 /**
  * Nocturne Atlas night ground for the pinned stage:
@@ -18,12 +18,13 @@ import { morphAt, range, rigLayout, smoothstep } from '../choreography';
 export function Ground() {
   const { progress, stageW, stageH } = useJourney();
   const m = useTransform(progress, morphAt);
-  const atmos = useTransform(m, (v) => smoothstep(range(v, 0.2, 0.9)));
+  const x3 = useTransform(progress, exploreIn);
+  const atmos = useTransform([m, x3], ([v, x]: number[]) => smoothstep(range(v, 0.2, 0.9)) * (1 - x));
 
   const glowSize = useTransform([stageW, stageH], ([W, H]: number[]) => 2.1 * rigLayout(W, H, 0).gratPx);
-  const glowX = useTransform([m, stageW, stageH, glowSize], ([mm, W, H, S]: number[]) => rigLayout(W, H, mm).cx - S / 2);
-  const glowY = useTransform([m, stageW, stageH, glowSize], ([mm, W, H, S]: number[]) => rigLayout(W, H, mm).cy - S / 2);
-  const glowOpacity = useTransform(m, (v) => 1 - 0.45 * smoothstep(v));
+  const glowX = useTransform([m, x3, stageW, stageH, glowSize], ([mm, x, W, H, S]: number[]) => rigLayout(W, H, mm, 'wide', x).gx - S / 2);
+  const glowY = useTransform([m, x3, stageW, stageH, glowSize], ([mm, x, W, H, S]: number[]) => rigLayout(W, H, mm, 'wide', x).gy - S / 2);
+  const glowOpacity = useTransform([m, x3], ([v, x]: number[]) => (1 - 0.45 * smoothstep(v)) * (1 - 0.6 * x));
 
   return (
     <>

@@ -1,0 +1,120 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-05T11:41:30.435Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "server",
+      "vitals": {
+        "lcp": 1928,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\explore\\perf\\fixed-whole2\\desktop1440-s0.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\fixed-whole2\\desktop1440-s1.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\fixed-whole2\\desktop1440-s2.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\fixed-whole2\\desktop1440-s3.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\fixed-whole2\\desktop1440-s4.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\fixed-whole2\\desktop1440-s5.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\fixed-whole2\\desktop1440-s6.jpg"
+      ]
+    },
+    "desktop1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 1616,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 60.3,
+        "visibility": "visible"
+      },
+      "scrollRuns": [
+        {
+          "frames": 229,
+          "avgFps": 38.2,
+          "p50ms": 16.7,
+          "p95ms": 50.1,
+          "over33ms": 20,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 312,
+          "avgFps": 52,
+          "p50ms": 16.7,
+          "p95ms": 33.5,
+          "over33ms": 19,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 316,
+          "avgFps": 52.9,
+          "p50ms": 16.7,
+          "p95ms": 33.4,
+          "over33ms": 16,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 307,
+          "avgFps": 51.1,
+          "p50ms": 16.7,
+          "p95ms": 33.5,
+          "over33ms": 20,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 318,
+          "avgFps": 53,
+          "p50ms": 16.7,
+          "p95ms": 33.4,
+          "over33ms": 18,
+          "visibility": "visible",
+          "reactCommits": 16
+        }
+      ],
+      "scroll": {
+        "runs": 5,
+        "medianAvgFps": 52,
+        "medianP95ms": 33.5,
+        "medianOver33": 19,
+        "minAvgFps": 38.2,
+        "maxAvgFps": 53,
+        "medianReactCommits": 16,
+        "medianFrames": 312
+      },
+      "trace": {
+        "frames": 317,
+        "paint": 231,
+        "paintMs": 254,
+        "layout": 27,
+        "layoutMs": 33,
+        "recalcStyle": 448,
+        "recalcStyleMs": 475,
+        "raster": 560,
+        "rasterMs": 113,
+        "gpuTaskMs": 2083,
+        "scriptMs": 3985
+      },
+      "screenshots": []
+    }
+  }
+}

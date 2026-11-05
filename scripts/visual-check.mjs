@@ -33,10 +33,13 @@ const PERF_ONLY = !!args['perf-only'];
 const INJECT = typeof args.inject === 'string' ? args.inject : null; // CSS injected for A/B perf experiments
 const REPEAT = +(args.repeat || 1); // scroll measurements per run (medians reported)
 const TRACE = !!args.trace; // DevTools timeline trace during one scroll pass
+// optional scroll window for the perf pass, in viewport heights of scroll (e.g. --vh-from 280 --vh-to 602 = Scene 3 only)
+const VH_FROM = args['vh-from'] !== undefined ? +args['vh-from'] : null;
+const VH_TO = args['vh-to'] !== undefined ? +args['vh-to'] : null;
 const median = (a) => { const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
 fs.mkdirSync(OUT, { recursive: true });
 
-const PINNED_MARKS = [0, 0.04, 0.09, 0.14, 0.2, 0.28, 0.36, 0.44, 0.52, 0.62, 0.8, 1];
+const PINNED_MARKS = [0, 0.04, 0.09, 0.14, 0.2, 0.28, 0.36, 0.44, 0.52, 0.62, 0.8, 1].map((v) => +(v * (280 / 602)).toFixed(4)); // Scenes 1–2 occupy the first 280 of 602 vh
 
 const RUNS = [
   { name: 'desktop1440', viewport: { width: 1440, height: 900 } },
@@ -222,7 +225,10 @@ for (const run of RUNS) {
         await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
         await sleep(900);
         const c0 = await page.evaluate(() => window.__ccCommits);
-        const m = await measureScrollFrames(page, geo.top, geo.top + geo.len, 6000);
+        const vh = run.viewport.height / 100;
+        const from = VH_FROM !== null ? geo.top + VH_FROM * vh : geo.top;
+        const to = VH_TO !== null ? geo.top + VH_TO * vh : geo.top + geo.len;
+        const m = await measureScrollFrames(page, from, to, 6000);
         m.reactCommits = (await page.evaluate(() => window.__ccCommits)) - c0;
         runs.push(m);
       }

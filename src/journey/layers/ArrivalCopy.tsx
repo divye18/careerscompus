@@ -21,8 +21,10 @@ function Out({ exit, i, children, className }: { exit?: MotionValue<number>; i: 
   const opacity = useTransform(local, (v) => 1 - v);
   const y = useTransform(local, (v) => -v * 56);
   const pe = useTransform(local, (v) => (v > 0.85 ? 'none' : 'auto'));
+  // fully gone → visibility:hidden, so keyboard focus never lands on invisible controls
+  const vis = useTransform(local, (v) => (v >= 0.995 ? 'hidden' : 'visible'));
   return (
-    <motion.div className={`${exit ? '[will-change:transform,opacity]' : ''} ${className ?? ''}`} style={{ opacity, y, pointerEvents: pe }}>
+    <motion.div className={`${exit ? '[will-change:transform,opacity]' : ''} ${className ?? ''}`} style={{ opacity, y, pointerEvents: pe, visibility: vis }}>
       {children}
     </motion.div>
   );

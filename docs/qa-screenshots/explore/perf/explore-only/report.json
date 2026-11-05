@@ -1,0 +1,186 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-05T11:25:13.513Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 1812,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 60.3,
+        "visibility": "visible"
+      },
+      "scrollRuns": [
+        {
+          "frames": 216,
+          "avgFps": 36,
+          "p50ms": 16.7,
+          "p95ms": 66.6,
+          "over33ms": 25,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 301,
+          "avgFps": 50.2,
+          "p50ms": 16.7,
+          "p95ms": 33.5,
+          "over33ms": 20,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 308,
+          "avgFps": 51.4,
+          "p50ms": 16.7,
+          "p95ms": 33.5,
+          "over33ms": 18,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 296,
+          "avgFps": 49.4,
+          "p50ms": 16.7,
+          "p95ms": 33.5,
+          "over33ms": 25,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 304,
+          "avgFps": 50.7,
+          "p50ms": 16.7,
+          "p95ms": 33.5,
+          "over33ms": 22,
+          "visibility": "visible",
+          "reactCommits": 16
+        }
+      ],
+      "scroll": {
+        "runs": 5,
+        "medianAvgFps": 50.2,
+        "medianP95ms": 33.5,
+        "medianOver33": 22,
+        "minAvgFps": 36,
+        "maxAvgFps": 51.4,
+        "medianReactCommits": 16,
+        "medianFrames": 301
+      },
+      "trace": {
+        "frames": 298,
+        "paint": 471,
+        "paintMs": 215,
+        "layout": 136,
+        "layoutMs": 179,
+        "recalcStyle": 606,
+        "recalcStyleMs": 716,
+        "raster": 596,
+        "rasterMs": 137,
+        "gpuTaskMs": 1930,
+        "scriptMs": 4416
+      },
+      "screenshots": []
+    },
+    "desktop1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 1400,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 57.5,
+        "visibility": "visible"
+      },
+      "scrollRuns": [
+        {
+          "frames": 194,
+          "avgFps": 32.5,
+          "p50ms": 16.7,
+          "p95ms": 83.4,
+          "over33ms": 24,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 291,
+          "avgFps": 48.5,
+          "p50ms": 16.7,
+          "p95ms": 49.9,
+          "over33ms": 26,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 309,
+          "avgFps": 51.5,
+          "p50ms": 16.7,
+          "p95ms": 33.4,
+          "over33ms": 16,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 304,
+          "avgFps": 50.7,
+          "p50ms": 16.7,
+          "p95ms": 33.6,
+          "over33ms": 26,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 309,
+          "avgFps": 51.5,
+          "p50ms": 16.7,
+          "p95ms": 33.5,
+          "over33ms": 19,
+          "visibility": "visible",
+          "reactCommits": 16
+        }
+      ],
+      "scroll": {
+        "runs": 5,
+        "medianAvgFps": 50.7,
+        "medianP95ms": 33.6,
+        "medianOver33": 24,
+        "minAvgFps": 32.5,
+        "maxAvgFps": 51.5,
+        "medianReactCommits": 16,
+        "medianFrames": 304
+      },
+      "trace": {
+        "frames": 310,
+        "paint": 502,
+        "paintMs": 206,
+        "layout": 141,
+        "layoutMs": 190,
+        "recalcStyle": 626,
+        "recalcStyleMs": 828,
+        "raster": 656,
+        "rasterMs": 269,
+        "gpuTaskMs": 1793,
+        "scriptMs": 5160
+      },
+      "screenshots": []
+    }
+  }
+}

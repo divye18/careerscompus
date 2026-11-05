@@ -6,6 +6,8 @@ import { DOMAINS } from '@/content/domains';
 import { ArrivalCopy } from './layers/ArrivalCopy';
 import { CompassSVG } from './CompassSVG';
 import { DomainGlyph } from './DomainGlyph';
+import { ExploreFlow } from './explore/ExploreFlow';
+import { goTo } from './scroll';
 
 /**
  * Natural-scroll presenter for everything that is not "full": phones and tablets, reduced
@@ -93,7 +95,7 @@ export function FlowJourney({ reducedMotion, reason }: { reducedMotion: boolean;
                         onFocus={() => setHovered(i)}
                         onBlur={() => setHovered(null)}
                         onClick={() => setSelected((s) => (s === i ? null : i))}
-                        className={`flex min-h-[52px] w-full items-center gap-3 rounded-md border bg-ink-900 px-3.5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+                        className={`flex min-h-[52px] w-full items-center gap-3 rounded-md border bg-ink-900 px-3.5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan ${
                           isSel ? 'border-cyan' : shown === i ? 'border-ivory/40' : 'border-ivory/12'
                         }`}
                       >
@@ -114,9 +116,13 @@ export function FlowJourney({ reducedMotion, reason }: { reducedMotion: boolean;
                       {DOMAINS[shown].name}
                     </p>
                     <p className="mt-2 text-[15px] leading-snug text-ivory/85">{DOMAINS[shown].blurb}</p>
-                    <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-silver">
-                      Full pages for each direction are coming soon
-                    </p>
+                    <button
+                      type="button"
+                      onClick={() => goTo(`explore-${DOMAINS[shown].id}`)}
+                      className="mt-3 inline-flex min-h-[44px] items-center rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                    >
+                      Step inside {DOMAINS[shown].name} →
+                    </button>
                   </>
                 ) : (
                   <p className="text-[13px] leading-snug text-silver">Select a direction to read a short description.</p>
@@ -126,6 +132,9 @@ export function FlowJourney({ reducedMotion, reason }: { reducedMotion: boolean;
           </div>
         </div>
       </section>
+
+      {/* ---------------- Scene 3: Explore ---------------- */}
+      <ExploreFlow />
     </div>
   );
 }

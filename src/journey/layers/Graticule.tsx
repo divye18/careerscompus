@@ -2,7 +2,7 @@
 
 import { motion, useTransform } from 'framer-motion';
 import { useJourney } from '../JourneyContext';
-import { morphAt, rigLayout, smoothstep, range } from '../choreography';
+import { exploreIn, morphAt, rigLayout, smoothstep, range } from '../choreography';
 
 const TICKS = Array.from({ length: 72 }, (_, i) => {
   const a = (i * 5 * Math.PI) / 180;
@@ -21,15 +21,16 @@ const TICKS = Array.from({ length: 72 }, (_, i) => {
 export function Graticule() {
   const { progress, stageW, stageH } = useJourney();
   const m = useTransform(progress, morphAt);
+  const x3 = useTransform(progress, exploreIn);
 
   const size = useTransform([stageW, stageH], ([W, H]: number[]) => 2 * rigLayout(W, H, 0).gratPx);
-  const x = useTransform([m, stageW, stageH, size], ([mm, W, H, S]: number[]) => rigLayout(W, H, mm).cx - S / 2);
-  const y = useTransform([m, stageW, stageH, size], ([mm, W, H, S]: number[]) => rigLayout(W, H, mm).cy - S / 2);
-  const scale = useTransform([m, stageW, stageH], ([mm, W, H]: number[]) => {
-    const l = rigLayout(W, H, mm);
+  const x = useTransform([m, x3, stageW, stageH, size], ([mm, x3v, W, H, S]: number[]) => rigLayout(W, H, mm, 'wide', x3v).gx - S / 2);
+  const y = useTransform([m, x3, stageW, stageH, size], ([mm, x3v, W, H, S]: number[]) => rigLayout(W, H, mm, 'wide', x3v).gy - S / 2);
+  const scale = useTransform([m, x3, stageW, stageH], ([mm, x3v, W, H]: number[]) => {
+    const l = rigLayout(W, H, mm, 'wide', x3v);
     return l.gratPx / rigLayout(W, H, 0).gratPx;
   });
-  const opacity = useTransform(m, (v) => 0.5 + 0.5 * smoothstep(range(v, 0.2, 0.9)));
+  const opacity = useTransform([m, x3], ([v, x]: number[]) => (0.5 + 0.5 * smoothstep(range(v, 0.2, 0.9))) * (1 - 0.55 * x));
 
   return (
     <motion.svg

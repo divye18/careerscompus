@@ -29,35 +29,41 @@ type Theme = 'night' | 'day';
 
 /**
  * The header follows the environment beneath it (Nocturne Atlas alternates night and ivory grounds).
- * Sections declare `data-header-theme="night"`; anywhere else is day. Checked on scroll (rAF-throttled);
- * React state only changes when the boundary is crossed.
+ * Sections declare `data-header-theme="night"`; anywhere else is day. React state only changes when a
+ * boundary is crossed.
  */
 function useHeaderTheme(): Theme {
   const [theme, setTheme] = useState<Theme>('night');
   useEffect(() => {
-    let raf = 0;
-    const check = () => {
-      raf = 0;
-      const probeY = 32; // middle of the 64px header
-      const night = [...document.querySelectorAll('[data-header-theme="night"]')].some((el) => {
-        const r = el.getBoundingClientRect();
-        return r.top <= probeY && r.bottom > probeY;
-      });
-      setTheme((t) => {
-        const next: Theme = night ? 'night' : 'day';
-        return t === next ? t : next;
-      });
+    // IntersectionObserver watches a 1px strip through the middle of the header. Unlike measuring
+    // getBoundingClientRect on every scroll frame, it never forces synchronous layout.
+    const visible = new Set<Element>();
+    let io: IntersectionObserver | null = null;
+    const apply = () => {
+      const next: Theme = visible.size > 0 ? 'night' : 'day';
+      setTheme((t) => (t === next ? t : next));
     };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(check);
+    const build = () => {
+      io?.disconnect();
+      visible.clear();
+      const bottomInset = Math.max(0, window.innerHeight - 33);
+      io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) visible.add(e.target);
+            else visible.delete(e.target);
+          }
+          apply();
+        },
+        { rootMargin: `-32px 0px -${bottomInset}px 0px`, threshold: 0 }
+      );
+      document.querySelectorAll('[data-header-theme="night"]').forEach((el) => io!.observe(el));
     };
-    check();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    build();
+    window.addEventListener('resize', build, { passive: true });
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener('resize', build);
+      io?.disconnect();
     };
   }, []);
   return theme;
@@ -83,7 +89,7 @@ export function Header() {
         className={`fixed top-0 left-0 right-0 z-50 h-16 border-b transition-colors duration-300 ${bar}`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-          <Link href="/" className={`inline-flex items-center gap-2 py-3 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 ${focus}`}>
+          <Link href="/" className={`inline-flex items-center gap-2 py-3 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-4 ${focus}`}>
             <span aria-hidden="true" className={`block h-2.5 w-2.5 rounded-full ${night ? 'bg-champagne' : 'bg-champagne-800'}`} />
             <span className="text-xl font-semibold tracking-tight">CareersCompus</span>
           </Link>
@@ -97,7 +103,7 @@ export function Header() {
               type="button"
               onClick={focusHeroSearch}
               aria-label="Search"
-              className={`hidden sm:inline-flex h-11 w-11 items-center justify-center rounded-md outline-none transition-colors focus-visible:outline-2 ${focus} ${link}`}
+              className={`hidden sm:inline-flex h-11 w-11 items-center justify-center rounded-md outline-none transition-colors focus-visible:outline-2 focus-visible:outline-solid ${focus} ${link}`}
             >
               <Search className="w-5 h-5" />
             </button>
@@ -105,13 +111,13 @@ export function Header() {
             <button
               type="button"
               onClick={() => jumpTo('act-guidance')}
-              className={`hidden sm:inline-flex min-h-[44px] items-center justify-center rounded-lg px-5 text-sm font-semibold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 ${focus} ${cta}`}
+              className={`hidden sm:inline-flex min-h-[44px] items-center justify-center rounded-lg px-5 text-sm font-semibold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 ${focus} ${cta}`}
             >
               Get Guidance
             </button>
 
             <button
-              className={`lg:hidden min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md outline-none focus-visible:outline-2 ${focus}`}
+              className={`lg:hidden min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md outline-none focus-visible:outline-2 focus-visible:outline-solid ${focus}`}
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="Open mobile menu"
             >
@@ -141,7 +147,7 @@ export function Header() {
               </Link>
               <button
                 aria-label="Close mobile menu"
-                className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md text-silver hover:text-ivory outline-none focus-visible:outline-2 focus-visible:outline-cyan"
+                className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md text-silver hover:text-ivory outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <X className="w-6 h-6" />
@@ -155,7 +161,7 @@ export function Header() {
                     <Link
                       href={l.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block min-h-[56px] py-3 font-atlas text-[32px] leading-none text-ivory border-b border-ivory/10 outline-none focus-visible:outline-2 focus-visible:outline-cyan"
+                      className="block min-h-[56px] py-3 font-atlas text-[32px] leading-none text-ivory border-b border-ivory/10 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
                     >
                       {l.label}
                     </Link>
@@ -164,7 +170,7 @@ export function Header() {
               </nav>
               <div className="mt-auto pt-8">
                 <button
-                  className="w-full min-h-[52px] rounded-lg bg-ivory text-ink-950 font-semibold text-lg hover:bg-ivory-100 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                  className="w-full min-h-[52px] rounded-lg bg-ivory text-ink-950 font-semibold text-lg hover:bg-ivory-100 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     setTimeout(() => jumpTo('act-guidance'), 250);
@@ -186,7 +192,7 @@ function LINK_LIST(links: typeof NAV_LINKS, link: string, focus: string) {
     <Link
       key={l.label}
       href={l.href}
-      className={`inline-flex min-h-[44px] items-center text-sm font-medium transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-4 ${focus} ${link}`}
+      className={`inline-flex min-h-[44px] items-center text-sm font-medium transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-4 ${focus} ${link}`}
     >
       {l.label}
     </Link>

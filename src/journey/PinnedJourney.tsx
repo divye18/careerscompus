@@ -10,7 +10,9 @@ import { ArrivalCopy } from './layers/ArrivalCopy';
 import { DiscoverCopy } from './layers/DiscoverCopy';
 import { DomainMarks } from './layers/DomainMarks';
 import { DirectionRail } from './layers/DirectionRail';
-import { PINNED, PINNED_SCROLL_VH, arrivalTextOut, range } from './choreography';
+import { DOMAINS } from '@/content/domains';
+import { ExploreBackdrops, ExploreContent, StageEndFade } from './explore/ExploreStage';
+import { PINNED, PINNED_SCROLL_VH, arrivalTextOut, cueIn, domainAnchorP } from './choreography';
 
 // 3D is lazy: three/r3f/drei are only downloaded on the "full" tier, after the hero HTML is on screen.
 const WorldCanvas = dynamic(() => import('./world/WorldCanvas'), { ssr: false });
@@ -28,7 +30,8 @@ export function PinnedJourney({ onWorldFail }: { onWorldFail?: () => void }) {
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.6, restDelta: 0.0004 });
 
   const exit = useTransform(progress, arrivalTextOut);
-  const cue = useTransform(progress, (p) => 1 - range(p, PINNED.cueOut[0], PINNED.cueOut[1]));
+  const cue = useTransform(progress, cueIn);
+  const cueDisplay = useTransform(cue, (v) => (v > 0.01 ? 'flex' : 'none'));
 
   return (
     <section
@@ -43,6 +46,8 @@ export function PinnedJourney({ onWorldFail }: { onWorldFail?: () => void }) {
       <div ref={stageRef} className="sticky top-0 h-dvh min-h-[600px] overflow-hidden">
         <JourneyProvider progress={progress} stageRef={stageRef}>
           <Ground />
+          <ExploreBackdrops />
+          <StageEndFade />
           <Graticule />
           <WorldCanvas onFail={onWorldFail} />
 
@@ -54,7 +59,7 @@ export function PinnedJourney({ onWorldFail }: { onWorldFail?: () => void }) {
           {/* Scroll cue */}
           <motion.div
             className="absolute left-[clamp(24px,5vw,80px)] bottom-7 flex items-center gap-3 pointer-events-none [@media(max-height:860px)]:hidden"
-            style={{ opacity: cue }}
+            style={{ opacity: cue, display: cueDisplay }}
             aria-hidden="true"
           >
             <span className="block h-9 w-px origin-top bg-silver/60 animate-[atlas-cue_1.8s_ease-in-out_infinite]" />
@@ -66,11 +71,21 @@ export function PinnedJourney({ onWorldFail }: { onWorldFail?: () => void }) {
           {/* Scene 2 */}
           <DiscoverCopy />
           <DomainMarks />
+          <ExploreContent />
           <DirectionRail />
         </JourneyProvider>
       </div>
 
       {/* Hash targets inside the pinned range, so anchors, the rail and header links all land correctly */}
+      {DOMAINS.map((d, i) => (
+        <span
+          key={d.id}
+          id={`explore-${d.id}`}
+          aria-hidden="true"
+          className="absolute left-0 h-px w-px"
+          style={{ top: `calc((100% - 100svh) * ${domainAnchorP(i)})` }}
+        />
+      ))}
       <span
         id="act-discovery"
         aria-hidden="true"

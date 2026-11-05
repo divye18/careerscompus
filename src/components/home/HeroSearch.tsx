@@ -164,7 +164,7 @@ export function HeroSearch() {
               type="button"
               onClick={clear}
               aria-label="Clear search"
-              className="shrink-0 w-11 h-11 inline-flex items-center justify-center rounded-md text-silver hover:text-ivory hover:bg-ivory/5 transition-colors focus-visible:outline-2 focus-visible:outline-cyan"
+              className="shrink-0 w-11 h-11 inline-flex items-center justify-center rounded-md text-silver hover:text-ivory hover:bg-ivory/5 transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>
@@ -172,7 +172,7 @@ export function HeroSearch() {
           <button
             type="submit"
             aria-label="Search"
-            className="shrink-0 h-11 w-11 sm:w-auto sm:px-5 inline-flex items-center justify-center rounded-md bg-ivory hover:bg-ivory-100 text-ink-950 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+            className="shrink-0 h-11 w-11 sm:w-auto sm:px-5 inline-flex items-center justify-center rounded-md bg-ivory hover:bg-ivory-100 text-ink-950 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
           >
             <Search className="sm:hidden w-5 h-5" aria-hidden="true" />
             <span className="hidden sm:inline">Search</span>
@@ -227,7 +227,7 @@ export function HeroSearch() {
               key={tag}
               type="button"
               onClick={() => entry && choose(entry)}
-              className="min-h-[44px] sm:min-h-[36px] px-3 rounded-md text-sm text-ivory/85 bg-transparent border border-ivory/15 hover:border-champagne/70 hover:text-ivory transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
+              className="min-h-[44px] sm:min-h-[36px] px-3 rounded-md text-sm text-ivory/85 bg-transparent border border-ivory/15 hover:border-champagne/70 hover:text-ivory transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
             >
               {tag}
             </button>

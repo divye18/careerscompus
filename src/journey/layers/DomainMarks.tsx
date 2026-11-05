@@ -6,6 +6,7 @@ import { DOMAINS } from '@/content/domains';
 import { DomainGlyph } from '../DomainGlyph';
 import { useJourney } from '../JourneyContext';
 import { deg2rad, easeOut, finalAngle, markIn, markPosition } from '../choreography';
+import { goTo } from '../scroll';
 
 type Side = 'right' | 'left' | 'below';
 function sideFor(i: number): Side {
@@ -37,12 +38,13 @@ function Mark({
   const vis = useTransform(progress, (p) => markIn(i, p));
   const scale = useTransform(vis, (v) => 0.45 + 0.55 * easeOut(v)); // grows out of the bead
   const pe = useTransform(vis, (v) => (v > 0.6 ? 'auto' : 'none'));
+  const hidden = useTransform(vis, (v) => (v > 0.01 ? 'visible' : 'hidden'));
   const side = sideFor(i);
 
   return (
     <motion.div
       className="absolute left-0 top-0 w-0 h-0 [will-change:transform,opacity]"
-      style={{ x, y, opacity: vis, scale, pointerEvents: pe }}
+      style={{ x, y, opacity: vis, scale, pointerEvents: pe, visibility: hidden }}
     >
       <button
         type="button"
@@ -67,7 +69,7 @@ function Mark({
         </span>
         <span
           aria-hidden="true"
-          className="absolute -inset-1 rounded-full border opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-[atlas-ping_2.4s_ease-out_infinite]"
+          className="absolute -inset-1 rounded-full border opacity-0 group-hover:opacity-100 group-hover:animate-[atlas-ping_2.4s_ease-out_infinite] group-focus-visible:opacity-100 group-focus-visible:animate-[atlas-ping_2.4s_ease-out_infinite] transition-opacity duration-300"
           style={{ borderColor: d.hue }}
         />
       </button>
@@ -101,7 +103,10 @@ export function DomainMarks() {
             i={i}
             isSelected={selected === i}
             onHover={setHovered}
-            onSelect={(n) => setSelected((s) => (s === n ? null : n))}
+            onSelect={(n) => {
+              setSelected(n);
+              goTo(`explore-${DOMAINS[n].id}`);
+            }}
           />
         ))}
       </div>
@@ -117,12 +122,10 @@ export function DomainMarks() {
               {DOMAINS[shown].name}
             </p>
             <p className="mt-2 text-[15px] leading-snug text-ivory/85">{DOMAINS[shown].blurb}</p>
-            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-silver">
-              Full pages for each direction are coming soon
-            </p>
+            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-silver">Select to step inside</p>
           </div>
         ) : (
-          <p className="text-[13px] leading-snug text-silver">Hover or select a direction to read a short description.</p>
+          <p className="text-[13px] leading-snug text-silver">Hover to preview a direction. Select one to step inside.</p>
         )}
       </motion.div>
     </>

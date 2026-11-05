@@ -5,7 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import type * as THREE from 'three';
 import { useJourney } from '../JourneyContext';
 import { DOMAINS } from '@/content/domains';
-import { deg2rad, morphAt, rigLayout, spokeState, tipGlow } from '../choreography';
+import { activeDomain, deg2rad, exploreIn, morphAt, rigLayout, spokeState, tipGlow } from '../choreography';
 import { makeFaceTexture } from './faceTexture';
 import { CompassAssets } from './compassAssets';
 
@@ -33,9 +33,12 @@ function Spoke({ i, assets }: { i: number; assets: CompassAssets }) {
     const H = state.size.height;
     if (!W || !H) return;
 
-    const m = morphAt(progress.get());
-    const L = rigLayout(W, H, m, 'wide');
-    const s = spokeState(i, m, state.clock.elapsedTime, L);
+    const p = progress.get();
+    const m = morphAt(p);
+    const x3 = exploreIn(p);
+    const act = activeDomain(p);
+    const L = rigLayout(W, H, m, 'wide', x3);
+    const s = spokeState(i, m, state.clock.elapsedTime, L, { x3, active: act });
     const emph = hover.get() === i ? 1 : 0;
     const bz = L.bezelPx;
 
@@ -57,7 +60,7 @@ function Spoke({ i, assets }: { i: number; assets: CompassAssets }) {
     bd.position.y = len;
 
     const glow = 0.2 + 0.12 * Math.sin(state.clock.elapsedTime * 1.6 + i * 0.9) + emph * 0.45;
-    assets.setSpoke(i, s.color, s.opacity, glow, selected.get() === i, DOMAINS[i].hue);
+    assets.setSpoke(i, s.color, s.opacity, glow, selected.get() === i || (x3 > 0.5 && act === i), DOMAINS[i].hue);
 
     // Primary needle only: cyan light at the tip (Arrival), fading as it becomes a meridian.
     const tc = tipCore.current;
@@ -135,8 +138,9 @@ export function CompassRig() {
     const H = state.size.height;
     if (!W || !H) return;
 
-    const m = morphAt(progress.get());
-    const L = rigLayout(W, H, m, 'wide');
+    const p = progress.get();
+    const m = morphAt(p);
+    const L = rigLayout(W, H, m, 'wide', exploreIn(p));
     const ppu = pxPerUnitFor(H);
 
     const pt = pointer.current;
