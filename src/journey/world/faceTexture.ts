@@ -1,7 +1,11 @@
 import * as THREE from 'three';
+import { compass } from '@/theme/tokens';
+import { hexToRgb } from '../choreography';
+
+const rgba = (hex: string, a: number) => `rgba(${hexToRgb(hex).join(',')},${a})`;
 
 /**
- * Draws the compass dial (engraved paper face) into a canvas and returns a texture.
+ * Draws the compass dial (smoked-ivory face, ink engraving, deep-cyan N) into a canvas texture.
  * Drawn procedurally so there are no image/font downloads and no licensing concerns.
  */
 export function makeFaceTexture(maxAnisotropy = 8): THREE.CanvasTexture {
@@ -21,10 +25,11 @@ export function makeFaceTexture(maxAnisotropy = 8): THREE.CanvasTexture {
     return seed / 2147483647;
   };
 
-  const brass = '#8A6A2D';
-  const brassSoft = 'rgba(138,106,45,0.55)';
-  const royal = '#3155D9';
-  const deep = '#1E2A78';
+  // Nocturne Atlas dial: ink engraving on smoked ivory; the only colour is the deep-cyan N.
+  const brass = rgba(compass.engraving, 0.78); // (name kept: engraved line colour)
+  const brassSoft = rgba(compass.engraving, 0.34);
+  const royal = compass.northMark;
+  const deep = compass.engraving;
 
   // The cylinder cap maps canvas-up to world-right, so draw everything rotated -90° to read upright.
   ctx.translate(cx, cy);
@@ -33,15 +38,15 @@ export function makeFaceTexture(maxAnisotropy = 8): THREE.CanvasTexture {
 
   // paper base + warm vignette
   const base = ctx.createRadialGradient(cx, cy, R * 0.1, cx, cy, R);
-  base.addColorStop(0, '#FBF6E8');
-  base.addColorStop(0.7, '#F1E8D0');
-  base.addColorStop(1, '#DCCDA8');
+  base.addColorStop(0, compass.dialCentre);
+  base.addColorStop(0.7, compass.dialMid);
+  base.addColorStop(1, compass.dialEdge);
   ctx.fillStyle = base;
   ctx.fillRect(0, 0, S, S);
 
   // faint paper fibres
   ctx.globalAlpha = 0.05;
-  ctx.strokeStyle = '#6b5a35';
+  ctx.strokeStyle = compass.engraving;
   ctx.lineWidth = 1;
   for (let i = 0; i < 260; i++) {
     const a = rnd() * Math.PI * 2;
@@ -110,8 +115,8 @@ export function makeFaceTexture(maxAnisotropy = 8): THREE.CanvasTexture {
       ctx.stroke();
     }
   };
-  drawStar(4, R * 0.58, R * 0.13, 'rgba(49,85,217,0.09)', 'rgba(30,42,120,0.05)', -Math.PI / 2 + Math.PI / 4);
-  drawStar(4, R * 0.82, R * 0.12, 'rgba(49,85,217,0.12)', 'rgba(30,42,120,0.06)', -Math.PI / 2);
+  drawStar(4, R * 0.58, R * 0.13, rgba(compass.engraving, 0.07), rgba(compass.engraving, 0.03), -Math.PI / 2 + Math.PI / 4);
+  drawStar(4, R * 0.82, R * 0.12, rgba(compass.engraving, 0.1), rgba(compass.engraving, 0.045), -Math.PI / 2);
 
   // cardinal letters
   ctx.textAlign = 'center';

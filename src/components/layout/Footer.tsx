@@ -25,22 +25,22 @@ function FooterLink({ item }: { item: FooterItem }) {
   const base = 'inline-flex items-center min-h-[44px] text-sm';
   if (item.href) {
     return (
-      <Link href={item.href} className={`${base} hover:text-white transition-colors`}>
+      <Link href={item.href} className={`${base} hover:text-ivory transition-colors`}>
         {item.label}
       </Link>
     );
   }
   return (
-    <span className={`${base} gap-2 text-slate-500`}>
+    <span className={`${base} gap-2 text-silver/70`}>
       {item.label}
-      <span className="text-[11px] uppercase tracking-wider border border-slate-700 rounded px-1.5 py-0.5">Soon</span>
+      <span className="text-[11px] uppercase tracking-wider border border-ivory/20 rounded px-1.5 py-0.5">Soon</span>
     </span>
   );
 }
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-8">
+    <footer className="bg-ink-950 text-silver pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           
@@ -49,12 +49,12 @@ export function Footer() {
             <div>
               <Link 
                 href="/" 
-                className="text-2xl font-extrabold text-white tracking-tight inline-block py-2 mb-1"
-                style={{ fontFamily: 'var(--font-plus-jakarta)' }}
+                className="text-2xl font-semibold text-ivory tracking-tight inline-block py-2 mb-1"
+                
               >
                 CareersCompus
               </Link>
-              <p className="text-sky-400 font-medium text-sm">Find Your Direction</p>
+              <p className="text-champagne font-mono text-xs uppercase tracking-[0.16em]">Find Your Direction</p>
             </div>
             <p className="text-sm leading-relaxed">
               Explore careers, compare courses, discover universities — and chart your future with confidence.
@@ -63,7 +63,7 @@ export function Footer() {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-6">Quick Links</h3>
+            <h3 className="text-ivory font-mono text-xs font-normal uppercase tracking-[0.16em] mb-6">Quick Links</h3>
             <ul>
               {QUICK_LINKS.map((link) => (
                 <li key={link.label}>
@@ -75,7 +75,7 @@ export function Footer() {
 
           {/* Column 3: Top Streams */}
           <div>
-            <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-6">Top Streams</h3>
+            <h3 className="text-ivory font-mono text-xs font-normal uppercase tracking-[0.16em] mb-6">Top Streams</h3>
             <ul>
               {TOP_STREAMS.map((stream) => (
                 <li key={stream.label}>
@@ -87,7 +87,7 @@ export function Footer() {
 
           {/* Column 4: Contact */}
           <div>
-            <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-6">Contact</h3>
+            <h3 className="text-ivory font-mono text-xs font-normal uppercase tracking-[0.16em] mb-6">Contact</h3>
             <p className="text-sm leading-relaxed">
               Contact details will be published when CareersCompus launches. This site is an early preview.
             </p>
@@ -96,7 +96,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        <div className="pt-8 border-t border-ivory/10 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
           <p className="text-sm">
             © {new Date().getFullYear()} CareersCompus. All rights reserved.
           </p>

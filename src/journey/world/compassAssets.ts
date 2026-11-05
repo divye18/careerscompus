@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { DOMAINS } from '@/content/domains';
 import { makeMatcap, TONES } from './matcaps';
+import { color, compass } from '@/theme/tokens';
 
 /**
  * All GPU resources for the compass, created once per mounted rig and shared by every mesh.
@@ -26,7 +27,7 @@ export class CompassAssets {
     brass: makeMatcap(TONES.brass),
     brassDark: makeMatcap(TONES.brassDark),
     champagne: makeMatcap(TONES.champagne),
-    royal: makeMatcap(TONES.royal),
+    silver: makeMatcap(TONES.silver),
     steel: makeMatcap(TONES.steel),
   };
   readonly brass = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.brass });
@@ -35,14 +36,14 @@ export class CompassAssets {
   readonly faceSide = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.brassDark });
   readonly faceTop = new THREE.MeshStandardMaterial({ roughness: 0.78, metalness: 0 });
   readonly ringA = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.champagne, transparent: true });
-  readonly ringB = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.royal, transparent: true });
+  readonly ringB = new THREE.MeshMatcapMaterial({ matcap: this.matcaps.silver, transparent: true });
 
   /** Needles/meridians: neutral steel matcap tinted by the per-frame colour. */
   readonly spokeMats = DOMAINS.map(
     () =>
       new THREE.MeshMatcapMaterial({
         matcap: this.matcaps.steel,
-        color: '#4F61B8',
+        color: compass.ghost,
         transparent: true,
         opacity: 0.3,
       })
@@ -58,6 +59,15 @@ export class CompassAssets {
       })
   );
 
+  /** Cyan light at the primary needle tip: a small core and a soft halo (no bloom pass). */
+  readonly tipCore = new THREE.MeshBasicMaterial({ color: compass.tip, transparent: true, depthWrite: false });
+  readonly tipHalo = new THREE.MeshBasicMaterial({ color: compass.tip, transparent: true, opacity: 0.2, depthWrite: false });
+
+  setTip(opacity: number) {
+    this.tipCore.opacity = opacity;
+    this.tipHalo.opacity = 0.2 * opacity;
+  }
+
   setFaceMap(tex: THREE.Texture | null) {
     this.faceTop.map = tex;
     this.faceTop.needsUpdate = true;
@@ -68,15 +78,20 @@ export class CompassAssets {
     this.ringB.opacity = 0.5 * v;
   }
 
-  setSpoke(i: number, color: string, opacity: number, glow: number) {
-    this.spokeMats[i].color.set(color);
+  /** `selected`: cyan marks the selected domain's bead (cyan selects; domain hues identify). */
+  setSpoke(i: number, tint: string, opacity: number, glow: number, selected: boolean, hue: string) {
+    this.spokeMats[i].color.set(tint);
     this.spokeMats[i].opacity = opacity;
-    this.beadMats[i].emissiveIntensity = glow;
+    const bead = this.beadMats[i];
+    const c = selected ? color.cyan : hue;
+    bead.color.set(c);
+    bead.emissive.set(c);
+    bead.emissiveIntensity = glow;
   }
 
   dispose() {
     Object.values(this.geo).forEach((g) => g.dispose());
-    [this.brass, this.brassDark, this.champagne, this.faceSide, this.faceTop, this.ringA, this.ringB]
+    [this.brass, this.brassDark, this.champagne, this.faceSide, this.faceTop, this.ringA, this.ringB, this.tipCore, this.tipHalo]
       .concat(this.spokeMats, this.beadMats)
       .forEach((m) => m.dispose());
     Object.values(this.matcaps).forEach((t) => t.dispose());

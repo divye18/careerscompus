@@ -1,0 +1,292 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-05T10:11:08.931Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 1340,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 60.2,
+        "visibility": "visible"
+      },
+      "scrollRuns": [
+        {
+          "frames": 356,
+          "avgFps": 59.4,
+          "p50ms": 16.7,
+          "p95ms": 17,
+          "over33ms": 2,
+          "visibility": "visible",
+          "reactCommits": 2
+        },
+        {
+          "frames": 357,
+          "avgFps": 59.7,
+          "p50ms": 16.7,
+          "p95ms": 16.9,
+          "over33ms": 0,
+          "visibility": "visible",
+          "reactCommits": 2
+        },
+        {
+          "frames": 359,
+          "avgFps": 59.9,
+          "p50ms": 16.7,
+          "p95ms": 16.9,
+          "over33ms": 1,
+          "visibility": "visible",
+          "reactCommits": 2
+        },
+        {
+          "frames": 354,
+          "avgFps": 59,
+          "p50ms": 16.7,
+          "p95ms": 17,
+          "over33ms": 0,
+          "visibility": "visible",
+          "reactCommits": 2
+        },
+        {
+          "frames": 345,
+          "avgFps": 57.5,
+          "p50ms": 16.7,
+          "p95ms": 17.2,
+          "over33ms": 8,
+          "visibility": "visible",
+          "reactCommits": 4
+        }
+      ],
+      "scroll": {
+        "runs": 5,
+        "medianAvgFps": 59.4,
+        "medianP95ms": 17,
+        "medianOver33": 1,
+        "minAvgFps": 57.5,
+        "maxAvgFps": 59.9,
+        "medianReactCommits": 2,
+        "medianFrames": 356
+      },
+      "trace": {
+        "frames": 347,
+        "paint": 129,
+        "paintMs": 50,
+        "layout": 20,
+        "layoutMs": 12,
+        "recalcStyle": 542,
+        "recalcStyleMs": 267,
+        "raster": 83,
+        "rasterMs": 7,
+        "gpuTaskMs": 785,
+        "scriptMs": 2645
+      },
+      "screenshots": [
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p000.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p004.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p009.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p014.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p020.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p028.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p036.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p044.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p052.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p062.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p080.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-p100.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-handoff0.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-handoff1.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-handoff2.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1440-handoff3.jpg"
+      ]
+    },
+    "desktop1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 1496,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 60.3,
+        "visibility": "visible"
+      },
+      "scrollRuns": [
+        {
+          "frames": 359,
+          "avgFps": 60,
+          "p50ms": 16.7,
+          "p95ms": 16.9,
+          "over33ms": 0,
+          "visibility": "visible",
+          "reactCommits": 2
+        },
+        {
+          "frames": 356,
+          "avgFps": 59.4,
+          "p50ms": 16.7,
+          "p95ms": 17,
+          "over33ms": 2,
+          "visibility": "visible",
+          "reactCommits": 2
+        },
+        {
+          "frames": 358,
+          "avgFps": 59.9,
+          "p50ms": 16.7,
+          "p95ms": 17,
+          "over33ms": 0,
+          "visibility": "visible",
+          "reactCommits": 2
+        },
+        {
+          "frames": 357,
+          "avgFps": 59.6,
+          "p50ms": 16.7,
+          "p95ms": 17,
+          "over33ms": 1,
+          "visibility": "visible",
+          "reactCommits": 2
+        },
+        {
+          "frames": 360,
+          "avgFps": 60.1,
+          "p50ms": 16.7,
+          "p95ms": 17,
+          "over33ms": 0,
+          "visibility": "visible",
+          "reactCommits": 2
+        }
+      ],
+      "scroll": {
+        "runs": 5,
+        "medianAvgFps": 59.9,
+        "medianP95ms": 17,
+        "medianOver33": 0,
+        "minAvgFps": 59.4,
+        "maxAvgFps": 60.1,
+        "medianReactCommits": 2,
+        "medianFrames": 358
+      },
+      "trace": {
+        "frames": 358,
+        "paint": 116,
+        "paintMs": 65,
+        "layout": 17,
+        "layoutMs": 17,
+        "recalcStyle": 593,
+        "recalcStyleMs": 305,
+        "raster": 50,
+        "rasterMs": 8,
+        "gpuTaskMs": 1018,
+        "scriptMs": 3061
+      },
+      "screenshots": [
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p000.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p004.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p009.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p014.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p020.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p028.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p036.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p044.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p052.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p062.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p080.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-p100.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-handoff0.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-handoff1.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-handoff2.jpg",
+        "docs\\qa-screenshots\\nocturne\\desktop1280-handoff3.jpg"
+      ]
+    },
+    "mobile390": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "not-desktop",
+      "vitals": {
+        "lcp": 728,
+        "lcpEl": "P.max-w-[34rem] text-[17px] sm:text-lg lea",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\nocturne\\mobile390-s0.jpg",
+        "docs\\qa-screenshots\\nocturne\\mobile390-s1.jpg",
+        "docs\\qa-screenshots\\nocturne\\mobile390-s2.jpg",
+        "docs\\qa-screenshots\\nocturne\\mobile390-s3.jpg",
+        "docs\\qa-screenshots\\nocturne\\mobile390-s4.jpg",
+        "docs\\qa-screenshots\\nocturne\\mobile390-s5.jpg",
+        "docs\\qa-screenshots\\nocturne\\mobile390-s6.jpg"
+      ]
+    },
+    "reduced": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "reduced-motion",
+      "vitals": {
+        "lcp": 1060,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\nocturne\\reduced-s0.jpg",
+        "docs\\qa-screenshots\\nocturne\\reduced-s1.jpg",
+        "docs\\qa-screenshots\\nocturne\\reduced-s2.jpg",
+        "docs\\qa-screenshots\\nocturne\\reduced-s3.jpg",
+        "docs\\qa-screenshots\\nocturne\\reduced-s4.jpg",
+        "docs\\qa-screenshots\\nocturne\\reduced-s5.jpg",
+        "docs\\qa-screenshots\\nocturne\\reduced-s6.jpg"
+      ]
+    },
+    "nowebgl": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "no-webgl",
+      "vitals": {
+        "lcp": 844,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\nocturne\\nowebgl-s0.jpg",
+        "docs\\qa-screenshots\\nocturne\\nowebgl-s1.jpg",
+        "docs\\qa-screenshots\\nocturne\\nowebgl-s2.jpg",
+        "docs\\qa-screenshots\\nocturne\\nowebgl-s3.jpg",
+        "docs\\qa-screenshots\\nocturne\\nowebgl-s4.jpg",
+        "docs\\qa-screenshots\\nocturne\\nowebgl-s5.jpg",
+        "docs\\qa-screenshots\\nocturne\\nowebgl-s6.jpg"
+      ]
+    }
+  }
+}

@@ -22,7 +22,7 @@ for (let i = 0; i < N; i++) {
     };
   });
   const p = await ctx.newPage();
-  await p.goto('http://localhost:3100', { waitUntil: 'networkidle' });
+  await p.goto(process.argv[3] || 'http://localhost:3100', { waitUntil: 'networkidle' });
   await p.waitForTimeout(3500);
   const r = await p.evaluate(() => ({
     presenter: document.querySelector('[data-journey]')?.getAttribute('data-journey'),

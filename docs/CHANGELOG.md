@@ -27,3 +27,14 @@
 - Mobile/reduced/no-WebGL: SVG compass with the same choreography; scrubbed by section scroll (static when reduced).
 - Removed: Hero, Scroll3DScene, CareerCompassSystem, ScrollJourney. CareerExploration no longer rendered.
 - Fixed during QA: font var scope (moved to <html>), dial orientation, dead transition frame, ghost-needle legibility, cue/button collision at 800 px height, clipped SVG halo, mobile eyebrow wrap, scroll jank from blend/backdrop/SVG repaint.
+
+## 2026-11-05 — Nocturne Atlas + stabilisation
+- Checkpoint `befaeb6` (paused stabilisation work) before any change.
+- Colour: `src/theme/tokens.ts` + `@theme` + drift check; domains night/ink hues; Ground (Midnight→Aubergine atmosphere, champagne key-light pool, grain); graticule in champagne; DomainMarks / Rail / Discover copy / ArrivalCopy / HeroSearch / Header / Footer / FlowJourney re-themed; buttons per the approved system; cyan = selection/focus only.
+- Compass: matcap brass, smoked-ivory dial with deep-cyan N, blued-steel primary needle, silver ghosts, cyan tip (core + halo), cyan rim light, cyan selected bead. JetBrains Mono added.
+- Transition re-timed (compass glides with the text exit; needles keep Arrival character, then extend in sequence; marks bloom as each meridian lands; aubergine eases in).
+- Perf: composite-only layers, promoted glow/grain, no blend modes / backdrop blur, header without blur; PMREM removed.
+- Capability: probe retry, context-loss grace window, `data-journey-reason`.
+- Mobile: phone placeholder wording + icon-only search button (no truncation); 44 px targets.
+- Handoff: temporary dawn band with shared `--handoff-top`.
+- Docs: architecture doc renumbered to 09.

@@ -1,8 +1,39 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
+  /* ===== Nocturne Atlas (approved) — mirrors src/theme/tokens.ts; verify: node scripts/check-tokens.mjs ===== */
+  --color-ink-950: #101014;
+  --color-ink-900: #1A1A22;
+  --color-ink-800: #24242E;
+  --color-aubergine: #241333;
+  --color-aubergine-glow: #2B1840;
+  --color-plum: #43205F;
+  --color-ivory: #F4F0E8;
+  --color-ivory-100: #ECE6DA;
+  --color-silver: #A7A9B5;
+  --color-silver-700: #5C5E6D;
+  --color-champagne: #C9A96E;
+  --color-champagne-800: #7D6331;
+  --color-cyan: #35E6E6;
+  --color-cyan-800: #0A6F78;
+
+  --color-domain-technology: #8C95FF;
+  --color-domain-medicine: #5FCB98;
+  --color-domain-business: #E9B44C;
+  --color-domain-design: #EE7FA8;
+  --color-domain-law: #B993F0;
+  --color-domain-architecture: #E58A64;
+  --color-domain-science: #6DB5F2;
+
+  --font-atlas: var(--font-instrument), Georgia, 'Times New Roman', serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  /* page ground = ivory (day); journey scenes set their own night grounds */
+  --color-background: #F4F0E8;
+  --color-foreground: #101014;
+
+  /* ===== LEGACY (Light Royal) — used only by the interim sections below the journey.
+     Remove when Scenes 4–8 replace them. Do not use in new code. ===== */
 
   --color-primary-base: #0f172a;
   --color-primary-brand: #1e3a8a;
@@ -111,11 +142,6 @@
   --color-ch7-lavender: var(--color-ch7-text);
   --color-ch7-indigo: var(--color-ch7-bg);
 
-  /* Meridian Atlas */
-  --color-bg-paper: #F6F1E7;
-  --color-bg-mist: #EEF0F7;
-  --font-atlas: var(--font-instrument), Georgia, 'Times New Roman', serif;
-
   --font-display: var(--font-plus-jakarta), sans-serif;
   --font-sans: var(--font-inter), sans-serif;
 
@@ -188,4 +214,18 @@
   [class*='animate-[atlas-'] {
     animation: none !important;
   }
+}
+
+/* ---- Nocturne Atlas surfaces ---- */
+:root {
+  /* Where the night journey ends and the dawn handoff begins; used by the stage bottom, the flow
+     Discover section bottom and the handoff top so they always meet without a seam. */
+  --handoff-top: color-mix(in srgb, var(--color-aubergine) 40%, var(--color-ink-950));
+}
+
+/* Fine film grain for night grounds: plain alpha (no blend mode), promoted, static. */
+.atlas-grain {
+  opacity: 0.045;
+  will-change: transform;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.94  0 0 0 0 0.91  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }

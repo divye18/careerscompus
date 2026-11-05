@@ -1,6 +1,7 @@
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Journey } from '@/journey/Journey';
+import { Handoff } from '@/journey/Handoff';
 import { PopularStreams } from '@/components/home/PopularStreams';
 import { FeaturedCourses } from '@/components/home/FeaturedCourses';
 import { UniversityPreview } from '@/components/home/UniversityPreview';
@@ -22,6 +23,7 @@ export default function Home() {
       <Header />
       <main className="w-full relative">
         <Journey />
+        <Handoff />
 
         <div id="act-courses" className="scroll-mt-16 py-16 sm:py-24">
           <PopularStreams />

@@ -1,4 +1,4 @@
-# 08 — Implementation Architecture (as built, Milestones 0–1)
+# 09 — Implementation Architecture (as built, Milestones 0–1 + Nocturne Atlas)
 
 Status: **implemented** on branch `redesign/meridian-atlas`. Scenes 1 (Arrival) and 2 (Discover) only.
 
@@ -63,3 +63,12 @@ The server always renders **flow**; Scene 1's copy is identical in both, so hydr
 `npm run qa:visual` (see `scripts/visual-check.mjs`) against `next start -p 3100`:
 headed **real Chrome** via `playwright-core` → screenshots at scroll marks for 1440/1280 pinned, 390 mobile, reduced motion, WebGL disabled; LCP/CLS from PerformanceObserver; idle fps and a 6 s scripted scroll frame-time profile in a visible window; `--inject` CSS for A/B perf experiments; `--only`, `--perf-only`, `--no-perf`.
 Video recording needs Playwright's ffmpeg download (not installed); a dense JPEG frame sequence is captured instead.
+
+## 8. Nocturne Atlas integration (added)
+- **Tokens:** one JS source `src/theme/tokens.ts` (colours, compass materials, matcap ramps, domain night/ink hues) mirrored in `globals.css` `@theme`; `node scripts/check-tokens.mjs` fails on drift or stray hex in journey/header/footer components. Legacy Light Royal tokens remain only for the interim sections and are labelled LEGACY.
+- **Materials:** compass metals are procedural **matcaps** (`world/matcaps.ts`, tones from tokens); dial texture drawn from tokens; `MeshBasicMaterial` cyan tip core + halo (no bloom pass); two lights (warm key, faint cyan rim). **No IBL/PMREM** (it blocked the main thread ≈3 s).
+- **Selection:** `JourneyContext.selected` (cyan marks selection; domain hue identifies). Hover emphasises; the rig reads both from MotionValues.
+- **Header:** follows the environment beneath it via `data-header-theme="night"` markers (night/day); React state changes only on boundary crossings.
+- **Handoff:** `--handoff-top` CSS variable is the shared end colour of the stage, the flow Discover section and the top of `Handoff.tsx` (temporary dawn band).
+- **Capability:** a failed WebGL probe is retried once; context loss waits 3 s for restoration before falling back (`data-journey-reason` exposes why).
+- **Tooling (`scripts/`):** visual-check (`--repeat`, `--trace`, `--video`), contact-sheet, transition-frames, states-check, context-loss-test, capability-stress, load-timeline, check-tokens.

@@ -16,7 +16,7 @@ await p.addInitScript(() => {
   new PerformanceObserver((l) => { for (const e of l.getEntries()) lt.push([Math.round(e.startTime), Math.round(e.duration)]); }).observe({ type: 'longtask', buffered: true });
   window.__lt = lt;
 });
-await p.goto('http://localhost:3100', { waitUntil: 'domcontentloaded' });
+await p.goto(process.argv[2] || 'http://localhost:3100', { waitUntil: 'domcontentloaded' });
 await p.waitForTimeout(8000);
 console.log(JSON.stringify(await p.evaluate(() => ({ t: window.__t, longTasks: window.__lt }))));
 await b.close();

@@ -40,3 +40,26 @@ Measured in headed Chrome (Windows, Intel UHD integrated GPU), production build:
 Perf A/B (CSS injection): hiding the WebGL canvas did **not** improve scroll fps; removing the mix-blend grain and per-frame SVG re-rasterisation did — so remaining cost is DOM compositing, not 3D.
 
 Not verified: Safari/Firefox, real phones (mobile verified by Chrome emulation at 390×844, DPR 3), video recording (ffmpeg not installed).
+
+## Update 2026-11-05 — Nocturne Atlas + stabilisation (branch `redesign/meridian-atlas`)
+Implemented: Nocturne Atlas colour identity for Scenes 1–2 (pinned + flow), header (night/day theme), footer, buttons, search; compass in brass / smoked ivory / blued steel with a cyan tip; temporary dawn handoff; JetBrains Mono labels.
+
+**Performance, same machine / browser / method** (real Chrome, Intel UHD, production build, 6 s scripted scroll, 5 repeats, medians):
+| | M1 baseline (`df41d95`) | Now |
+|---|---|---|
+| 1440 avg fps (min–max) | 51.7 (49.2–53.4) | **59.4 (57.5–59.9)** |
+| 1280 avg fps (min–max) | 54.9 (52.5–58.7) | **59.9 (59.4–60.1)** |
+| p95 frame time | 33.4 / 33.3 ms | **17.0 / 17.0 ms** |
+| Frames > 33 ms (median) | 18 / 12 | **1 / 0** |
+| Paint events / raster tasks (trace, 1440) | 278 / 1083 | **129 / 83** |
+| GPU task time (trace, 1440) | 2653 ms | **785 ms** |
+| React commits during the scroll | 2 | 2 (none per frame) |
+| Idle fps at hero | 59.9–60.2 | 60.2–60.3 |
+
+Load: the compass canvas mounts at ≈1.6–1.9 s (unchanged); fully faded in at ≈3.0–3.2 s vs ≈4.7–5.5 s before (PMREM environment removed); the main-thread long task at 3D start is ≈1.0 s vs 2.7–3.4 s. LCP 0.7–1.5 s, CLS 0–0.0001 on desktop, mobile, reduced-motion and no-WebGL.
+
+Capability: 60 consecutive real-Chrome loads → 60/60 pinned. The original unexplained fallback was **not reproduced**; two fragile paths were fixed (a failed WebGL probe was cached forever; any context loss fell back immediately) and verified with `scripts/context-loss-test.mjs` (recoverable loss stays 3D and redraws; permanent loss falls back after ~3 s with reason `webgl-lost`). One earlier "fallback" run coincided with a stale server returning 500.
+
+Contrast: all 29 text/graphic pairs used pass (4.5 text / 3.0 graphics) — `docs/qa-screenshots/nocturne/contrast-audit.txt`.
+
+Not verified: Safari/Firefox, real phones (390 px is Chrome emulation), screen-reader pass. The interim sections below the handoff are still Light Royal (gradient stream cards etc.) and visually clash until Scenes 3–8 replace them. Recorded videos show motion, but their frame rate is capture-limited and is not a performance figure.

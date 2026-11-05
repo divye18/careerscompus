@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import type { MatcapTone } from '@/theme/tokens';
 
 /**
  * Procedural "studio" matcaps for the compass metals.
@@ -8,22 +9,7 @@ import * as THREE from 'three';
  * lit-metal look from a small canvas texture and compile almost instantly. Measured in
  * docs/PROJECT_STATUS.md (stabilisation milestone).
  */
-export interface MatcapTone {
-  highlight: string; // specular core (top-left key light)
-  light: string; // lit side
-  mid: string; // body colour
-  dark: string; // terminator / far side
-  rim: string; // bounce light from lower right
-}
-
-export const TONES = {
-  brass: { highlight: '#FFF8E2', light: '#F3D68A', mid: '#BE9339', dark: '#3A2808', rim: '#E7C46E' },
-  brassDark: { highlight: '#F7E2AE', light: '#C9A35C', mid: '#86642A', dark: '#2A1C06', rim: '#B8924A' },
-  champagne: { highlight: '#FFFBEF', light: '#F7E7BC', mid: '#DCC17E', dark: '#7A6230', rim: '#F1DDA4' },
-  royal: { highlight: '#E8EEFF', light: '#7F9BF2', mid: '#3155D9', dark: '#141E5C', rim: '#6F8BE8' },
-  /** neutral steel, tinted by material.color (used for needles/meridians) */
-  steel: { highlight: '#FFFFFF', light: '#F1F3FA', mid: '#C9CEDF', dark: '#5D6378', rim: '#E4E8F4' },
-} satisfies Record<string, MatcapTone>;
+export { matcapTone as TONES } from '@/theme/tokens';
 
 export function makeMatcap(t: MatcapTone, size = 256): THREE.CanvasTexture {
   const c = document.createElement('canvas');

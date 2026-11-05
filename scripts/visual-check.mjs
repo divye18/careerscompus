@@ -202,6 +202,17 @@ for (const run of RUNS) {
       await page.screenshot({ path: file, type: 'jpeg', quality: 80 });
       shots.push(file);
     }
+    // handoff: stage end → interim sections below (scroll past the pinned range)
+    if (!PERF_ONLY) {
+      const vh = run.viewport.height;
+      for (const [k, d] of [0.35, 0.7, 1.05, 1.5].entries()) {
+        await page.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), geo.top + geo.len + d * vh);
+        await sleep(700);
+        const file = path.join(OUT, `${run.name}-handoff${k}.jpg`);
+        await page.screenshot({ path: file, type: 'jpeg', quality: 80 });
+        shots.push(file);
+      }
+    }
     if (PERF && !VIDEO) {
       await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
       await sleep(800);
@@ -251,7 +262,7 @@ for (const run of RUNS) {
     const marks = await page.evaluate(() => {
       const d = document.getElementById('act-discovery');
       const top = d.getBoundingClientRect().top + window.scrollY;
-      return [0, top - window.innerHeight * 0.6, top - window.innerHeight * 0.25, top, top + d.offsetHeight * 0.45];
+      return [0, top - window.innerHeight * 0.6, top - window.innerHeight * 0.25, top, top + d.offsetHeight * 0.45, top + d.offsetHeight - window.innerHeight * 0.5, top + d.offsetHeight + window.innerHeight * 0.3];
     });
     for (const [k, y] of marks.entries()) {
       await page.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), y);

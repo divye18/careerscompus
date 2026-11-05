@@ -1,0 +1,30 @@
+PASS hero body ivory/75 on Midnight                9.60
+PASS hero headline ivory on Midnight               16.70
+PASS champagne italic on Midnight                  8.48
+PASS mono eyebrow champagne on Midnight            8.48
+PASS silver tagline on Midnight                    8.12
+PASS search placeholder silver on ink-900          7.40
+PASS search text ivory on ink-900                  15.21
+PASS tag text ivory/85 on Midnight                 12.12
+PASS primary btn ink on ivory                      16.70
+PASS secondary btn ivory on Midnight               16.70
+PASS Discover title ivory on aubergine glow        14.13
+PASS Discover sub silver on aubergine              7.39
+PASS domain label ivory on aubergine               15.19
+PASS mono index silver on aubergine                7.39
+PASS panel blurb ivory/85 on aubergine             11.21
+PASS panel hint silver on aubergine                7.39
+PASS Technology hue on ink-900 chip                6.47
+PASS Medicine hue on ink-900                       8.63
+PASS Business hue on ink-900                       9.14
+PASS Design hue on ink-900                         6.78
+PASS Law hue on ink-900                            6.99
+PASS Architecture hue on ink-900                   6.71
+PASS Science hue on ink-900                        7.85
+PASS Design hue (panel title) on aubergine         6.77
+PASS cyan focus ring on Midnight                   12.31
+PASS cyan selected ring on ink-900 chip            11.21
+PASS rail label ivory on Midnight                  16.70
+PASS footer silver on Midnight                     8.12
+PASS footer Soon tag silver/70 on Midnight         4.52
+all pairs pass (text 4.5, non-text/graphic 3.0)

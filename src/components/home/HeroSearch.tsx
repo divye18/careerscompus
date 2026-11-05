@@ -125,51 +125,62 @@ export function HeroSearch() {
         <label htmlFor={`${listId}-input`} className="sr-only">
           Search courses, colleges, universities or careers
         </label>
-        <div className="flex items-center gap-2 h-14 pl-4 pr-2 bg-white border border-[var(--color-royal-deep)]/15 rounded-lg shadow-[0_8px_30px_rgba(30,42,120,0.08)] focus-within:border-[var(--color-royal-blue)] focus-within:ring-2 focus-within:ring-[var(--color-royal-blue)]/20 transition-shadow">
-          <Search className="w-5 h-5 shrink-0 text-[var(--color-royal-blue)]" aria-hidden="true" />
-          <input
-            id={`${listId}-input`}
-            ref={inputRef}
-            type="text"
-            role="combobox"
-            aria-expanded={showList}
-            aria-controls={`${listId}-list`}
-            aria-activedescendant={active >= 0 ? `${listId}-opt-${active}` : undefined}
-            aria-autocomplete="list"
-            autoComplete="off"
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setOpen(true);
-              setActive(-1);
-              setStatus('');
-            }}
-            onFocus={() => setOpen(true)}
-            onBlur={() => setOpen(false)}
-            onKeyDown={onKeyDown}
-            placeholder="Search courses, colleges, universities or careers..."
-            className="flex-1 min-w-0 h-full bg-transparent text-base text-[var(--color-accent-midnight)] placeholder:text-[var(--color-royal-deep)]/60 focus:outline-none truncate"
-          />
+        <div className="flex items-center gap-2 h-14 pl-4 pr-1.5 sm:pr-2 bg-ink-900 border border-ivory/15 rounded-lg focus-within:border-cyan focus-within:ring-2 focus-within:ring-cyan/25 transition-[border-color,box-shadow]">
+          <Search className="hidden sm:block w-5 h-5 shrink-0 text-silver" aria-hidden="true" />
+          <div className="relative flex-1 min-w-0 h-full">
+            <input
+              id={`${listId}-input`}
+              ref={inputRef}
+              type="text"
+              role="combobox"
+              aria-expanded={showList}
+              aria-controls={`${listId}-list`}
+              aria-activedescendant={active >= 0 ? `${listId}-opt-${active}` : undefined}
+              aria-autocomplete="list"
+              autoComplete="off"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setOpen(true);
+                setActive(-1);
+                setStatus('');
+              }}
+              onFocus={() => setOpen(true)}
+              onBlur={() => setOpen(false)}
+              onKeyDown={onKeyDown}
+              className="w-full h-full bg-transparent text-base text-ivory focus:outline-none"
+            />
+            {/* Responsive placeholder: the full text cannot fit on a 390 px phone, so phones get a
+                shorter wording instead of a truncated one. Purely visual; the input has a label. */}
+            {!query && (
+              <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center text-[15px] sm:text-base text-silver whitespace-nowrap overflow-hidden">
+                <span className="sm:hidden">Search courses, colleges, careers…</span>
+                <span className="hidden sm:inline">Search courses, colleges, universities or careers...</span>
+              </span>
+            )}
+          </div>
           {query && (
             <button
               type="button"
               onClick={clear}
               aria-label="Clear search"
-              className="shrink-0 w-11 h-11 inline-flex items-center justify-center rounded-md text-[var(--color-royal-deep)]/60 hover:text-[var(--color-royal-deep)] hover:bg-[var(--color-bg-lavender)] transition-colors"
+              className="shrink-0 w-11 h-11 inline-flex items-center justify-center rounded-md text-silver hover:text-ivory hover:bg-ivory/5 transition-colors focus-visible:outline-2 focus-visible:outline-cyan"
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>
           )}
           <button
             type="submit"
-            className="shrink-0 h-11 px-5 rounded-md bg-[var(--color-royal-blue)] hover:bg-[var(--color-royal-deep)] text-white text-sm font-semibold transition-colors"
+            aria-label="Search"
+            className="shrink-0 h-11 w-11 sm:w-auto sm:px-5 inline-flex items-center justify-center rounded-md bg-ivory hover:bg-ivory-100 text-ink-950 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
           >
-            Search
+            <Search className="sm:hidden w-5 h-5" aria-hidden="true" />
+            <span className="hidden sm:inline">Search</span>
           </button>
         </div>
 
         {showList && (
-          <div className="absolute left-0 right-0 top-full mt-2 z-30 bg-white border border-[var(--color-royal-deep)]/10 rounded-lg shadow-[0_16px_40px_rgba(30,42,120,0.12)] overflow-hidden">
+          <div className="absolute left-0 right-0 top-full mt-2 z-30 bg-ink-900 border border-ivory/12 rounded-lg shadow-[0_20px_60px_rgb(0_0_0/0.45)] overflow-hidden">
             {results.length > 0 ? (
               <ul id={`${listId}-list`} role="listbox" aria-label="Sample suggestions">
                 {results.map((r, i) => (
@@ -184,23 +195,23 @@ export function HeroSearch() {
                       choose(r);
                     }}
                     onMouseEnter={() => setActive(i)}
-                    className={`flex items-center justify-between gap-3 px-4 py-3 cursor-pointer text-[15px] text-[var(--color-royal-deep)] ${
-                      i === active ? 'bg-[var(--color-bg-lavender)]' : ''
+                    className={`flex items-center justify-between gap-3 px-4 py-3 cursor-pointer text-[15px] text-ivory border-l-2 ${
+                      i === active ? 'bg-ivory/5 border-cyan' : 'border-transparent'
                     }`}
                   >
                     <span>{r.label}</span>
-                    <span className="text-[11px] uppercase tracking-wider text-[var(--color-royal-deep)]/70 bg-[var(--color-bg-pearl)] border border-[var(--color-royal-deep)]/10 px-2 py-0.5 rounded">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-silver border border-ivory/15 px-2 py-0.5 rounded">
                       {r.kind}
                     </span>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p id={`${listId}-list`} className="px-4 py-3 text-sm text-[var(--color-royal-deep)]/80">
+              <p id={`${listId}-list`} className="px-4 py-3 text-sm text-ivory/80">
                 No sample match for “{query.trim()}”.
               </p>
             )}
-            <p className="px-4 py-2 text-xs text-[var(--color-royal-deep)]/70 bg-[var(--color-bg-pearl)] border-t border-[var(--color-royal-deep)]/10">
+            <p className="px-4 py-2 text-xs text-silver bg-ink-950/60 border-t border-ivory/10">
               Preview: sample suggestions only, not a live database search.
             </p>
           </div>
@@ -208,7 +219,7 @@ export function HeroSearch() {
       </form>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <span className="text-xs uppercase tracking-wider text-[var(--color-royal-deep)]/70 mr-1">Try</span>
+        <span className="font-mono text-[11px] uppercase tracking-wider text-silver mr-1">Try</span>
         {QUICK_TAGS.map((tag) => {
           const entry = SAMPLE_ENTRIES.find((e) => e.label === tag);
           return (
@@ -216,7 +227,7 @@ export function HeroSearch() {
               key={tag}
               type="button"
               onClick={() => entry && choose(entry)}
-              className="min-h-[44px] sm:min-h-[36px] px-3 rounded-md text-sm text-[var(--color-royal-deep)] bg-white/70 border border-[var(--color-royal-deep)]/15 hover:border-[var(--color-royal-blue)] hover:text-[var(--color-royal-blue)] transition-colors"
+              className="min-h-[44px] sm:min-h-[36px] px-3 rounded-md text-sm text-ivory/85 bg-transparent border border-ivory/15 hover:border-champagne/70 hover:text-ivory transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
             >
               {tag}
             </button>
@@ -224,7 +235,7 @@ export function HeroSearch() {
         })}
       </div>
 
-      <p className="mt-3 min-h-[1.25rem] text-sm text-[var(--color-royal-deep)]/80" role="status" aria-live="polite">
+      <p className="mt-3 min-h-[1.25rem] text-sm text-silver" role="status" aria-live="polite">
         {status}
       </p>
     </div>

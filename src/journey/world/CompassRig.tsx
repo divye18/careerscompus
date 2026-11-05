@@ -5,7 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import type * as THREE from 'three';
 import { useJourney } from '../JourneyContext';
 import { DOMAINS } from '@/content/domains';
-import { deg2rad, morphAt, rigLayout, spokeState } from '../choreography';
+import { deg2rad, morphAt, rigLayout, spokeState, tipGlow } from '../choreography';
 import { makeFaceTexture } from './faceTexture';
 import { CompassAssets } from './compassAssets';
 
@@ -15,11 +15,13 @@ const pxPerUnitFor = (H: number) => H / (2 * CAM_Z * Math.tan(deg2rad(FOV / 2)))
 
 /** One needle → meridian. Owns its refs and its frame callback (no shared mutable arrays). */
 function Spoke({ i, assets }: { i: number; assets: CompassAssets }) {
-  const { progress, hover } = useJourney();
+  const { progress, hover, selected } = useJourney();
   const group = useRef<THREE.Group>(null);
   const shaft = useRef<THREE.Mesh>(null);
   const tail = useRef<THREE.Mesh>(null);
   const bead = useRef<THREE.Mesh>(null);
+  const tipCore = useRef<THREE.Mesh>(null);
+  const tipHalo = useRef<THREE.Mesh>(null);
 
   useFrame((state) => {
     const g = group.current;
@@ -55,7 +57,21 @@ function Spoke({ i, assets }: { i: number; assets: CompassAssets }) {
     bd.position.y = len;
 
     const glow = 0.2 + 0.12 * Math.sin(state.clock.elapsedTime * 1.6 + i * 0.9) + emph * 0.45;
-    assets.setSpoke(i, s.color, s.opacity, glow);
+    assets.setSpoke(i, s.color, s.opacity, glow, selected.get() === i, DOMAINS[i].hue);
+
+    // Primary needle only: cyan light at the tip (Arrival), fading as it becomes a meridian.
+    const tc = tipCore.current;
+    const th = tipHalo.current;
+    if (tc && th) {
+      const o = tipGlow(m);
+      tc.visible = th.visible = o > 0.01;
+      const core = 4.2 / bz;
+      const halo = (10 + Math.sin(state.clock.elapsedTime * 2.2) * 1.2) / bz;
+      tc.scale.setScalar(core);
+      th.scale.setScalar(halo);
+      tc.position.y = th.position.y = len;
+      assets.setTip(o);
+    }
   });
 
   return (
@@ -63,6 +79,12 @@ function Spoke({ i, assets }: { i: number; assets: CompassAssets }) {
       <mesh ref={shaft} geometry={assets.geo.cone} material={assets.spokeMats[i]} />
       <mesh ref={tail} geometry={assets.geo.cone} material={assets.spokeMats[i]} rotation={[Math.PI, 0, 0]} />
       <mesh ref={bead} geometry={assets.geo.sphere} material={assets.beadMats[i]} />
+      {i === 0 && (
+        <>
+          <mesh ref={tipHalo} geometry={assets.geo.sphere} material={assets.tipHalo} position={[0, 0, 0.02]} />
+          <mesh ref={tipCore} geometry={assets.geo.sphere} material={assets.tipCore} position={[0, 0, 0.03]} />
+        </>
+      )}
     </group>
   );
 }

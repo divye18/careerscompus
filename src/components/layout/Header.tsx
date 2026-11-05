@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Search, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_LINKS = [
   // Only the homepage exists so far, so nav items jump to homepage sections.
@@ -25,161 +25,146 @@ function focusHeroSearch() {
   document.querySelector<HTMLInputElement>('input[role="combobox"]')?.focus({ preventScroll: true });
 }
 
+type Theme = 'night' | 'day';
+
+/**
+ * The header follows the environment beneath it (Nocturne Atlas alternates night and ivory grounds).
+ * Sections declare `data-header-theme="night"`; anywhere else is day. Checked on scroll (rAF-throttled);
+ * React state only changes when the boundary is crossed.
+ */
+function useHeaderTheme(): Theme {
+  const [theme, setTheme] = useState<Theme>('night');
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const probeY = 32; // middle of the 64px header
+      const night = [...document.querySelectorAll('[data-header-theme="night"]')].some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top <= probeY && r.bottom > probeY;
+      });
+      setTheme((t) => {
+        const next: Theme = night ? 'night' : 'day';
+        return t === next ? t : next;
+      });
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+  return theme;
+}
+
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollYProgress, scrollY } = useScroll();
+  const theme = useHeaderTheme();
+  const night = theme === 'night';
 
-  // Light theme throughout (final CTA is light; footer sits below the fixed header).
-  // 0: Pearl, 0.2: Ivory, 0.7: Ivory, 0.8: Pearl, 0.9: Lavender, 1: Royal Deep
-  const textColor = useTransform(
-    scrollYProgress,
-    [0, 0.8, 0.9, 1],
-    ['#121936', '#121936', '#121936', '#121936']
-  );
-  
-  const logoColor = useTransform(
-    scrollYProgress,
-    [0, 0.8, 0.9, 1],
-    ['#3155D9', '#3155D9', '#3155D9', '#3155D9']
-  );
-
-  const bgBorder = useTransform(
-    scrollYProgress,
-    [0, 0.8, 0.9, 1],
-    ['rgba(0,0,0,0.05)', 'rgba(0,0,0,0.05)', 'rgba(0,0,0,0.05)', 'rgba(0,0,0,0.05)']
-  );
-
-  const headerBg = useTransform(
-    scrollY,
-    [0, 50],
-    ['rgba(248, 249, 252, 0)', 'rgba(248, 249, 252, 0.8)'] // Pearl background when scrolled
-  );
+  // text / surface classes per environment (tokens only)
+  const bar = night ? 'bg-ink-950/90 border-ivory/10 text-ivory' : 'bg-ivory/92 border-ink-950/10 text-ink-950';
+  const link = night ? 'text-ivory/85 hover:text-ivory' : 'text-ink-950/80 hover:text-ink-950';
+  const focus = night ? 'focus-visible:outline-cyan' : 'focus-visible:outline-cyan-800';
+  const cta = night
+    ? 'bg-ivory text-ink-950 hover:bg-ivory-100'
+    : 'bg-ink-950 text-ivory hover:bg-ink-900';
 
   return (
     <>
-    <motion.header 
-      style={{ backgroundColor: headerBg, borderBottomColor: bgBorder }}
-      className="fixed top-0 left-0 right-0 z-50 h-16 backdrop-blur-md border-b transition-colors duration-300"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
-        {/* Left: Logo */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }}>
-          <Link href="/" className="inline-block py-3">
-            <motion.span 
-              className="text-2xl font-extrabold tracking-tight"
-              style={{ fontFamily: 'var(--font-plus-jakarta)', color: logoColor }}
-            >
-              CareersCompus
-            </motion.span>
+      <header
+        data-theme={theme}
+        className={`fixed top-0 left-0 right-0 z-50 h-16 border-b transition-colors duration-300 ${bar}`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+          <Link href="/" className={`inline-flex items-center gap-2 py-3 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 ${focus}`}>
+            <span aria-hidden="true" className={`block h-2.5 w-2.5 rounded-full ${night ? 'bg-champagne' : 'bg-champagne-800'}`} />
+            <span className="text-xl font-semibold tracking-tight">CareersCompus</span>
           </Link>
-        </motion.div>
 
-        {/* Center: Desktop Navigation */}
-        <motion.nav 
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }}
-          className="hidden lg:flex items-center space-x-8"
-        >
-          {NAV_LINKS.map((link) => (
-            <Link key={link.label} href={link.href}>
-              <motion.span 
-                className="text-sm font-medium hover:opacity-70 transition-opacity"
-                style={{ color: textColor }}
-              >
-                {link.label}
-              </motion.span>
-            </Link>
-          ))}
-        </motion.nav>
+          <nav aria-label="Primary" className="hidden lg:flex items-center gap-8">
+            {LINK_LIST(NAV_LINKS, link, focus)}
+          </nav>
 
-        {/* Right: Actions */}
-        <motion.div 
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }}
-          className="flex items-center space-x-4"
-        >
-          <button type="button" onClick={focusHeroSearch} aria-label="Search" className="p-2 transition-opacity hover:opacity-70 hidden sm:block">
-            <motion.div style={{ color: textColor }}>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={focusHeroSearch}
+              aria-label="Search"
+              className={`hidden sm:inline-flex h-11 w-11 items-center justify-center rounded-md outline-none transition-colors focus-visible:outline-2 ${focus} ${link}`}
+            >
               <Search className="w-5 h-5" />
-            </motion.div>
-          </button>
-          
-          <motion.button 
-            style={{ color: '#ffffff', backgroundColor: '#3155D9' }}
-            type="button"
-            onClick={() => jumpTo('act-guidance')}
-            className="hidden sm:inline-flex items-center justify-center px-5 py-2 text-sm font-semibold rounded-full transition-transform hover:scale-105 shadow-[0_4px_15px_rgba(49,85,217,0.3)]"
-          >
-            Get Guidance
-          </motion.button>
+            </button>
 
-          {/* Mobile Menu Toggle */}
-          <button 
-            className="lg:hidden p-2 min-w-[44px] min-h-[44px] inline-flex items-center justify-center hover:opacity-70 transition-opacity"
-            onClick={() => setIsMobileMenuOpen(true)}
-            aria-label="Open mobile menu"
-          >
-            <motion.div style={{ color: textColor }}>
+            <button
+              type="button"
+              onClick={() => jumpTo('act-guidance')}
+              className={`hidden sm:inline-flex min-h-[44px] items-center justify-center rounded-lg px-5 text-sm font-semibold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 ${focus} ${cta}`}
+            >
+              Get Guidance
+            </button>
+
+            <button
+              className={`lg:hidden min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md outline-none focus-visible:outline-2 ${focus}`}
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open mobile menu"
+            >
               <Menu className="w-6 h-6" />
-            </motion.div>
-          </button>
-        </motion.div>
-      </div>
-    </motion.header>
+            </button>
+          </div>
+        </div>
+      </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile menu overlay (sibling of the header so `fixed` is relative to the viewport) */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[60] bg-[var(--color-bg-pearl)] text-[var(--color-royal-deep)] flex flex-col"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            className="fixed inset-0 z-[60] bg-ink-950 text-ivory flex flex-col"
           >
-            <div className="flex items-center justify-between p-4 border-b border-[var(--color-royal-deep)]/10">
-              <Link 
-                href="/" 
-                className="text-2xl font-extrabold text-[var(--color-royal-blue)] tracking-tight"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
+            <div className="flex h-16 items-center justify-between px-4 border-b border-ivory/10">
+              <Link href="/" className="inline-flex items-center gap-2 text-xl font-semibold tracking-tight" onClick={() => setIsMobileMenuOpen(false)}>
+                <span aria-hidden="true" className="block h-2.5 w-2.5 rounded-full bg-champagne" />
                 CareersCompus
               </Link>
-              <button 
+              <button
                 aria-label="Close mobile menu"
-                className="p-2 min-w-[44px] min-h-[44px] inline-flex items-center justify-center text-[var(--color-royal-deep)]/70 hover:text-[var(--color-royal-deep)]"
+                className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md text-silver hover:text-ivory outline-none focus-visible:outline-2 focus-visible:outline-cyan"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
-            
-            <div className="flex flex-col px-4 py-6 space-y-6 flex-1 overflow-y-auto">
-              <nav className="flex flex-col space-y-4">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.div
-                    key={link.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <Link 
-                      href={link.href}
-                      className="text-xl font-medium hover:text-[var(--color-royal-blue)] transition-colors block py-2"
+
+            <div className="flex flex-col px-4 py-6 flex-1 overflow-y-auto">
+              <nav aria-label="Mobile" className="flex flex-col">
+                {NAV_LINKS.map((l, i) => (
+                  <motion.div key={l.label} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}>
+                    <Link
+                      href={l.href}
                       onClick={() => setIsMobileMenuOpen(false)}
+                      className="block min-h-[56px] py-3 font-atlas text-[32px] leading-none text-ivory border-b border-ivory/10 outline-none focus-visible:outline-2 focus-visible:outline-cyan"
                     >
-                      {link.label}
+                      {l.label}
                     </Link>
                   </motion.div>
                 ))}
               </nav>
-              
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="mt-auto pt-8 border-t border-[var(--color-royal-deep)]/10"
-              >
-                <button 
-                  className="w-full py-4 bg-[var(--color-royal-blue)] text-white font-bold rounded-xl text-lg hover:bg-[#1E2A78] transition-colors shadow-lg"
+              <div className="mt-auto pt-8">
+                <button
+                  className="w-full min-h-[52px] rounded-lg bg-ivory text-ink-950 font-semibold text-lg hover:bg-ivory-100 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     setTimeout(() => jumpTo('act-guidance'), 250);
@@ -187,11 +172,23 @@ export function Header() {
                 >
                   Get Guidance
                 </button>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
   );
+}
+
+function LINK_LIST(links: typeof NAV_LINKS, link: string, focus: string) {
+  return links.map((l) => (
+    <Link
+      key={l.label}
+      href={l.href}
+      className={`inline-flex min-h-[44px] items-center text-sm font-medium transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-4 ${focus} ${link}`}
+    >
+      {l.label}
+    </Link>
+  ));
 }

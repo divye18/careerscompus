@@ -11,3 +11,8 @@
 - [ ] Perf follow-up: close the gap from ≈52–54 fps to ≥55 during continuous scroll
 - [ ] M2 Scene 3 Explore (seven domain worlds) — needs approval
 - [ ] M3 Courses + Universities, M4 Compare/Next step/Guidance, M5 mobile depth, M6 hardening
+
+## Status (2026-11-05, after Nocturne Atlas + stabilisation)
+- [x] M0, M1 (Scenes 1–2), Nocturne Atlas colour, compass load / perf / capability stabilisation, mobile search, handoff
+- [ ] Awaiting approval: M2 Scene 3 Explore (jewel rooms), then Scenes 4–8 (replace the legacy Light Royal sections)
+- [ ] Open: Safari / Firefox + real-device checks; screen-reader pass; trim the remaining ~1 s long task at 3D start

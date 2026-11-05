@@ -17,3 +17,10 @@
 13. **Two presenters, server renders flow.** Identical Scene 1 copy avoids layout shift on hydration.
 14. **playwright-core as dev dependency** (drives installed Chrome; no browser download) to get valid visible-browser measurements.
 15. **No video recording yet**: would require downloading Playwright's ffmpeg binary; awaiting approval. Frame sequences used instead.
+
+16. **Nocturne Atlas adopted** (Midnight / Aubergine / Cyan; champagne brass; alternating night and ivory). Cyan is a signal, not a fill; domain hues identify, cyan selects. Royal Blue retired as the action colour.
+17. **Metals as matcaps, no IBL.** The PMREM environment blocked the main thread ~3 s; matcaps look right and compile almost instantly.
+18. **One token source** (`tokens.ts`) mirrored to CSS with an automated drift / stray-hex check; hex is only allowed in tokens.
+19. **Phones get a shorter placeholder wording**, not truncated text; the search button is icon-only below `sm`.
+20. **Don't fall back on a recoverable WebGL loss;** wait 3 s for restoration.
+21. **Legacy Light Royal sections stay as they are** until their scenes are rebuilt (scope).

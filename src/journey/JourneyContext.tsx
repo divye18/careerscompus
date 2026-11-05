@@ -9,13 +9,15 @@ import { useMotionValue, type MotionValue } from 'framer-motion';
  *
  *  progress — 0..1 scene progress (pinned: smoothed scroll progress; flow: section progress)
  *  stageW/H — measured stage size in CSS px
- *  hover    — index of the domain currently emphasised (-1 = none), read by the 3D rig
+ *  hover    — index of the domain currently emphasised by hover/focus (-1 = none), read by the 3D rig
+ *  selected — index of the selected domain (-1 = none); cyan marks selection only
  */
 export interface JourneyContextValue {
   progress: MotionValue<number>;
   stageW: MotionValue<number>;
   stageH: MotionValue<number>;
   hover: MotionValue<number>;
+  selected: MotionValue<number>;
 }
 
 const Ctx = createContext<JourneyContextValue | null>(null);
@@ -38,6 +40,7 @@ export function JourneyProvider({
   const stageW = useMotionValue(0);
   const stageH = useMotionValue(0);
   const hover = useMotionValue(-1);
+  const selected = useMotionValue(-1);
 
   useEffect(() => {
     const el = stageRef.current;
@@ -52,6 +55,9 @@ export function JourneyProvider({
     return () => ro.disconnect();
   }, [stageRef, stageW, stageH]);
 
-  const value = useMemo(() => ({ progress, stageW, stageH, hover }), [progress, stageW, stageH, hover]);
+  const value = useMemo(
+    () => ({ progress, stageW, stageH, hover, selected }),
+    [progress, stageW, stageH, hover, selected]
+  );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

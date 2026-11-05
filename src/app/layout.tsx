@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter, Instrument_Serif, JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
@@ -15,6 +15,13 @@ const instrumentSerif = Instrument_Serif({
   variable: '--font-instrument',
   weight: '400',
   style: ['normal', 'italic'],
+});
+
+// Monospace for instrument labels and data (approved; variable font, Latin subset)
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains',
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -35,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${plusJakarta.variable} ${instrumentSerif.variable}`}>
+    <html lang="en" className={`${inter.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
       <body className={`font-sans antialiased bg-background text-foreground`}>
         {children}
       </body>

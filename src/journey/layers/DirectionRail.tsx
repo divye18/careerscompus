@@ -36,20 +36,18 @@ export function DirectionRail() {
                 className="group flex min-h-[44px] items-center gap-3 outline-none"
               >
                 <span
-                  className={`text-[10px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${
+                  className={`font-mono text-[10px] uppercase tracking-[0.18em] transition-all duration-300 ${
                     on
-                      ? 'opacity-100 text-[var(--color-royal-deep)]'
-                      : 'opacity-0 -translate-x-1 text-[var(--color-royal-deep)]/70 group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100'
+                      ? 'opacity-100 text-ivory'
+                      : 'opacity-0 -translate-x-1 text-silver group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100'
                   }`}
                 >
                   {it.label}
                 </span>
                 <span
                   aria-hidden="true"
-                  className={`block rounded-full border transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-[var(--color-royal-blue)] group-focus-visible:ring-offset-2 ${
-                    on
-                      ? 'h-3 w-3 border-[var(--color-royal-blue)] bg-[var(--color-royal-blue)]'
-                      : 'h-2 w-2 border-[var(--color-royal-deep)]/50 bg-transparent'
+                  className={`block rounded-full border transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-cyan group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-ink-950 ${
+                    on ? 'h-2.5 w-2.5 border-cyan bg-cyan' : 'h-2 w-2 border-silver/60 bg-transparent'
                   }`}
                 />
               </a>

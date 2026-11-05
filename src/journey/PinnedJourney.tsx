@@ -38,6 +38,7 @@ export function PinnedJourney({ onWorldFail }: { onWorldFail?: () => void }) {
       className="relative"
       style={{ height: `${100 + PINNED_SCROLL_VH}svh` }}
       data-journey="pinned"
+      data-header-theme="night"
     >
       <div ref={stageRef} className="sticky top-0 h-dvh min-h-[600px] overflow-hidden">
         <JourneyProvider progress={progress} stageRef={stageRef}>
@@ -56,8 +57,8 @@ export function PinnedJourney({ onWorldFail }: { onWorldFail?: () => void }) {
             style={{ opacity: cue }}
             aria-hidden="true"
           >
-            <span className="block h-9 w-px origin-top bg-[var(--color-royal-deep)]/50 animate-[atlas-cue_1.8s_ease-in-out_infinite]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[var(--color-royal-deep)]/70">
+            <span className="block h-9 w-px origin-top bg-silver/60 animate-[atlas-cue_1.8s_ease-in-out_infinite]" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
               Scroll
             </span>
           </motion.div>

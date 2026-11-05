@@ -13,7 +13,7 @@ const TICKS = Array.from({ length: 72 }, (_, i) => {
 }).join('');
 
 /**
- * Atlas graticule: concentric hairline circles and degree ticks that sit under the compass.
+ * Atlas graticule: champagne hairline circles and degree ticks under the compass (night ground).
  * It starts as a faint halo around the compass and grows into the map the meridians are drawn on.
  * Perf: strokes scale with the transform (no non-scaling-stroke), so Chrome can composite the
  * layer instead of re-rasterising the SVG on every scroll frame.
@@ -38,12 +38,12 @@ export function Graticule() {
       className="absolute left-0 top-0 pointer-events-none"
       style={{ width: size, height: size, x, y, scale, opacity, transformOrigin: '50% 50%', willChange: 'transform, opacity' }}
     >
-      <g fill="none" stroke="#8A6A2D">
-        <circle cx="500" cy="500" r="500" strokeOpacity="0.5" strokeWidth="1.6" />
-        <circle cx="500" cy="500" r="410" strokeOpacity="0.28" strokeWidth="1.6" />
-        <circle cx="500" cy="500" r="290" strokeOpacity="0.22" strokeWidth="1.6" strokeDasharray="2 7" />
-        <circle cx="500" cy="500" r="180" strokeOpacity="0.2" strokeWidth="1.6" />
-        <path d={TICKS} strokeOpacity="0.5" strokeWidth="1.6" />
+      <g fill="none" className="stroke-champagne">
+        <circle cx="500" cy="500" r="500" strokeOpacity="0.42" strokeWidth="1.6" />
+        <circle cx="500" cy="500" r="410" strokeOpacity="0.2" strokeWidth="1.6" />
+        <circle cx="500" cy="500" r="290" strokeOpacity="0.18" strokeWidth="1.6" strokeDasharray="2 7" />
+        <circle cx="500" cy="500" r="180" strokeOpacity="0.14" strokeWidth="1.6" />
+        <path d={TICKS} strokeOpacity="0.42" strokeWidth="1.6" />
       </g>
     </motion.svg>
   );

@@ -10,6 +10,7 @@
  */
 
 import { DOMAINS } from '@/content/domains';
+import { compass } from '@/theme/tokens';
 
 export const SPOKES = DOMAINS.length; // 7
 
@@ -80,8 +81,8 @@ export const finalAngle = (i: number) => FAN_START - (i * 360) / SPOKES;
 const ARRIVAL_LEN = [0.84, 0.86, 0.8, 0.88, 0.82, 0.86, 0.8]; // local units (bezel radius = 1)
 const ARRIVAL_WIDTH = [0.17, 0.06, 0.06, 0.06, 0.06, 0.06, 0.06];
 const ARRIVAL_TAIL = [0.36, 0.16, 0.14, 0.16, 0.14, 0.16, 0.14];
-const GHOST_COLOR = '#4F61B8';
-const PRIMARY_COLOR = '#3155D9';
+const GHOST_COLOR = compass.ghost;
+const PRIMARY_COLOR = compass.needle;
 
 export interface SpokeState {
   angle: number; // degrees, math convention (0 = +x, 90 = +y up)
@@ -98,6 +99,12 @@ export interface SpokeState {
  * Needles keep their Arrival character while the compass travels (m < 0.24), then extend in
  * sequence; spoke 6 lands at m ≈ 0.99.
  */
+/**
+ * Opacity of the cyan light at the primary needle's tip: present at Arrival, fading as the needle
+ * becomes the Technology meridian (cyan then only marks selection).
+ */
+export const tipGlow = (m: number) => 1 - smoothstep(range(spokeEase(0, m), 0.2, 0.75));
+
 export function spokeEase(i: number, m: number): number {
   return easeInOut(clamp01((m - 0.24 - 0.042 * i) / 0.5));
 }

@@ -1,7 +1,7 @@
 # 04 — Visual System
 
-Status: **Colour identity under revision.** The proposed replacement is **"Nocturne Atlas"** — see
-`08_COLOUR_IDENTITY.md` (awaiting approval; nothing implemented yet). Spacing, layout, imagery, honesty
+Status: **Nocturne Atlas approved and implemented for Scenes 1–2, header, footer and handoff** — see
+`08_COLOUR_IDENTITY.md`. §1 below (Light Royal) is superseded and kept for reference only. Spacing, layout, imagery, honesty
 and accessibility rules below still apply. Typography and components are amended in §0.
 
 ## 0. Nocturne Atlas — summary (PROPOSED, supersedes §1 on approval)

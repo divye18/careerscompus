@@ -1,0 +1,54 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-05T10:18:13.036Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 868,
+        "lcpEl": null,
+        "cls": 0.0007028387514722601
+      },
+      "horizontalOverflow": false,
+      "recordedScroll": {
+        "frames": 397,
+        "avgFps": 36.1,
+        "p50ms": 28.9,
+        "p95ms": 50.2,
+        "over33ms": 113,
+        "visibility": "visible"
+      },
+      "screenshots": []
+    },
+    "mobile390": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "not-desktop",
+      "vitals": {
+        "lcp": 920,
+        "lcpEl": "P.max-w-[34rem] text-[17px] sm:text-lg lea",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "recordedScroll": {
+        "frames": 467,
+        "avgFps": 58.5,
+        "p50ms": 16.7,
+        "p95ms": 16.9,
+        "over33ms": 2,
+        "visibility": "visible"
+      },
+      "screenshots": []
+    }
+  }
+}

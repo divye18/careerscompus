@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { CompassRig, WORLD_CAMERA } from './CompassRig';
+import { compass } from '@/theme/tokens';
 
 /**
  * The shared WebGL world for the pinned journey. Loaded lazily (next/dynamic, ssr:false)
@@ -52,9 +53,11 @@ export default function WorldCanvas({ onFail }: { onFail?: () => void }) {
           requestAnimationFrame(() => requestAnimationFrame(() => setReady(true)));
         }}
       >
-        {/* lights affect only the dial and beads (metals are matcaps) */}
-        <ambientLight intensity={1.15} />
-        <directionalLight position={[-3, 5, 6]} intensity={1.6} color="#FFF3DC" />
+        {/* Lights affect only the dial and beads (metals are matcaps): warm key upper-left,
+            faint cyan rim lower-right that ties the signal colour to the object. */}
+        <ambientLight intensity={0.95} />
+        <directionalLight position={[-3, 5, 6]} intensity={1.7} color={compass.keyLight} />
+        <directionalLight position={[5, -4, 2]} intensity={0.32} color={compass.rimLight} />
         <Suspense fallback={null}>
           <CompassRig />
         </Suspense>
