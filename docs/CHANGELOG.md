@@ -38,3 +38,11 @@
 - Mobile: phone placeholder wording + icon-only search button (no truncation); 44 px targets.
 - Handoff: temporary dawn band with shared `--handoff-top`.
 - Docs: architecture doc renumbered to 09.
+
+## 2026-11-05 — M2 Scene 3 Explore Careers
+- Seven career environments (Technology, Medicine, Business, Design, Law, Architecture, Science) in `src/journey/explore/` — CSS backdrop + fixed-viewBox SVG art per domain, tokens only; registry for placement/typography.
+- Timeline: Explore range after Scenes 1–2 (`EXPLORE_START_VH=290`, `DOMAIN_VH=46`, total 602vh); compass docks, meridians fold into a dial, marks/title fade into room 1; natural scroll only.
+- Rail has 2 scene + 7 domain stops; Discover marks jump to rooms; Get Guidance in every room; "Explore Careers" is honestly disabled ("Soon") until the careers library exists.
+- Mobile/reduced/no-WebGL: native swipe track (`ExploreFlow`), seven static panels, no horizontal overflow, 44px targets.
+- Fixed: site-wide invisible focus ring (Tailwind v4 `outline-solid`), faded-out controls still focusable.
+- Known: Explore-range scroll ~49 fps median in headed Chrome (GPU raster spikes on room change); Scenes 1–2 ~58.

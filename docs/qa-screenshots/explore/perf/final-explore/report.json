@@ -1,0 +1,232 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-05T12:21:25.006Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 2044,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 59.6,
+        "visibility": "visible"
+      },
+      "scrollRuns": [
+        {
+          "frames": 221,
+          "avgFps": 36.9,
+          "p50ms": 16.7,
+          "p95ms": 67.2,
+          "over33ms": 33,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 295,
+          "avgFps": 49.2,
+          "p50ms": 16.7,
+          "p95ms": 34,
+          "over33ms": 23,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 302,
+          "avgFps": 50.4,
+          "p50ms": 16.7,
+          "p95ms": 33.5,
+          "over33ms": 23,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 298,
+          "avgFps": 49.6,
+          "p50ms": 16.7,
+          "p95ms": 34.1,
+          "over33ms": 20,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 290,
+          "avgFps": 48.4,
+          "p50ms": 16.7,
+          "p95ms": 35,
+          "over33ms": 26,
+          "visibility": "visible",
+          "reactCommits": 16
+        }
+      ],
+      "scroll": {
+        "runs": 5,
+        "medianAvgFps": 49.2,
+        "medianP95ms": 34.1,
+        "medianOver33": 23,
+        "minAvgFps": 36.9,
+        "maxAvgFps": 50.4,
+        "medianReactCommits": 16,
+        "medianFrames": 295
+      },
+      "screenshots": []
+    },
+    "desktop1280": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 1820,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 60.4,
+        "visibility": "visible"
+      },
+      "scrollRuns": [
+        {
+          "frames": 222,
+          "avgFps": 37,
+          "p50ms": 16.7,
+          "p95ms": 66.8,
+          "over33ms": 36,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 304,
+          "avgFps": 50.7,
+          "p50ms": 16.7,
+          "p95ms": 34.2,
+          "over33ms": 23,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 294,
+          "avgFps": 49,
+          "p50ms": 16.7,
+          "p95ms": 34.4,
+          "over33ms": 28,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 290,
+          "avgFps": 48.4,
+          "p50ms": 16.7,
+          "p95ms": 36.7,
+          "over33ms": 30,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 334,
+          "avgFps": 55.9,
+          "p50ms": 16.7,
+          "p95ms": 33.1,
+          "over33ms": 9,
+          "visibility": "visible",
+          "reactCommits": 16
+        }
+      ],
+      "scroll": {
+        "runs": 5,
+        "medianAvgFps": 49,
+        "medianP95ms": 34.4,
+        "medianOver33": 28,
+        "minAvgFps": 37,
+        "maxAvgFps": 55.9,
+        "medianReactCommits": 16,
+        "medianFrames": 294
+      },
+      "screenshots": []
+    },
+    "mobile390": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "not-desktop",
+      "vitals": {
+        "lcp": null,
+        "lcpEl": null,
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\mobile390-s0.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\mobile390-s1.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\mobile390-s2.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\mobile390-s3.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\mobile390-s4.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\mobile390-s5.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\mobile390-s6.jpg"
+      ]
+    },
+    "reduced": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "server",
+      "vitals": {
+        "lcp": 1160,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\reduced-s0.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\reduced-s1.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\reduced-s2.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\reduced-s3.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\reduced-s4.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\reduced-s5.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\reduced-s6.jpg"
+      ]
+    },
+    "nowebgl": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "no-webgl",
+      "vitals": {
+        "lcp": 788,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\nowebgl-s0.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\nowebgl-s1.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\nowebgl-s2.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\nowebgl-s3.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\nowebgl-s4.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\nowebgl-s5.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\final-explore\\nowebgl-s6.jpg"
+      ]
+    }
+  }
+}
