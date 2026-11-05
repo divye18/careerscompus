@@ -67,3 +67,10 @@
 - Scene 4→5 intro: four stage lines merge and open into six region nodes (scroll-linked, reduced-motion safe). Replaced the legacy sample "University preview". One shared `SceneRailLane` now carries the direction rail across Scenes 4–5 (rail gains a Universities stop); fixed a 1px hairline seam at the Scene 4/5 boundary.
 - Cross-link: an institution's field of study buttons ("Technology →") select that direction in Scene 4.
 - QA scripts: `universities-check`, `universities-interaction-check`, `universities-transitions`, `universities-perf`, `contrast-measure-universities`, `verify-institutions`.
+
+## 2026-11-05 — Design constitution and website quality audit
+- New: `docs/DESIGN_CONSTITUTION.md`, `docs/WEBSITE_QUALITY_AUDIT.md`, `scripts/site-audit.mjs`, `scripts/contrast-measure-site.mjs`, `scripts/build-icons.mjs`.
+- Removed a false claim ("Join thousands of students"), two dead links and invented fee, duration and eligibility figures from the interim sections; corrected the FAQ.
+- Fixed the Scene 2 overflow at the offending element (4px at 390 with classic scrollbars). Mobile menu focus handling and Escape. Skip link. 44px targets for search suggestions and rail links. Interim-section contrast (93 of 93 pass).
+- Added custom favicon set, branded 404, Open Graph, canonical, theme colour, robots and sitemap. Removed starter assets. Added radius tokens (not yet used by components).
+- Scene 6 work parked on `wip/scene-6-comparison-studio`; not on this branch.

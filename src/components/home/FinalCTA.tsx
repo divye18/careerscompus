@@ -32,7 +32,7 @@ export function FinalCTA() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-bold text-[var(--color-accent-champagne)] mb-4">
+          <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-bold text-champagne-800 mb-4">
             The Journey Continues
           </span>
           <h2 className="text-4xl sm:text-5xl font-display font-light text-[var(--color-royal-deep)] mb-5 leading-tight">
@@ -40,18 +40,18 @@ export function FinalCTA() {
             <span className="italic font-serif">Starts Here.</span>
           </h2>
           <p className="text-lg text-slate-600 mb-10 max-w-xl mx-auto leading-relaxed font-light">
-            Join thousands of students who have discovered their ideal career path and university with CareersCompus.
+            Keep exploring careers, courses and universities, or ask for guidance when you are ready.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              href="/careers" 
+              href="/#act-discovery" 
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--color-royal-blue)] hover:bg-[#1E2A78] text-white font-bold rounded-lg transition-all hover:-translate-y-1 shadow-[0_4px_25px_rgba(49,85,217,0.4)]"
             >
               Explore Careers <ArrowRight className="w-4 h-4" />
             </Link>
             <Link 
-              href="/counselling"
+              href="/#act-guidance"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/80 backdrop-blur-md border border-[var(--color-royal-deep)]/20 hover:bg-white text-[var(--color-royal-deep)] font-medium rounded-lg transition-colors"
             >
               Get Guidance

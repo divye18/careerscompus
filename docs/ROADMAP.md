@@ -31,3 +31,9 @@
 - [x] M4 Scene 5 University Discovery Atlas
 - [ ] Next (needs approval): Scene 6 Compare
 - [ ] Open: grow the verified dataset (more sites need a different fetcher / manual verification), verified course lists per institution, verified coordinates (then the atlas could offer a real map option), real-device mobile fps, Safari/Firefox, screen reader
+
+## Status (2026-11-05, after the design audit)
+- [x] Design constitution and website quality audit
+- [ ] Decide: interim sections until Scenes 6 to 8 (audit D1)
+- [ ] Approve and apply ranked fixes (audit section 8)
+- [ ] Review parked Scene 6 against the constitution, then resume on approval

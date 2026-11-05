@@ -70,7 +70,7 @@ export function RailNav({ active, className }: { active: number; className: stri
               <a
                 href={`#${it.id}`}
                 aria-current={on ? 'step' : undefined}
-                className="group flex min-h-[40px] items-center gap-3 outline-none"
+                className="group flex min-h-[44px] items-center gap-3 outline-none"
               >
                 <span
                   className={`font-mono text-[10px] uppercase tracking-[0.18em] transition-[opacity,transform] duration-300 ${

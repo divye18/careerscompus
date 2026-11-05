@@ -62,7 +62,7 @@ export function CounsellingCTA() {
             transition={{ duration: 0.8 }}
             className="lg:col-span-5"
           >
-            <div className="text-[var(--color-royal-blue)] font-mono text-sm tracking-widest mb-6">06 / GUIDANCE</div>
+            <div className="text-[var(--color-royal-blue)] font-mono text-sm tracking-widest mb-6">GUIDANCE</div>
             <h2 className="text-4xl sm:text-5xl font-display font-light text-[var(--color-accent-midnight)] leading-[1.1] mb-6">
               When the possibilities
               <br />

@@ -1,0 +1,325 @@
+{
+ "url": "http://localhost:3100",
+ "date": "2026-11-05",
+ "routes": {
+  "/": 200,
+  "/favicon.ico": 200,
+  "/icon.svg": 404,
+  "/apple-icon.png": 404,
+  "/robots.txt": 404,
+  "/sitemap.xml": 404,
+  "/this-page-does-not-exist": 404,
+  "/careers": 404,
+  "/counselling": 404,
+  "/next.svg": 200,
+  "/vercel.svg": 200,
+  "notFoundTitle": "CareersCompus | Find Your Direction",
+  "notFoundText": "404\nThis page could not be found.",
+  "notFoundHasHomeLink": false
+ },
+ "metadata": {
+  "title": "CareersCompus | Find Your Direction",
+  "description": "Premium guidance for students to discover top careers, university programs, and courses in India.",
+  "canonical": null,
+  "ogTitle": null,
+  "ogDescription": null,
+  "ogType": null,
+  "ogImage": null,
+  "twitterCard": null,
+  "icons": [
+   "/favicon.ico?favicon.2vob68tjqpejf.ico"
+  ],
+  "themeColor": null,
+  "lang": "en"
+ },
+ "viewports": {
+  "390": {
+   "presenter": "flow",
+   "reason": "not-desktop",
+   "clientWidth": 375,
+   "scrollWidth": 379,
+   "overflow": [
+    "svg \"A compass whose needles open out i\" class=\"mx-auto block w-[min(92vw,440px)] lg:w-full lg:max-w-[520px]\" right=379"
+   ],
+   "smallTargets": 0,
+   "smallTargetSamples": [],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": false
+   },
+   "errors": [
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf"
+   ]
+  },
+  "768": {
+   "presenter": "flow",
+   "reason": "not-desktop",
+   "clientWidth": 753,
+   "scrollWidth": 753,
+   "overflow": [],
+   "smallTargets": 5,
+   "smallTargetSamples": [
+    "act-hero: button \"B.Tech Computer Science\" 197x36",
+    "act-hero: button \"MBBS\" 65x36",
+    "act-hero: button \"MBA\" 57x36",
+    "act-hero: button \"Data Science\" 113x36",
+    "act-hero: button \"IIT Delhi\" 79x36"
+   ],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": false
+   },
+   "errors": [
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf"
+   ]
+  },
+  "1280": {
+   "presenter": "pinned",
+   "reason": null,
+   "clientWidth": 1265,
+   "scrollWidth": 1265,
+   "overflow": [],
+   "smallTargets": 22,
+   "smallTargetSamples": [
+    "act-hero: a \"Arrival\" 77x40",
+    "act-hero: a \"Discover\" 84x40",
+    "act-hero: a \"Technology\" 100x40",
+    "act-hero: a \"Medicine\" 84x40",
+    "act-hero: a \"Business\" 84x40",
+    "act-hero: a \"Design\" 69x40",
+    "act-hero: a \"Law\" 45x40",
+    "act-hero: a \"Architecture\" 116x40",
+    "act-hero: a \"Science\" 77x40",
+    "act-hero: a \"Courses\" 77x40",
+    "act-hero: a \"Universities\" 116x40",
+    "?: a \"Arrival\" 77x40",
+    "?: a \"Discover\" 84x40",
+    "?: a \"Technology\" 100x40",
+    "?: a \"Medicine\" 84x40",
+    "?: a \"Business\" 84x40",
+    "?: a \"Design\" 69x40",
+    "?: a \"Law\" 45x40",
+    "?: a \"Architecture\" 116x40",
+    "?: a \"Science\" 77x40",
+    "?: a \"Courses\" 77x40",
+    "?: a \"Universities\" 116x40"
+   ],
+   "clipped": [],
+   "h1": [],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": false
+   },
+   "errors": [
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf"
+   ]
+  },
+  "1440": {
+   "presenter": "pinned",
+   "reason": null,
+   "clientWidth": 1425,
+   "scrollWidth": 1425,
+   "overflow": [],
+   "smallTargets": 22,
+   "smallTargetSamples": [
+    "act-hero: a \"Arrival\" 77x40",
+    "act-hero: a \"Discover\" 84x40",
+    "act-hero: a \"Technology\" 100x40",
+    "act-hero: a \"Medicine\" 84x40",
+    "act-hero: a \"Business\" 84x40",
+    "act-hero: a \"Design\" 69x40",
+    "act-hero: a \"Law\" 45x40",
+    "act-hero: a \"Architecture\" 116x40",
+    "act-hero: a \"Science\" 77x40",
+    "act-hero: a \"Courses\" 77x40",
+    "act-hero: a \"Universities\" 116x40",
+    "?: a \"Arrival\" 77x40",
+    "?: a \"Discover\" 84x40",
+    "?: a \"Technology\" 100x40",
+    "?: a \"Medicine\" 84x40",
+    "?: a \"Business\" 84x40",
+    "?: a \"Design\" 69x40",
+    "?: a \"Law\" 45x40",
+    "?: a \"Architecture\" 116x40",
+    "?: a \"Science\" 77x40",
+    "?: a \"Courses\" 77x40",
+    "?: a \"Universities\" 116x40"
+   ],
+   "clipped": [],
+   "h1": [],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": false
+   },
+   "errors": [
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf"
+   ]
+  },
+  "768-touch": {
+   "presenter": "flow",
+   "reason": "not-desktop",
+   "clientWidth": 768,
+   "scrollWidth": 768,
+   "overflow": [],
+   "smallTargets": 5,
+   "smallTargetSamples": [
+    "act-hero: button \"B.Tech Computer Science\" 197x36",
+    "act-hero: button \"MBBS\" 65x36",
+    "act-hero: button \"MBA\" 57x36",
+    "act-hero: button \"Data Science\" 113x36",
+    "act-hero: button \"IIT Delhi\" 79x36"
+   ],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": false
+   },
+   "errors": [
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf"
+   ]
+  },
+  "390-touch": {
+   "presenter": "flow",
+   "reason": "not-desktop",
+   "clientWidth": 390,
+   "scrollWidth": 390,
+   "overflow": [],
+   "smallTargets": 0,
+   "smallTargetSamples": [],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": false
+   },
+   "errors": [
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/careers?_rsc=5CB68i4pnAekjehf",
+    "404 http://localhost:3100/counselling?_rsc=5CB68i4pnAekjehf"
+   ]
+  }
+ },
+ "navigation": {
+  "desktopLinks": [
+   {
+    "text": "Courses",
+    "href": "/#act-courses",
+    "targetTop": 64,
+    "ok": true,
+    "ariaCurrent": null
+   },
+   {
+    "text": "Universities",
+    "href": "/#act-universities",
+    "targetTop": 64,
+    "ok": true,
+    "ariaCurrent": null
+   },
+   {
+    "text": "Careers",
+    "href": "/#act-discovery",
+    "targetTop": 0,
+    "ok": true,
+    "ariaCurrent": null
+   },
+   {
+    "text": "Compare",
+    "href": "/#act-comparison",
+    "targetTop": 64,
+    "ok": true,
+    "ariaCurrent": null
+   }
+  ],
+  "activeState": false,
+  "logoReturnsToTop": true,
+  "getGuidanceTop": 64,
+  "mobileMenuOpens": true,
+  "mobileLinks": [
+   "Courses",
+   "Universities",
+   "Careers",
+   "Compare"
+  ],
+  "mobileFocusMovesIn": false,
+  "mobileEscapeCloses": false,
+  "mobileLinkReachesTarget": true
+ },
+ "form": {
+  "emptyShowsErrors": true,
+  "invalidMarked": true,
+  "badPhoneRejected": true,
+  "successMessage": true,
+  "networkRequest": false
+ },
+ "links": {
+  "total": 44,
+  "unique": 19,
+  "dead": [
+   "/careers (404) \"Explore Careers\" in act-future",
+   "/counselling (404) \"Get Guidance\" in act-future"
+  ],
+  "missingAnchors": [],
+  "unsafeExternal": [],
+  "externalCount": 0,
+  "mailtoTel": []
+ }
+}

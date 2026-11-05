@@ -25,6 +25,12 @@ export const color = {
   cyan800: '#0A6F78', // signal on day
 } as const;
 
+/**
+ * Radius scale (DESIGN_CONSTITUTION section 8), mirrored in globals.css as `rounded-atlas-sm`, `rounded-atlas`,
+ * `rounded-atlas-lg`, `rounded-pill`. Existing components keep their older values until the approved migration.
+ */
+export const radius = { sm: 8, standard: 14, large: 20, pill: 999 } as const;
+
 /** Compass material palette (3D + SVG). */
 export const compass = {
   dialCentre: '#F3EEE2', // smoked ivory

@@ -78,7 +78,7 @@ export function FlowJourney({ reducedMotion, reason }: { reducedMotion: boolean;
               active={shown}
               selected={selected}
               sway={false}
-              className="mx-auto block w-[min(92vw,440px)] lg:w-full lg:max-w-[520px]"
+              className="mx-auto block w-full max-w-[440px] lg:max-w-[520px]"
             />
 
             <div className="mt-6 lg:mt-0">

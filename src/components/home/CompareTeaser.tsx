@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion';
 
 const comparison = {
-  attributes: ['Duration', 'Eligibility', 'Avg. Fees', 'Career Paths'],
-  courseA: { name: 'B.Tech CSE', values: ['4 Years', '10+2 (PCM)', '₹2L—₹15L/yr', 'Software, AI, Data'] },
-  courseB: { name: 'BCA', values: ['3 Years', '10+2 (Any)', '₹50K—₹3L/yr', 'Web, IT, Support'] },
+  attributes: ['Duration', 'Eligibility', 'Fees', 'Career Paths'],
+  // No figures here: durations, eligibility and fees differ by institution and none is verified for this preview.
+  courseA: { name: 'B.Tech', values: ['Not verified yet', 'Not verified yet', 'Not verified yet', 'Software, AI, Data'] },
+  courseB: { name: 'BCA', values: ['Not verified yet', 'Not verified yet', 'Not verified yet', 'Web, IT, Support'] },
 };
 
 export function CompareTeaser() {
@@ -22,7 +23,7 @@ export function CompareTeaser() {
             transition={{ duration: 0.8 }}
             className="lg:col-span-4 flex flex-col justify-center"
           >
-            <div className="text-[var(--color-ch6-accent)] font-mono text-sm tracking-widest mb-6">05 / DECIDE</div>
+            <div className="text-champagne-800 font-mono text-sm tracking-widest mb-6">DECIDE</div>
             <h2 className="text-4xl sm:text-5xl font-display font-light text-[var(--color-ch6-text)] leading-[1.1] mb-6">
               Compare your options<br />
               <span className="font-serif italic text-[var(--color-ch6-graphite)]">with clarity.</span>
@@ -35,7 +36,7 @@ export function CompareTeaser() {
                 Comparison tool · coming soon
               </span>
               <p className="mt-3 text-sm text-[var(--color-ch6-graphite)]">
-                The table shown here is a sample, not verified course data.
+                This table shows the layout only. Values appear once they are verified.
               </p>
             </div>
           </motion.div>
@@ -51,7 +52,7 @@ export function CompareTeaser() {
             <div className="w-full">
               {/* Header */}
               <div className="grid grid-cols-3 border-b border-[var(--color-ch6-text)] pb-4 mb-4">
-                <div className="text-xs font-mono tracking-widest text-[var(--color-ch6-accent)]">ATTRIBUTE</div>
+                <div className="text-xs font-mono tracking-widest text-champagne-800">ATTRIBUTE</div>
                 <div className="text-lg font-display font-medium text-[var(--color-ch6-text)]">{comparison.courseA.name}</div>
                 <div className="text-lg font-display font-medium text-[var(--color-ch6-text)]">{comparison.courseB.name}</div>
               </div>

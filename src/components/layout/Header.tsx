@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Search, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -83,6 +83,38 @@ function useHeaderTheme(): Theme {
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuPanel = useRef<HTMLDivElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+
+  // Mobile menu is a modal dialog: move focus in, keep it in, Escape closes, focus returns to the menu button.
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const opener = menuButton.current;
+    menuPanel.current?.querySelector<HTMLElement>('button,a[href]')?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+        return;
+      }
+      if (e.key !== 'Tab' || !menuPanel.current) return;
+      const items = [...menuPanel.current.querySelectorAll<HTMLElement>('button,a[href]')];
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      opener?.focus({ preventScroll: true });
+    };
+  }, [isMobileMenuOpen]);
   const theme = useHeaderTheme();
   const night = theme === 'night';
 
@@ -129,6 +161,7 @@ export function Header() {
             </button>
 
             <button
+              ref={menuButton}
               className={`lg:hidden min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md outline-none focus-visible:outline-2 focus-visible:outline-solid ${focus}`}
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="Open mobile menu"
@@ -147,6 +180,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2 }}
+            ref={menuPanel}
             role="dialog"
             aria-modal="true"
             aria-label="Menu"

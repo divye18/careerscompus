@@ -34,3 +34,14 @@
 ## Scene 5 (University Atlas) — done (M4)
 - Code in `src/journey/universities/`, content in `src/content/institutions.ts`; data is GENERATED: edit `data/institutions/seed.json` then run `node scripts/verify-institutions.mjs` (network). Never hand-edit `institutions.data.json`; never add a fact without evidence. Do not start Scene 6+ without approval.
 - QA: `universities-check.mjs`, `universities-interaction-check.mjs [url] desktop|mobile|reduced|nowebgl`, `universities-transitions.mjs`, `universities-perf.mjs`, `contrast-measure-universities.mjs`.
+
+## Design Constitution (binding on all work)
+- Read `docs/DESIGN_CONSTITUTION.md` before any UI work, and run its review gate (section 18) before calling anything complete. Current known violations: `docs/WEBSITE_QUALITY_AUDIT.md`.
+- Principle: intentionally designed, not decorated. Every icon, badge, container, animation, gradient and visual detail must earn its place.
+- No decorative gradient strips, emoji icons, decorative badges, nested cards or infinite decorative animation. One coherent SVG icon family. Labels must not look like buttons.
+- Radius: use `rounded-atlas-sm` (8), `rounded-atlas` (14), `rounded-atlas-lg` (20), `rounded-pill`. Inner radius = outer radius minus padding.
+- Typography leads: Instrument Serif, Inter, JetBrains Mono only. No meaningful figures in Instrument Serif at text sizes. New text at least 12px, mono labels at least 11px. Headings on night grounds must set `text-ivory` (the base rule is dark).
+- Animate only selection, navigation, progress, state changes, scene transitions and meaningful relationships. Each new scene needs its own opening composition.
+- Do not redesign approved scenes on sight: document, classify, wait for approval. Small, objectively broken fixes are fine if tested.
+- Site-wide check: `node scripts/site-audit.mjs`. Interim-section contrast: `node scripts/contrast-measure-site.mjs`. Do not run `next dev` during `next build` (it can corrupt `.next/dev/types`).
+- Scene 6 is PAUSED on local branch `wip/scene-6-comparison-studio` (unapproved). Do not resume or merge it without approval, and review it against the constitution first.

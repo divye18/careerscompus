@@ -227,7 +227,7 @@ export function HeroSearch() {
               key={tag}
               type="button"
               onClick={() => entry && choose(entry)}
-              className="min-h-[44px] sm:min-h-[36px] px-3 rounded-md text-sm text-ivory/85 bg-transparent border border-ivory/15 hover:border-champagne/70 hover:text-ivory transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
+              className="min-h-[44px] px-3 rounded-md text-sm text-ivory/85 bg-transparent border border-ivory/15 hover:border-champagne/70 hover:text-ivory transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
             >
               {tag}
             </button>

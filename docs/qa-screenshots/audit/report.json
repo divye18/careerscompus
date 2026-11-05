@@ -1,0 +1,256 @@
+{
+ "url": "http://localhost:3100",
+ "date": "2026-11-05",
+ "routes": {
+  "/": 200,
+  "/favicon.ico": 200,
+  "/icon.svg": 200,
+  "/apple-icon.png": 200,
+  "/robots.txt": 200,
+  "/sitemap.xml": 200,
+  "/this-page-does-not-exist": 404,
+  "/careers": 404,
+  "/counselling": 404,
+  "/next.svg": 404,
+  "/vercel.svg": 404,
+  "notFoundTitle": "Page not found | CareersCompus",
+  "notFoundText": "ERROR 404\n\nThis page is off the map.\n\nThe address may be mistyped, or the page may not exist yet. These are good places to pick up your bearings.\n\nBack to the s",
+  "notFoundHasHomeLink": true
+ },
+ "metadata": {
+  "title": "CareersCompus | Find Your Direction",
+  "description": "Explore careers, understand course pathways and discover universities in India, with every institution fact checked against its official website.",
+  "canonical": "https://careerscompus.in",
+  "ogTitle": "CareersCompus | Find Your Direction",
+  "ogDescription": "Explore careers, understand course pathways and discover universities in India, with every institution fact checked against its official website.",
+  "ogType": "website",
+  "ogImage": null,
+  "twitterCard": "summary",
+  "icons": [
+   "/favicon.ico?favicon.3p67u3go2k6j5.ico",
+   "/icon.svg?icon.1n2upgd9ircyj.svg",
+   "/apple-icon.png?apple-icon.0rxmn2p9v_m47.png"
+  ],
+  "themeColor": "#101014",
+  "lang": "en"
+ },
+ "viewports": {
+  "390": {
+   "presenter": "flow",
+   "reason": "not-desktop",
+   "clientWidth": 375,
+   "scrollWidth": 375,
+   "overflow": [],
+   "smallTargets": 1,
+   "smallTargetSamples": [
+    "?: a \"Skip to main content\" 32x24"
+   ],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": true
+   },
+   "errors": []
+  },
+  "768": {
+   "presenter": "flow",
+   "reason": "not-desktop",
+   "clientWidth": 753,
+   "scrollWidth": 753,
+   "overflow": [],
+   "smallTargets": 1,
+   "smallTargetSamples": [
+    "?: a \"Skip to main content\" 32x24"
+   ],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": true
+   },
+   "errors": []
+  },
+  "1280": {
+   "presenter": "pinned",
+   "reason": null,
+   "clientWidth": 1265,
+   "scrollWidth": 1265,
+   "overflow": [],
+   "smallTargets": 1,
+   "smallTargetSamples": [
+    "?: a \"Skip to main content\" 32x24"
+   ],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": true
+   },
+   "errors": []
+  },
+  "1440": {
+   "presenter": "pinned",
+   "reason": null,
+   "clientWidth": 1425,
+   "scrollWidth": 1425,
+   "overflow": [],
+   "smallTargets": 1,
+   "smallTargetSamples": [
+    "?: a \"Skip to main content\" 32x24"
+   ],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": true
+   },
+   "errors": []
+  },
+  "768-touch": {
+   "presenter": "flow",
+   "reason": "not-desktop",
+   "clientWidth": 768,
+   "scrollWidth": 768,
+   "overflow": [],
+   "smallTargets": 1,
+   "smallTargetSamples": [
+    "?: a \"Skip to main content\" 32x24"
+   ],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": true
+   },
+   "errors": []
+  },
+  "390-touch": {
+   "presenter": "flow",
+   "reason": "not-desktop",
+   "clientWidth": 390,
+   "scrollWidth": 390,
+   "overflow": [],
+   "smallTargets": 1,
+   "smallTargetSamples": [
+    "?: a \"Skip to main content\" 32x24"
+   ],
+   "clipped": [],
+   "h1": [
+    "Your Future HasMore Than OneDirection."
+   ],
+   "headingSkips": [],
+   "buttonsWithoutName": [],
+   "inputsWithoutLabel": [],
+   "images": [],
+   "landmarks": {
+    "main": 1,
+    "header": 1,
+    "footer": 1,
+    "skipLink": true
+   },
+   "errors": []
+  }
+ },
+ "navigation": {
+  "desktopLinks": [
+   {
+    "text": "Courses",
+    "href": "/#act-courses",
+    "targetTop": 64,
+    "ok": true,
+    "ariaCurrent": null
+   },
+   {
+    "text": "Universities",
+    "href": "/#act-universities",
+    "targetTop": 64,
+    "ok": true,
+    "ariaCurrent": null
+   },
+   {
+    "text": "Careers",
+    "href": "/#act-discovery",
+    "targetTop": 0,
+    "ok": true,
+    "ariaCurrent": null
+   },
+   {
+    "text": "Compare",
+    "href": "/#act-comparison",
+    "targetTop": 64,
+    "ok": true,
+    "ariaCurrent": null
+   }
+  ],
+  "activeState": false,
+  "logoReturnsToTop": true,
+  "getGuidanceTop": 64,
+  "mobileMenuOpens": true,
+  "mobileLinks": [
+   "Courses",
+   "Universities",
+   "Careers",
+   "Compare"
+  ],
+  "mobileFocusMovesIn": true,
+  "mobileEscapeCloses": true,
+  "mobileLinkReachesTarget": true
+ },
+ "form": {
+  "emptyShowsErrors": true,
+  "invalidMarked": true,
+  "badPhoneRejected": true,
+  "successMessage": true,
+  "networkRequest": false
+ },
+ "links": {
+  "total": 45,
+  "unique": 18,
+  "dead": [],
+  "missingAnchors": [],
+  "unsafeExternal": [],
+  "externalCount": 0,
+  "mailtoTel": []
+ }
+}

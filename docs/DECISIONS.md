@@ -41,3 +41,8 @@
 33. **Region = state via the Zonal Councils** (North-East under East); state comes from the verified city. It is an editorial grouping for browsing, stated in the code.
 34. **Filters never produce empty results:** options with no verified match are disabled and show 0.
 35. **One shared rail lane (`SceneRailLane`)** across Scenes 4–5 instead of one per scene (two rails showed at the seam).
+
+36. **Design Constitution adopted** as a permanent standard. Approved scenes are documented and classified rather than redesigned on sight.
+37. **Scene 6 parked on a side branch** when the audit was requested, so the main working branch stays at the approved state.
+38. **Canonical origin** defaults to the domain in `docs/routes.md` and can be overridden with `NEXT_PUBLIC_SITE_URL`. To be confirmed by the owner, along with whether a preview should be indexed.
+39. **Radius tokens added without migrating components.** Migration needs approval because it touches approved scenes.

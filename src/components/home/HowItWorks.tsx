@@ -33,7 +33,7 @@ export function HowItWorks() {
                   <s.icon className="w-6 h-6 text-accent-base" />
                 </div>
                 <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                  <div className="text-accent-base font-bold text-sm mb-2">STEP {s.id}</div>
+                  <div className="text-cyan-800 font-bold text-sm mb-2">STEP {s.id}</div>
                   <h3 className="text-lg font-bold text-slate-900 mb-2">{s.title}</h3>
                   <p className="text-slate-600 text-sm">{s.desc}</p>
                 </div>

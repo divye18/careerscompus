@@ -1,4 +1,6 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { color } from '@/theme/tokens';
+import { SITE_URL } from '@/lib/site';
 import { Inter, Instrument_Serif, JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
@@ -31,10 +33,19 @@ const plusJakarta = Plus_Jakarta_Sans({
   weight: ['500', '600', '700', '800'],
 });
 
+const description = 'Explore careers, understand course pathways and discover universities in India, with every institution fact checked against its official website.';
+
 export const metadata: Metadata = {
-  title: 'CareersCompus | Find Your Direction',
-  description: 'Premium guidance for students to discover top careers, university programs, and courses in India.',
+  metadataBase: new URL(SITE_URL),
+  title: { default: 'CareersCompus | Find Your Direction', template: '%s | CareersCompus' },
+  description,
+  applicationName: 'CareersCompus',
+  alternates: { canonical: '/' },
+  openGraph: { type: 'website', siteName: 'CareersCompus', title: 'CareersCompus | Find Your Direction', description, url: '/', locale: 'en_IN' },
+  twitter: { card: 'summary', title: 'CareersCompus | Find Your Direction', description },
 };
+
+export const viewport: Viewport = { themeColor: color.ink950 };
 
 export default function RootLayout({
   children,

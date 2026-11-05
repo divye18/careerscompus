@@ -25,6 +25,12 @@
   --color-domain-architecture: #E58A64;
   --color-domain-science: #6DB5F2;
 
+  /* Radius scale (mirrors `radius` in src/theme/tokens.ts). Inner radius = outer radius minus the padding between them. */
+  --radius-atlas-sm: 8px;
+  --radius-atlas: 14px;
+  --radius-atlas-lg: 20px;
+  --radius-pill: 999px;
+
   --font-atlas: var(--font-instrument), Georgia, 'Times New Roman', serif;
   --font-mono: var(--font-jetbrains), ui-monospace, 'Cascadia Mono', Consolas, monospace;
 

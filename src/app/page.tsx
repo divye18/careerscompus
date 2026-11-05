@@ -20,8 +20,14 @@ import { FinalCTA } from '@/components/home/FinalCTA';
 export default function Home() {
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only rounded-lg bg-ivory px-4 py-3 text-sm font-semibold text-ink-950 outline-none focus-visible:not-sr-only focus-visible:fixed focus-visible:px-4 focus-visible:py-3 focus-visible:left-3 focus-visible:top-3 focus-visible:z-[70] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-cyan"
+      >
+        Skip to main content
+      </a>
       <Header />
-      <main className="w-full relative">
+      <main id="main" tabIndex={-1} className="w-full relative outline-none">
         <Journey />
         <div className="relative">
           <CoursesPathway />

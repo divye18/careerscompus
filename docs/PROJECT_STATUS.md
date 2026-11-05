@@ -107,3 +107,6 @@ Implemented as `<UniversityAtlas />` (`#act-universities`) after Scene 4, before
 **Contrast** (rendered pixels, 4 states × several views): 1440 → 415/415, 1280 → 404/404, 390 → 424/424.
 **Interaction:** 25/25 desktop, 26/26 mobile, 25/25 reduced motion, 25/25 no-WebGL (includes dataset integrity checks); Scene 4 19/19 and Scene 3 12/12 still pass.
 Not verified: real phones, Safari/Firefox, screen reader. Limitations: small dataset (the point); several sites could not be fetched/verified automatically and were left out (e.g. NID, NLU Delhi, Ashoka, Jadavpur, University of Calcutta, international institutions); two official pages disagree on NLSIU's founding year so none is shown.
+
+## Update 2026-11-05 — Design constitution and audit
+Permanent standard: `docs/DESIGN_CONSTITUTION.md`. Findings and ranked fixes: `docs/WEBSITE_QUALITY_AUDIT.md`. Scenes 1 to 5 pass the automated checks at 1440, 1280, 768 and 390 (no overflow, clipped text or console errors; 44px targets). Critical bugs found in the interim sections are fixed and tested. Open: the interim sections still contradict Nocturne Atlas (decision needed), plus 12 important improvements awaiting approval. Scene 6 is paused and unapproved on `wip/scene-6-comparison-studio`. Not tested: real devices, Safari, Firefox, screen reader.
