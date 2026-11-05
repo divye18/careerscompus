@@ -26,3 +26,8 @@
 - [x] M3 Scene 4 Courses & Learning Pathways
 - [ ] Next (needs approval): Scene 5 Universities
 - [ ] Open: verified course/eligibility dataset + `entrance` records; real-device mobile fps; Safari/Firefox; screen-reader pass; Scenes 5–8 replace the remaining legacy Light Royal sections
+
+## Status (2026-11-05, after M4)
+- [x] M4 Scene 5 University Discovery Atlas
+- [ ] Next (needs approval): Scene 6 Compare
+- [ ] Open: grow the verified dataset (more sites need a different fetcher / manual verification), verified course lists per institution, verified coordinates (then the atlas could offer a real map option), real-device mobile fps, Safari/Firefox, screen reader

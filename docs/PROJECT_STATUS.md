@@ -99,3 +99,11 @@ The first run after load is the slowest (50–54 fps cold).
 **Interaction tests**: 19/19 desktop, 20/20 mobile, 19/19 reduced-motion, 19/19 no-WebGL (`scripts/courses-interaction-check.mjs`); Scene 3 interaction checks still 12/12.
 
 Not verified: real phones (mobile fps is emulated), Safari/Firefox, screen reader. Known: Scene 2's flow compass SVG (92vw) causes ~4 px horizontal overflow at 390 px when the browser uses classic (non-overlay) scrollbars; not touched (Scenes 1–3 out of scope). Course data is illustrative and small (28 courses); lines are drawn only on desktop.
+
+## Update 2026-11-05 — M4 Scene 5 University Discovery Atlas
+Implemented as `<UniversityAtlas />` (`#act-universities`) after Scene 4, before the dawn handoff. **Data: 17 institutions, each verified by script against its live official website** (`docs/qa-screenshots/universities/verification-report.md`; per-fact source quotes in `institutions.data.json`). Verified-known counts: type 7 (6 institutes of national importance, 1 deemed-to-be), establishment year 8, domains 10 of 17 from official names; public/private/specialised types have **0** verified records (chips disabled, labelled with 0), International has 0 (honest empty state). Everything else shows "Information coming soon". Not included: coordinates (none verified → schematic atlas, not a map), courses, admission, accreditation, rankings, fees, placements, salaries.
+
+**Measured (headed Chrome, 5 repeats, medians):** Pathways→Atlas transition and Atlas section: 60 fps at 1440 and 1280 (p95 16.9–17 ms, 0 frames >33 ms; cold first run 55.8 / 57.8); 390 emulated (desktop GPU, not a phone): 60 fps. Transition luminance step ≤ 3.8/255 (1440).
+**Contrast** (rendered pixels, 4 states × several views): 1440 → 415/415, 1280 → 404/404, 390 → 424/424.
+**Interaction:** 25/25 desktop, 26/26 mobile, 25/25 reduced motion, 25/25 no-WebGL (includes dataset integrity checks); Scene 4 19/19 and Scene 3 12/12 still pass.
+Not verified: real phones, Safari/Firefox, screen reader. Limitations: small dataset (the point); several sites could not be fetched/verified automatically and were left out (e.g. NID, NLU Delhi, Ashoka, Jadavpur, University of Calcutta, international institutions); two official pages disagree on NLSIU's founding year so none is shown.

@@ -15,10 +15,13 @@ export const RAIL_ITEMS = [
   ...SCENES.map((s) => ({ ...s, hue: null as string | null })),
   ...DOMAINS.map((d) => ({ id: `explore-${d.id}`, label: d.name, hue: d.hue as string | null })),
   { id: 'act-courses', label: 'Courses', hue: null as string | null },
+  { id: 'act-universities', label: 'Universities', hue: null as string | null },
 ];
 const ITEMS = RAIL_ITEMS;
 /** Index of the Courses stop (Scene 4). */
-export const RAIL_COURSES_INDEX = ITEMS.length - 1;
+export const RAIL_COURSES_INDEX = ITEMS.length - 2;
+/** Index of the Universities stop (Scene 5). */
+export const RAIL_UNIVERSITIES_INDEX = ITEMS.length - 1;
 
 /**
  * Direction Rail: persistent wayfinding for the journey — two scene stops, then one stop per domain room.

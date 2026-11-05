@@ -35,3 +35,9 @@
 28. **Connecting lines are measured from the real station dots and drawn imperatively** (no React state, redrawn on selection/resize); they leave from the end of the selected label so routes never strike through text.
 29. **Mobile uses the same DOM stacked vertically** (route line down the left) and brings the next stage into view after a choice — chosen over compressing the 4-column diagram.
 30. **Header re-observes the DOM** (MutationObserver) because the journey swaps presenters after hydration; otherwise the header theme is wrong over the pinned stage.
+
+31. **Institution data is verified by script, not typed.** A claim is stored only if its evidence pattern matches the live official page (source URL + quote kept); otherwise the UI says "Information coming soon". Accuracy over volume: 17 institutions, not hundreds.
+32. **No coordinates → a schematic constellation, labelled as such.** Region hubs are arranged like a compass for orientation only; institutions sit on an orbit around their hub alphabetically. Never placed on a real map.
+33. **Region = state via the Zonal Councils** (North-East under East); state comes from the verified city. It is an editorial grouping for browsing, stated in the code.
+34. **Filters never produce empty results:** options with no verified match are disabled and show 0.
+35. **One shared rail lane (`SceneRailLane`)** across Scenes 4–5 instead of one per scene (two rails showed at the seam).

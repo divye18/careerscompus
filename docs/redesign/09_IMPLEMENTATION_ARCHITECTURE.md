@@ -87,3 +87,8 @@ Video recording needs Playwright's ffmpeg download (not installed); a dense JPEG
 - Rail: `DirectionRail.tsx` exports `RailNav`/`RAIL_ITEMS`; Scene 4 parks the same rail in a sticky margin wrapper (active = Courses).
 - Transition: pinned stage ends on `--handoff-top`; Scene 4's ground starts on the same colour; no crossfade, so no overlapping text. `Handoff` (dawn) now follows Scene 4.
 - QA: `courses-check`, `courses-interaction-check`, `courses-transitions`, `courses-perf`, `contrast-measure-courses`.
+
+## 11. Scene 5 — University Discovery Atlas (as built, M4)
+- Data pipeline: `data/institutions/seed.json` (candidates + per-claim evidence URL + regex) → `scripts/verify-institutions.mjs` (fetch, match, keep only matches; drops an institution if name/city cannot be verified; writes `src/content/institutions.data.json` and a verification report) → `src/content/institutions.ts` (typed model, REGIONS, REGION_BY_STATE, filters). UI never contains institution facts.
+- UI: `UniversityAtlas.tsx` (useReducer: region / type / domain / selected), `atlasLayout.ts` (schematic geometry + orbit placement + captions), `AtlasIntro.tsx` (scroll-linked stage→region intro), info panel with "How we checked this" disclosure. Desktop = SVG lines + HTML buttons positioned by %, below lg = region chips + route list; one panel DOM for both.
+- `SceneRailLane` (sticky margin rail shared by Scenes 4–5, IntersectionObserver for the active stop); `DirectionRail` exports `RailNav` + stop indices.

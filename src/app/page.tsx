@@ -2,8 +2,9 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Journey } from '@/journey/Journey';
 import { Handoff } from '@/journey/Handoff';
+import { SceneRailLane } from '@/journey/layers/SceneRailLane';
 import { CoursesPathway } from '@/journey/courses/CoursesPathway';
-import { UniversityPreview } from '@/components/home/UniversityPreview';
+import { UniversityAtlas } from '@/journey/universities/UniversityAtlas';
 import { CompareTeaser } from '@/components/home/CompareTeaser';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { CounsellingCTA } from '@/components/home/CounsellingCTA';
@@ -12,7 +13,7 @@ import { FAQSection } from '@/components/home/FAQSection';
 import { FinalCTA } from '@/components/home/FinalCTA';
 
 /**
- * Meridian Atlas — Scenes 1–3 (Arrival, Discover, Explore) live in <Journey />; Scene 4 (Courses & Pathways) is <CoursesPathway />.
+ * Meridian Atlas — Scenes 1–3 (Arrival, Discover, Explore) live in <Journey />; Scene 4 (Courses & Pathways) is <CoursesPathway />; Scene 5 (University Atlas) is <UniversityAtlas />.
  * The sections below are the previous homepage content, kept as interim content until
  * their scenes are rebuilt in later milestones.
  */
@@ -22,12 +23,13 @@ export default function Home() {
       <Header />
       <main className="w-full relative">
         <Journey />
-        <CoursesPathway />
+        <div className="relative">
+          <CoursesPathway />
+          <UniversityAtlas />
+          <SceneRailLane />
+        </div>
         <Handoff />
 
-        <div id="act-universities" className="scroll-mt-16 py-16 sm:py-24">
-          <UniversityPreview />
-        </div>
         <div id="act-comparison" className="scroll-mt-16 py-16 sm:py-24">
           <CompareTeaser />
           <HowItWorks />

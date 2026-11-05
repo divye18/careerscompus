@@ -30,3 +30,7 @@
 - Code in `src/journey/courses/` + `src/content/pathways.ts`. Do not start Scene 5+ without approval.
 - Content rules: only illustrative orientation data; never add durations, fees, cut-offs, salaries, placements, exam names or eligibility rules without a sourced, reviewed record (`entrance` stays `null` until then).
 - QA: `courses-check.mjs`, `courses-interaction-check.mjs [url] desktop|mobile|reduced|nowebgl`, `courses-transitions.mjs`, `courses-perf.mjs`, `contrast-measure-courses.mjs` (need `npx next start -p 3100`).
+
+## Scene 5 (University Atlas) — done (M4)
+- Code in `src/journey/universities/`, content in `src/content/institutions.ts`; data is GENERATED: edit `data/institutions/seed.json` then run `node scripts/verify-institutions.mjs` (network). Never hand-edit `institutions.data.json`; never add a fact without evidence. Do not start Scene 6+ without approval.
+- QA: `universities-check.mjs`, `universities-interaction-check.mjs [url] desktop|mobile|reduced|nowebgl`, `universities-transitions.mjs`, `universities-perf.mjs`, `contrast-measure-universities.mjs`.

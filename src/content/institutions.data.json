@@ -1,0 +1,734 @@
+{
+ "generatedBy": "scripts/verify-institutions.mjs",
+ "lastVerified": "2026-11-05",
+ "institutions": [
+  {
+   "id": "iit-delhi",
+   "name": "Indian Institute of Technology Delhi",
+   "shortName": "IIT Delhi",
+   "slug": "iit-delhi",
+   "city": "New Delhi",
+   "state": "Delhi",
+   "country": "India",
+   "officialWebsite": "https://home.iitd.ac.in/",
+   "institutionType": "ini",
+   "establishedYear": 1961,
+   "academicDomains": [
+    "technology"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://home.iitd.ac.in/",
+     "quote": "--> Home Page : IIT Delhi --> Indian Institute of Technology Delhi Hide Preloader Light Version Search Job"
+    },
+    {
+     "field": "city",
+     "url": "https://home.iitd.ac.in/about.php",
+     "quote": "ली Indian Institute of Technology Delhi Hauz Khas, New Delhi-110016, India --> Academics"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://home.iitd.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "institutionType",
+     "url": "https://home.iitd.ac.in/about.php",
+     "quote": "the Institute was later declared as an Institution of National Importance under the “Institutes of Technology (Am"
+    },
+    {
+     "field": "establishedYear",
+     "url": "https://home.iitd.ac.in/about.php",
+     "quote": "e, engineering and technology in India. Established as College of Engineering in 1961, the Institute was later declared as an"
+    },
+    {
+     "field": "academicDomains:technology",
+     "url": "https://home.iitd.ac.in/",
+     "quote": "--> Home Page : IIT Delhi --> Indian Institute of Technology Delhi Hide Preloader Light Version Sear"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "iit-bombay",
+   "name": "Indian Institute of Technology Bombay",
+   "shortName": "IIT Bombay",
+   "slug": "iit-bombay",
+   "city": "Mumbai",
+   "state": "Maharashtra",
+   "country": "India",
+   "officialWebsite": "https://www.iitb.ac.in/",
+   "institutionType": "ini",
+   "establishedYear": 1958,
+   "academicDomains": [
+    "technology"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.iitb.ac.in/about",
+     "quote": "ojects & Consultancy (DRONA) Career Why IIT Bombay? Apply Resources Facilities Central Lib"
+    },
+    {
+     "field": "city",
+     "url": "https://www.iitb.ac.in/about",
+     "quote": "Bombay's campus covers 200 hectares in Powai, Mumbai. It received significant support from U"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.iitb.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "institutionType",
+     "url": "https://www.iitb.ac.in/about",
+     "quote": "61, an Act of Parliament granted it the status of an institution of national importance, allowing it to confer its own degrees"
+    },
+    {
+     "field": "establishedYear",
+     "url": "https://www.iitb.ac.in/about",
+     "quote": "y Forum Alumni CSR Vendors Introduction IIT Bombay was established in 1958. It attracts top-tier students. Its ren"
+    },
+    {
+     "field": "academicDomains:technology",
+     "url": "https://www.iitb.ac.in/",
+     "quote": "from researchers of Indian 25 Mar 2026 Indian Institute of Technology Bombay study finds why our current meth"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "iit-madras",
+   "name": "Indian Institute of Technology Madras",
+   "shortName": "IIT Madras",
+   "slug": "iit-madras",
+   "city": "Chennai",
+   "state": "Tamil Nadu",
+   "country": "India",
+   "officialWebsite": "https://www.iitm.ac.in/",
+   "institutionType": "ini",
+   "establishedYear": null,
+   "academicDomains": [
+    "technology"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.iitm.ac.in/about",
+     "quote": "and Device Development (R2D2) SynBioME: IIT Madras Biofoundry The Centre of Excellence for"
+    },
+    {
+     "field": "city",
+     "url": "https://www.iitm.ac.in/campus-life/overview",
+     "quote": "u. The campus is located 10 km from the Chennai Airport, 12 km from the Chennai Central"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.iitm.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "institutionType",
+     "url": "https://www.iitm.ac.in/about",
+     "quote": "as IIT Madras is one among the foremost institutes of national importance in higher technological education, basi"
+    },
+    {
+     "field": "academicDomains:technology",
+     "url": "https://www.iitm.ac.in/about",
+     "quote": "itutes of national importance in higher technological education, basic and applied research. Mission Hi"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "iit-kanpur",
+   "name": "Indian Institute of Technology Kanpur",
+   "shortName": "IIT Kanpur",
+   "slug": "iit-kanpur",
+   "city": "Kanpur",
+   "state": "Uttar Pradesh",
+   "country": "India",
+   "officialWebsite": "https://www.iitk.ac.in/",
+   "institutionType": null,
+   "establishedYear": 1959,
+   "academicDomains": [
+    "technology"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.iitk.ac.in/",
+     "quote": "Indian Institute of Technology Kanpur | IIT Kanpur Set your preference Reset"
+    },
+    {
+     "field": "city",
+     "url": "https://www.iitk.ac.in/",
+     "quote": "Indian Institute of Technology Kanpur | IIT Kanpur Set your preference Reset"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.iitk.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "establishedYear",
+     "url": "https://www.iitk.ac.in/",
+     "quote": "Indian Institute of Technology Kanpur, established in 1959, is a premier institution established b"
+    },
+    {
+     "field": "academicDomains:technology",
+     "url": "https://www.iitk.ac.in/",
+     "quote": "Indian Institute of Technology Kanpur | IIT Kanpur Set your preference"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "iit-kharagpur",
+   "name": "Indian Institute of Technology Kharagpur",
+   "shortName": "IIT Kharagpur",
+   "slug": "iit-kharagpur",
+   "city": "Kharagpur",
+   "state": "West Bengal",
+   "country": "India",
+   "officialWebsite": "https://www.iitkgp.ac.in/",
+   "institutionType": "ini",
+   "establishedYear": null,
+   "academicDomains": [
+    "technology"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.iitkgp.ac.in/about-iitkgp",
+     "quote": "Indian Institute of Technology Kharagpur | About IITKGP About Administration Stu"
+    },
+    {
+     "field": "city",
+     "url": "https://www.iitkgp.ac.in/about-iitkgp",
+     "quote": "Indian Institute of Technology Kharagpur | About IITKGP About Administration Stu"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.iitkgp.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "institutionType",
+     "url": "https://www.iitkgp.ac.in/about-iitkgp",
+     "quote": "pur) Act declaring this Institute as an Institute of national importance. The Institute was also given the statu"
+    },
+    {
+     "field": "academicDomains:technology",
+     "url": "https://www.iitkgp.ac.in/about-iitkgp",
+     "quote": "Indian Institute of Technology Kharagpur | About IITKGP About Administ"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "iit-guwahati",
+   "name": "Indian Institute of Technology Guwahati",
+   "shortName": "IIT Guwahati",
+   "slug": "iit-guwahati",
+   "city": "Guwahati",
+   "state": "Assam",
+   "country": "India",
+   "officialWebsite": "https://www.iitg.ac.in/",
+   "institutionType": null,
+   "establishedYear": 1994,
+   "academicDomains": [
+    "technology"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.iitg.ac.in/",
+     "quote": "Indian Institute of Technology Guwahati : भारतीय प्रौद्योगिकी संस्थान गुवाहाटी"
+    },
+    {
+     "field": "city",
+     "url": "https://www.iitg.ac.in/",
+     "quote": "Indian Institute of Technology Guwahati : भारतीय प्रौद्योगिकी संस्थान गुवाहाटी"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.iitg.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "establishedYear",
+     "url": "https://www.iitg.ac.in/",
+     "quote": "the sixth member of the IIT fraternity, was established in 1994. The academic programme of IIT Guwahati"
+    },
+    {
+     "field": "academicDomains:technology",
+     "url": "https://www.iitg.ac.in/",
+     "quote": "Indian Institute of Technology Guwahati : भारतीय प्रौद्योगिकी संस्थान"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "iisc-bengaluru",
+   "name": "Indian Institute of Science",
+   "shortName": "IISc Bengaluru",
+   "slug": "iisc-bengaluru",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "country": "India",
+   "officialWebsite": "https://iisc.ac.in/",
+   "institutionType": null,
+   "establishedYear": 1909,
+   "academicDomains": [
+    "science"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.iisc.ac.in/about/foreword-from-the-director/",
+     "quote": "Indian Institute of Science Home | [glt language=\"English\" label=\"E"
+    },
+    {
+     "field": "city",
+     "url": "https://www.iisc.ac.in/about/foreword-from-the-director/",
+     "quote": "er 440 acres of greenery in the city of Bengaluru (formerly Bangalore), India’s hub of hi"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://iisc.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "establishedYear",
+     "url": "https://www.iisc.ac.in/about/foreword-from-the-director/",
+     "quote": "The Indian Institute of Science (IISc) was established in 1909 by a visionary partnership between the"
+    },
+    {
+     "field": "academicDomains:science",
+     "url": "https://www.iisc.ac.in/about/foreword-from-the-director/",
+     "quote": "Indian Institute of Science Home | [glt language=\"English\" label=\"E"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "university-of-delhi",
+   "name": "University of Delhi",
+   "shortName": "University of Delhi",
+   "slug": "university-of-delhi",
+   "city": "Delhi",
+   "state": "Delhi",
+   "country": "India",
+   "officialWebsite": "https://www.du.ac.in/",
+   "institutionType": null,
+   "establishedYear": 1922,
+   "academicDomains": [],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.du.ac.in/index.php?page=about-du-2",
+     "quote": "About DU: Overview - Delhi University Institution of Eminence हिंदी English -"
+    },
+    {
+     "field": "city",
+     "url": "https://www.du.ac.in/index.php?page=about-du-2",
+     "quote": "About DU: Overview - Delhi University Institution of Eminence हिंदी English -"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.du.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "establishedYear",
+     "url": "https://www.du.ac.in/index.php?page=about-du-2",
+     "quote": "(Dedication, Steadfastness and Truth). Established in 1922 as a unitary, teaching and residential"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "aiims-delhi",
+   "name": "All India Institute of Medical Sciences, New Delhi",
+   "shortName": "AIIMS New Delhi",
+   "slug": "aiims-delhi",
+   "city": "New Delhi",
+   "state": "Delhi",
+   "country": "India",
+   "officialWebsite": "https://www.aiims.edu/",
+   "institutionType": "ini",
+   "establishedYear": null,
+   "academicDomains": [
+    "medicine"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.aiims.edu/index.php/en/about-us",
+     "quote": "भारतीय आयुर्विज्ञान संस्थान, नई दिल्ली All India Institute Of Medical Sciences, New Delhi OPD Appointment AIIMS Dashbo"
+    },
+    {
+     "field": "city",
+     "url": "https://www.aiims.edu/",
+     "quote": "स्थान, नई दिल्ली All India Institute Of Medical Sciences, New Delhi OPD Appointment AIIMS Dashboard ORBO Do"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.aiims.edu/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "institutionType",
+     "url": "https://www.aiims.edu/index.php/en/about-us",
+     "quote": "Medical Sciences was established as an institution of national importance by an Act of Parliament with the object"
+    },
+    {
+     "field": "academicDomains:medicine",
+     "url": "https://www.aiims.edu/index.php/en/about-us",
+     "quote": "ुर्विज्ञान संस्थान, नई दिल्ली All India Institute Of Medical Sciences, New Delhi OPD Appointment AIIMS Dashbo"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "spa-delhi",
+   "name": "School of Planning and Architecture, New Delhi",
+   "shortName": "SPA New Delhi",
+   "slug": "spa-delhi",
+   "city": "New Delhi",
+   "state": "Delhi",
+   "country": "India",
+   "officialWebsite": "https://spa.ac.in/",
+   "institutionType": "ini",
+   "establishedYear": null,
+   "academicDomains": [
+    "architecture"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://spa.ac.in/en/about",
+     "quote": "About | School of Planning and Architecture, New Delhi Students Faculty & Staff Alu"
+    },
+    {
+     "field": "city",
+     "url": "https://spa.ac.in/en/about",
+     "quote": "About | School of Planning and Architecture, New Delhi Students Faculty & Staff Alumni Calenda"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://spa.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "institutionType",
+     "url": "https://spa.ac.in/en/about",
+     "quote": "ecture, New Delhi (SPA New Delhi) is an Institution of National Importance imparting education in Architecture, Pl"
+    },
+    {
+     "field": "academicDomains:architecture",
+     "url": "https://spa.ac.in/en/about",
+     "quote": "About | School of Planning and Architecture, New Delhi Students Faculty & Staff Alu"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "nlsiu-bengaluru",
+   "name": "National Law School of India University",
+   "shortName": "NLSIU Bengaluru",
+   "slug": "nlsiu-bengaluru",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "country": "India",
+   "officialWebsite": "https://www.nls.ac.in/",
+   "institutionType": null,
+   "establishedYear": null,
+   "academicDomains": [
+    "law"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.nls.ac.in/",
+     "quote": "National Law School of India University - Skip to content NLSIU National Law Sc"
+    },
+    {
+     "field": "city",
+     "url": "https://www.nls.ac.in/",
+     "quote": "tent NLSIU National Law School of India University, Bengaluru About About NLSIU Vice Chancellor’s Mes"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.nls.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "academicDomains:law",
+     "url": "https://www.nls.ac.in/",
+     "quote": "National Law School of India University - Skip to content N"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "iim-ahmedabad",
+   "name": "Indian Institute of Management Ahmedabad",
+   "shortName": "IIM Ahmedabad",
+   "slug": "iim-ahmedabad",
+   "city": "Ahmedabad",
+   "state": "Gujarat",
+   "country": "India",
+   "officialWebsite": "https://www.iima.ac.in/",
+   "institutionType": null,
+   "establishedYear": null,
+   "academicDomains": [
+    "business"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.iima.ac.in/",
+     "quote": "IIMA - Indian Institute of Management Ahmedabad Home Menu Main navigation The Institute"
+    },
+    {
+     "field": "city",
+     "url": "https://www.iima.ac.in/",
+     "quote": "IIMA - Indian Institute of Management Ahmedabad Home Menu Main navigation The Institute"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.iima.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "academicDomains:business",
+     "url": "https://www.iima.ac.in/",
+     "quote": "IIMA - Indian Institute of Management Ahmedabad Home Menu Main navigation The"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "bits-pilani",
+   "name": "Birla Institute of Technology and Science, Pilani",
+   "shortName": "BITS Pilani",
+   "slug": "bits-pilani",
+   "city": "Pilani",
+   "state": "Rajasthan",
+   "country": "India",
+   "officialWebsite": "https://www.bits-pilani.ac.in/",
+   "institutionType": "deemed",
+   "establishedYear": null,
+   "academicDomains": [
+    "technology",
+    "science"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.bits-pilani.ac.in/",
+     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) --> --> ABOUT WILP PLACEM"
+    },
+    {
+     "field": "city",
+     "url": "https://www.bits-pilani.ac.in/",
+     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) --> --> ABOUT WILP PLACEM"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.bits-pilani.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "institutionType",
+     "url": "https://www.bits-pilani.ac.in/",
+     "quote": "tute of Eminence --> --> An Institution Deemed to be University estd. vide Sec.3 of the UGC Act,1956 un"
+    },
+    {
+     "field": "academicDomains:technology",
+     "url": "https://www.bits-pilani.ac.in/",
+     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) --> -"
+    },
+    {
+     "field": "academicDomains:science",
+     "url": "https://www.bits-pilani.ac.in/",
+     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) --> --> ABOUT WIL"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "vit-vellore",
+   "name": "Vellore Institute of Technology",
+   "shortName": "VIT Vellore",
+   "slug": "vit-vellore",
+   "city": "Vellore",
+   "state": "Tamil Nadu",
+   "country": "India",
+   "officialWebsite": "https://vit.ac.in/",
+   "institutionType": null,
+   "establishedYear": 1984,
+   "academicDomains": [
+    "technology"
+   ],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://vit.ac.in/about-vit",
+     "quote": ": June 2025 Last Updated: Copyrights © Vellore Institute Of Technology | Privacy Policy Beware of VITEEE fake"
+    },
+    {
+     "field": "city",
+     "url": "https://vit.ac.in/about-vit",
+     "quote": "est House Grievance Redressal Hotels in Vellore Alumni ▼ Transcripts Migration Certific"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://vit.ac.in/",
+     "quote": "official website reachable"
+    },
+    {
+     "field": "establishedYear",
+     "url": "https://vit.ac.in/about-vit",
+     "quote": "nts Commission (UGC) Act, 1956, and was founded in 1984 as a self-financing institution called"
+    },
+    {
+     "field": "academicDomains:technology",
+     "url": "https://vit.ac.in/about-vit",
+     "quote": "2025 Last Updated: Copyrights © Vellore Institute Of Technology | Privacy Policy Beware of VITEEE fake"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "banaras-hindu-university",
+   "name": "Banaras Hindu University",
+   "shortName": "BHU Varanasi",
+   "slug": "banaras-hindu-university",
+   "city": "Varanasi",
+   "state": "Uttar Pradesh",
+   "country": "India",
+   "officialWebsite": "https://www.bhu.ac.in/",
+   "institutionType": null,
+   "establishedYear": null,
+   "academicDomains": [],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.bhu.ac.in/",
+     "quote": "Home - Banaras Hindu University, Varanasi, India. 0\"> 0\"> 0\"> {{polengl"
+    },
+    {
+     "field": "city",
+     "url": "https://www.bhu.ac.in/",
+     "quote": "Home - Banaras Hindu University, Varanasi, India. 0\"> 0\"> 0\"> {{polenglish==true?"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.bhu.ac.in/",
+     "quote": "official website reachable"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "aiims-bhopal",
+   "name": "All India Institute of Medical Sciences, Bhopal",
+   "shortName": "AIIMS Bhopal",
+   "slug": "aiims-bhopal",
+   "city": "Bhopal",
+   "state": "Madhya Pradesh",
+   "country": "India",
+   "officialWebsite": "https://www.aiimsbhopal.edu.in/",
+   "institutionType": null,
+   "establishedYear": null,
+   "academicDomains": [],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.aiimsbhopal.edu.in/",
+     "quote": "AIIMS Bhopal Skip to main content ई-सुश्रुत (HMIS Lo"
+    },
+    {
+     "field": "city",
+     "url": "https://www.aiimsbhopal.edu.in/",
+     "quote": "AIIMS Bhopal Skip to main content ई-सुश्रुत (HMIS Lo"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.aiimsbhopal.edu.in/",
+     "quote": "official website reachable"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  },
+  {
+   "id": "anna-university",
+   "name": "Anna University",
+   "shortName": "Anna University",
+   "slug": "anna-university",
+   "city": "Chennai",
+   "state": "Tamil Nadu",
+   "country": "India",
+   "officialWebsite": "https://www.annauniv.edu/",
+   "institutionType": null,
+   "establishedYear": null,
+   "academicDomains": [],
+   "availableCourses": [],
+   "coordinates": null,
+   "sources": [
+    {
+     "field": "name",
+     "url": "https://www.annauniv.edu/",
+     "quote": "Anna University, Chennai --> Home தமிழில் அறிய --> View"
+    },
+    {
+     "field": "city",
+     "url": "https://www.annauniv.edu/",
+     "quote": "Anna University, Chennai --> Home தமிழில் அறிய --> View in Engli"
+    },
+    {
+     "field": "officialWebsite",
+     "url": "https://www.annauniv.edu/",
+     "quote": "official website reachable"
+    }
+   ],
+   "lastVerified": "2026-11-05"
+  }
+ ]
+}

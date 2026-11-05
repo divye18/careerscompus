@@ -3,10 +3,10 @@
 import { useEffect, useMemo, useReducer, useRef, type ReactNode } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { DOMAINS } from '@/content/domains';
+import type { DomainId } from '@/theme/tokens';
 import { COURSES, ENTRANCE_PLACEHOLDER, LEVELS, PATHWAY_DISCLAIMER, coursesFor, type Course, type LevelId } from '@/content/pathways';
 import { DomainGlyph } from '../DomainGlyph';
 import { goTo } from '../scroll';
-import { RAIL_COURSES_INDEX, RailNav } from '../layers/DirectionRail';
 import { PathwayConverge } from './PathwayConverge';
 import { EMPTY_SEL, hasAny, pathReducer } from './pathwayState';
 import { usePathEdges } from './usePathEdges';
@@ -119,6 +119,16 @@ export function CoursesPathway() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.getElementById(target)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   }, [sel.level, sel.domain, sel.course, sel.spec, sel.career]);
+
+  // Arriving from the University atlas ("See pathways in this domain"): pick that direction here.
+  useEffect(() => {
+    const h = (e: Event) => {
+      const id = (e as CustomEvent<DomainId>).detail;
+      if (DOMAINS.some((d) => d.id === id)) dispatch({ t: 'domain', v: id, set: true });
+    };
+    window.addEventListener('cc:pathway-domain', h);
+    return () => window.removeEventListener('cc:pathway-domain', h);
+  }, []);
 
   const domain = DOMAINS.find((d) => d.id === sel.domain) ?? null;
   const level = LEVELS.find((l) => l.id === sel.level) ?? null;
@@ -411,12 +421,6 @@ export function CoursesPathway() {
         </p>
       </div>
 
-      {/* the same direction rail as the pinned journey, parked in the margin while this scene is on screen */}
-      <div className="pointer-events-none absolute bottom-[440px] right-0 top-0 hidden w-[clamp(110px,10vw,180px)] lg:block">
-        <div className="pointer-events-auto sticky top-[calc(50vh-190px)]">
-          <RailNav active={RAIL_COURSES_INDEX} className="absolute right-[clamp(10px,1.6vw,26px)] top-0 z-20" />
-        </div>
-      </div>
     </section>
   );
 }

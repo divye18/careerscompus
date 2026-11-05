@@ -14,7 +14,7 @@ export const EMPTY_SEL: Sel = { level: null, domain: null, course: null, spec: n
 
 export type PathAction =
   | { t: 'level'; v: LevelId }
-  | { t: 'domain'; v: DomainId }
+  | { t: 'domain'; v: DomainId; /** select (never toggle off) — used when arriving from another scene */ set?: boolean }
   | { t: 'course'; v: string }
   | { t: 'spec'; v: string }
   | { t: 'career'; v: string }
@@ -33,7 +33,7 @@ export function pathReducer(s: Sel, a: PathAction): Sel {
       return level === s.level ? s : { ...s, level, course: null, spec: null, career: null };
     }
     case 'domain': {
-      const domain = toggle(s.domain, a.v);
+      const domain = a.set ? a.v : toggle(s.domain, a.v);
       return { ...s, domain, course: null, spec: null, career: null };
     }
     case 'course':
