@@ -61,8 +61,20 @@ function useHeaderTheme(): Theme {
     };
     build();
     window.addEventListener('resize', build, { passive: true });
+    // The journey swaps presenters after hydration (flow → pinned), replacing the observed sections.
+    // Re-scan when the main content's structure changes (debounced to one frame), otherwise the pinned
+    // presenter is never observed and the header stays on the day theme over night grounds.
+    let raf = 0;
+    const mo = new MutationObserver(() => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(build);
+    });
+    const main = document.querySelector('main');
+    if (main) mo.observe(main, { childList: true, subtree: true });
     return () => {
       window.removeEventListener('resize', build);
+      cancelAnimationFrame(raf);
+      mo.disconnect();
       io?.disconnect();
     };
   }, []);

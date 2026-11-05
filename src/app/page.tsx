@@ -2,8 +2,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Journey } from '@/journey/Journey';
 import { Handoff } from '@/journey/Handoff';
-import { PopularStreams } from '@/components/home/PopularStreams';
-import { FeaturedCourses } from '@/components/home/FeaturedCourses';
+import { CoursesPathway } from '@/journey/courses/CoursesPathway';
 import { UniversityPreview } from '@/components/home/UniversityPreview';
 import { CompareTeaser } from '@/components/home/CompareTeaser';
 import { HowItWorks } from '@/components/home/HowItWorks';
@@ -13,7 +12,7 @@ import { FAQSection } from '@/components/home/FAQSection';
 import { FinalCTA } from '@/components/home/FinalCTA';
 
 /**
- * Meridian Atlas — Milestone 1: Scenes 1–2 (Arrival, Discover) live in <Journey />.
+ * Meridian Atlas — Scenes 1–3 (Arrival, Discover, Explore) live in <Journey />; Scene 4 (Courses & Pathways) is <CoursesPathway />.
  * The sections below are the previous homepage content, kept as interim content until
  * their scenes are rebuilt in later milestones.
  */
@@ -23,12 +22,9 @@ export default function Home() {
       <Header />
       <main className="w-full relative">
         <Journey />
+        <CoursesPathway />
         <Handoff />
 
-        <div id="act-courses" className="scroll-mt-16 py-16 sm:py-24">
-          <PopularStreams />
-          <FeaturedCourses />
-        </div>
         <div id="act-universities" className="scroll-mt-16 py-16 sm:py-24">
           <UniversityPreview />
         </div>

@@ -1,0 +1,34 @@
+{
+ "W": 1280,
+ "H": 800,
+ "ranges": {
+  "transition": {
+   "medianAvgFps": 60,
+   "medianP95ms": 16.9,
+   "medianOver33": 0,
+   "minFps": 50.6,
+   "maxFps": 60,
+   "runs": [
+    50.6,
+    59.7,
+    60,
+    60,
+    60
+   ]
+  },
+  "scene4": {
+   "medianAvgFps": 60,
+   "medianP95ms": 16.9,
+   "medianOver33": 0,
+   "minFps": 59.8,
+   "maxFps": 60.1,
+   "runs": [
+    59.8,
+    60,
+    60.1,
+    60,
+    60.1
+   ]
+  }
+ }
+}

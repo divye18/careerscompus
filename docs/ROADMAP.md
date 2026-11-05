@@ -21,3 +21,8 @@
 - [x] M2 Scene 3 Explore (seven career worlds) + M2.1 stabilisation (perf, contrast, visual review, transitions)
 - [ ] Next (needs approval): Scene 4 Courses
 - [ ] Open: mobile fps measurement on a real device, Safari/Firefox, screen-reader pass, careers-library routes for "Explore Careers"
+
+## Status (2026-11-05, after M3)
+- [x] M3 Scene 4 Courses & Learning Pathways
+- [ ] Next (needs approval): Scene 5 Universities
+- [ ] Open: verified course/eligibility dataset + `entrance` records; real-device mobile fps; Safari/Firefox; screen-reader pass; Scenes 5–8 replace the remaining legacy Light Royal sections

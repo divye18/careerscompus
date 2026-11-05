@@ -79,3 +79,11 @@ Video recording needs Playwright's ffmpeg download (not installed); a dense JPEG
 - Rooms are always mounted; inactive rooms are `inert`/`aria-hidden`; hidden-room parallax writes are gated by weight.
 - Perf learnings: stacked repeating gradients under masks were the dominant raster cost; will-change layers help; removing parallax transforms or unmounting rooms made it worse.
 - QA scripts: `explore-check`, `explore-flow-check`, `explore-interaction-check`, `explore-transitions`, `contrast-measure`, `contrast-audit`, `contact-sheet`.
+
+## 10. Scene 4 — Courses & Learning Pathways (as built, M3)
+- `src/content/pathways.ts` — types (`Level`, `Course`, `Specialisation`, `EntranceInfo`) and illustrative data; helper `coursesFor(domain, level)`. Honesty rules are in the file header.
+- `src/journey/courses/` — `CoursesPathway.tsx` (section `#act-courses`; `useReducer` over `pathwayState`; four `Stage` columns of `Station` buttons with `aria-pressed`; field-notes strip; live region), `PathwayConverge.tsx` (scroll-linked SVG intro via `useScroll` → `pathLength`), `usePathEdges.ts` (measures `[data-dot]`/`[data-label]` and draws paths into an SVG overlay; solid = chosen route, dashed = other possible routes), `pathwayState.ts`.
+- Layout: lg → 4 columns + overlay; below lg → stacked stages with a left route line, overlay hidden, auto-advance (`scrollIntoView`) after a choice.
+- Rail: `DirectionRail.tsx` exports `RailNav`/`RAIL_ITEMS`; Scene 4 parks the same rail in a sticky margin wrapper (active = Courses).
+- Transition: pinned stage ends on `--handoff-top`; Scene 4's ground starts on the same colour; no crossfade, so no overlapping text. `Handoff` (dawn) now follows Scene 4.
+- QA: `courses-check`, `courses-interaction-check`, `courses-transitions`, `courses-perf`, `contrast-measure-courses`.

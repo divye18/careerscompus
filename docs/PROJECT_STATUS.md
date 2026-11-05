@@ -79,3 +79,23 @@ Before M2.1 Explore was 48.7–49.2 fps. Individual runs still dip to ~48 (first
 **Contrast**: measured 162 DOM text/background pairs per viewport (1440, 1280): 162 pass, 0 fail (`docs/qa-screenshots/explore/contrast-measured-*.md`). Decorative aria-hidden artwork labels are excluded from the pass count and listed in `contrast-report.md`.
 
 Not verified: Safari/Firefox, real phones, screen reader. Limitations: crossfades show both rooms' text briefly overlapped; chip borders are decorative (ivory/20).
+
+## Update 2026-11-05 — M3 Scene 4 Courses & Learning Pathways
+Implemented as `<CoursesPathway />` (section `#act-courses`) directly after the pinned journey, before the dawn handoff. Interactive route chart; all information is plain text (nothing depends on scroll or hover). Content is illustrative orientation only (`src/content/pathways.ts`): no durations, fees, cut-offs, salaries, placements, exam names or eligibility rules; entrance/eligibility shows an honest "not listed yet" until a verified record exists.
+
+**Measured (real headed Chrome, 5 repeats, medians; 5 s scripted scroll):**
+| Range | median fps | p95 | frames >33 ms | min–max |
+|---|---|---|---|---|
+| Explore→Pathways transition @1440 | 60.0 | 16.9 ms | 0 | 50–60 |
+| Pathways section (route selected) @1440 | 60.0 | 16.9 ms | 0 | 60–60 |
+| Transition @1280 | 60.0 | 16.9 ms | 0 | 50.6–60 |
+| Pathways @1280 | 60.0 | 16.9 ms | 0 | 59.8–60.1 |
+| Pathways @390 (desktop GPU, emulated — not a phone) | 60.0 | 16.9 ms | 0 | 59.6–60.1 |
+| Regression: whole journey @1440 / @1280 | 57.5 / 57.7 | 17 / 17.2 | 5 / 6 | 52.5–58.2 / 53.5–59 |
+| Regression: Explore @1440 | 57.0 | 17.8 | 7 | 50.7–57.4 |
+The first run after load is the slowest (50–54 fps cold).
+
+**Contrast** (measured on rendered pixels, several states and scroll positions): 1440 → 210/210 pairs pass; 1280 → 190/190; 390 → 141/141 (`docs/qa-screenshots/courses/contrast-measured-*.md`).
+**Interaction tests**: 19/19 desktop, 20/20 mobile, 19/19 reduced-motion, 19/19 no-WebGL (`scripts/courses-interaction-check.mjs`); Scene 3 interaction checks still 12/12.
+
+Not verified: real phones (mobile fps is emulated), Safari/Firefox, screen reader. Known: Scene 2's flow compass SVG (92vw) causes ~4 px horizontal overflow at 390 px when the browser uses classic (non-overlay) scrollbars; not touched (Scenes 1–3 out of scope). Course data is illustrative and small (28 courses); lines are drawn only on desktop.

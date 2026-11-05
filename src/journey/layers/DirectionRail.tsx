@@ -11,7 +11,14 @@ const SCENES = [
   { id: 'act-discovery', label: 'Discover' },
 ] as const;
 
-const ITEMS = [...SCENES.map((s) => ({ ...s, hue: null as string | null })), ...DOMAINS.map((d) => ({ id: `explore-${d.id}`, label: d.name, hue: d.hue as string | null }))];
+export const RAIL_ITEMS = [
+  ...SCENES.map((s) => ({ ...s, hue: null as string | null })),
+  ...DOMAINS.map((d) => ({ id: `explore-${d.id}`, label: d.name, hue: d.hue as string | null })),
+  { id: 'act-courses', label: 'Courses', hue: null as string | null },
+];
+const ITEMS = RAIL_ITEMS;
+/** Index of the Courses stop (Scene 4). */
+export const RAIL_COURSES_INDEX = ITEMS.length - 1;
 
 /**
  * Direction Rail: persistent wayfinding for the journey — two scene stops, then one stop per domain room.
@@ -21,13 +28,19 @@ const ITEMS = [...SCENES.map((s) => ({ ...s, hue: null as string | null })), ...
 export function DirectionRail() {
   const { progress } = useJourney();
   const [active, setActive] = useState(0);
-  const nav = useRef<HTMLElement>(null);
 
   useMotionValueEvent(progress, 'change', (p) => {
     const room = activeDomain(p);
     const next = room >= 0 ? SCENES.length + room : p >= PINNED.sceneStart.discover - 0.05 ? 1 : 0;
     setActive((a) => (a === next ? a : next));
   });
+
+  return <RailNav active={active} className="absolute right-[clamp(10px,1.6vw,26px)] top-1/2 z-20 -translate-y-1/2" />;
+}
+
+/** The rail itself (shared by the pinned stage and Scene 4). Plain anchors; arrow keys move focus. */
+export function RailNav({ active, className }: { active: number; className: string }) {
+  const nav = useRef<HTMLElement>(null);
 
   const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
@@ -43,7 +56,7 @@ export function DirectionRail() {
       ref={nav}
       aria-label="Journey scenes and career domains"
       onKeyDown={onKeyDown}
-      className="absolute right-[clamp(10px,1.6vw,26px)] top-1/2 z-20 -translate-y-1/2"
+      className={className}
     >
       <ol className="flex flex-col items-end">
         {ITEMS.map((it, i) => {

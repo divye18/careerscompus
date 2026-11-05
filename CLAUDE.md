@@ -25,3 +25,8 @@
 - Code in `src/journey/explore/`; seven environments registered in `registry.tsx`. Do not start Scene 4+ without approval.
 - Keep rooms mounted; avoid repeating CSS gradients under masks (use SVG). Check any new text with `node scripts/contrast-measure.mjs` (needs `npx next start -p 3100`).
 - QA: `explore-check.mjs`, `explore-flow-check.mjs <out> <url> mobile|reduced|nowebgl`, `explore-interaction-check.mjs`, `explore-transitions.mjs`.
+
+## Scene 4 (Courses & Pathways) — done (M3)
+- Code in `src/journey/courses/` + `src/content/pathways.ts`. Do not start Scene 5+ without approval.
+- Content rules: only illustrative orientation data; never add durations, fees, cut-offs, salaries, placements, exam names or eligibility rules without a sourced, reviewed record (`entrance` stays `null` until then).
+- QA: `courses-check.mjs`, `courses-interaction-check.mjs [url] desktop|mobile|reduced|nowebgl`, `courses-transitions.mjs`, `courses-perf.mjs`, `contrast-measure-courses.mjs` (need `npx next start -p 3100`).

@@ -29,3 +29,9 @@
 23. **No repeating CSS gradients under masks for grids/rings** — use SVG patterns/circles (measured +5–6 fps).
 24. **"Explore Careers" is disabled with a "Soon" tag** rather than linking to a route that does not exist.
 25. **Contrast is measured on rendered pixels**, not assumed from tokens (worst-case lightest background pixel under each text box).
+
+26. **Scene 4 is a natural-scroll DOM/SVG section, not another pinned stage.** The pathway is state-driven (user selections), so scroll only drives the short intro (seven lines converging); all essential information is plain text and never needs scrolling-as-input. No Three.js.
+27. **Pathway content model has no fields for durations, fees, cut-offs, salaries or placements;** `entrance` is `null` until sourced. Courses carry `status: 'illustrative'`; `from` means "commonly entered from", never eligibility.
+28. **Connecting lines are measured from the real station dots and drawn imperatively** (no React state, redrawn on selection/resize); they leave from the end of the selected label so routes never strike through text.
+29. **Mobile uses the same DOM stacked vertically** (route line down the left) and brings the next stage into view after a choice — chosen over compressing the 4-column diagram.
+30. **Header re-observes the DOM** (MutationObserver) because the journey swaps presenters after hydration; otherwise the header theme is wrong over the pinned stage.

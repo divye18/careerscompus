@@ -52,3 +52,11 @@
 - Contrast: new `scripts/contrast-measure.mjs` (real-pixel, Chrome) and `scripts/contrast-audit.mjs` (token maths). Fixed: separator dash, disclaimer (ivory/70, width-capped), list titles (ivory/90), "Soon" tag (ivory/80), Design dots 18%, Science rings/glow lighter. 162/162 DOM text pairs pass at 1440 and 1280.
 - Layout: Technology art moved right/narrower; Architecture art 42vw with faded edges (was colliding with detail labels at 1280×800); mobile panels `scroll-mt-20`.
 - QA: `scripts/explore-transitions.mjs` (all 8 boundaries fwd+back). Frames in `docs/qa-screenshots/explore/transitions/`.
+
+## 2026-11-05 — M3 Scene 4 Courses & Learning Pathways
+- New `src/journey/courses/`: `CoursesPathway` (interactive four-stage route chart: where you are → course → specialisation → career direction, plus a direction filter, breadcrumb, Back one step, Start over), `PathwayConverge` (seven domain lines converge into one champagne line with natural scroll), `usePathEdges` (measured connecting lines drawn imperatively into an SVG overlay), `pathwayState` (reducer).
+- Content model `src/content/pathways.ts`: 28 illustrative courses (all `status: 'illustrative'`), specialisations, career directions, subjects. No fields for durations/fees/cut-offs/salaries/placements; `entrance` is `null` until verified data exists (UI says so).
+- Replaces the legacy "Popular streams / Featured courses" block; the dawn `Handoff` now follows Scene 4. Direction rail gains a Courses stop and is shared (`RailNav`) with Scene 4.
+- Mobile/fallback: same DOM stacks into a vertical route (no overlay, auto-advances to the next stage after a choice). Reduced motion: lines draw instantly, intro fully drawn.
+- Fix (found in QA): the header theme never observed the pinned presenter (it was swapped in after hydration), so the header stayed light over night grounds; Header now re-scans on DOM structure change.
+- QA scripts: `courses-check`, `courses-interaction-check`, `courses-transitions`, `courses-perf`, `contrast-measure-courses`.
