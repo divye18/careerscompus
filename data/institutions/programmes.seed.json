@@ -1,0 +1,46 @@
+{
+  "_readme": "Programme claims and field notes, merged with seed.json by scripts/verify-institutions.mjs. A programme is kept only if its evidence pattern matches the live official page; its duration is kept only if the duration pattern also matches. 'pathway' links to a course id in src/content/pathways.ts (null = no matching pathway). 'notes' explain WHY a field is unavailable where we know a specific reason.",
+  "programmes": {
+    "iit-madras": [
+      { "name": "B.Tech", "pathway": "technology-b-tech-b-e", "url": "https://www.iitm.ac.in/academics/study-at-iitm/undergraduate-programmes", "re": "B\\.Tech \\(Duration", "duration": { "years": 4, "re": "B\\.Tech \\(Duration . 4 Years\\)" } },
+      { "name": "M.Tech", "pathway": "technology-m-tech-m-sc-computing", "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes", "re": "M\\.Tech: Duration", "duration": { "years": 2, "re": "M\\.Tech: Duration . 2 Years" } },
+      { "name": "M.Sc", "pathway": "science-m-sc", "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes", "re": "M\\.Sc: Duration", "duration": { "years": 2, "re": "M\\.Sc: Duration . 2 Years" } },
+      { "name": "MBA", "pathway": "business-mba", "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes", "re": "MBA: Duration", "duration": { "years": 2, "re": "MBA: Duration . 2 Years" } }
+    ],
+    "iit-kharagpur": [
+      { "name": "B.Tech", "pathway": "technology-b-tech-b-e", "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2", "re": "B\\.Tech \\(Bachelor of Technology\\)", "duration": { "years": 4, "re": "four-year B\\.Tech" } },
+      { "name": "B.Arch", "pathway": "architecture-b-arch", "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2", "re": "B\\.Arch degree", "duration": { "years": 5, "re": "five-year B\\.Arch" } }
+    ],
+    "nlsiu-bengaluru": [
+      { "name": "B.A., LL.B. (Hons.)", "pathway": "law-b-a-ll-b-integrated", "url": "https://www.nls.ac.in/programmes/", "re": "B\\.A\\., LL\\.B\\. \\(Hons\\.\\)", "duration": { "years": 5, "re": "5-Year B\\.A\\., LL\\.B\\. \\(Hons\\.\\)" } },
+      { "name": "LL.B. (Hons.)", "pathway": "law-ll-b-after-a-first-degree", "url": "https://www.nls.ac.in/programmes/", "re": "LL\\.B\\. \\(Hons\\.\\)", "duration": { "years": 3, "re": "3-Year LL\\.B\\." } },
+      { "name": "LL.M.", "pathway": "law-ll-m", "url": "https://www.nls.ac.in/programmes/", "re": "LL\\.M\\.", "duration": { "years": 1, "re": "1-Year LL\\.M\\." } }
+    ],
+    "spa-delhi": [
+      { "name": "B.Arch", "pathway": "architecture-b-arch", "url": "https://spa.ac.in/en/academics/programs/under-graduate-programmes", "re": "Bachelor of Architecture" }
+    ],
+    "iim-ahmedabad": [
+      { "name": "MBA (PGP)", "pathway": "business-mba", "url": "https://www.iima.ac.in/academics/mba", "re": "Postgraduate Programme \\(PGP\\)", "duration": { "years": 2, "re": "Two Years Postgraduate Programme \\(PGP\\)" } }
+    ],
+    "vit-vellore": [
+      { "name": "B.Tech", "pathway": "technology-b-tech-b-e", "url": "https://vit.ac.in/academics/home", "re": "B\\.Tech Admission" }
+    ],
+    "bits-pilani": [
+      { "name": "B.E. (Computer Science)", "pathway": "technology-b-tech-b-e", "url": "https://www.bits-pilani.ac.in/academics/integrated-first-degree/", "re": "B\\.E\\.\\s?\\(Computer Science\\)" },
+      { "name": "B.Pharm", "pathway": "medicine-b-pharm", "url": "https://www.bits-pilani.ac.in/academics/integrated-first-degree/", "re": "B\\.Pharm" }
+    ],
+    "iit-delhi": [
+      { "name": "M.Tech", "pathway": "technology-m-tech-m-sc-computing", "url": "https://home.iitd.ac.in/pg-admissions.php", "re": "admission to M\\.Tech\\." },
+      { "name": "MBA", "pathway": "business-mba", "url": "https://home.iitd.ac.in/pg-admissions.php", "re": "MBA Admission" }
+    ],
+    "iisc-bengaluru": [
+      { "name": "Bachelor of Science (Research)", "pathway": null, "url": "https://www.iisc.ac.in/admissions/", "re": "Bachelor of Science \\(Research\\)" },
+      { "name": "M.Tech", "pathway": "technology-m-tech-m-sc-computing", "url": "https://www.iisc.ac.in/admissions/", "re": "M\\.Tech\\. and M\\.Des\\." }
+    ]
+  },
+  "notes": {
+    "nlsiu-bengaluru": { "establishedYear": "Two official pages give different years (1986 and 1988), so we show neither." },
+    "bits-pilani": { "establishedYear": "The official page dates its deemed-university notification to 1964, which is not stated as its founding year." },
+    "anna-university": { "establishedYear": "The 1794 date on its homepage describes its oldest technical institution, not the university's own founding." }
+  }
+}

@@ -53,12 +53,31 @@ export const TYPE_LABELS: Record<InstitutionType, string> = {
   ini: 'Institutes of national importance',
   specialised: 'Specialised institutions',
 };
+/** One institution's type, as read in a sentence or a ledger cell. */
+export const TYPE_SINGULAR: Record<InstitutionType, string> = {
+  public: 'Public university',
+  private: 'Private university',
+  deemed: 'Deemed-to-be university',
+  ini: 'Institute of national importance',
+  specialised: 'Specialised institution',
+};
 export const TYPE_ORDER: readonly InstitutionType[] = ['public', 'private', 'deemed', 'ini', 'specialised'];
 
 export interface SourceNote {
   field: string;
   url: string;
   quote: string;
+}
+
+/** A programme confirmed on the institution's own pages. The list per institution is PARTIAL, never exhaustive. */
+export interface VerifiedCourse {
+  /** `<institutionId>--<slug>` */
+  id: string;
+  name: string;
+  /** matching course id in src/content/pathways.ts, if there is one */
+  pathwayId: string | null;
+  /** only when the official page states it; null otherwise */
+  durationYears: number | null;
 }
 
 export interface Institution {
@@ -76,11 +95,13 @@ export interface Institution {
   officialWebsite: string;
   establishedYear: number | null;
   academicDomains: readonly DomainId[];
-  /** verified course names; empty until course data is verified per institution */
-  availableCourses: readonly string[];
+  /** verified programmes; partial, and empty until checked for that institution */
+  availableCourses: readonly VerifiedCourse[];
   /** verified [lat, lng] only; null until such data exists */
   coordinates: readonly [number, number] | null;
   dataSources: readonly SourceNote[];
+  /** known, specific reasons a field is unavailable (e.g. official pages disagree) */
+  notes: { readonly establishedYear?: string };
   /** ISO date the facts were last checked against the official pages */
   lastVerified: string;
 }
@@ -101,9 +122,10 @@ export const INSTITUTIONS: readonly Institution[] = raw.institutions
     officialWebsite: r.officialWebsite,
     establishedYear: r.establishedYear,
     academicDomains: r.academicDomains as DomainId[],
-    availableCourses: r.availableCourses as string[],
+    availableCourses: r.availableCourses as VerifiedCourse[],
     coordinates: null,
     dataSources: r.sources,
+    notes: r.notes,
     lastVerified: r.lastVerified,
   }))
   .sort((a, b) => a.shortName.localeCompare(b.shortName));

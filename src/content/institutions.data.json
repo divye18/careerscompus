@@ -16,18 +16,31 @@
    "academicDomains": [
     "technology"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "iit-delhi--m-tech",
+     "name": "M.Tech",
+     "pathwayId": "technology-m-tech-m-sc-computing",
+     "durationYears": null
+    },
+    {
+     "id": "iit-delhi--mba",
+     "name": "MBA",
+     "pathwayId": "business-mba",
+     "durationYears": null
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
      "field": "name",
      "url": "https://home.iitd.ac.in/",
-     "quote": "--> Home Page : IIT Delhi --> Indian Institute of Technology Delhi Hide Preloader Light Version Search Job"
+     "quote": "Home Page : IIT Delhi Indian Institute of Technology Delhi Hide Preloader Light Version Search Job"
     },
     {
      "field": "city",
      "url": "https://home.iitd.ac.in/about.php",
-     "quote": "ली Indian Institute of Technology Delhi Hauz Khas, New Delhi-110016, India --> Academics"
+     "quote": "ली Indian Institute of Technology Delhi Hauz Khas, New Delhi-110016, India Academics Depa"
     },
     {
      "field": "officialWebsite",
@@ -47,10 +60,21 @@
     {
      "field": "academicDomains:technology",
      "url": "https://home.iitd.ac.in/",
-     "quote": "--> Home Page : IIT Delhi --> Indian Institute of Technology Delhi Hide Preloader Light Version Sear"
+     "quote": "Home Page : IIT Delhi Indian Institute of Technology Delhi Hide Preloader Light Version Sear"
+    },
+    {
+     "field": "course:iit-delhi--m-tech",
+     "url": "https://home.iitd.ac.in/pg-admissions.php",
+     "quote": "admission to M.Tech."
+    },
+    {
+     "field": "course:iit-delhi--mba",
+     "url": "https://home.iitd.ac.in/pg-admissions.php",
+     "quote": "MBA Admission"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "iit-bombay",
@@ -72,7 +96,7 @@
     {
      "field": "name",
      "url": "https://www.iitb.ac.in/about",
-     "quote": "ojects & Consultancy (DRONA) Career Why IIT Bombay? Apply Resources Facilities Central Lib"
+     "quote": "y Forum Alumni CSR Vendors Introduction IIT Bombay was established in 1958. It attracts top-tier students."
     },
     {
      "field": "city",
@@ -100,7 +124,8 @@
      "quote": "from researchers of Indian 25 Mar 2026 Indian Institute of Technology Bombay study finds why our current meth"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "iit-madras",
@@ -116,13 +141,38 @@
    "academicDomains": [
     "technology"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "iit-madras--b-tech",
+     "name": "B.Tech",
+     "pathwayId": "technology-b-tech-b-e",
+     "durationYears": 4
+    },
+    {
+     "id": "iit-madras--m-tech",
+     "name": "M.Tech",
+     "pathwayId": "technology-m-tech-m-sc-computing",
+     "durationYears": 2
+    },
+    {
+     "id": "iit-madras--m-sc",
+     "name": "M.Sc",
+     "pathwayId": "science-m-sc",
+     "durationYears": 2
+    },
+    {
+     "id": "iit-madras--mba",
+     "name": "MBA",
+     "pathwayId": "business-mba",
+     "durationYears": 2
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
      "field": "name",
      "url": "https://www.iitm.ac.in/about",
-     "quote": "and Device Development (R2D2) SynBioME: IIT Madras Biofoundry The Centre of Excellence for"
+     "quote": "ome to terms with it. All of IIT Madras IIT Madras is one among the foremost institutes of national imp"
     },
     {
      "field": "city",
@@ -143,9 +193,50 @@
      "field": "academicDomains:technology",
      "url": "https://www.iitm.ac.in/about",
      "quote": "itutes of national importance in higher technological education, basic and applied research. Mission Hi"
+    },
+    {
+     "field": "course:iit-madras--b-tech",
+     "url": "https://www.iitm.ac.in/academics/study-at-iitm/undergraduate-programmes",
+     "quote": "B.Tech (Duration"
+    },
+    {
+     "field": "duration:iit-madras--b-tech",
+     "url": "https://www.iitm.ac.in/academics/study-at-iitm/undergraduate-programmes",
+     "quote": "B.Tech (Duration – 4 Years)"
+    },
+    {
+     "field": "course:iit-madras--m-tech",
+     "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+     "quote": "M.Tech: Duration"
+    },
+    {
+     "field": "duration:iit-madras--m-tech",
+     "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+     "quote": "M.Tech: Duration – 2 Years"
+    },
+    {
+     "field": "course:iit-madras--m-sc",
+     "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+     "quote": "M.Sc: Duration"
+    },
+    {
+     "field": "duration:iit-madras--m-sc",
+     "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+     "quote": "M.Sc: Duration – 2 Years"
+    },
+    {
+     "field": "course:iit-madras--mba",
+     "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+     "quote": "MBA: Duration"
+    },
+    {
+     "field": "duration:iit-madras--mba",
+     "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+     "quote": "MBA: Duration – 2 Years"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "iit-kanpur",
@@ -190,7 +281,8 @@
      "quote": "Indian Institute of Technology Kanpur | IIT Kanpur Set your preference"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "iit-kharagpur",
@@ -206,7 +298,20 @@
    "academicDomains": [
     "technology"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "iit-kharagpur--b-tech",
+     "name": "B.Tech",
+     "pathwayId": "technology-b-tech-b-e",
+     "durationYears": 4
+    },
+    {
+     "id": "iit-kharagpur--b-arch",
+     "name": "B.Arch",
+     "pathwayId": "architecture-b-arch",
+     "durationYears": 5
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
@@ -233,9 +338,30 @@
      "field": "academicDomains:technology",
      "url": "https://www.iitkgp.ac.in/about-iitkgp",
      "quote": "Indian Institute of Technology Kharagpur | About IITKGP About Administ"
+    },
+    {
+     "field": "course:iit-kharagpur--b-tech",
+     "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2",
+     "quote": "B.Tech (Bachelor of Technology)"
+    },
+    {
+     "field": "duration:iit-kharagpur--b-tech",
+     "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2",
+     "quote": "four-year B.Tech"
+    },
+    {
+     "field": "course:iit-kharagpur--b-arch",
+     "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2",
+     "quote": "B.Arch degree"
+    },
+    {
+     "field": "duration:iit-kharagpur--b-arch",
+     "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2",
+     "quote": "five-year B.Arch"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "iit-guwahati",
@@ -280,7 +406,8 @@
      "quote": "Indian Institute of Technology Guwahati : भारतीय प्रौद्योगिकी संस्थान"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "iisc-bengaluru",
@@ -296,7 +423,20 @@
    "academicDomains": [
     "science"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "iisc-bengaluru--bachelor-of-science-research",
+     "name": "Bachelor of Science (Research)",
+     "pathwayId": null,
+     "durationYears": null
+    },
+    {
+     "id": "iisc-bengaluru--m-tech",
+     "name": "M.Tech",
+     "pathwayId": "technology-m-tech-m-sc-computing",
+     "durationYears": null
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
@@ -323,9 +463,20 @@
      "field": "academicDomains:science",
      "url": "https://www.iisc.ac.in/about/foreword-from-the-director/",
      "quote": "Indian Institute of Science Home | [glt language=\"English\" label=\"E"
+    },
+    {
+     "field": "course:iisc-bengaluru--bachelor-of-science-research",
+     "url": "https://www.iisc.ac.in/admissions/",
+     "quote": "Bachelor of Science (Research)"
+    },
+    {
+     "field": "course:iisc-bengaluru--m-tech",
+     "url": "https://www.iisc.ac.in/admissions/",
+     "quote": "M.Tech. and M.Des."
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "university-of-delhi",
@@ -363,7 +514,8 @@
      "quote": "(Dedication, Steadfastness and Truth). Established in 1922 as a unitary, teaching and residential"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "aiims-delhi",
@@ -408,7 +560,8 @@
      "quote": "ुर्विज्ञान संस्थान, नई दिल्ली All India Institute Of Medical Sciences, New Delhi OPD Appointment AIIMS Dashbo"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "spa-delhi",
@@ -424,7 +577,14 @@
    "academicDomains": [
     "architecture"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "spa-delhi--b-arch",
+     "name": "B.Arch",
+     "pathwayId": "architecture-b-arch",
+     "durationYears": null
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
@@ -451,9 +611,15 @@
      "field": "academicDomains:architecture",
      "url": "https://spa.ac.in/en/about",
      "quote": "About | School of Planning and Architecture, New Delhi Students Faculty & Staff Alu"
+    },
+    {
+     "field": "course:spa-delhi--b-arch",
+     "url": "https://spa.ac.in/en/academics/programs/under-graduate-programmes",
+     "quote": "Bachelor of Architecture"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "nlsiu-bengaluru",
@@ -469,7 +635,26 @@
    "academicDomains": [
     "law"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "nlsiu-bengaluru--b-a-ll-b-hons",
+     "name": "B.A., LL.B. (Hons.)",
+     "pathwayId": "law-b-a-ll-b-integrated",
+     "durationYears": 5
+    },
+    {
+     "id": "nlsiu-bengaluru--ll-b-hons",
+     "name": "LL.B. (Hons.)",
+     "pathwayId": "law-ll-b-after-a-first-degree",
+     "durationYears": 3
+    },
+    {
+     "id": "nlsiu-bengaluru--ll-m",
+     "name": "LL.M.",
+     "pathwayId": "law-ll-m",
+     "durationYears": 1
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
@@ -491,9 +676,42 @@
      "field": "academicDomains:law",
      "url": "https://www.nls.ac.in/",
      "quote": "National Law School of India University - Skip to content N"
+    },
+    {
+     "field": "course:nlsiu-bengaluru--b-a-ll-b-hons",
+     "url": "https://www.nls.ac.in/programmes/",
+     "quote": "B.A., LL.B. (Hons.)"
+    },
+    {
+     "field": "duration:nlsiu-bengaluru--b-a-ll-b-hons",
+     "url": "https://www.nls.ac.in/programmes/",
+     "quote": "5-Year B.A., LL.B. (Hons.)"
+    },
+    {
+     "field": "course:nlsiu-bengaluru--ll-b-hons",
+     "url": "https://www.nls.ac.in/programmes/",
+     "quote": "LL.B. (Hons.)"
+    },
+    {
+     "field": "duration:nlsiu-bengaluru--ll-b-hons",
+     "url": "https://www.nls.ac.in/programmes/",
+     "quote": "3-Year LL.B."
+    },
+    {
+     "field": "course:nlsiu-bengaluru--ll-m",
+     "url": "https://www.nls.ac.in/programmes/",
+     "quote": "LL.M."
+    },
+    {
+     "field": "duration:nlsiu-bengaluru--ll-m",
+     "url": "https://www.nls.ac.in/programmes/",
+     "quote": "1-Year LL.M."
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {
+    "establishedYear": "Two official pages give different years (1986 and 1988), so we show neither."
+   }
   },
   {
    "id": "iim-ahmedabad",
@@ -509,7 +727,14 @@
    "academicDomains": [
     "business"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "iim-ahmedabad--mba-pgp",
+     "name": "MBA (PGP)",
+     "pathwayId": "business-mba",
+     "durationYears": 2
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
@@ -531,9 +756,20 @@
      "field": "academicDomains:business",
      "url": "https://www.iima.ac.in/",
      "quote": "IIMA - Indian Institute of Management Ahmedabad Home Menu Main navigation The"
+    },
+    {
+     "field": "course:iim-ahmedabad--mba-pgp",
+     "url": "https://www.iima.ac.in/academics/mba",
+     "quote": "Postgraduate Programme (PGP)"
+    },
+    {
+     "field": "duration:iim-ahmedabad--mba-pgp",
+     "url": "https://www.iima.ac.in/academics/mba",
+     "quote": "Two Years Postgraduate Programme (PGP)"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "bits-pilani",
@@ -550,18 +786,31 @@
     "technology",
     "science"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "bits-pilani--b-e-computer-science",
+     "name": "B.E. (Computer Science)",
+     "pathwayId": "technology-b-tech-b-e",
+     "durationYears": null
+    },
+    {
+     "id": "bits-pilani--b-pharm",
+     "name": "B.Pharm",
+     "pathwayId": "medicine-b-pharm",
+     "durationYears": null
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
      "field": "name",
      "url": "https://www.bits-pilani.ac.in/",
-     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) --> --> ABOUT WILP PLACEM"
+     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) ABOUT WILP PLACEMENTS BIT"
     },
     {
      "field": "city",
      "url": "https://www.bits-pilani.ac.in/",
-     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) --> --> ABOUT WILP PLACEM"
+     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) ABOUT WILP PLACEMENTS BIT"
     },
     {
      "field": "officialWebsite",
@@ -571,20 +820,33 @@
     {
      "field": "institutionType",
      "url": "https://www.bits-pilani.ac.in/",
-     "quote": "tute of Eminence --> --> An Institution Deemed to be University estd. vide Sec.3 of the UGC Act,1956 un"
+     "quote": "An Institute of Eminence An Institution Deemed to be University estd. vide Sec.3 of the UGC Act,1956 un"
     },
     {
      "field": "academicDomains:technology",
      "url": "https://www.bits-pilani.ac.in/",
-     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) --> -"
+     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) ABOUT"
     },
     {
      "field": "academicDomains:science",
      "url": "https://www.bits-pilani.ac.in/",
-     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) --> --> ABOUT WIL"
+     "quote": "Birla Institute of Technology And Science, Pilani (BITS Pilani) ABOUT WILP PLACEM"
+    },
+    {
+     "field": "course:bits-pilani--b-e-computer-science",
+     "url": "https://www.bits-pilani.ac.in/academics/integrated-first-degree/",
+     "quote": "B.E.(Computer Science)"
+    },
+    {
+     "field": "course:bits-pilani--b-pharm",
+     "url": "https://www.bits-pilani.ac.in/academics/integrated-first-degree/",
+     "quote": "B.Pharm"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {
+    "establishedYear": "The official page dates its deemed-university notification to 1964, which is not stated as its founding year."
+   }
   },
   {
    "id": "vit-vellore",
@@ -600,7 +862,14 @@
    "academicDomains": [
     "technology"
    ],
-   "availableCourses": [],
+   "availableCourses": [
+    {
+     "id": "vit-vellore--b-tech",
+     "name": "B.Tech",
+     "pathwayId": "technology-b-tech-b-e",
+     "durationYears": null
+    }
+   ],
    "coordinates": null,
    "sources": [
     {
@@ -627,9 +896,15 @@
      "field": "academicDomains:technology",
      "url": "https://vit.ac.in/about-vit",
      "quote": "2025 Last Updated: Copyrights © Vellore Institute Of Technology | Privacy Policy Beware of VITEEE fake"
+    },
+    {
+     "field": "course:vit-vellore--b-tech",
+     "url": "https://vit.ac.in/academics/home",
+     "quote": "B.Tech Admission"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "banaras-hindu-university",
@@ -662,7 +937,8 @@
      "quote": "official website reachable"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "aiims-bhopal",
@@ -695,7 +971,8 @@
      "quote": "official website reachable"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {}
   },
   {
    "id": "anna-university",
@@ -715,12 +992,12 @@
     {
      "field": "name",
      "url": "https://www.annauniv.edu/",
-     "quote": "Anna University, Chennai --> Home தமிழில் அறிய --> View"
+     "quote": "Anna University, Chennai Home தமிழில் அறிய View in Engl"
     },
     {
      "field": "city",
      "url": "https://www.annauniv.edu/",
-     "quote": "Anna University, Chennai --> Home தமிழில் அறிய --> View in Engli"
+     "quote": "Anna University, Chennai Home தமிழில் அறிய View in English Sport"
     },
     {
      "field": "officialWebsite",
@@ -728,7 +1005,10 @@
      "quote": "official website reachable"
     }
    ],
-   "lastVerified": "2026-11-05"
+   "lastVerified": "2026-11-05",
+   "notes": {
+    "establishedYear": "The 1794 date on its homepage describes its oldest technical institution, not the university's own founding."
+   }
   }
  ]
 }

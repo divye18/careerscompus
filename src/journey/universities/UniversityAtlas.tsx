@@ -8,6 +8,7 @@ import {
   REGIONS,
   TYPE_LABELS,
   TYPE_ORDER,
+  TYPE_SINGULAR,
   matches,
   type Institution,
   type InstitutionType,
@@ -15,6 +16,7 @@ import {
 } from '@/content/institutions';
 import type { DomainId } from '@/theme/tokens';
 import { goTo } from '../scroll';
+import { AddToCompare, CompareProgrammeToggle } from '../compare/AddToCompare';
 import { AtlasIntro } from './AtlasIntro';
 import { AV_H, AV_W, CAPTIONS, HUBS, HUB_EDGES, PLACED, pct } from './atlasLayout';
 
@@ -40,6 +42,8 @@ type Act =
   | { t: 'type'; v: InstitutionType }
   | { t: 'domain'; v: DomainId }
   | { t: 'select'; v: Institution }
+  /** open an institution from another scene (never toggles it closed) */
+  | { t: 'open'; v: Institution }
   | { t: 'close' }
   | { t: 'allRegions' }
   | { t: 'reset' };
@@ -59,6 +63,8 @@ function reduce(s: State, a: Act): State {
       return { ...s, domain: toggle(s.domain, a.v) };
     case 'select':
       return s.selected === a.v.id ? { ...s, selected: null } : { ...s, selected: a.v.id, region: a.v.region };
+    case 'open':
+      return { ...s, selected: a.v.id, region: a.v.region };
     case 'close':
       return { ...s, selected: null };
     case 'allRegions':
@@ -140,8 +146,11 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
         {inst.city}, {inst.state}
       </p>
       <h3 className="mt-2 font-atlas text-[clamp(28px,2.6vw,36px)] leading-[1.05] text-ivory">{inst.name}</h3>
+      <div className="mt-4">
+        <AddToCompare mode="institutions" id={inst.id} name={inst.shortName} label="Add to comparison" />
+      </div>
       <dl className="mt-5 space-y-4">
-        <Fact label="Institution type">{inst.institutionType ? TYPE_LABELS[inst.institutionType] : <Soon />}</Fact>
+        <Fact label="Institution type">{inst.institutionType ? TYPE_SINGULAR[inst.institutionType] : <Soon />}</Fact>
         <Fact label="Established">{inst.establishedYear ?? <Soon />}</Fact>
         <Fact label="Official website">
           <a
@@ -177,7 +186,23 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
             <Soon />
           )}
         </Fact>
-        <Fact label="Available courses">{inst.availableCourses.length ? inst.availableCourses.join(', ') : <span className="text-ivory/70">Course lists are being verified institution by institution. {COMING}.</span>}</Fact>
+        <Fact label="Available courses">
+          {inst.availableCourses.length ? (
+            <>
+              <ul className="mt-1 space-y-1" aria-label={`Confirmed courses at ${inst.shortName}`}>
+                {inst.availableCourses.map((c) => (
+                  <li key={c.id} className="flex items-center justify-between gap-3">
+                    <span>{c.name}</span>
+                    <CompareProgrammeToggle id={c.id} name={`${c.name} at ${inst.shortName}`} />
+                  </li>
+                ))}
+              </ul>
+              <span className="mt-1 block text-[13px] text-ivory/75">Confirmed so far, not a full list.</span>
+            </>
+          ) : (
+            <span className="text-ivory/70">Course lists are being verified institution by institution. {COMING}.</span>
+          )}
+        </Fact>
         <Fact label="Admission information">
           <Soon />
         </Fact>
@@ -195,7 +220,7 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
             .filter((x) => x.field !== 'officialWebsite')
             .map((x) => (
               <li key={`${x.field}-${x.url}`} className="leading-snug">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-silver">{x.field.replace('academicDomains:', 'domain: ')}</span>{' '}
+                <span className="font-mono text-[10px] uppercase tracking-wider text-silver">{x.field.replace('academicDomains:', 'domain: ').replace(/^course:.*$/, 'course').replace(/^duration:.*$/, 'duration')}</span>{' '}
                 <a href={x.url} target="_blank" rel="noopener noreferrer" className={`break-all rounded-sm underline decoration-champagne/60 underline-offset-2 hover:decoration-ivory ${focusRing}`}>
                   {x.url.replace(/^https?:\/\//, '')}
                 </a>
@@ -217,6 +242,16 @@ export function UniversityAtlas() {
   const regionCount = (r: RegionId) => INSTITUTIONS.filter((i) => i.region === r && visible.has(i.id)).length;
   const hasFilter = s.type !== null || s.domain !== null || s.region !== null || s.selected !== null;
   const inRegionList = INSTITUTIONS.filter((i) => visible.has(i.id) && (s.region === null || i.region === s.region));
+
+  // Arriving from the Comparison Studio ("Atlas"): open that institution's panel here.
+  useEffect(() => {
+    const h = (e: Event) => {
+      const inst = INSTITUTIONS.find((i) => i.id === (e as CustomEvent<string>).detail);
+      if (inst) dispatch({ t: 'open', v: inst });
+    };
+    window.addEventListener('cc:atlas-open', h);
+    return () => window.removeEventListener('cc:atlas-open', h);
+  }, []);
 
   // Stacked layout: bring the information panel into view after choosing an institution (user action only, native scroll).
   const panel = useRef<HTMLDivElement>(null);
@@ -300,7 +335,7 @@ export function UniversityAtlas() {
           </button>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(300px,360px)] lg:gap-10">
+        <div id="atlas-view" className="mt-8 grid scroll-mt-20 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(300px,360px)] lg:gap-10">
           {/* DESKTOP: schematic constellation */}
           <div className="relative hidden lg:block">
             <div className="relative w-full" style={{ aspectRatio: `${AV_W} / ${AV_H}` }}>
