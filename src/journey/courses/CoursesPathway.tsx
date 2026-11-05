@@ -9,6 +9,7 @@ import { DomainGlyph } from '../DomainGlyph';
 import { goTo } from '../scroll';
 import { Figures } from '../Figures';
 import { StatusLabel, StatusLegend } from '../StatusLabel';
+import { AddToCompare } from '../compare/AddToCompare';
 import { PathwayConverge } from './PathwayConverge';
 import { EMPTY_SEL, hasAny, pathReducer } from './pathwayState';
 import { usePathEdges } from './usePathEdges';
@@ -390,6 +391,11 @@ export function CoursesPathway() {
                     ? 'Choose a specialisation to see the career directions it can lead to.'
                     : 'Your chosen route appears here as you build it.'}
             </p>
+            {course && (
+              <div className="mt-4">
+                <AddToCompare mode="courses" id={course.id} name={course.name} label="Add course to comparison" />
+              </div>
+            )}
             <div className="mt-4 flex flex-wrap gap-2.5">
               <button
                 type="button"

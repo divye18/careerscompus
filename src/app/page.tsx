@@ -6,7 +6,7 @@ import { SHOW_INTERIM_SECTIONS } from '@/lib/site';
 import { SceneRailLane } from '@/journey/layers/SceneRailLane';
 import { CoursesPathway } from '@/journey/courses/CoursesPathway';
 import { UniversityAtlas } from '@/journey/universities/UniversityAtlas';
-import { CompareTeaser } from '@/components/home/CompareTeaser';
+import { ComparisonStudio } from '@/journey/compare/ComparisonStudio';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { CounsellingCTA } from '@/components/home/CounsellingCTA';
 import { PlatformPrinciples } from '@/components/home/PlatformPrinciples';
@@ -14,7 +14,7 @@ import { FAQSection } from '@/components/home/FAQSection';
 import { FinalCTA } from '@/components/home/FinalCTA';
 
 /**
- * Meridian Atlas — Scenes 1–3 (Arrival, Discover, Explore) live in <Journey />; Scene 4 (Courses & Pathways) is <CoursesPathway />; Scene 5 (University Atlas) is <UniversityAtlas />.
+ * Meridian Atlas — Scenes 1–3 (Arrival, Discover, Explore) live in <Journey />; Scene 4 (Courses & Pathways) is <CoursesPathway />; Scene 5 (University Atlas) is <UniversityAtlas />; Scene 6 (Comparison Studio) is <ComparisonStudio />.
  * The sections below are the previous homepage content, kept as interim content until
  * their scenes are rebuilt in later milestones.
  */
@@ -33,14 +33,16 @@ export default function Home() {
         <div className="relative">
           <CoursesPathway />
           <UniversityAtlas />
+          <ComparisonStudio />
           <SceneRailLane />
         </div>
         <Handoff />
 
-        <div id="act-comparison" data-interim className="scroll-mt-16 py-16 sm:py-24">
-          <CompareTeaser />
-          {SHOW_INTERIM_SECTIONS && <HowItWorks />}
-        </div>
+        {SHOW_INTERIM_SECTIONS && (
+          <div data-interim className="py-16 sm:py-24">
+            <HowItWorks />
+          </div>
+        )}
         <div id="act-guidance" data-interim className="scroll-mt-16">
           <CounsellingCTA />
         </div>
