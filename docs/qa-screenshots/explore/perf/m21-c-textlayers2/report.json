@@ -1,0 +1,83 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-05T13:01:24.565Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "pinned",
+      "reason": null,
+      "vitals": {
+        "lcp": 1708,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "idle": {
+        "idleFps": 60.4,
+        "visibility": "visible"
+      },
+      "scrollRuns": [
+        {
+          "frames": 211,
+          "avgFps": 35.3,
+          "p50ms": 16.7,
+          "p95ms": 50.2,
+          "over33ms": 20,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 337,
+          "avgFps": 56.2,
+          "p50ms": 16.7,
+          "p95ms": 32.9,
+          "over33ms": 8,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 331,
+          "avgFps": 55.4,
+          "p50ms": 16.7,
+          "p95ms": 33.2,
+          "over33ms": 11,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 326,
+          "avgFps": 54.5,
+          "p50ms": 16.7,
+          "p95ms": 33.3,
+          "over33ms": 15,
+          "visibility": "visible",
+          "reactCommits": 16
+        },
+        {
+          "frames": 322,
+          "avgFps": 53.9,
+          "p50ms": 16.7,
+          "p95ms": 33.3,
+          "over33ms": 14,
+          "visibility": "visible",
+          "reactCommits": 16
+        }
+      ],
+      "scroll": {
+        "runs": 5,
+        "medianAvgFps": 54.5,
+        "medianP95ms": 33.3,
+        "medianOver33": 14,
+        "minAvgFps": 35.3,
+        "maxAvgFps": 56.2,
+        "medianReactCommits": 16,
+        "medianFrames": 326
+      },
+      "screenshots": []
+    }
+  }
+}

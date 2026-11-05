@@ -20,3 +20,8 @@
 - React Compiler lint is strict: no mutating hook-held objects (use methods, e.g. `CompassAssets`), no ref access during render.
 - Colour: never write hex in journey/header/footer components; use tokens (`src/theme/tokens.ts` ↔ `@theme`; run `node scripts/check-tokens.mjs`). Cyan = selection/focus/compass light only, never a fill. Buttons: ivory primary on night, ink primary on day, transparent + border secondary.
 - Fonts: Instrument Serif (display), Inter (text), JetBrains Mono (labels/data).
+
+## Scene 3 (Explore Careers) — done (M2/M2.1)
+- Code in `src/journey/explore/`; seven environments registered in `registry.tsx`. Do not start Scene 4+ without approval.
+- Keep rooms mounted; avoid repeating CSS gradients under masks (use SVG). Check any new text with `node scripts/contrast-measure.mjs` (needs `npx next start -p 3100`).
+- QA: `explore-check.mjs`, `explore-flow-check.mjs <out> <url> mobile|reduced|nowebgl`, `explore-interaction-check.mjs`, `explore-transitions.mjs`.

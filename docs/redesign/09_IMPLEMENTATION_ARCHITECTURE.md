@@ -72,3 +72,10 @@ Video recording needs Playwright's ffmpeg download (not installed); a dense JPEG
 - **Handoff:** `--handoff-top` CSS variable is the shared end colour of the stage, the flow Discover section and the top of `Handoff.tsx` (temporary dawn band).
 - **Capability:** a failed WebGL probe is retried once; context loss waits 3 s for restoration before falling back (`data-journey-reason` exposes why).
 - **Tooling (`scripts/`):** visual-check (`--repeat`, `--trace`, `--video`), contact-sheet, transition-frames, states-check, context-loss-test, capability-stress, load-timeline, check-tokens.
+
+## 9. Scene 3 — Explore Careers (as built, M2 / M2.1)
+- Timeline in `choreography.ts`: Scenes 1–2 = first 280 vh; `EXPLORE_START_VH=290`, `DOMAIN_VH=46`, `PINNED_SCROLL_VH=602`; `domainWeight(i,p)` cross-fades adjacent rooms over a 12 vh window; `activeDomain(p)`, `exploreC(p)`, `rigLayout(..., x3)` docks the compass.
+- `src/journey/explore/`: `registry.tsx` (per-domain Art/Backdrop, placement classes, typography), `ContentBlocks.tsx` (RoomHead/RoomDetail), `ExploreStage.tsx` (backdrops, content rooms, end fade; React state only on active-room change), `ExploreFlow.tsx` (mobile/fallback swipe track), `envs/*` (seven environments + `shared.tsx` incl. `GridLayer`).
+- Rooms are always mounted; inactive rooms are `inert`/`aria-hidden`; hidden-room parallax writes are gated by weight.
+- Perf learnings: stacked repeating gradients under masks were the dominant raster cost; will-change layers help; removing parallax transforms or unmounting rooms made it worse.
+- QA scripts: `explore-check`, `explore-flow-check`, `explore-interaction-check`, `explore-transitions`, `contrast-measure`, `contrast-audit`, `contact-sheet`.

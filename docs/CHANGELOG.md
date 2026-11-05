@@ -46,3 +46,9 @@
 - Mobile/reduced/no-WebGL: native swipe track (`ExploreFlow`), seven static panels, no horizontal overflow, 44px targets.
 - Fixed: site-wide invisible focus ring (Tailwind v4 `outline-solid`), faded-out controls still focusable.
 - Known: Explore-range scroll ~49 fps median in headed Chrome (GPU raster spikes on room change); Scenes 1–2 ~58.
+
+## 2026-11-05 — M2.1 Scene 3 stabilisation
+- Perf: Architecture/Science backdrops (stacked repeating CSS-gradient grids/rings) replaced by SVG `<pattern>`/circles (`GridLayer`); CSS A/B tests showed these two backdrops were the dominant raster cost. Explore @1440: 48.7 → 58.0 fps median.
+- Contrast: new `scripts/contrast-measure.mjs` (real-pixel, Chrome) and `scripts/contrast-audit.mjs` (token maths). Fixed: separator dash, disclaimer (ivory/70, width-capped), list titles (ivory/90), "Soon" tag (ivory/80), Design dots 18%, Science rings/glow lighter. 162/162 DOM text pairs pass at 1440 and 1280.
+- Layout: Technology art moved right/narrower; Architecture art 42vw with faded edges (was colliding with detail labels at 1280×800); mobile panels `scroll-mt-20`.
+- QA: `scripts/explore-transitions.mjs` (all 8 boundaries fwd+back). Frames in `docs/qa-screenshots/explore/transitions/`.

@@ -24,3 +24,8 @@
 19. **Phones get a shorter placeholder wording**, not truncated text; the search button is icon-only below `sm`.
 20. **Don't fall back on a recoverable WebGL loss;** wait 3 s for restoration.
 21. **Legacy Light Royal sections stay as they are** until their scenes are rebuilt (scope).
+
+22. **Environments = CSS backdrop + fixed-viewBox SVG art**, tokens only, memoised and prop-less; motion switched by `data-active` + CSS. Rooms stay mounted (hiding/unmounting rooms caused raster spikes and lower fps in A/B tests).
+23. **No repeating CSS gradients under masks for grids/rings** — use SVG patterns/circles (measured +5–6 fps).
+24. **"Explore Careers" is disabled with a "Soon" tag** rather than linking to a route that does not exist.
+25. **Contrast is measured on rendered pixels**, not assumed from tokens (worst-case lightest background pixel under each text box).

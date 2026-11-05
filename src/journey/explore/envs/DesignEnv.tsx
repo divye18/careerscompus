@@ -18,7 +18,7 @@ function DesignBackdropImpl() {
       <div
         className="absolute inset-0 opacity-70"
         style={{
-          backgroundImage: 'radial-gradient(circle, color-mix(in srgb, var(--hue) 28%, transparent) 1.2px, transparent 1.6px)',
+          backgroundImage: 'radial-gradient(circle, color-mix(in srgb, var(--hue) 18%, transparent) 1.2px, transparent 1.6px)',
           backgroundSize: '28px 28px',
           maskImage: 'linear-gradient(115deg, transparent 20%, black 55%, transparent 90%)',
           WebkitMaskImage: 'linear-gradient(115deg, transparent 20%, black 55%, transparent 90%)',
@@ -77,7 +77,7 @@ function DesignArtImpl() {
           </div>
         ))}
       </div>
-      <span className="absolute right-[4%] top-[93%] text-ivory/55" style={{ ...mono, fontSize: '1.3cqw', letterSpacing: '0.12em' }} aria-hidden="true">
+      <span className="absolute right-[4%] top-[93%] text-ivory/80" style={{ ...mono, fontSize: '1.3cqw', letterSpacing: '0.12em' }} aria-hidden="true">
         STUDY — FORM · COLOUR · TYPE
       </span>
     </div>

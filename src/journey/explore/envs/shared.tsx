@@ -61,6 +61,23 @@ export function ArtFrame({ viewBox, children, overlay }: { viewBox: string; chil
   );
 }
 
+/**
+ * Hairline grid as an SVG pattern (stroke = currentColor → the room hue). Rasterises as one small tile,
+ * cheaper to paint than stacked repeating CSS gradients under a mask.
+ */
+export function GridLayer({ id, size, opacity, style }: { id: string; size: number; opacity: number; style?: CSSProperties }) {
+  return (
+    <svg aria-hidden="true" className="absolute inset-0 h-full w-full" style={{ color: 'var(--hue)', opacity, ...style }}>
+      <defs>
+        <pattern id={id} width={size} height={size} patternUnits="userSpaceOnUse">
+          <path d={`M${size} 0V${size}M0 ${size}H${size}`} fill="none" stroke="currentColor" strokeWidth={1} shapeRendering="crispEdges" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${id})`} />
+    </svg>
+  );
+}
+
 /** Small pulsing node at a viewBox-percentage position (compositor-only animation). */
 export function Pulse({ left, top, delay = 0, size = 8 }: { left: number; top: number; delay?: number; size?: number }) {
   return (

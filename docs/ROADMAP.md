@@ -16,3 +16,8 @@
 - [x] M0, M1 (Scenes 1–2), Nocturne Atlas colour, compass load / perf / capability stabilisation, mobile search, handoff
 - [ ] Awaiting approval: M2 Scene 3 Explore (jewel rooms), then Scenes 4–8 (replace the legacy Light Royal sections)
 - [ ] Open: Safari / Firefox + real-device checks; screen-reader pass; trim the remaining ~1 s long task at 3D start
+
+## Status (2026-11-05, after M2.1)
+- [x] M2 Scene 3 Explore (seven career worlds) + M2.1 stabilisation (perf, contrast, visual review, transitions)
+- [ ] Next (needs approval): Scene 4 Courses
+- [ ] Open: mobile fps measurement on a real device, Safari/Firefox, screen-reader pass, careers-library routes for "Explore Careers"

@@ -12,7 +12,7 @@ export const RoomHead = memo(function RoomHead({ d, index, compact = false }: { 
   return (
     <div>
       <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-champagne">
-        03 <span className="mx-1.5 text-silver/60">—</span> Explore
+        03 <span aria-hidden="true" className="mx-1.5 text-silver">—</span> Explore
         <span className="ml-3 text-silver">
           {String(index + 1).padStart(2, '0')}/{String(DOMAINS.length).padStart(2, '0')}
         </span>
@@ -43,7 +43,7 @@ export const RoomHead = memo(function RoomHead({ d, index, compact = false }: { 
           className="inline-flex min-h-[44px] cursor-not-allowed items-center gap-2 rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory/90 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
         >
           Explore Careers
-          <span className="rounded border border-ivory/25 px-1.5 py-px font-mono text-[10px] uppercase tracking-wider text-silver">Soon</span>
+          <span className="rounded border border-ivory/25 px-1.5 py-px font-mono text-[10px] uppercase tracking-wider text-ivory/80">Soon</span>
         </button>
       </div>
     </div>
@@ -53,7 +53,7 @@ export const RoomHead = memo(function RoomHead({ d, index, compact = false }: { 
 function List({ title, items }: { title: string; items: readonly string[] }) {
   return (
     <div>
-      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-champagne">{title}</p>
+      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ivory/90">{title}</p>
       <ul className="mt-2 space-y-1.5">
         {items.map((it) => (
           <li key={it} className="flex gap-2.5 text-[14px] leading-snug text-ivory/85">
@@ -71,7 +71,7 @@ export const RoomDetail = memo(function RoomDetail({ d, cols = false }: { d: Dom
     <div className={cols ? 'grid grid-cols-2 gap-x-8 gap-y-3' : 'space-y-5'}>
       <List title="Paths in" items={d.paths} />
       <List title="Ways it shows up" items={d.roles} />
-      <p className={`font-mono text-[10px] leading-relaxed tracking-wide text-silver ${cols ? 'col-span-2' : ''}`}>{EXPLORE_DISCLAIMER}</p>
+      <p className={`font-mono text-[10px] leading-relaxed tracking-wide text-ivory/70 ${cols ? 'col-span-2 max-w-[46ch]' : ''}`}>{EXPLORE_DISCLAIMER}</p>
     </div>
   );
 });

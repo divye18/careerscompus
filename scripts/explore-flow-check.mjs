@@ -22,6 +22,7 @@ p.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 await p.goto(URL, { waitUntil: 'networkidle' });
 const presenter = await p.evaluate(() => document.querySelector('[data-journey]')?.getAttribute('data-journey'));
 await p.evaluate(() => document.getElementById('act-explore').scrollIntoView({ block: 'start' }));
+await p.addStyleTag({ content: 'header{visibility:hidden!important}' });
 await p.waitForTimeout(900);
 await p.screenshot({ path: `${OUT}/${MODE}-explore-intro.jpg`, type: 'jpeg', quality: 80 });
 const ids = ['technology', 'medicine', 'business', 'design', 'law', 'architecture', 'science'];

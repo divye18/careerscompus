@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ArtFrame, Label } from './shared';
+import { ArtFrame, GridLayer, Label } from './shared';
 
 /**
  * ARCHITECTURE & INFRASTRUCTURE — an architectural drawing table brought to life.
@@ -8,29 +8,14 @@ import { ArtFrame, Label } from './shared';
  */
 export const ARCH_VIEWBOX = '0 0 1000 700';
 
+const MASK_COARSE = 'radial-gradient(ellipse 80% 75% at 40% 50%, black 20%, transparent 80%)';
+const MASK_FINE = 'radial-gradient(ellipse 60% 55% at 40% 50%, black 10%, transparent 80%)';
+
 function ArchitectureBackdropImpl() {
   return (
     <div className="absolute inset-0" aria-hidden="true">
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, color-mix(in srgb, var(--hue) 12%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--hue) 12%, transparent) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
-          maskImage: 'radial-gradient(ellipse 80% 75% at 40% 50%, black 20%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 80% 75% at 40% 50%, black 20%, transparent 80%)',
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, color-mix(in srgb, var(--hue) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--hue) 6%, transparent) 1px, transparent 1px)',
-          backgroundSize: '16px 16px',
-          maskImage: 'radial-gradient(ellipse 60% 55% at 40% 50%, black 10%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 60% 55% at 40% 50%, black 10%, transparent 80%)',
-        }}
-      />
+      <GridLayer id="arch-g80" size={80} opacity={0.12} style={{ maskImage: MASK_COARSE, WebkitMaskImage: MASK_COARSE }} />
+      <GridLayer id="arch-g16" size={16} opacity={0.06} style={{ maskImage: MASK_FINE, WebkitMaskImage: MASK_FINE }} />
     </div>
   );
 }

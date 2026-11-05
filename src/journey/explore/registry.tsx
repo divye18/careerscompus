@@ -41,7 +41,7 @@ export const ENVS: Record<DomainId, EnvSpec> = {
     Art: TechnologyArt,
     ratio: '1000 / 700',
     // width 40vw → height 28vw
-    art: 'left-[28vw] top-[calc(45vh-14vw)] w-[40vw]',
+    art: 'left-[30vw] top-[calc(45vh-13.3vw)] w-[38vw]',
     head: 'left-[5vw] top-[16vh] w-[min(23vw,350px)]',
     detail: 'right-[10vw] top-[16vh] w-[min(19vw,280px)]',
     nameClass: 'border-l-2 border-[color:var(--hue)] pl-4 text-[clamp(40px,min(4.6vw,7vh),68px)] leading-[1.04] tracking-[-0.01em]',
@@ -96,8 +96,8 @@ export const ENVS: Record<DomainId, EnvSpec> = {
     Backdrop: ArchitectureBackdrop,
     Art: ArchitectureArt,
     ratio: '1000 / 700',
-    // art top-left, detail as a strip beneath it; width 46vw → height 32.2vw
-    art: 'left-[3vw] top-[9vh] w-[46vw]',
+    // art top-left, detail as a strip beneath it; width 42vw → height 29.4vw
+    art: 'left-[3vw] top-[9vh] w-[42vw] [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent)]',
     head: 'right-[10vw] top-[15vh] w-[min(27vw,400px)]',
     detail: 'left-[5vw] bottom-[13vh] w-[min(40vw,600px)]',
     detailCols: true,

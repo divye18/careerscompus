@@ -1,0 +1,30 @@
+{
+  "url": "http://localhost:3100",
+  "date": "2026-11-05T12:53:38.975Z",
+  "runs": {
+    "desktop1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "errors": [],
+      "presenter": "flow",
+      "reason": "server",
+      "vitals": {
+        "lcp": 2372,
+        "lcpEl": "SPAN.block italic text-champagne",
+        "cls": 0
+      },
+      "horizontalOverflow": false,
+      "screenshots": [
+        "docs\\qa-screenshots\\explore\\perf\\m21-after1\\desktop1440-s0.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\m21-after1\\desktop1440-s1.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\m21-after1\\desktop1440-s2.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\m21-after1\\desktop1440-s3.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\m21-after1\\desktop1440-s4.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\m21-after1\\desktop1440-s5.jpg",
+        "docs\\qa-screenshots\\explore\\perf\\m21-after1\\desktop1440-s6.jpg"
+      ]
+    }
+  }
+}

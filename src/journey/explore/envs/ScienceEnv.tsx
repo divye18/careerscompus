@@ -8,18 +8,23 @@ import { ArtFrame, Label } from './shared';
  */
 export const SCIENCE_VIEWBOX = '0 0 1000 700';
 
+const RINGS_MASK = 'radial-gradient(ellipse 70% 75% at 36% 48%, black 10%, transparent 80%)';
+const RING_RADII = Array.from({ length: 20 }, (_, k) => 58 * (k + 1));
+
 function ScienceBackdropImpl() {
   return (
     <div className="absolute inset-0" aria-hidden="true">
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: 'repeating-radial-gradient(circle at 36% 48%, color-mix(in srgb, var(--hue) 11%, transparent) 0 1px, transparent 1px 58px)',
-          maskImage: 'radial-gradient(ellipse 70% 75% at 36% 48%, black 10%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 70% 75% at 36% 48%, black 10%, transparent 80%)',
-        }}
-      />
-      <div className="absolute inset-0" style={{ background: 'radial-gradient(30% 40% at 36% 48%, color-mix(in srgb, var(--hue) 14%, transparent), transparent 75%)' }} />
+      <svg
+        className="absolute inset-0 h-full w-full"
+        fill="none"
+        stroke="currentColor"
+        style={{ color: 'var(--hue)', opacity: 0.07, maskImage: RINGS_MASK, WebkitMaskImage: RINGS_MASK }}
+      >
+        {RING_RADII.map((r) => (
+          <circle key={r} cx="36%" cy="48%" r={r} />
+        ))}
+      </svg>
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(30% 40% at 36% 48%, color-mix(in srgb, var(--hue) 10%, transparent), transparent 75%)' }} />
     </div>
   );
 }

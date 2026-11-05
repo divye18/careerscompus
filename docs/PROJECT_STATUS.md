@@ -63,3 +63,19 @@ Capability: 60 consecutive real-Chrome loads → 60/60 pinned. The original unex
 Contrast: all 29 text/graphic pairs used pass (4.5 text / 3.0 graphics) — `docs/qa-screenshots/nocturne/contrast-audit.txt`.
 
 Not verified: Safari/Firefox, real phones (390 px is Chrome emulation), screen-reader pass. The interim sections below the handoff are still Light Royal (gradient stream cards etc.) and visually clash until Scenes 3–8 replace them. Recorded videos show motion, but their frame rate is capture-limited and is not a performance figure.
+
+## Update 2026-11-05 — M2 / M2.1 Scene 3 Explore Careers (branch `redesign/meridian-atlas`)
+Scene 3 is implemented: seven career environments (Technology, Medicine, Business, Design, Law, Architecture, Science), each with its own artwork, backdrop, composition and typography; natural scroll, rail with 7 domain stops, Discover marks jump to rooms, Get Guidance in every room; "Explore Careers" is honestly disabled ("Soon") until the careers library exists. Mobile/reduced-motion/no-WebGL use a native swipe track (`ExploreFlow`).
+
+**Performance** (real headed Chrome, Intel UHD, production build, 6 s scripted scroll, 5 repeats, medians):
+| Range | median fps | p95 | frames >33 ms | min–max fps |
+|---|---|---|---|---|
+| Scenes 1–2 @1440 | 59.2 | 16.9 ms | 2 | 58–60 |
+| Explore @1440 | 58.0 | 17.0 ms | 5 | 48.2–59.4 |
+| Explore @1280 | 57.2 | 17.2 ms | 5 | 48.4–58.9 |
+| Whole journey @1440 | 58.9 | 16.9 ms | 2 | 50.7–59.0 |
+Before M2.1 Explore was 48.7–49.2 fps. Individual runs still dip to ~48 (first room appearances / GPU raster spikes); run-to-run variance on this machine is ±2 fps. Mobile 390 fps was NOT measured (emulation is not representative). Capability probe occasionally reports the flow presenter right after a server restart in automation (`reason: server`); not reproduced in normal loads.
+
+**Contrast**: measured 162 DOM text/background pairs per viewport (1440, 1280): 162 pass, 0 fail (`docs/qa-screenshots/explore/contrast-measured-*.md`). Decorative aria-hidden artwork labels are excluded from the pass count and listed in `contrast-report.md`.
+
+Not verified: Safari/Firefox, real phones, screen reader. Limitations: crossfades show both rooms' text briefly overlapped; chip borders are decorative (ivory/20).
