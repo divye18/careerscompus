@@ -1,7 +1,7 @@
 // Scene 7 logic, against the real dataset. Run: npm run test:action
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { STANDING_EVIDENCE_NOTE, buildActionPlan, isKnownStepId } from '../../src/content/actionPlan.ts';
+import { SCENE_NAME, STANDING_EVIDENCE_NOTE, buildActionPlan, isKnownStepId } from '../../src/content/actionPlan.ts';
 import { PROGRAMMES, ledgerRows } from '../../src/content/comparison.ts';
 import { INSTITUTIONS } from '../../src/content/institutions.ts';
 import { COURSES } from '../../src/content/pathways.ts';
@@ -37,7 +37,6 @@ test('partial: only courses', () => {
 test('partial: only institutions', () => {
   const p = plan({ institutions: ['iit-madras', 'bits-pilani'] });
   assert.equal(p.state, 'partial');
-  assert.ok(ids(p).includes('explore'));
   assert.ok(ids(p).includes('compare-programmes'));
   assert.ok(!ids(p).includes('add-another:institutions'), 'two options need no prompt to add another');
 });
@@ -126,13 +125,14 @@ test('a listing-only programme adds a question of its own, first; a statement do
 });
 
 // ---------- steps
-test('website steps are deduplicated per institution and use only the dataset URL', () => {
-  const p = plan({ institutions: ['iit-madras'], programmes: [STATEMENT, 'iit-madras--mba'] });
-  const web = p.steps.filter((s) => s.id.startsWith('check-website:'));
+test('verification is one grouped action, with one source per institution and only dataset URLs', () => {
+  const p = plan({ institutions: ['iit-madras', 'bits-pilani'], programmes: [STATEMENT, 'iit-madras--mba'] });
+  const web = p.steps.filter((s) => s.id === 'check-official');
   assert.equal(web.length, 1);
-  assert.equal(web[0].href, INSTITUTIONS.find((i) => i.id === 'iit-madras').officialWebsite);
-  assert.ok(web[0].questions.length > 0);
-  assert.equal(new Set(web[0].questions).size, web[0].questions.length);
+  assert.deepEqual(web[0].sources.map((x) => x.institutionId), ['iit-madras', 'bits-pilani']);
+  assert.equal(web[0].sources[0].href, INSTITUTIONS.find((i) => i.id === 'iit-madras').officialWebsite);
+  assert.equal(new Set(web[0].sources[0].questions).size, web[0].sources[0].questions.length);
+  assert.ok(!ids(p).some((i) => i.startsWith('check-website')), 'no separate task per institution');
 });
 test('step ids are unique in every state', () => {
   for (const s of [{}, { courses: [COURSE] }, { programmes: [LISTING] }, FULL]) {
@@ -140,17 +140,20 @@ test('step ids are unique in every state', () => {
     assert.equal(new Set(list).size, list.length);
   }
 });
-test('a listing gets a check-offered step with its official website', () => {
-  const s = plan({ programmes: [LISTING] }).steps.find((x) => x.id === `check-offered:${LISTING}`);
-  assert.equal(s.href, 'https://vit.ac.in/');
-  assert.equal(plan({ programmes: [STATEMENT] }).steps.some((x) => x.id.startsWith('check-offered')), false);
+test('listings get one grouped check-offered step, naming each programme, with official websites', () => {
+  const p = plan({ programmes: [LISTING, 'bits-pilani--b-pharm', 'bits-pilani--b-e-computer-science'] });
+  const s = p.steps.filter((x) => x.id === 'check-offered');
+  assert.equal(s.length, 1);
+  assert.deepEqual(s[0].sources.map((x) => [x.institutionId, x.href]), [['vit-vellore', 'https://vit.ac.in/'], ['bits-pilani', INSTITUTIONS.find((i) => i.id === 'bits-pilani').officialWebsite]]);
+  assert.equal(s[0].sources[1].questions.length, 2);
+  assert.equal(plan({ programmes: [STATEMENT] }).steps.some((x) => x.id === 'check-offered'), false);
 });
 test('every step is Orientation, has a known id, and every link is a dataset URL', () => {
   const official = new Set(INSTITUTIONS.map((i) => i.officialWebsite));
   for (const s of plan(FULL).steps) {
     assert.equal(s.status, 'orientation');
     assert.ok(isKnownStepId(s.id), s.id);
-    if (s.href) assert.ok(official.has(s.href), s.href);
+    for (const x of s.sources) assert.ok(official.has(x.href), x.href);
   }
 });
 test('steps do not depend on the order options were kept in, except by naming them', () => {
@@ -175,8 +178,8 @@ test('the function is pure: same input, same output, input untouched', () => {
   assert.deepEqual(input, FULL);
 });
 test('isKnownStepId rejects anything the plan could not produce', () => {
-  for (const bad of ['', 'nope', 'check-website:nope', 'check-offered:iit-madras', 'add-another:nope', 3, null, {}]) assert.equal(isKnownStepId(bad), false, String(bad));
-  for (const ok of ['talk', 'explore', 'add-another:courses', 'check-website:iit-madras', `check-offered:${LISTING}`]) assert.equal(isKnownStepId(ok), true, ok);
+  for (const bad of ['', 'nope', 'check-website:iit-madras', 'add-another:nope', 3, null, {}]) assert.equal(isKnownStepId(bad), false, String(bad));
+  for (const ok of ['talk', 'explore', 'explore-courses', 'add-another:courses', 'check-official', 'check-offered']) assert.equal(isKnownStepId(ok), true, ok);
 });
 
 // ---------- groups, maximum selections, removed ids
@@ -189,12 +192,23 @@ test('steps run Explore, then Verify, then Discuss, in every state', () => {
   assert.equal(plan({}).steps.find((x) => x.id === 'talk').group, 'discuss');
   assert.equal(plan({ programmes: [LISTING] }).steps.find((x) => x.id.startsWith('check-offered')).group, 'verify');
 });
-test('deduplicated website steps keep every distinct information gap', () => {
-  const p = plan({ institutions: ['iit-madras'], programmes: [STATEMENT] });
-  const web = p.steps.filter((s) => s.id === 'check-website:iit-madras');
-  assert.equal(web.length, 1);
-  const expected = p.openQuestions.filter((x) => x.items.some((i) => i.id === 'iit-madras' || i.id === STATEMENT) && x.id !== 'currently-offered').map((x) => x.label);
-  assert.deepEqual(web[0].questions, expected);
+test('grouping loses no gap: every question for a kept place is listed at its institution', () => {
+  const p = plan(FULL);
+  const web = p.steps.find((s) => s.id === 'check-official');
+  const instOf = (i) => (i.mode === 'institutions' ? i.id : PROGRAMMES.find((x) => x.id === i.id).institution.id);
+  let checked = 0;
+  for (const qn of p.openQuestions.filter((x) => x.id !== 'currently-offered')) {
+    for (const item of qn.items.filter((i) => i.mode !== 'courses')) {
+      assert.ok(web.sources.find((x) => x.institutionId === instOf(item)).questions.includes(qn.label), qn.label + ' ' + item.id);
+      checked++;
+    }
+  }
+  assert.ok(checked > 10);
+});
+test('the number of steps does not grow with each institution', () => {
+  const one = plan({ institutions: ['iit-madras', 'bits-pilani'], courses: [COURSE, COURSES[1].id] }).steps.length;
+  const three = plan({ institutions: ['iit-madras', 'bits-pilani', 'nlsiu-bengaluru'], courses: [COURSE, COURSES[1].id] }).steps.length;
+  assert.equal(one, three);
 });
 test('maximum selections (three of each) stay complete', () => {
   const p = plan(FULL);
@@ -212,4 +226,30 @@ test('the empty state offers somewhere to start and assumes nothing about the st
   const p = plan({});
   assert.ok(p.steps[0].targetId);
   assert.doesNotMatch(strings(p), /your (marks|score|interest|profile|stream)|based on you/i);
+});
+
+// ---------- approved clarifications
+test('full means at least one course and at least one institution or programme', () => {
+  assert.equal(plan({ courses: [COURSE], institutions: ['iit-madras'] }).state, 'full');
+  assert.equal(plan({ courses: [COURSE], programmes: [STATEMENT] }).state, 'full');
+  assert.equal(plan({ courses: [COURSE] }).state, 'partial');
+  assert.equal(plan({ institutions: ['iit-madras'] }).state, 'partial');
+  assert.equal(plan({ programmes: [STATEMENT] }).state, 'partial');
+  assert.equal(plan({ institutions: ['iit-madras'], programmes: [STATEMENT] }).state, 'partial');
+  assert.equal(plan({}).state, 'empty');
+});
+test('a place kept but no course: suggest courses and pathways, not the career worlds', () => {
+  for (const s of [{ institutions: ['iit-madras'] }, { programmes: [STATEMENT] }]) {
+    const p = plan(s);
+    assert.ok(!ids(p).includes('explore'));
+    assert.equal(p.steps[0].id, 'explore-courses');
+    assert.equal(p.steps[0].targetId, 'act-courses');
+  }
+  assert.ok(ids(plan({})).includes('explore'), 'only a truly empty sheet starts at the career worlds');
+  assert.ok(!ids(plan({})).includes('explore-courses'));
+  assert.ok(!ids(plan(FULL)).includes('explore-courses'));
+});
+test('the student-facing name is Next Steps, and the internal name stays out of student text', () => {
+  assert.equal(SCENE_NAME, 'Next Steps');
+  for (const s of [{}, { courses: [COURSE] }, FULL]) assert.doesNotMatch(strings(plan(s)), /Career Action|Action Studio/i);
 });

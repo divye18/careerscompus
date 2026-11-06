@@ -10,7 +10,7 @@ const fake = (initial) => {
 };
 
 test('stored ids are validated: unknown, duplicate and non-string values are dropped', () => {
-  assert.deepEqual(parseStoredSteps(JSON.stringify(['talk', 'talk', 'nope', 3, null, 'check-website:iit-madras', 'check-website:nope'])), ['talk', 'check-website:iit-madras']);
+  assert.deepEqual(parseStoredSteps(JSON.stringify(['talk', 'talk', 'nope', 3, null, 'check-official', 'check-website:nope'])), ['talk', 'check-official']);
 });
 test('corrupt or wrong-shaped storage gives an empty list', () => {
   for (const raw of [null, '', '{not json', '{"a":1}', '"talk"', '42']) assert.deepEqual(parseStoredSteps(raw), [], String(raw));
@@ -35,9 +35,9 @@ test('toggling twice removes; an unknown id is ignored and not saved', () => {
 test('storage only ever holds step ids', () => {
   const s = fake();
   const a = createStepStore(() => s);
-  a.toggle('check-website:iit-madras');
+  a.toggle('check-official');
   assert.deepEqual([...s.m.keys()], [ACTION_KEY]);
-  assert.deepEqual(JSON.parse(s.m.get(ACTION_KEY)), ['check-website:iit-madras']);
+  assert.deepEqual(JSON.parse(s.m.get(ACTION_KEY)), ['check-official']);
 });
 test('unavailable storage: null, a throwing getter, or throwing reads and writes all still work for the page view', () => {
   const throwing = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('quota'); } };
@@ -72,4 +72,7 @@ test('ticking never changes a verification state or any part of the plan', () =>
   const a = createStepStore(() => null);
   for (const s of buildActionPlan(sel).steps) a.toggle(s.id);
   assert.equal(JSON.stringify(buildActionPlan(sel)), before);
+  // an absolute check too: a comparison alone misses damage done by an earlier tick in this same process
+  assert.equal(buildActionPlan(sel).kept.programmes[0].status, 'partial');
+  assert.equal(buildActionPlan({ programmes: ['iit-madras--b-tech'] }).kept.programmes[0].status, 'verified');
 });

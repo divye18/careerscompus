@@ -1,5 +1,5 @@
 /**
- * Scene 7 — Next Steps: what the student kept, what is still open, and what they could do next.
+ * Scene 7 (internal project name: Career Action Studio; students see "Next Steps"): what the student kept, what is still open, and what they could do next.
  * Pure functions only: no React, no storage, no clock. Everything is derived from the comparison selections and the
  * ledger in ./comparison, so there is no second copy of any fact.
  *
@@ -20,6 +20,8 @@ import type { VerificationStatus } from './verification';
 export type Selections = Readonly<Record<CompareMode, readonly string[]>>;
 export type PlanState = 'empty' | 'partial' | 'full';
 
+/** The student-facing name. "Career Action Studio" is internal only and must not appear in student copy. */
+export const SCENE_NAME = 'Next Steps';
 export const NO_REASON_RECORDED = 'No reason has been recorded.';
 export const STANDING_EVIDENCE_NOTE = 'These facts were true on the date we checked. Institutions change details, so confirm on the official website before you act.';
 
@@ -66,6 +68,14 @@ export const STEP_GROUPS: readonly { id: StepGroup; label: string }[] = [
   { id: 'discuss', label: 'Discuss' },
 ];
 
+/** An official website, with what to look up there. */
+export interface StepSource {
+  institutionId: string;
+  institution: string;
+  href: string;
+  questions: readonly string[];
+}
+
 export interface NextStep {
   id: string;
   group: StepGroup;
@@ -74,10 +84,8 @@ export interface NextStep {
   status: 'orientation';
   /** element to return to on this page */
   targetId: string | null;
-  /** official website from the dataset */
-  href: string | null;
-  /** what to look up, for a website step */
-  questions: readonly string[];
+  /** official websites from the dataset, one per institution, each with every distinct question to look up there */
+  sources: readonly StepSource[];
 }
 
 export interface ActionPlan {
@@ -140,33 +148,40 @@ function collectQuestions(sel: Selections) {
 
 const institutionOfProgramme = (id: string) => PROGRAMMES.find((p) => p.id === id)!.institution;
 
+/** Merge question labels by institution, keeping first-seen order: one entry per website, no gap lost. */
+function sourcesFrom(pairs: readonly (readonly [string, string])[]): StepSource[] {
+  const by = new Map<string, Set<string>>();
+  for (const [inst, label] of pairs) by.set(inst, (by.get(inst) ?? new Set<string>()).add(label));
+  return [...by].map(([id, labels]) => {
+    const i = INSTITUTIONS.find((x) => x.id === id)!;
+    return { institutionId: id, institution: i.shortName, href: i.officialWebsite, questions: [...labels] };
+  });
+}
+
 function buildSteps(sel: Selections, open: readonly Question[], listed: readonly KeptEntry[]): NextStep[] {
-  const step = (id: string, group: StepGroup, text: string, targetId: string | null, href: string | null = null, questions: readonly string[] = []): NextStep => ({ id, group, text, status: 'orientation', targetId, href, questions });
+  const step = (id: string, group: StepGroup, text: string, targetId: string | null, sources: readonly StepSource[] = []): NextStep => ({ id, group, text, status: 'orientation', targetId, sources });
   const steps: NextStep[] = [];
   const [ni, np, nc] = [sel.institutions.length, sel.programmes.length, sel.courses.length];
+  const hasPlace = ni + np > 0;
 
-  if (nc === 0) steps.push(step('explore', 'explore', 'Look through the career worlds and pathways, and keep any course you want to think about.', 'act-discovery'));
-  if (nc > 0 && ni === 0 && np === 0) steps.push(step('find-institutions', 'explore', 'Look for institutions that may teach what you kept.', 'atlas-view'));
+  if (!hasPlace && nc === 0) steps.push(step('explore', 'explore', 'Look through the career worlds and pathways, and keep any course you want to think about.', 'act-discovery'));
+  if (hasPlace && nc === 0) steps.push(step('explore-courses', 'explore', 'Explore the courses and pathways related to what you kept.', 'act-courses'));
+  if (nc > 0 && !hasPlace) steps.push(step('find-institutions', 'explore', 'Look for institutions that may teach what you kept.', 'atlas-view'));
   if (ni > 0 && np === 0) steps.push(step('compare-programmes', 'explore', 'Compare specific programmes, not only institutions.', 'studio-workspace'));
   for (const mode of MODES) if (sel[mode].length === 1) steps.push(step(`add-another:${mode}`, 'explore', `Add another ${NOUN[mode]} if you want to compare side by side.`, 'studio-workspace'));
 
-  for (const e of listed) steps.push(step(`check-offered:${e.id}`, 'verify', `Check on the official website that ${e.title} ${e.subtitle} is currently offered.`, null, e.website));
-
-  // one website step per institution, however many kept options point at it
-  const byInstitution = new Map<string, Set<string>>();
-  for (const q of open) {
-    for (const item of q.items) {
+  // Verify: one grouped action each, however many institutions are involved. Every gap and link stays in `sources`.
+  if (listed.length) {
+    const pairs = listed.map((e) => [institutionOfProgramme(e.id).id, `Is ${e.title} currently offered?`] as const);
+    steps.push(step('check-offered', 'verify', 'Check on the official websites that the programmes marked "listed only" are currently offered.', null, sourcesFrom(pairs)));
+  }
+  const pairs = open.flatMap((q) =>
+    q.items.flatMap((item) => {
       const inst = item.mode === 'institutions' ? item.id : item.mode === 'programmes' ? institutionOfProgramme(item.id).id : null;
-      if (!inst) continue;
-      const labels = byInstitution.get(inst) ?? new Set<string>();
-      labels.add(q.label);
-      byInstitution.set(inst, labels);
-    }
-  }
-  for (const [id, labels] of byInstitution) {
-    const inst = INSTITUTIONS.find((i) => i.id === id)!;
-    steps.push(step(`check-website:${id}`, 'verify', `Look up what is still open on the ${inst.shortName} website.`, null, inst.officialWebsite, [...labels]));
-  }
+      return inst ? [[inst, q.label] as const] : [];
+    })
+  );
+  if (pairs.length) steps.push(step('check-official', 'verify', 'Look up what is still open on the official websites.', null, sourcesFrom(pairs)));
 
   steps.push(step('talk', 'discuss', 'Talk it through with a teacher, family or a school counsellor.', null));
   return steps;
@@ -189,12 +204,6 @@ export function buildActionPlan(selections: Partial<Selections>): ActionPlan {
 /** Can this id ever be produced by buildSteps? Used to validate stored ticks. */
 export function isKnownStepId(id: unknown): id is string {
   if (typeof id !== 'string') return false;
-  if (id === 'explore' || id === 'find-institutions' || id === 'compare-programmes' || id === 'talk') return true;
-  const at = id.indexOf(':');
-  if (at < 0) return false;
-  const [kind, rest] = [id.slice(0, at), id.slice(at + 1)];
-  if (kind === 'add-another') return MODES.includes(rest as CompareMode);
-  if (kind === 'check-offered') return isKnownOption('programmes', rest);
-  if (kind === 'check-website') return isKnownOption('institutions', rest);
-  return false;
+  if (['explore', 'explore-courses', 'find-institutions', 'compare-programmes', 'check-offered', 'check-official', 'talk'].includes(id)) return true;
+  return id.startsWith('add-another:') && MODES.includes(id.slice('add-another:'.length) as CompareMode);
 }
