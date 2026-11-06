@@ -253,3 +253,21 @@ test('the student-facing name is Next Steps, and the internal name stays out of 
   assert.equal(SCENE_NAME, 'Next Steps');
   for (const s of [{}, { courses: [COURSE] }, FULL]) assert.doesNotMatch(strings(plan(s)), /Career Action|Action Studio/i);
 });
+
+// ---------- source order follows the student's selection
+const srcIds = (p, id) => p.steps.find((s) => s.id === id).sources.map((x) => x.institutionId);
+test('sources follow the order institutions were kept in, in either direction', () => {
+  assert.deepEqual(srcIds(plan({ institutions: ['nlsiu-bengaluru', 'iit-madras', 'bits-pilani'] }), 'check-official'), ['nlsiu-bengaluru', 'iit-madras', 'bits-pilani']);
+  assert.deepEqual(srcIds(plan({ institutions: ['bits-pilani', 'iit-madras', 'nlsiu-bengaluru'] }), 'check-official'), ['bits-pilani', 'iit-madras', 'nlsiu-bengaluru']);
+});
+test('sources stay in selection order when questions are grouped across institutions and programmes', () => {
+  const p = plan({ institutions: ['iit-madras', 'nlsiu-bengaluru'], programmes: [LISTING, 'iit-madras--mba', 'bits-pilani--b-pharm'] });
+  assert.deepEqual(srcIds(p, 'check-official'), ['iit-madras', 'nlsiu-bengaluru', 'vit-vellore', 'bits-pilani']);
+  assert.deepEqual(srcIds(p, 'check-offered'), ['vit-vellore', 'bits-pilani']);
+});
+test('within an institution, questions keep ledger order', () => {
+  const p = plan({ institutions: ['nlsiu-bengaluru'] });
+  const ledger = p.openQuestions.map((x) => x.label);
+  assert.deepEqual(p.steps.find((s) => s.id === 'check-official').sources[0].questions, ledger);
+  assert.notDeepEqual(ledger, [...ledger].sort(), 'this case would not detect sorting otherwise');
+});

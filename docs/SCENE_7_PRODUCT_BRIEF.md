@@ -92,7 +92,7 @@ Links go only to `officialWebsite` values in the dataset. There are no dates, de
 "Print this sheet" and "Copy as text". Both include last-checked dates and the sentence in section G. No email, no account, no sharing link.
 
 ### F. Navigation
-Each entry returns to its scene using the existing events. The rail gains an "Action" stop. The margin index acts as in-scene navigation. Scene 3 is reached through a domain link (`explore-<domain>`) from course entries.
+Each entry returns to its scene using the existing events. The rail gains a "Next Steps" stop. The margin index acts as in-scene navigation. Scene 3 is reached through a domain link (`explore-<domain>`) from course entries.
 
 ### G. Evidence transparency
 - Only the shared four states from `StatusLabel`, with "Not applicable" as plain words. No fifth status, no scores.

@@ -148,13 +148,18 @@ function collectQuestions(sel: Selections) {
 
 const institutionOfProgramme = (id: string) => PROGRAMMES.find((p) => p.id === id)!.institution;
 
-/** Merge question labels by institution, keeping first-seen order: one entry per website, no gap lost. */
-function sourcesFrom(pairs: readonly (readonly [string, string])[]): StepSource[] {
+/**
+ * Merge question labels by institution: one entry per website, no gap lost. Institutions follow the order the student
+ * kept them in (institutions, then the institutions of kept programmes); questions keep the order they arrive in, which
+ * is ledger order. Nothing is sorted by name, merit or status.
+ */
+function sourcesFrom(pairs: readonly (readonly [string, string])[], sel: Selections): StepSource[] {
   const by = new Map<string, Set<string>>();
   for (const [inst, label] of pairs) by.set(inst, (by.get(inst) ?? new Set<string>()).add(label));
-  return [...by].map(([id, labels]) => {
+  const order = [...new Set([...sel.institutions, ...sel.programmes.map((id) => institutionOfProgramme(id).id)])];
+  return order.filter((id) => by.has(id)).map((id) => {
     const i = INSTITUTIONS.find((x) => x.id === id)!;
-    return { institutionId: id, institution: i.shortName, href: i.officialWebsite, questions: [...labels] };
+    return { institutionId: id, institution: i.shortName, href: i.officialWebsite, questions: [...by.get(id)!] };
   });
 }
 
@@ -173,7 +178,7 @@ function buildSteps(sel: Selections, open: readonly Question[], listed: readonly
   // Verify: one grouped action each, however many institutions are involved. Every gap and link stays in `sources`.
   if (listed.length) {
     const pairs = listed.map((e) => [institutionOfProgramme(e.id).id, `Is ${e.title} currently offered?`] as const);
-    steps.push(step('check-offered', 'verify', 'Check on the official websites that the programmes marked "listed only" are currently offered.', null, sourcesFrom(pairs)));
+    steps.push(step('check-offered', 'verify', 'Check on the official websites that the programmes marked "listed only" are currently offered.', null, sourcesFrom(pairs, sel)));
   }
   const pairs = open.flatMap((q) =>
     q.items.flatMap((item) => {
@@ -181,7 +186,7 @@ function buildSteps(sel: Selections, open: readonly Question[], listed: readonly
       return inst ? [[inst, q.label] as const] : [];
     })
   );
-  if (pairs.length) steps.push(step('check-official', 'verify', 'Look up what is still open on the official websites.', null, sourcesFrom(pairs)));
+  if (pairs.length) steps.push(step('check-official', 'verify', 'Look up what is still open on the official websites.', null, sourcesFrom(pairs, sel)));
 
   steps.push(step('talk', 'discuss', 'Talk it through with a teacher, family or a school counsellor.', null));
   return steps;
