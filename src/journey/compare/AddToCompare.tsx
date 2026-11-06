@@ -1,11 +1,12 @@
 'use client';
 
+import { ArrowRight, Check, Plus } from 'lucide-react';
 import { MAX_COLUMNS, type CompareMode } from '@/content/comparison';
 import { goTo } from '../scroll';
 import { compareActions, useCompare } from './compareStore';
 
 export const focusRing = 'outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan';
-export const secondaryBtn = `inline-flex min-h-[44px] items-center justify-center rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/30 ${focusRing}`;
+export const secondaryBtn = `inline-flex min-h-[44px] items-center justify-center gap-2 rounded-atlas border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/30 ${focusRing}`;
 
 export function openComparison(mode: CompareMode) {
   compareActions.setMode(mode);
@@ -32,11 +33,13 @@ export function AddToCompare({ mode, id, label, name }: { mode: CompareMode; id:
           onClick={() => (inIt ? compareActions.remove(mode, id) : compareActions.add(mode, id))}
           className={`${secondaryBtn} ${inIt ? 'border-cyan hover:border-cyan' : ''}`}
         >
-          {inIt ? '✓ In comparison. Remove' : label}
+          {inIt && <Check aria-hidden="true" className="h-4 w-4 text-cyan" />}
+          {inIt ? 'In comparison. Remove' : label}
         </button>
         {cur.length > 0 && (
           <button type="button" onClick={() => openComparison(mode)} className={secondaryBtn}>
-            Open comparison ({cur.length}/{MAX_COLUMNS}) →
+            Open comparison ({cur.length}/{MAX_COLUMNS})
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </button>
         )}
       </div>
@@ -59,9 +62,10 @@ export function CompareProgrammeToggle({ id, name }: { id: string; name: string 
       disabled={full}
       title={full ? `The comparison holds ${MAX_COLUMNS} programmes` : undefined}
       onClick={() => (inIt ? compareActions.remove('programmes', id) : compareActions.add('programmes', id))}
-      className={`inline-flex min-h-[44px] shrink-0 items-center rounded-md border px-2.5 font-mono text-[11px] uppercase tracking-wider text-ivory/90 transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${focusRing} ${inIt ? 'border-cyan' : 'border-ivory/25 hover:border-ivory/60'}`}
+      className={`inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-atlas-sm border px-2.5 font-mono text-[11px] uppercase tracking-wider text-ivory/90 transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${focusRing} ${inIt ? 'border-cyan' : 'border-ivory/25 hover:border-ivory/60'}`}
     >
-      {inIt ? '✓ Added' : '+ Compare'}
+      {inIt ? <Check aria-hidden="true" className="h-3.5 w-3.5 text-cyan" /> : <Plus aria-hidden="true" className="h-3.5 w-3.5" />}
+      {inIt ? 'Added' : 'Compare'}
     </button>
   );
 }

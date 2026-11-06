@@ -328,8 +328,8 @@ export interface LedgerRow {
   /** two or more verified values that really differ */
   differs: boolean;
   anyVerified: boolean;
-  /** every cell says the same "missing" thing, so the ledger may state it once */
-  merged: boolean;
+  /** a partial list: it shows only what was confirmed, so the label is Partially verified */
+  partial: boolean;
 }
 
 export type LedgerView = 'all' | 'verified' | 'differences';
@@ -339,12 +339,8 @@ function buildRows<O>(params: readonly ParamDef<O>[], items: readonly O[]): Ledg
     const cells = items.map((o) => p.cell(o));
     const verified = cells.filter((c): c is Extract<Cell, { state: 'verified' }> => c.state === 'verified');
     const differs = Boolean(p.comparable) && verified.length >= 2 && new Set(verified.map((c) => c.norm)).size >= 2;
-    const first = cells[0];
-    const merged =
-      cells.length >= 2 &&
-      (first.state === 'unavailable' || first.state === 'notApplicable') &&
-      cells.every((c) => c.state === first.state && 'reason' in c && c.reason === first.reason);
-    return { id: p.id, group: p.group, label: p.label, note: p.note, figure: Boolean(p.figure), cells, differs, anyVerified: verified.length > 0, merged };
+    const partial = Boolean(p.note?.startsWith('Partial'));
+    return { id: p.id, group: p.group, label: p.label, note: p.note, figure: Boolean(p.figure), cells, differs, anyVerified: verified.length > 0, partial };
   });
 }
 

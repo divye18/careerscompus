@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Product-readiness checks (needs `npx next start -p 3100`):
- *  counselling form collects nothing and cannot be submitted; compare teaser has no invented values or hover behaviour;
+ *  counselling form collects nothing and cannot be submitted; compare studio has no invented values or hover behaviour;
  *  FAQ matches the implementation; skip link is hidden until focused, then visible, and moves focus to main.
  * Usage: node scripts/readiness-check.mjs [url] [outDir]
  */
@@ -29,10 +29,9 @@ for (const [w, h] of [[1440, 900], [390, 844]]) {
     await p.evaluate(() => document.querySelector('#act-guidance form').requestSubmit?.());
     await sleep(300);
     ok('submit attempt sends no network request', reqs.length === 0, reqs.join(','));
-    const c = await p.evaluate(() => { const s = document.getElementById('act-comparison'); return s.innerText; });
-    ok('compare teaser says not available and shows no figures', /not available yet/i.test(c) && !/₹|\blakh|\byears?\b|\b\d+\s?%|rank/i.test(c.replace(/Not verified yet/g, '')), '');
-    const hov = await p.evaluate(() => [...document.querySelectorAll('#act-comparison [class*="hover:"]')].length);
-    ok('compare teaser has no hover behaviour', hov === 0, String(hov));
+    const c = await p.evaluate(() => document.getElementById('act-comparison').innerText);
+    ok('compare studio presents no fees, ranks, salaries or scores when empty', !/₹|lakh|LPA|rank|score|winner/i.test(c.replace(/ranked or scored/g, '').replace(/does not pick a winner/g, '')), '');
+    ok('compare studio states every missing value in words (empty state explains itself)', /ledger is empty/i.test(c), '');
     const faq = await p.evaluate(() => [...document.querySelectorAll('#act-trust button')].map((x) => x.textContent.trim()));
     ok('FAQ no longer implies a callback form works', !faq.some((q) => /Does the callback form send/i.test(q)) && faq.some((q) => /Can I request a callback/i.test(q)), faq.join(' | '));
     // skip link

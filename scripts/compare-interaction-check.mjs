@@ -79,17 +79,17 @@ await view('All parameters').click();
 await add('institution', 'iit-madras');
 let r = await row('established');
 ok('two-institution comparison works', r.cells.length === 2);
-ok('verified value and missing value sit side by side', r.cells[0].state === 'verified' && /1961/.test(r.cells[0].text) && r.cells[1].state === 'unavailable' && /Not available/.test(r.cells[1].text));
+ok('verified value and missing value sit side by side', r.cells[0].state === 'verified' && /1961/.test(r.cells[0].text) && r.cells[1].state === 'unavailable' && /not verified/i.test(r.cells[1].text));
 ok('one verified + one missing is NOT a difference', r.differs === false && !r.cells.some((c) => c.marked));
 ok('the reason for a missing value is shown', /Not confirmed on the official pages/.test(r.cells[1].text));
 if (!mobile) {
   const sem = await p.evaluate(() => { const t = [...document.querySelectorAll('#studio-workspace table')][0]; return { caption: !!t.querySelector('caption'), cols: t.querySelectorAll('thead th[scope="col"]').length, rowHeads: t.querySelectorAll('tbody th[scope="row"]').length, groups: t.querySelectorAll('th[scope="rowgroup"]').length }; });
-  ok('real table semantics: caption, column, row and group headers', sem.caption && sem.cols === 3 && sem.rowHeads >= 15 && sem.groups === 4, JSON.stringify(sem));
+  ok('real table semantics: caption, column, row and group headers', sem.caption && sem.cols === 3 && sem.rowHeads >= 6 && sem.groups >= 2, JSON.stringify(sem));
   const sticky = await p.evaluate(() => getComputedStyle(document.querySelector('#studio-workspace thead th')).position);
   ok('column names stay visible while scrolling (sticky)', sticky === 'sticky');
 } else {
   const labels = await p.evaluate(() => [...document.querySelectorAll('#studio-workspace [data-row] h4')].filter((h) => h.getBoundingClientRect().height > 0).length);
-  ok('phones: each parameter keeps its label', labels >= 15, `${labels} labels`);
+  ok('phones: each parameter keeps its label', labels >= 6, `${labels} labels`);
   const named = await p.evaluate(() => [...document.querySelectorAll('#studio-workspace dl [data-state] dt')].filter((h) => h.getBoundingClientRect().height > 0).length);
   ok('phones: each value is named by its option', named >= 2);
 }
@@ -104,9 +104,9 @@ ok('no scores, rankings, fees, percentages or exam names in the ledger', !banned
 
 // ---- three states are distinct
 r = await row('tuition');
-ok('Not applicable is distinct, with a reason', /Not applicable/i.test(r.text) && /per programme/.test(r.text) && !/Not available/.test(r.text));
+ok('Not applicable is distinct, with a reason, and listed apart from the table', /per programme/.test(r.text) && !/not verified/i.test(r.text) && r.cells.length === 0 && /Not applicable to this kind of comparison/i.test(await ws.innerText()));
 r = await row('accreditation');
-ok('Not available is distinct, with a reason', /Not available/.test(r.text) && /accrediting body/.test(r.text) && !/Not applicable/i.test(r.text));
+ok('Not verified parameters are listed with a reason, not as empty table rows', /accrediting body/.test(r.text) && r.cells.length === 0 && /What we cannot tell you yet/.test(await ws.innerText()));
 
 // ---- evidence
 const est = ws.locator('[data-row="established"]:visible [data-state="verified"]').first();
@@ -187,7 +187,7 @@ r = await row('duration');
 ok('same duration on two verified programmes is not a difference', r.differs === false && r.cells.every((c) => c.state === 'verified' && /4 years/.test(c.text)));
 await add('programme', 'vit-vellore--b-tech');
 r = await row('duration');
-ok('unstated duration stays Not available, not a difference', r.differs === false && r.cells[2].state === 'unavailable' && /does not state/.test(r.cells[2].text));
+ok('unstated duration stays Not verified, not a difference', r.differs === false && r.cells[2].state === 'unavailable' && /does not state/.test(r.cells[2].text));
 await ws.getByRole('button', { name: 'Replace B.Tech' }).last().click();
 await p.waitForTimeout(150);
 await ws.locator('button[data-option="iit-kharagpur--b-arch"]').click();
@@ -196,7 +196,7 @@ r = await row('duration');
 ok('4 years vs 5 years is a verified difference', r.differs === true);
 ok('unlike programmes are flagged, not hidden', /different kinds of programme/.test(await ws.innerText()));
 r = await row('tuition');
-ok('programme fees stay Not available rather than empty or zero', /Not available/.test(r.text));
+ok('programme fees stay Not available rather than empty or zero', /not verified/i.test(r.text + (await ws.innerText())));
 
 // ---- Scene 4 → comparison
 await p.evaluate(() => document.getElementById('pw-direction').scrollIntoView({ block: 'start', behavior: 'instant' }));
@@ -214,7 +214,7 @@ await p.waitForTimeout(mobile || MODE !== 'reduced' ? 1500 : 400);
 ok('a course from Scene 4 arrives in the course comparison', (await modeBtn('Courses').getAttribute('aria-pressed')) === 'true' && /BCA/.test(await ws.innerText()));
 await add('course', 'technology-b-tech-b-e');
 const cRows = await rows();
-ok('course pathways are labelled orientation, never verified', (cRows.find((x) => x.id === 'subjects').cells.every((c) => c.state === 'orientation' && /not verified/i.test(c.text))));
+ok('course pathways are labelled orientation, never verified', (cRows.find((x) => x.id === 'subjects').cells.every((c) => c.state === 'orientation' && /orientation/i.test(c.text))));
 const confirmed = cRows.find((x) => x.id === 'confirmedAt');
 ok('"Confirmed at" uses verified programme records only', confirmed.cells.some((c) => c.state === 'verified' && /IIT Madras/.test(c.text)) && confirmed.cells.some((c) => c.state === 'unavailable'));
 await view('Differences only').click();

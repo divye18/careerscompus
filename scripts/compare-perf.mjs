@@ -19,7 +19,6 @@ const ctx = await b.newContext({ viewport: { width: W, height: H }, ...(mobile ?
 const p = await ctx.newPage();
 await p.goto(URL, { waitUntil: 'networkidle' });
 await p.waitForTimeout(2500);
-const sec = p.locator('#act-comparison');
 const geo = await p.evaluate(() => { const s = document.getElementById('act-comparison'); const t = s.getBoundingClientRect().top + scrollY; return { top: t, bottom: t + s.offsetHeight }; });
 const ranges = { transition: [geo.top - 1.5 * H, geo.top + 0.6 * H], scene6: [geo.top, (await p.evaluate(() => { const r = document.getElementById('act-comparison'); return r.getBoundingClientRect().top + scrollY + r.offsetHeight; })) - H] };
 const run = (from, to) => p.evaluate(([from, to]) => new Promise((res) => {

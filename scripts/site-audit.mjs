@@ -152,22 +152,13 @@ for (const v of VIEWPORTS) {
   // form
   await p.evaluate(() => document.getElementById('act-guidance').scrollIntoView({ behavior: 'instant' }));
   await p.waitForTimeout(900);
+  // the callback form is intentionally unavailable: it collects nothing and cannot be submitted
   const form = p.locator('#act-guidance form');
-  await form.locator('button[type="submit"]').click();
-  await p.waitForTimeout(200);
-  report.form.emptyShowsErrors = (await form.locator('[role="alert"]').count()) === 2;
-  report.form.invalidMarked = (await form.locator('#cc-name').getAttribute('aria-invalid')) === 'true';
-  await form.locator('#cc-name').fill('Test Student');
-  await form.locator('#cc-phone').fill('12');
-  await form.locator('button[type="submit"]').click();
-  await p.waitForTimeout(150);
-  report.form.badPhoneRejected = (await form.locator('[role="alert"]').count()) === 1;
-  await form.locator('#cc-phone').fill('9000000000');
   let posted = false;
   p.on('request', (r) => { if (r.method() === 'POST') posted = true; });
-  await form.locator('button[type="submit"]').click();
-  await p.waitForTimeout(300);
-  report.form.successMessage = /nothing was sent or saved/.test(await p.locator('#act-guidance').innerText());
+  report.form.fields = await form.locator('input, textarea').count();
+  report.form.submitDisabled = await form.locator('button[type="submit"]').isDisabled();
+  report.form.successMessage = /thanks|has been submitted|request received/i.test(await p.locator('#act-guidance').innerText());
   report.form.networkRequest = posted;
   await p.context().close();
 }

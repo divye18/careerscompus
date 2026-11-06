@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { ArrowLeft, ArrowUpRight, Check, Plus } from 'lucide-react';
 import {
   GROUP_LABELS,
   GROUP_ORDER,
@@ -17,9 +18,10 @@ import {
 } from '@/content/comparison';
 import { INSTITUTIONS } from '@/content/institutions';
 import { goTo } from '../scroll';
+import { StatusLabel } from '../StatusLabel';
 import { focusRing, secondaryBtn } from './AddToCompare';
 import { compareActions, useCompare } from './compareStore';
-import { LedgerStack, LedgerTable } from './Ledger';
+import { LedgerStack, LedgerTable, MissingList, hasData } from './Ledger';
 import { StudioIntro } from './StudioIntro';
 
 /**
@@ -41,8 +43,8 @@ const VIEWS: readonly { id: LedgerView; label: string; short: string }[] = [
 ];
 
 const toggleBtn = (on: boolean) =>
-  `inline-flex min-h-[44px] items-center rounded-md border px-2.5 text-[14px] transition-colors sm:px-3.5 ${focusRing} ${on ? 'border-cyan text-ivory' : 'border-ivory/20 text-ivory/85 hover:border-ivory/50 hover:text-ivory'}`;
-const slotAction = `inline-flex min-h-[44px] items-center rounded-sm px-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ivory/85 hover:text-ivory ${focusRing}`;
+  `inline-flex min-h-[44px] items-center rounded-atlas-sm border px-2.5 text-[14px] transition-colors sm:px-3.5 ${focusRing} ${on ? 'border-cyan text-ivory' : 'border-ivory/20 text-ivory/85 hover:border-ivory/50 hover:text-ivory'}`;
+const slotAction = `inline-flex min-h-[44px] items-center rounded-atlas-sm px-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ivory/85 hover:text-ivory ${focusRing}`;
 
 type PickerTarget = { slot: number; replacing: string | null };
 
@@ -67,7 +69,7 @@ function Picker({ mode, aNoun, target, selected, onPick, onClose }: { mode: Comp
           onClose();
         }
       }}
-      className="mt-3 border border-champagne/40 bg-ink-900 p-4 sm:p-5"
+      className="mt-4 border-t border-champagne/50 pt-4"
     >
       <div className="flex items-center justify-between gap-3">
         <p className="font-atlas text-[24px] leading-tight text-ivory">{replacing ? `Replace ${replacing.title} with…` : `Choose ${aNoun}`}</p>
@@ -82,7 +84,7 @@ function Picker({ mode, aNoun, target, selected, onPick, onClose }: { mode: Comp
       <div className="mt-4 gap-8 sm:columns-2 lg:columns-3 xl:columns-4">
         {groups.map((g) => (
           <div key={g.label} className="mb-5 break-inside-avoid">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-champagne">{g.label}</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-champagne">{g.label}</p>
             <ul className="mt-1">
               {g.options.map((o) => {
                 const taken = selected.includes(o.id);
@@ -93,11 +95,11 @@ function Picker({ mode, aNoun, target, selected, onPick, onClose }: { mode: Comp
                       data-option={o.id}
                       disabled={taken}
                       onClick={() => onPick(o.id)}
-                      className={`w-full min-h-[44px] rounded-sm py-1.5 text-left text-[15px] leading-snug text-ivory/90 hover:text-ivory disabled:cursor-not-allowed disabled:text-ivory/50 ${focusRing}`}
+                      className={`w-full min-h-[44px] rounded-atlas-sm py-1.5 text-left text-[15px] leading-snug text-ivory/90 hover:text-ivory disabled:cursor-not-allowed disabled:text-ivory/50 ${focusRing}`}
                     >
                       {o.title}
                       {mode === 'programmes' && <span className="sr-only"> {o.subtitle}</span>}
-                      {taken && <span className="ml-1.5 font-mono text-[10px] uppercase tracking-wider"> In comparison</span>}
+                      {taken && <span className="ml-1.5 font-mono text-[11px] uppercase tracking-wider"> In comparison</span>}
                     </button>
                   </li>
                 );
@@ -106,7 +108,7 @@ function Picker({ mode, aNoun, target, selected, onPick, onClose }: { mode: Comp
           </div>
         ))}
       </div>
-      {mode === 'institutions' && <p className="mt-4 font-mono text-[10px] leading-relaxed tracking-wide text-ivory/75">No international institutions have been verified yet.</p>}
+      {mode === 'institutions' && <p className="mt-4 font-mono text-[11px] leading-relaxed tracking-wide text-ivory/75">No international institutions have been verified yet.</p>}
     </div>
   );
 }
@@ -137,20 +139,20 @@ function Slot({
         data-slot={i}
         aria-expanded={active}
         onClick={onAdd}
-        className={`flex min-h-[64px] items-center gap-3 border border-dashed px-4 py-3 text-left transition-colors lg:min-h-[132px] ${focusRing} ${active ? 'border-cyan' : 'border-ivory/30 hover:border-ivory/60'}`}
+        className={`flex min-h-[64px] items-center gap-3 rounded-atlas border border-dashed px-4 py-3 text-left transition-colors lg:min-h-[132px] ${focusRing} ${active ? 'border-cyan' : 'border-ivory/30 hover:border-ivory/60'}`}
       >
-        <span aria-hidden="true" className="font-atlas text-[28px] leading-none text-champagne">+</span>
+        <Plus aria-hidden="true" className="h-6 w-6 shrink-0 text-champagne" />
         <span>
           <span className="block text-[15px] font-semibold text-ivory">Add {noun}</span>
-          {i === 2 && <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-ivory/75">Optional</span>}
+          {i === 2 && <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-ivory/75">Optional</span>}
         </span>
       </button>
     );
   }
   return (
-    <div className={`border bg-ink-900 px-4 py-3 ${active ? 'border-cyan' : 'border-ivory/15'}`}>
+    <div className={`border-t-2 pb-2 pt-3 ${active ? 'border-cyan' : 'border-champagne/60'}`}>
       <p className="font-atlas text-[24px] leading-[1.05] text-ivory">{option.title}</p>
-      <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-champagne">{option.subtitle}</p>
+      <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-champagne">{option.subtitle}</p>
       <div className="mt-1.5 -ml-1.5 flex flex-wrap gap-x-1">
         <button type="button" data-slot={i} aria-label={`Replace ${option.title}`} aria-expanded={active} onClick={onReplace} className={slotAction}>
           Replace
@@ -165,7 +167,8 @@ function Slot({
         )}
         {option.website && (
           <a href={option.website} target="_blank" rel="noopener noreferrer" aria-label={`Official website of ${option.title} ${option.subtitle} (opens in a new tab)`} className={slotAction}>
-            Website ↗
+            Website
+            <ArrowUpRight aria-hidden="true" className="ml-1 h-3.5 w-3.5" />
           </a>
         )}
       </div>
@@ -187,6 +190,8 @@ export function ComparisonStudio() {
 
   const chosen = allRows.filter((r) => !s.hidden.includes(r.id));
   const rows = chosen.filter((r) => (s.view === 'all' ? true : s.view === 'verified' ? r.anyVerified : r.differs));
+  const dataRows = rows.filter(hasData);
+  const emptyRows = rows.filter((r) => !hasData(r));
   const verifiedCount = chosen.filter((r) => r.anyVerified).length;
   const diffCount = chosen.filter((r) => r.differs).length;
   const shownParams = params.filter((p) => !s.hidden.includes(p.id)).length;
@@ -221,15 +226,6 @@ export function ComparisonStudio() {
       data-header-theme="night"
       className="relative -mt-px scroll-mt-16 overflow-x-clip bg-[linear-gradient(to_bottom,var(--handoff-top)_0%,var(--color-ink-950)_16%,var(--color-ink-950)_88%,var(--handoff-top)_100%)] pb-16 sm:pb-24"
     >
-      <svg aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full text-champagne opacity-[0.06]">
-        <defs>
-          <pattern id="studio-grid" width="64" height="64" patternUnits="userSpaceOnUse">
-            <path d="M64 0V64M0 64H64" fill="none" stroke="currentColor" strokeWidth="1" shapeRendering="crispEdges" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#studio-grid)" />
-      </svg>
-
       <StudioIntro />
 
       <div id="studio-workspace" className="relative mx-auto mt-4 w-full max-w-[1240px] scroll-mt-20 px-5 sm:px-8 lg:pr-[clamp(72px,9vw,150px)]">
@@ -259,11 +255,14 @@ export function ComparisonStudio() {
           <div className="flex flex-wrap gap-2.5">
             {mode === 'courses' ? (
               <button type="button" onClick={() => goTo('act-courses')} className={secondaryBtn}>
-                ← Return to pathways
+                <ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
+                Return to pathways
               </button>
             ) : (
               <button type="button" aria-label="Return to the university atlas" onClick={() => goTo('atlas-view')} className={secondaryBtn}>
-                ← <span className="sm:hidden">&nbsp;University atlas</span><span className="hidden sm:inline">&nbsp;Return to the university atlas</span>
+                <ArrowLeft aria-hidden="true" className="mr-2 h-4 w-4" />
+                <span className="sm:hidden">University atlas</span>
+                <span className="hidden sm:inline">Return to the university atlas</span>
               </button>
             )}
             <button
@@ -324,7 +323,7 @@ export function ComparisonStudio() {
         </div>
 
         {paramsOpen && (
-          <div id="studio-params" className="mt-3 grid gap-5 border border-ivory/15 bg-ink-900 p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-4">
+          <div id="studio-params" className="mt-4 grid gap-5 border-t border-ivory/15 pt-5 sm:grid-cols-2 xl:grid-cols-4">
             {GROUP_ORDER.map((g) => {
               const list = params.filter((p) => p.group === g);
               const allOn = list.every((p) => !s.hidden.includes(p.id));
@@ -346,8 +345,8 @@ export function ComparisonStudio() {
                       const on = !s.hidden.includes(p.id);
                       return (
                         <li key={p.id}>
-                          <button type="button" aria-pressed={on} onClick={() => compareActions.toggleParam(p.id)} className={`flex min-h-[44px] w-full items-center gap-2.5 rounded-sm text-left text-[14px] ${on ? 'text-ivory' : 'text-ivory/75'} ${focusRing}`}>
-                            <span aria-hidden="true" className={`grid h-4 w-4 shrink-0 place-items-center rounded-[3px] border text-[11px] leading-none ${on ? 'border-cyan text-cyan' : 'border-ivory/40'}`}>{on ? '✓' : ''}</span>
+                          <button type="button" aria-pressed={on} onClick={() => compareActions.toggleParam(p.id)} className={`flex min-h-[44px] w-full items-center gap-2.5 rounded-atlas-sm text-left text-[14px] ${on ? 'text-ivory' : 'text-ivory/75'} ${focusRing}`}>
+                            <span aria-hidden="true" className={`grid h-[18px] w-[18px] shrink-0 place-items-center rounded-pill border ${on ? 'border-cyan text-cyan' : 'border-ivory/40'}`}>{on && <Check className="h-3 w-3" />}</span>
                             {p.label}
                           </button>
                         </li>
@@ -360,24 +359,24 @@ export function ComparisonStudio() {
           </div>
         )}
 
-        {/* legend: the three states, in words */}
-        <dl className="mt-5 grid gap-x-8 gap-y-2 text-[13px] leading-snug text-ivory/80 sm:grid-cols-2 xl:grid-cols-4">
+        {/* legend: the shared status labels, in words (never hover-only) */}
+        <dl className="mt-5 grid gap-x-8 gap-y-3 text-[13px] leading-snug text-ivory/80 sm:grid-cols-2 xl:grid-cols-4">
           <div>
-            <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-champagne"><span aria-hidden="true">✓ </span>Verified</dt>
-            <dd className="mt-0.5">Backed by a source, with the date we last checked it.</dd>
+            <dt><StatusLabel state="verified" /></dt>
+            <dd className="mt-1">Confirmed on an official source. Each shows its source and the date we last checked it. A list that shows only what was confirmed is marked Partially verified.</dd>
           </div>
           <div>
-            <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ivory/90"><span aria-hidden="true">○ </span>Not available</dt>
-            <dd className="mt-0.5">We have not verified it yet. It says nothing good or bad about the option.</dd>
+            <dt><StatusLabel state="unverified" /></dt>
+            <dd className="mt-1">We have not confirmed it yet. It says nothing good or bad about the option.</dd>
           </div>
           <div>
-            <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ivory/90"><span aria-hidden="true">– </span>Not applicable</dt>
-            <dd className="mt-0.5">The field does not apply to this kind of option.</dd>
+            <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ivory/80">Not applicable</dt>
+            <dd className="mt-1">The field does not apply to this kind of option, so it is not a verification state.</dd>
           </div>
           {mode === 'courses' && (
             <div>
-              <dt className="font-mono text-[10px] uppercase tracking-[0.14em] text-ivory/90"><span aria-hidden="true">◇ </span>Orientation</dt>
-              <dd className="mt-0.5">General guidance about a course. No source yet, so it is never treated as verified.</dd>
+              <dt><StatusLabel state="orientation" /></dt>
+              <dd className="mt-1">General guidance about a course. It has not been independently verified, so it is never treated as verified.</dd>
             </div>
           )}
         </dl>
@@ -427,15 +426,22 @@ export function ComparisonStudio() {
             </div>
           ) : (
             <>
-              <LedgerTable mode={mode} options={options} rows={rows} />
-              <LedgerStack mode={mode} options={options} rows={rows} />
+              {dataRows.length > 0 ? (
+                <>
+                  <LedgerTable mode={mode} options={options} rows={dataRows} />
+                  <LedgerStack mode={mode} options={options} rows={dataRows} />
+                </>
+              ) : (
+                <p className="border-t-2 border-champagne/70 bg-ink-900 px-5 py-6 text-[15px] leading-relaxed text-ivory/90">Nothing about these options is confirmed on the parameters you chose yet.</p>
+              )}
+              <MissingList mode={mode} options={options} rows={emptyRows} />
             </>
           )}
         </div>
 
         {options.length === 1 && <p className="mt-3 text-[14px] leading-snug text-ivory/85">Add at least one more {meta.noun} to compare side by side.</p>}
 
-        <p className="mt-6 max-w-3xl font-mono text-[10px] leading-relaxed tracking-wide text-ivory/75">
+        <p className="mt-6 max-w-3xl font-mono text-[11px] leading-relaxed tracking-wide text-ivory/75">
           This studio does not pick a winner. It shows what is confirmed, what is not, and where confirmed facts differ, so you can decide what matters to you. Always check details with the institution before you apply.
         </p>
       </div>

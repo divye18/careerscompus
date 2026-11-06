@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-06 — Scene 6 Comparison Studio (branch integrate/scene-6)
+- Parked Scene 6 integrated onto `af6ac9e` (backups: tag `backup/scene-6-6471554`, branch `backup/scene-6-comparison-studio-6471554`; `wip/scene-6-comparison-studio` untouched).
+- Redesigned to the constitution: masthead opening, shared `StatusLabel`, `Figures`, icons, radius tokens, un-nested columns, missing parameters listed once, decorative grid removed, Compare teaser removed.
+- Tests, `site-audit.mjs` and `readiness-check.mjs` updated; `compare-shots.mjs` added. Details: `docs/WEBSITE_QUALITY_AUDIT.md` section 12.
+
 ## 2026-11-06 — Product readiness (after b419382)
 - Counselling form no longer collects name or phone and cannot be submitted; "Get Guidance" buttons renamed "About guidance". Compare teaser states it is unavailable and has no hover behaviour. FAQ updated to match.
 - HSTS is production-only. Verified production (`SITE_ENV=production`) and preview builds separately. New `scripts/overflow-probe.mjs` (0 px overflow at 768/390/375/360 with classic scrollbars) and `scripts/readiness-check.mjs`.

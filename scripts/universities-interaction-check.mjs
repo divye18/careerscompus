@@ -57,7 +57,7 @@ await p.waitForTimeout(700);
 ok('Space opens the institution panel', /Indian Institute of Technology Madras/.test(await sec.locator('h3').first().innerText()) || (await sec.innerText()).includes('Indian Institute of Technology Madras'));
 ok('marker is aria-pressed', (await iitm.getAttribute('aria-pressed')) === 'true');
 const txt = await sec.innerText();
-ok('verified facts shown (type, website)', /Institutes of national importance/.test(txt) && /iitm\.ac\.in/.test(txt));
+ok('verified facts shown (type, website)', /Institute of national importance/.test(txt) && /iitm\.ac\.in/.test(txt));
 ok('missing facts say "Information coming soon" (established, admission, accreditation)', (txt.match(/Information coming soon/g) || []).length >= 3, `${(txt.match(/Information coming soon/g) || []).length} occurrences`);
 const link = sec.locator('a[href^="https://www.iitm.ac.in"]').first();
 ok('official website link opens safely in a new tab', (await link.getAttribute('target')) === '_blank' && /noopener/.test((await link.getAttribute('rel')) || ''));

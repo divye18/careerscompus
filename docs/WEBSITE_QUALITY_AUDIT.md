@@ -359,3 +359,43 @@ Skip link: visually hidden until focused, first Tab stop, visible and outlined (
 ### Limits
 
 Chrome on Windows only: no Safari, Firefox, real phones or screen reader. Mobile widths are emulated. I did not capture a "before" set for the interim-section copy changes; only the after shots in `docs/qa-screenshots/readiness/` exist. Pinned-scroll fps this run: 54.4 median over 5 runs (min 38.9 cold) against 58.9 the run before; no pinned-stage code changed, so I read this as run-to-run variance, not a regression.
+
+
+---
+
+## 12. Scene 6, Comparison Studio: integration and implementation (2026-11-06)
+
+Branch `integrate/scene-6` (base `af6ac9e`). Parked work preserved at `wip/scene-6-comparison-studio` (`6471554`) and tag `backup/scene-6-6471554`. Stage A audit: `docs/SCENE_6_STAGE_A_AUDIT.md`. Before: `docs/qa-screenshots/compare/`. After: `docs/qa-screenshots/compare-stageb/` (1440, 1280, 768, 390, 375, 360).
+
+### Stage A findings and what Stage B did
+| Finding | Result |
+|---|---|
+| Opening repeated the centred Scene 4/5 composition | New masthead: flush-left two-line title, paragraph hung right on the same baseline, a ruled line drawn across the width with three ticks landing on the three option slots (scroll-linked, no hijack; ticks omitted on phones; fully drawn with reduced motion) |
+| Own three-state labels drawn with text glyphs | Shared `StatusLabel`. Verified, Partially verified (partial lists), Orientation, Not verified. "Not applicable" is plain words with its reason and is explained in the legend as not a verification state |
+| "1961" in Instrument Serif read as "l96l" | `Figures` sets digits in JetBrains Mono |
+| 17 labels at 10px | All at least 11px |
+| Glyph marks and buttons | Lucide icons (plus, check, arrows); the legend and evidence use `StatusLabel` |
+| Radius | `rounded-atlas-sm / atlas / pill` only |
+| Nested boxed cards | Chosen options are ruled column heads, not boxes; the picker and parameter chooser are ruled, not boxed. Empty slots stay dashed because they are controls |
+| 19-row table dominated by "not available" | Rows with something to show stay in the table (8 of 19 for two IITs). The rest are listed once under "What we cannot tell you yet", split into Not verified and Not applicable, each with its reason. Every parameter is still shown; nothing is hidden |
+| Decorative background grid | Removed |
+| Compare teaser | Deleted (superseded; recoverable from git) |
+| Touch targets | Source and website links are 44px on touch; 0 controls under 44px at 768, 390, 375, 360 |
+
+Data model: `LedgerRow.merged` replaced by `partial` (derived from the parameter note). No facts were added or changed; the dataset is as generated in `6471554`.
+
+### Tests changed (intended behaviour)
+Wording and structure assertions in `compare-interaction-check.mjs` follow the shared labels (NOT VERIFIED, ORIENTATION), the table now has fewer rows and groups, and missing parameters are asserted in the list. `universities-interaction-check` expects the singular type label. `readiness-check` replaced the obsolete Compare-teaser checks. `site-audit.mjs` no longer tries to submit the disabled callback form and now checks it is disabled, has no fields and sends nothing. **Correction:** since the readiness milestone this script had been failing at that stale step; earlier "audit-ok" lines only grepped for problem markers and hid it. It now passes for real.
+
+### Results (headed Chrome, Windows, classic scrollbars)
+- Lint, `tsc`, tokens, production build: pass.
+- Scene 6: desktop 56/56, mobile 55/55, reduced motion 56/56, no-WebGL 56/56. Contrast 1103/1103 pairs. Site contrast 71/71.
+- Scenes 1 to 5: Explore, Courses (desktop, mobile, reduced), Universities (desktop, mobile, reduced) pass. Stabilisation probe 21/21, readiness 11/11, overflow 0 px at 768/390/375/360. Site audit: 0 overflow, 0 clipped, 0 errors at all six profiles.
+- Keyboard focus ring (2 px cyan) and Escape-to-close chooser are asserted by the Scene 6 suite.
+- Performance: Scene 6 60.1 fps median (p95 16.9 ms, 0 slow frames); Scene 5 to 6 transition 60 fps median (cold 51.4); Scene 5 60; pinned stage 55.7 median over 5 runs (min 40.2 on a cold run), idle 60.4.
+
+### Open
+- Evidence patterns for some programmes are loose ("B.Pharm", "MBA Admission"); re-review before relying on programme durations.
+- Old pre-redesign Scene 6 stills (13 MB) remain in `docs/qa-screenshots/compare/` as the "before" set.
+- Icon family (I7) elsewhere, no `og:image`, and the other limits in section 11 are unchanged.
+- Chrome on Windows only; no Safari, Firefox, real phones or screen reader.
