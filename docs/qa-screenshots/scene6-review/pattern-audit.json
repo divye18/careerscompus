@@ -1,0 +1,511 @@
+[
+ {
+  "id": "iit-madras--b-tech",
+  "institution": "iit-madras",
+  "programme": "B.Tech",
+  "url": "https://www.iitm.ac.in/academics/study-at-iitm/undergraduate-programmes",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 4,
+  "programmeEvidence": {
+   "pattern": "B\\.Tech \\(Duration",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": " of knowledge gained through exploration. The following are the undergraduate programmes: ",
+    "hit": "B.Tech (Duration",
+    "after": " – 4 Years) The coveted Bachelors of Technology program awards students an undergraduate d"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "B\\.Tech \\(Duration . 4 Years\\)",
+   "claimedYears": 4,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": " of knowledge gained through exploration. The following are the undergraduate programmes: ",
+    "hit": "B.Tech (Duration – 4 Years)",
+    "after": " The coveted Bachelors of Technology program awards students an undergraduate degree in an"
+   }
+  },
+  "flags": []
+ },
+ {
+  "id": "iit-madras--m-tech",
+  "institution": "iit-madras",
+  "programme": "M.Tech",
+  "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 2,
+  "programmeEvidence": {
+   "pattern": "M\\.Tech: Duration",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "s on the eligibility criteria is available on the GATE/JAM website. Visit the JAM website ",
+    "hit": "M.Tech: Duration",
+    "after": " – 2 Years The four-semester M.Tech programmes offered in various disciplines and programm"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "M\\.Tech: Duration . 2 Years",
+   "claimedYears": 2,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "s on the eligibility criteria is available on the GATE/JAM website. Visit the JAM website ",
+    "hit": "M.Tech: Duration – 2 Years",
+    "after": " The four-semester M.Tech programmes offered in various disciplines and programmes by diff"
+   }
+  },
+  "flags": []
+ },
+ {
+  "id": "iit-madras--m-sc",
+  "institution": "iit-madras",
+  "programme": "M.Sc",
+  "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 2,
+  "programmeEvidence": {
+   "pattern": "M\\.Sc: Duration",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "s by IIT Madras. Admission to the M.A. programmes is through GATE. Visit the GATE website ",
+    "hit": "M.Sc: Duration",
+    "after": " – 2 Years The two-year M.Sc programme offers a master degree to students in the fields of"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "M\\.Sc: Duration . 2 Years",
+   "claimedYears": 2,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "s by IIT Madras. Admission to the M.A. programmes is through GATE. Visit the GATE website ",
+    "hit": "M.Sc: Duration – 2 Years",
+    "after": " The two-year M.Sc programme offers a master degree to students in the fields of Physics, "
+   }
+  },
+  "flags": []
+ },
+ {
+  "id": "iit-madras--mba",
+  "institution": "iit-madras",
+  "programme": "MBA",
+  "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 2,
+  "programmeEvidence": {
+   "pattern": "MBA: Duration",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "dates are available on the M.Tech Admissions website. Visit the M Tech Admissions website ",
+    "hit": "MBA: Duration",
+    "after": " – 2 Years The Master of Business Administration (MBA) programme is a two-year, full-time,"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "MBA: Duration . 2 Years",
+   "claimedYears": 2,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "dates are available on the M.Tech Admissions website. Visit the M Tech Admissions website ",
+    "hit": "MBA: Duration – 2 Years",
+    "after": " The Master of Business Administration (MBA) programme is a two-year, full-time, seven qua"
+   }
+  },
+  "flags": [
+   "programme pattern is very short",
+   "match sits in admission/news wording, not clearly a statement that the programme is offered"
+  ]
+ },
+ {
+  "id": "iit-kharagpur--b-tech",
+  "institution": "iit-kharagpur",
+  "programme": "B.Tech",
+  "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 4,
+  "programmeEvidence": {
+   "pattern": "B\\.Tech \\(Bachelor of Technology\\)",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "andidates who qualify for admission through IIT-JEE can apply for admission in afour-year ",
+    "hit": "B.Tech (Bachelor of Technology)",
+    "after": " degree, a five-year B.Arch degree, a five-year Dual Degree (Integrated Bachelor & Master "
+   }
+  },
+  "durationEvidence": {
+   "pattern": "four-year B\\.Tech",
+   "claimedYears": 4,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "IT-JEE). Candidates who qualify for admission through IIT-JEE can apply for admission in a",
+    "hit": "four-year B.Tech",
+    "after": " (Bachelor of Technology) degree, a five-year B.Arch degree, a five-year Dual Degree (Inte"
+   }
+  },
+  "flags": []
+ },
+ {
+  "id": "iit-kharagpur--b-arch",
+  "institution": "iit-kharagpur",
+  "programme": "B.Arch",
+  "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 5,
+  "programmeEvidence": {
+   "pattern": "B\\.Arch degree",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "can apply for admission in afour-year B.Tech (Bachelor of Technology) degree, a five-year ",
+    "hit": "B.Arch degree",
+    "after": ", a five-year Dual Degree (Integrated Bachelor & Master of Technology) or a five-year inte"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "five-year B\\.Arch",
+   "claimedYears": 5,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "h IIT-JEE can apply for admission in afour-year B.Tech (Bachelor of Technology) degree, a ",
+    "hit": "five-year B.Arch",
+    "after": " degree, a five-year Dual Degree (Integrated Bachelor & Master of Technology) or a five-ye"
+   }
+  },
+  "flags": [
+   "programme pattern is very short"
+  ]
+ },
+ {
+  "id": "nlsiu-bengaluru--b-a-ll-b-hons",
+  "institution": "nlsiu-bengaluru",
+  "programme": "B.A., LL.B. (Hons.)",
+  "url": "https://www.nls.ac.in/programmes/",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 5,
+  "programmeEvidence": {
+   "pattern": "B\\.A\\., LL\\.B\\. \\(Hons\\.\\)",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": " lead responsibly, and shape the future in their own way. Undergraduate Programmes 5-Year ",
+    "hit": "B.A., LL.B. (Hons.)",
+    "after": " NLSIU pioneered this 5-year integrated BA LLB (Hons) programme in India with the intentio"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "5-Year B\\.A\\., LL\\.B\\. \\(Hons\\.\\)",
+   "claimedYears": 5,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "ically, lead responsibly, and shape the future in their own way. Undergraduate Programmes ",
+    "hit": "5-Year B.A., LL.B. (Hons.)",
+    "after": " NLSIU pioneered this 5-year integrated BA LLB (Hons) programme in India with the intentio"
+   }
+  },
+  "flags": []
+ },
+ {
+  "id": "nlsiu-bengaluru--ll-b-hons",
+  "institution": "nlsiu-bengaluru",
+  "programme": "LL.B. (Hons.)",
+  "url": "https://www.nls.ac.in/programmes/",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 3,
+  "programmeEvidence": {
+   "pattern": "LL\\.B\\. \\(Hons\\.\\)",
+   "count": 2,
+   "exactCase": true,
+   "first": {
+    "before": "responsibly, and shape the future in their own way. Undergraduate Programmes 5-Year B.A., ",
+    "hit": "LL.B. (Hons.)",
+    "after": " NLSIU pioneered this 5-year integrated BA LLB (Hons) programme in India with the intentio"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "3-Year LL\\.B\\.",
+   "claimedYears": 3,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "also offer a 4-year track with a BA (Hons. with Research) degree. Postgraduate Programmes ",
+    "hit": "3-Year LL.B.",
+    "after": " (Hons.) The 3-year LLB (Hons) is a postgraduate professional degree programme that is ope"
+   }
+  },
+  "flags": [
+   "programme pattern is very short"
+  ]
+ },
+ {
+  "id": "nlsiu-bengaluru--ll-m",
+  "institution": "nlsiu-bengaluru",
+  "programme": "LL.M.",
+  "url": "https://www.nls.ac.in/programmes/",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 1,
+  "programmeEvidence": {
+   "pattern": "LL\\.M\\.",
+   "count": 2,
+   "exactCase": true,
+   "first": {
+    "before": "al sciences, humanities, experiential and immersive field projects, & internships. 1-Year ",
+    "hit": "LL.M.",
+    "after": " The one-year LL.M. programme provides a unique blend of core and elective courses, allowi"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "1-Year LL\\.M\\.",
+   "claimedYears": 1,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "he social sciences, humanities, experiential and immersive field projects, & internships. ",
+    "hit": "1-Year LL.M.",
+    "after": " The one-year LL.M. programme provides a unique blend of core and elective courses, allowi"
+   }
+  },
+  "flags": [
+   "programme pattern is very short"
+  ]
+ },
+ {
+  "id": "spa-delhi--b-arch",
+  "institution": "spa-delhi",
+  "programme": "B.Arch",
+  "url": "https://spa.ac.in/en/academics/programs/under-graduate-programmes",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": null,
+  "programmeEvidence": {
+   "pattern": "Bachelor of Architecture",
+   "count": 4,
+   "exactCase": true,
+   "first": {
+    "before": "ng Engineering and Management Master of Design Master of Planning Under-graduate Programs ",
+    "hit": "Bachelor of Architecture",
+    "after": " Bachelor of Planning Dual Degree Programs Integrated Master of Planning Fees and Payments"
+   }
+  },
+  "durationEvidence": null,
+  "flags": [
+   "programme pattern matches 4 places (could be navigation, news or an unrelated mention)",
+   "no duration claim (duration stays unavailable; correct)"
+  ]
+ },
+ {
+  "id": "iim-ahmedabad--mba-pgp",
+  "institution": "iim-ahmedabad",
+  "programme": "MBA (PGP)",
+  "url": "https://www.iima.ac.in/academics/mba",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": 2,
+  "programmeEvidence": {
+   "pattern": "Postgraduate Programme \\(PGP\\)",
+   "count": 2,
+   "exactCase": true,
+   "first": {
+    "before": " Two Years ",
+    "hit": "Postgraduate Programme (PGP)",
+    "after": " in Management at IIMA Home Menu Academics Academics Ph.D. View All Programme Overview Adm"
+   }
+  },
+  "durationEvidence": {
+   "pattern": "Two Years Postgraduate Programme \\(PGP\\)",
+   "claimedYears": 2,
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": " ",
+    "hit": "Two Years Postgraduate Programme (PGP)",
+    "after": " in Management at IIMA Home Menu Academics Academics Ph.D. View All Programme Overview Adm"
+   }
+  },
+  "flags": []
+ },
+ {
+  "id": "vit-vellore--b-tech",
+  "institution": "vit-vellore",
+  "programme": "B.Tech",
+  "url": "https://vit.ac.in/academics/home",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": null,
+  "programmeEvidence": {
+   "pattern": "B\\.Tech Admission",
+   "count": 5,
+   "exactCase": true,
+   "first": {
+    "before": "7 (Ph.D. / Direct Ph.D./ Ph.D. (Deep Tech.)/ Ph. D. (Industry) Programme) January Session ",
+    "hit": "B.Tech Admission",
+    "after": " 2027 – Non Resident Indian (NRI) Certificate Verification B.Tech Foreign 2026 (December s"
+   }
+  },
+  "durationEvidence": null,
+  "flags": [
+   "programme pattern matches 5 places (could be navigation, news or an unrelated mention)",
+   "no duration claim (duration stays unavailable; correct)"
+  ]
+ },
+ {
+  "id": "bits-pilani--b-e-computer-science",
+  "institution": "bits-pilani",
+  "programme": "B.E. (Computer Science)",
+  "url": "https://www.bits-pilani.ac.in/academics/integrated-first-degree/",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": null,
+  "programmeEvidence": {
+   "pattern": "B\\.E\\.\\s?\\(Computer Science\\)",
+   "count": 2,
+   "exactCase": true,
+   "first": {
+    "before": "rammes Doctoral Programmes WILP WILP Dubai Campus Dubai Campus B.E.(Chemical) B.E.(Civil) ",
+    "hit": "B.E.(Computer Science)",
+    "after": " B.E.(Electrical and Electronics) B.E. (Electronics and Computer ) B.E.(Electronics and Co"
+   }
+  },
+  "durationEvidence": null,
+  "flags": [
+   "no duration claim (duration stays unavailable; correct)"
+  ]
+ },
+ {
+  "id": "bits-pilani--b-pharm",
+  "institution": "bits-pilani",
+  "programme": "B.Pharm",
+  "url": "https://www.bits-pilani.ac.in/academics/integrated-first-degree/",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": null,
+  "programmeEvidence": {
+   "pattern": "B\\.Pharm",
+   "count": 3,
+   "exactCase": true,
+   "first": {
+    "before": "mentation) B.E.(Manufacturing Engineering) B.E.(Mechanical) BE Pharmaceutical Engineering ",
+    "hit": "B.Pharm",
+    "after": ".(Pharmacy) M.Sc.(Biological Sciences) M.Sc.(Chemistry) B.E. Environmental and Sustainabil"
+   }
+  },
+  "durationEvidence": null,
+  "flags": [
+   "programme pattern is very short",
+   "no programme/course/degree wording near the match",
+   "no duration claim (duration stays unavailable; correct)"
+  ]
+ },
+ {
+  "id": "iit-delhi--m-tech",
+  "institution": "iit-delhi",
+  "programme": "M.Tech",
+  "url": "https://home.iitd.ac.in/pg-admissions.php",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": null,
+  "programmeEvidence": {
+   "pattern": "admission to M\\.Tech\\.",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": " of Selected candidates under SPOT Round List of Candidates Selected under SPOT Round for ",
+    "hit": "admission to M.Tech.",
+    "after": " for Civil Engineering and Optics and Photonics Centre PG/PhD: Orientation & Registration "
+   }
+  },
+  "durationEvidence": null,
+  "flags": [
+   "no programme/course/degree wording near the match",
+   "no duration claim (duration stays unavailable; correct)"
+  ]
+ },
+ {
+  "id": "iit-delhi--mba",
+  "institution": "iit-delhi",
+  "programme": "MBA",
+  "url": "https://home.iitd.ac.in/pg-admissions.php",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": null,
+  "programmeEvidence": {
+   "pattern": "MBA Admission",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "GATE/JAM JEE (Advanced) Foreign Nationals International Ph.D. and PG Programmes admission ",
+    "hit": "MBA Admission",
+    "after": " Joint PhD Announcements UG Admissions For Students Prospective Students Why IIT Delhi Aca"
+   }
+  },
+  "durationEvidence": null,
+  "flags": [
+   "programme pattern is very short",
+   "no duration claim (duration stays unavailable; correct)"
+  ]
+ },
+ {
+  "id": "iisc-bengaluru--bachelor-of-science-research",
+  "institution": "iisc-bengaluru",
+  "programme": "Bachelor of Science (Research)",
+  "url": "https://www.iisc.ac.in/admissions/",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": null,
+  "programmeEvidence": {
+   "pattern": "Bachelor of Science \\(Research\\)",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": " ) Back to IISc Admissions Announcements Degree Programmes Under-graduate (UG) Programmes ",
+    "hit": "Bachelor of Science (Research)",
+    "after": " Bachelor of Technology Post-graduate (PG) Course Programmes M.Tech. and M.Des. M.Mgt. M.T"
+   }
+  },
+  "durationEvidence": null,
+  "flags": [
+   "no duration claim (duration stays unavailable; correct)"
+  ]
+ },
+ {
+  "id": "iisc-bengaluru--m-tech",
+  "institution": "iisc-bengaluru",
+  "programme": "M.Tech",
+  "url": "https://www.iisc.ac.in/admissions/",
+  "page": "ok",
+  "stored": true,
+  "storedDuration": null,
+  "programmeEvidence": {
+   "pattern": "M\\.Tech\\. and M\\.Des\\.",
+   "count": 1,
+   "exactCase": true,
+   "first": {
+    "before": "achelor of Science (Research) Bachelor of Technology Post-graduate (PG) Course Programmes ",
+    "hit": "M.Tech. and M.Des.",
+    "after": " M.Mgt. M.Tech through CFTI Mode Joint M. Tech in Semiconductor Technology 1 Year M. Engg."
+   }
+  },
+  "durationEvidence": null,
+  "flags": [
+   "no duration claim (duration stays unavailable; correct)"
+  ]
+ }
+]
