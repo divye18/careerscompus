@@ -335,8 +335,9 @@ Production: `SITE_ENV=production npm run build`, served with `SITE_ENV=productio
 | `<meta name="robots">` | `index, follow` | `noindex, nofollow` |
 | `X-Robots-Tag` header | none | `noindex, nofollow, noarchive` |
 | `robots.txt` | `Allow: /`, `Host` and `Sitemap` set to `https://careerscompus.in` | `Disallow: /`, no sitemap line |
-| Sitemap | one URL: `https://careerscompus.in/` | same canonical production URL; no preview URL is ever listed |
-| Canonical and `og:url` | `https://careerscompus.in` | same |
+| Sitemap | one URL: `https://careerscompus.in/` | empty (lists nothing) |
+| Canonical | `https://careerscompus.in` | none (a noindex page must not point at production) |
+| `og:url` | `https://careerscompus.in` | `https://careerscompus.in` |
 | `Host: www.careerscompus.in` | 308 to `https://careerscompus.in/some/path` | same |
 | HSTS | `max-age=63072000; includeSubDomains; preload` | not sent (a preview host must not commit browsers to HTTPS for the domain) |
 | 404 page | `noindex` (Next default) | `noindex` |

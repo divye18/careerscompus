@@ -95,3 +95,7 @@ Exact duplicates removed on 2026-11-06 (identical bytes; the kept file is listed
 ## Superseded experiment frames removed
 
 105 JPEG frames under `explore/perf/` (the M2.1 A/B bisect runs: ab*, m21-*, fixed-*, final2-*, etc.) were removed. Their report JSON files and `explore/perf/final-explore/` remain; conclusions are in `docs/CHANGELOG.md` (M2.1). Everything is recoverable from git history.
+
+## Regenerated audit stills removed (follow-up commit)
+
+26 unreferenced stills that `scripts/site-audit.mjs` regenerates (`audit/1440-*`, `audit/768-*`, `audit/390-touch-*`: section and footer shots) were committed by mistake in `4f1ed40` and removed in the next commit. They remain recoverable from `4f1ed40`; rerun the script to regenerate them.

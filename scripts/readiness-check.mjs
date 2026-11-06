@@ -10,7 +10,7 @@ import fs from 'node:fs';
 const URL = process.argv[2] || 'http://localhost:3100';
 const OUT = process.argv[3] || '';
 let pass = 0, fail = 0;
-const ok = (n, c, i = '') => { c ? pass++ : fail++; console.log(`${c ? 'PASS' : 'FAIL'}  ${n}${i ? ' — ' + i : ''}`); };
+const ok = (n, c, i = '') => { if (c) pass++; else fail++; console.log(`${c ? 'PASS' : 'FAIL'}  ${n}${i ? ' — ' + i : ''}`); };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const b = await chromium.launch({ channel: 'chrome', headless: false });
 if (OUT) fs.mkdirSync(OUT, { recursive: true });

@@ -41,7 +41,8 @@ export const metadata: Metadata = {
   title: { default: 'CareersCompus | Find Your Direction', template: '%s | CareersCompus' },
   description,
   applicationName: 'CareersCompus',
-  alternates: { canonical: '/' },
+  // Previews carry no canonical: it would point a noindex page at production.
+  alternates: IS_PRODUCTION_SITE ? { canonical: '/' } : undefined,
   robots: IS_PRODUCTION_SITE ? { index: true, follow: true } : { index: false, follow: false },
   openGraph: { type: 'website', siteName: 'CareersCompus', title: 'CareersCompus | Find Your Direction', description, url: '/', locale: 'en_IN' },
   twitter: { card: 'summary', title: 'CareersCompus | Find Your Direction', description },
