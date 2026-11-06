@@ -34,7 +34,7 @@ export const RoomHead = memo(function RoomHead({ d, index, compact = false }: { 
           onClick={() => goTo('act-guidance')}
           className="inline-flex min-h-[44px] items-center justify-center rounded-atlas bg-ivory px-5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
         >
-          Get Guidance
+          About guidance
         </button>
         <button
           type="button"

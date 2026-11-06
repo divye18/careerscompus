@@ -5,10 +5,10 @@ import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   { q: "What is CareersCompus?", a: "CareersCompus is an education discovery platform for students in India, currently in early development. It is being built to help you explore careers, compare courses and discover universities in one place. This homepage is a preview." },
-  { q: "Is the information on this page real?", a: "Partly, and each part says which it is. University details are checked against each institution's own website and show when they were last checked. Career and course pathways are general orientation, not verified records. Do not use this page alone for admission decisions: always check details with the institution's official sources." },
+  { q: "Is the information on this page real?", a: "Partly, and each part says which it is. University details are checked against each institution's own website and show when they were last checked. Career and course pathways are general orientation written by us, not verified records, and each is labelled Orientation. Facts we have not confirmed are labelled Not verified. Do not use this page alone for admission decisions: always check details with the institution's official sources." },
   { q: "Can I search for courses and colleges yet?", a: "Not fully. The search box on this page offers a small set of sample suggestions and jumps to the related section. A searchable directory is planned but does not exist yet." },
   { q: "How do I choose the right stream after 10th?", a: "Start with the subjects you enjoy and do well in, look at the careers each stream can lead to, and talk it over with teachers, family or a counsellor. The career section on this page is a simple starting point for exploring options." },
-  { q: "Does the callback form send my details anywhere?", a: "No. The form is a preview: it does not send, store or share anything. When a callback service launches, this page will say so clearly." },
+  { q: "Can I request a callback?", a: "Not yet. There is no callback service, so nothing on this page collects your name or phone number. If one launches, this page will say so clearly." },
 ];
 
 export function FAQSection() {

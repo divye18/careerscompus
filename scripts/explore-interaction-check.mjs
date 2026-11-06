@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Scene 3 interaction checks (real Chrome, 1440×900): rail navigation, arrow keys, Discover-mark jump,
- * inert (non-active) rooms, backwards scroll, Get Guidance action, focus rings. Prints PASS/FAIL per check.
+ * inert (non-active) rooms, backwards scroll, About guidance action, focus rings. Prints PASS/FAIL per check.
  * Usage: node scripts/explore-interaction-check.mjs [url]
  */
 import { chromium } from 'playwright-core';
@@ -61,11 +61,11 @@ await p.click('button[aria-label^="Design"]');
 await settle(3600);
 check('clicking the Design mark in Discover jumps to the Design room', (await railActive()) === '#explore-design', await railActive());
 
-// 6. Get Guidance inside a room scrolls to the guidance section
-await p.click('[data-room="design"] button:has-text("Get Guidance")');
+// 6. About guidance inside a room scrolls to the guidance section
+await p.click('[data-room="design"] button:has-text("About guidance")');
 await settle(3500);
 const gy = await p.evaluate(() => Math.round(document.getElementById('act-guidance').getBoundingClientRect().top));
-check('Get Guidance (in a room) scrolls to the guidance section', Math.abs(gy - 64) < 120, `guidance top at ${gy}px`);
+check('About guidance (in a room) scrolls to the guidance section', Math.abs(gy - 64) < 120, `guidance top at ${gy}px`);
 
 // 7. Explore Careers is honest (disabled, marked Soon)
 await p.click('nav[aria-label^="Journey"] a[href="#explore-medicine"]').catch(() => {});
@@ -77,7 +77,7 @@ check('"Explore Careers" is aria-disabled and labelled Soon (no fake route)', so
 
 // 8. focus ring on a room button
 await p.focus('nav[aria-label^="Journey"] a[href="#explore-medicine"]');
-for (let k = 0; k < 40; k++) { await p.keyboard.press('Shift+Tab'); if (await p.evaluate(() => document.activeElement?.closest('[data-room]') && /Get Guidance/.test(document.activeElement.textContent))) break; }
+for (let k = 0; k < 40; k++) { await p.keyboard.press('Shift+Tab'); if (await p.evaluate(() => document.activeElement?.closest('[data-room]') && /About guidance/.test(document.activeElement.textContent))) break; }
 await p.waitForTimeout(500); // outline colour transitions with the button's transition-colors
 const ring = await p.evaluate(() => { const el = document.activeElement; const cs = getComputedStyle(el); return { outline: cs.outlineStyle + ' ' + cs.outlineWidth + ' ' + cs.outlineColor }; });
 const onRoom = await p.evaluate(() => !!document.activeElement?.closest('[data-room="medicine"]'));

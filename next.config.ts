@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 /**
- * Domain policy. Production is https://careerscompus.in (non-www, HTTPS). The redirect and HSTS below are served by
+ * Domain policy. Production is https://careerscompus.in (non-www, HTTPS). The redirect and (in production) HSTS below are served by
  * Next on any host that reaches it; the HTTP to HTTPS redirect itself is performed by the hosting edge (Vercel does
  * this by default) and must stay enabled in the domain settings.
  *
@@ -22,8 +22,10 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
-    const headers = [{ key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' }];
-    if (!isProduction) headers.push({ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' });
+    // HSTS only on production: it commits browsers to HTTPS for the whole domain, which a preview host must not do.
+    const headers = isProduction
+      ? [{ key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' }]
+      : [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' }];
     return [{ source: '/:path*', headers }];
   },
 };

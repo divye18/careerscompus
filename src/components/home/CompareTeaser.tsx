@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 const comparison = {
   attributes: ['Duration', 'Eligibility', 'Fees', 'Career Paths'],
   // No figures here: durations, eligibility and fees differ by institution and none is verified for this preview.
-  courseA: { name: 'B.Tech', values: ['Not verified yet', 'Not verified yet', 'Not verified yet', 'Software, AI, Data'] },
-  courseB: { name: 'BCA', values: ['Not verified yet', 'Not verified yet', 'Not verified yet', 'Web, IT, Support'] },
+  courseA: { name: 'B.Tech', values: ['Not verified yet', 'Not verified yet', 'Not verified yet', 'Software, AI, Data (orientation)'] },
+  courseB: { name: 'BCA', values: ['Not verified yet', 'Not verified yet', 'Not verified yet', 'Web, IT, Support (orientation)'] },
 };
 
 export function CompareTeaser() {
@@ -29,14 +29,14 @@ export function CompareTeaser() {
               <span className="font-serif italic text-[var(--color-ch6-graphite)]">with clarity.</span>
             </h2>
             <p className="text-lg text-[var(--color-ch6-graphite)] opacity-80 mb-8 font-light">
-              Information is the antidote to uncertainty. Align universities, courses, and fees side-by-side to make your final decision.
+              A side-by-side comparison of courses and institutions is planned. It is not available yet, and nothing here is a real comparison.
             </p>
             <div>
               <span className="inline-flex items-center gap-3 px-6 py-4 border border-[var(--color-ch6-text)]/30 text-[var(--color-ch6-text)]/80 font-mono text-xs uppercase tracking-widest w-fit">
-                Comparison tool · coming soon
+                Comparison · not available yet
               </span>
               <p className="mt-3 text-sm text-[var(--color-ch6-graphite)]">
-                This table shows the layout only. Values appear once they are verified.
+                This table shows the layout only. Values will appear once they are verified. The career paths row is general orientation, not a verified record.
               </p>
             </div>
           </motion.div>
@@ -60,7 +60,7 @@ export function CompareTeaser() {
               {comparison.attributes.map((attr, i) => (
                 <div
                   key={attr}
-                  className="grid grid-cols-3 py-4 border-b border-[var(--color-ch6-graphite)]/20 hover:bg-[var(--color-ch6-accent)]/5 transition-colors"
+                  className="grid grid-cols-3 py-4 border-b border-[var(--color-ch6-graphite)]/20"
                 >
                   <div className="text-sm font-medium text-[var(--color-ch6-graphite)] flex items-center">{attr}</div>
                   <div className="text-sm font-light text-[var(--color-ch6-text)] pr-4">{comparison.courseA.values[i]}</div>

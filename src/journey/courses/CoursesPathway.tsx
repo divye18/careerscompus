@@ -396,7 +396,7 @@ export function CoursesPathway() {
                 onClick={() => goTo('act-guidance')}
                 className={`inline-flex min-h-[44px] items-center rounded-atlas bg-ivory px-5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100 ${focusRing}`}
               >
-                Get Guidance
+                About guidance
               </button>
               <button
                 type="button"

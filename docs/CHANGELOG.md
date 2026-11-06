@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-06 — Product readiness (after b419382)
+- Counselling form no longer collects name or phone and cannot be submitted; "Get Guidance" buttons renamed "About guidance". Compare teaser states it is unavailable and has no hover behaviour. FAQ updated to match.
+- HSTS is production-only. Verified production (`SITE_ENV=production`) and preview builds separately. New `scripts/overflow-probe.mjs` (0 px overflow at 768/390/375/360 with classic scrollbars) and `scripts/readiness-check.mjs`.
+- QA screenshots: exact duplicates and superseded Explore A/B frames removed, large JPEGs re-encoded; see `docs/qa-screenshots/MANIFEST.md`.
+
 ## 2026-11-06 — Stabilisation milestone
 - Interim How It Works, Principles and Final CTA hidden (`SHOW_INTERIM_SECTIONS`); nav/footer links to unfinished content removed; active nav state; footer reduced to working links.
 - All endless animation made one-shot or removed; Technology sweep runs once; reduced motion honoured site-wide.

@@ -187,7 +187,7 @@ export function Header() {
               onClick={() => jumpTo('act-guidance')}
               className={`hidden sm:inline-flex min-h-[44px] items-center justify-center rounded-atlas px-5 text-sm font-semibold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 ${focus} ${cta}`}
             >
-              Get Guidance
+              About guidance
             </button>
 
             <button
@@ -253,7 +253,7 @@ export function Header() {
                     setTimeout(() => jumpTo('act-guidance'), 250);
                   }}
                 >
-                  Get Guidance
+                  About guidance
                 </button>
               </div>
             </div>

@@ -309,3 +309,52 @@ The tracked folder is 981 files: 955 JPEGs (76 MB, average 81 KB, 29 over 200 KB
 ### Measured after the changes
 
 Lint, `tsc --noEmit` and `next build` pass; `check-tokens` OK; `site-audit`: 0 overflow, 0 clipped text, 0 console errors at 1440, 1280, 768, 390 and both touch profiles; interim contrast 58/58; Explore, Courses (desktop, mobile) and Universities (desktop, mobile) interaction suites all pass. Performance in headed Chrome: idle 60.2 fps; pinned scroll 58.9 fps median over 5 runs at 1440 (min 48.8; a single cold run reads about 39); Scenes 4 and 5 at 59.8 to 60 fps.
+
+
+---
+
+## 11. Product-readiness milestone (2026-11-06, after `b419382`)
+
+Scene 6 was not touched. Not committed at the time of writing.
+
+### Functional readiness
+
+| Item | Before | Now |
+|---|---|---|
+| Counselling form | Name and phone fields, validation and a local "Thanks, your details look complete" message | No name or phone field, nothing collected. A disabled outline (level selector, "Not available yet" button) under the heading "Callback requests are not available yet". No success message, no network request (tested) |
+| "Get Guidance" buttons | Promised guidance that the section cannot deliver | Renamed "About guidance" (header, Explore rooms, Courses panel) |
+| Compare teaser | "Comparison tool, coming soon" plus a copy line promising side-by-side fees; rows highlighted on hover | Says "Comparison · not available yet" and "nothing here is a real comparison"; hover removed; the career-paths row is labelled orientation; no figures. Table layout kept for the future Comparison Studio |
+| FAQ | Callback answer described a "preview" form; no mention of labels | Callback answer says there is no callback service and nothing collects name or phone; the "is it real" answer explains Orientation and Not verified. Each remaining answer re-read against the implementation |
+
+### Production and preview SEO (real builds)
+
+Production: `SITE_ENV=production npm run build`, served with `SITE_ENV=production next start`. Preview: the same build with no environment variables.
+
+| Check | Production | Preview |
+|---|---|---|
+| `<meta name="robots">` | `index, follow` | `noindex, nofollow` |
+| `X-Robots-Tag` header | none | `noindex, nofollow, noarchive` |
+| `robots.txt` | `Allow: /`, `Host` and `Sitemap` set to `https://careerscompus.in` | `Disallow: /`, no sitemap line |
+| Sitemap | one URL: `https://careerscompus.in/` | same canonical production URL; no preview URL is ever listed |
+| Canonical and `og:url` | `https://careerscompus.in` | same |
+| `Host: www.careerscompus.in` | 308 to `https://careerscompus.in/some/path` | same |
+| HSTS | `max-age=63072000; includeSubDomains; preload` | not sent (a preview host must not commit browsers to HTTPS for the domain) |
+| 404 page | `noindex` (Next default) | `noindex` |
+
+Open Graph title, description, locale, type and URL and the Twitter title and description are present. **No `og:image` exists** and the Twitter card is `summary`: a share image needs a designed asset and is open. HTTP to HTTPS redirection and preview access protection are host settings that this code cannot enforce or verify; neither was touched.
+
+### Mobile overflow (the Scene 2 "4 px" report)
+
+`scripts/overflow-probe.mjs` walks the whole page (every scene and the footer) in Chrome with classic 15 px scrollbars and lists any box that extends past the viewport: 768, 390, 375 and 360 px all report **0 px** overflow and 0 offending boxes. Cause of the original report, found in history: the Scene 2 flow compass SVG was sized `w-[min(92vw,440px)]`; `vw` includes the scrollbar, so with a classic scrollbar the SVG was wider than the content box. It was replaced by `w-full max-w-[440px]` in `1feaa64`; no `overflow-x: hidden` workaround is used. I did not rebuild the old commit to reproduce the 4 px figure, so the "before" is the earlier measurement plus the code evidence above.
+
+### Screenshot footprint
+
+Working tree 95 MB to about 84 MB (git history is unchanged, so the repository pack stays about 88 MB unless history is rewritten, which is not recommended). Removed: 87 byte-identical JPEGs (kept copy and reason listed in `docs/qa-screenshots/MANIFEST.md`; none was referenced by name elsewhere) and 105 JPEG frames of the superseded M2.1 Explore A/B bisect runs (report JSON files and `final-explore` kept). 19 JPEGs over 200 KB re-encoded at quality 78. The `stabilisation` before/after set was not touched. Not done: the four WebM clips (19.4 MB) are the largest remaining item; moving them to a release asset needs your decision.
+
+### Other checks
+
+Skip link: visually hidden until focused, first Tab stop, visible and outlined (2 px) when focused, Enter moves focus to `main`. Icon family (I7) is unchanged and still open. Radius tokens, numerals, active nav, footer links, chips and reduced motion re-verified by `scripts/stabilisation-probe.mjs` (21/21).
+
+### Limits
+
+Chrome on Windows only: no Safari, Firefox, real phones or screen reader. Mobile widths are emulated. I did not capture a "before" set for the interim-section copy changes; only the after shots in `docs/qa-screenshots/readiness/` exist. Pinned-scroll fps this run: 54.4 median over 5 runs (min 38.9 cold) against 58.9 the run before; no pinned-stage code changed, so I read this as run-to-run variance, not a regression.

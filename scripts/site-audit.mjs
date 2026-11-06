@@ -145,7 +145,7 @@ for (const v of VIEWPORTS) {
   report.navigation.logoReturnsToTop = (await p.evaluate(() => scrollY)) < 5;
 
   // get guidance + search buttons
-  await p.locator('header button', { hasText: 'Get Guidance' }).click();
+  await p.locator('header button', { hasText: 'About guidance' }).click();
   await p.waitForTimeout(2500);
   report.navigation.getGuidanceTop = await p.evaluate(() => Math.round(document.getElementById('act-guidance').getBoundingClientRect().top));
 
