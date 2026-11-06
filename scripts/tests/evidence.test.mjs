@@ -180,3 +180,22 @@ test('a match that starts inside a longer word ("afour-year") is detected so it 
   assert.equal(isGluedMatch(text, findMatches(text, 'four-year B\.Tech')[0]), true);
   assert.equal(isGluedMatch(text, findMatches(text, 'five-year B\.Arch')[0]), false);
 });
+
+// ---------- the evidence must name the programme
+import { programmeNameIn } from '../lib/evidence.mjs';
+test('the programme name must appear in the evidence, ignoring case, spaces and punctuation', () => {
+  assert.equal(programmeNameIn('The following: B. Tech (Duration – 4 Years)', 'B.Tech'), 'B.Tech');
+  assert.equal(programmeNameIn('1-Year LL.M. The one-year LL.M. programme', 'LL.M.'), 'LL.M.');
+  assert.equal(programmeNameIn('5-Year B.A., LL.B. (Hons.) NLSIU pioneered', 'B.A., LL.B. (Hons.)'), 'B.A., LL.B. (Hons.)');
+});
+test('a statement about a different programme is not accepted for this one (no token-by-token matching)', () => {
+  assert.equal(programmeNameIn('The M.Tech programmes are offered here', 'B.Tech'), null);
+  assert.equal(programmeNameIn('The 3-Year LL.B. (Hons.) degree', 'LL.M.'), null);
+  assert.equal(programmeNameIn('Master of Business Administration programme', 'MBA'), null);
+});
+test('a different wording on the page needs a declared alias, and the alias is reported', () => {
+  const text = 'Two Years Postgraduate Programme (PGP) in Management at IIMA';
+  assert.equal(programmeNameIn(text, 'MBA (PGP)'), null);
+  assert.equal(programmeNameIn(text, 'MBA (PGP)', ['Postgraduate Programme (PGP)']), 'Postgraduate Programme (PGP)');
+  assert.equal(programmeNameIn('Under-graduate Programs Bachelor of Architecture Bachelor of Planning', 'B.Arch', ['Bachelor of Architecture']), 'Bachelor of Architecture');
+});

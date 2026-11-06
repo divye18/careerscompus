@@ -199,7 +199,11 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
                   </li>
                 ))}
               </ul>
-              <span className="mt-1 block text-[13px] text-ivory/75">Confirmed so far, not a full list.</span>
+              <span className="mt-1 block text-[13px] text-ivory/75">
+                {inst.availableCourses.some((c) => c.evidence === 'listing')
+                  ? 'Found so far, not a full list. Programmes marked “named in a menu only” are listed on the institution’s pages but not described, so they are not confirmed as currently offered.'
+                  : 'Confirmed so far, not a full list.'}
+              </span>
             </>
           ) : (
             <span className="text-ivory/70">Course lists are being verified institution by institution. {COMING}.</span>

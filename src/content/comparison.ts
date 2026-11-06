@@ -138,7 +138,7 @@ const INSTITUTION_PARAMS: readonly ParamDef<Institution>[] = [
             sources: i.dataSources.filter((s) => s.field.startsWith('academicDomains:')),
             lastVerified: i.lastVerified,
           }
-        : unavailable(gapReason(i.gaps.academicDomains, WHY.notRecorded)),
+        : unavailable(gapReason(i.gaps.academicDomains ?? Object.entries(i.gaps).find(([k]) => k.startsWith('academicDomains:'))?.[1], WHY.notRecorded)),
   },
   {
     id: 'courses',
@@ -149,7 +149,7 @@ const INSTITUTION_PARAMS: readonly ParamDef<Institution>[] = [
       i.availableCourses.length
         ? {
             state: 'verified',
-            value: i.availableCourses.map((c) => c.name).join(', '),
+            value: i.availableCourses.map((c) => (c.evidence === 'listing' ? `${c.name} (listed only)` : c.name)).join(', '),
             norm: i.availableCourses.map((c) => c.id).sort().join('|'),
             sources: i.dataSources.filter((s) => s.field.startsWith('course:')),
             lastVerified: i.lastVerified,

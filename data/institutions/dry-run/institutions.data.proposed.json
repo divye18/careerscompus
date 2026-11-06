@@ -700,7 +700,7 @@
      "pathwayId": "architecture-b-arch",
      "durationYears": null,
      "evidence": "listing",
-     "evidenceNote": "Appears in the menu of undergraduate programmes. The admissions text on the same page refers to the 2024-25 session, so it does not establish the current offering. Listed, not described: we cannot confirm from this that it is currently offered.",
+     "evidenceNote": "The page names it \"Bachelor of Architecture\"; it is listed here as B.Arch. Appears in the menu of undergraduate programmes. The admissions text on the same page refers to the 2024-25 session, so it does not establish the current offering. Listed, not described: we cannot confirm from this that it is currently offered.",
      "durationGap": {
       "category": "source-silent",
       "detail": "The programme list we matched does not give a duration."
@@ -882,7 +882,8 @@
      "name": "MBA (PGP)",
      "pathwayId": "business-mba",
      "durationYears": 2,
-     "evidence": "statement"
+     "evidence": "statement",
+     "evidenceNote": "The page names it \"Postgraduate Programme (PGP)\"; it is listed here as MBA (PGP)."
     }
    ],
    "coordinates": null,

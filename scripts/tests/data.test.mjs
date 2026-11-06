@@ -4,7 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { GAP_CATEGORIES, excerptProblems, isStale, yearsMentioned } from '../lib/evidence.mjs';
+import { GAP_CATEGORIES, excerptProblems, isStale, programmeNameIn, yearsMentioned } from '../lib/evidence.mjs';
 
 const FILES = [process.env.EVIDENCE_DATA, 'src/content/institutions.data.json', 'data/institutions/dry-run/institutions.data.proposed.json'].filter((f, i, a) => f && fs.existsSync(f) && a.indexOf(f) === i);
 
@@ -62,6 +62,15 @@ for (const file of FILES) {
             assert.equal(c.durationYears, null, `${c.id}: a duration must not come from a listing`);
           }
           if (c.durationYears === null) assert.ok(c.durationGap, `${c.id}: a missing duration needs a recorded reason`);
+        }
+      }
+    });
+    test(`${label}: every programme's evidence names the programme, or says which other name the page uses`, () => {
+      for (const i of data.institutions) {
+        for (const c of i.availableCourses) {
+          const quote = i.sources.find((s) => s.field === `course:${c.id}`).quote;
+          const named = programmeNameIn(quote, c.name);
+          assert.ok(named || /The page names it "/.test(c.evidenceNote ?? ''), `${c.id}: the evidence never names the programme and no alias is declared`);
         }
       }
     });

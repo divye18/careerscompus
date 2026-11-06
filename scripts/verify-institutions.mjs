@@ -22,7 +22,7 @@
  * Failed fetches, empty pages, ambiguous matches and unassociated durations are recorded, never silently dropped.
  */
 import fs from 'node:fs';
-import { associateDuration, excerptAround, excerptProblems, findMatches, gap, isGluedMatch, isStale, matchProgramme, parseYears } from './lib/evidence.mjs';
+import { associateDuration, excerptAround, excerptProblems, findMatches, gap, isGluedMatch, isStale, matchProgramme, parseYears, programmeNameIn } from './lib/evidence.mjs';
 
 const WRITE = process.argv.includes('--write');
 const DRY = 'data/institutions/dry-run';
@@ -155,10 +155,19 @@ for (const s of seed.institutions) {
       miss.push(`course ${pr.name}(${log.reason})`);
       continue;
     }
+    // the evidence must name the programme (or a declared alias); otherwise the link between page and programme is an inference
+    const named = programmeNameIn(excerpt, pr.name, pr.aliases ?? []);
+    if (!named) {
+      log.status = 'programme-name-not-in-evidence';
+      log.reason = `neither "${pr.name}" nor a declared alias appears in the evidence text`;
+      miss.push(`course ${pr.name}(${log.reason})`);
+      continue;
+    }
     const c = { id, name: pr.name, pathwayId: pr.pathway, durationYears: null, evidence: kind };
+    if (named !== pr.name) c.evidenceNote = `The page names it "${named}"; it is listed here as ${pr.name}.`;
     sources.push({ field: `course:${id}`, url: pr.url, quote: excerpt });
     if (kind === 'listing') {
-      c.evidenceNote = pr.reviewed ?? 'Named in a programme list on the institution\'s pages; no page we checked describes the programme itself.';
+      c.evidenceNote = [c.evidenceNote, pr.reviewed ?? 'Named in a programme list on the institution\'s pages; no page we checked describes the programme itself.'].filter(Boolean).join(' ');
       c.evidenceNote += ' Listed, not described: we cannot confirm from this that it is currently offered.';
     }
     for (const t of pr.alsoTried ?? []) {

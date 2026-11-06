@@ -1,5 +1,5 @@
 {
-  "_readme": "Programme claims and field notes, merged with seed.json by scripts/verify-institutions.mjs. kind \"statement\" (default): the pattern must match the live official page exactly once and read as a statement about the programme. kind \"listing\": the programme is only named in a menu or list; it is recorded as partly confirmed. A duration is kept only if its own pattern matches in the same statement as the programme pattern and the matched text itself states the years. reviewed: what a human found when looking for stronger evidence. alsoTried: extra official pages the pipeline fetches on every run so that failures are recorded. pathway links to a course id in src/content/pathways.ts (null = no matching pathway). notes explain WHY a field is unavailable where we know a specific reason. durationNote: a human-reviewed statement that a length of study appears elsewhere on the page; the pipeline checks the pattern still matches before showing it, and it is never recorded as a duration.",
+  "_readme": "Programme claims and field notes, merged with seed.json by scripts/verify-institutions.mjs. kind \"statement\" (default): the pattern must match the live official page exactly once and read as a statement about the programme. kind \"listing\": the programme is only named in a menu or list; it is recorded as partly confirmed. A duration is kept only if its own pattern matches in the same statement as the programme pattern and the matched text itself states the years. reviewed: what a human found when looking for stronger evidence. alsoTried: extra official pages the pipeline fetches on every run so that failures are recorded. pathway links to a course id in src/content/pathways.ts (null = no matching pathway). notes explain WHY a field is unavailable where we know a specific reason. durationNote: a human-reviewed statement that a length of study appears elsewhere on the page; the pipeline checks the pattern still matches before showing it, and it is never recorded as a duration. aliases: other wordings of the programme name that the official page uses (for example the spelled-out \"Bachelor of Architecture\"). The evidence text must contain the programme name or a declared alias, otherwise the programme is rejected; a used alias is shown in the source note.",
   "programmes": {
     "iit-madras": [
       {
@@ -104,7 +104,10 @@
         "url": "https://spa.ac.in/en/academics/programs/under-graduate-programmes",
         "re": "Under-graduate Programs Bachelor of Architecture Bachelor of Planning",
         "kind": "listing",
-        "reviewed": "Appears in the menu of undergraduate programmes. The admissions text on the same page refers to the 2024-25 session, so it does not establish the current offering."
+        "reviewed": "Appears in the menu of undergraduate programmes. The admissions text on the same page refers to the 2024-25 session, so it does not establish the current offering.",
+        "aliases": [
+          "Bachelor of Architecture"
+        ]
       }
     ],
     "iim-ahmedabad": [
@@ -116,7 +119,10 @@
         "duration": {
           "years": 2,
           "re": "Two Years Postgraduate Programme \\(PGP\\)"
-        }
+        },
+        "aliases": [
+          "Postgraduate Programme (PGP)"
+        ]
       }
     ],
     "vit-vellore": [

@@ -146,6 +146,18 @@ export function isGluedMatch(text, m) {
   return m.index > 0 && isWordChar(text[m.index - 1]) && isWordChar(text[m.index]);
 }
 
+const compact = (s) => s.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
+/**
+ * Does the text name the programme? Compared ignoring case, spaces and punctuation ("B.Tech" = "B. Tech"), as a whole
+ * name, never token by token. A different wording on the page must be declared as an alias in the seed.
+ * Returns the name or alias that was found, or null.
+ */
+export function programmeNameIn(text, name, aliases = []) {
+  const t = compact(text);
+  for (const n of [name, ...aliases]) if (compact(n) && t.includes(compact(n))) return n;
+  return null;
+}
+
 /** Every number of years a text states ("four-year", "5 Years"), in order. */
 export function yearsMentioned(text) {
   return [...text.matchAll(/(\d{1,2}|one|two|three|four|five|six|seven)[\s-]*(?:years?|yrs?)\b/gi)].map((m) => (/^\d/.test(m[1]) ? Number(m[1]) : NUMBER_WORDS[m[1].toLowerCase()]));
