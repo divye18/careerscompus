@@ -1,7 +1,7 @@
 // Scene 7 logic, against the real dataset. Run: npm run test:action
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { SCENE_NAME, STANDING_EVIDENCE_NOTE, buildActionPlan, isKnownStepId } from '../../src/content/actionPlan.ts';
+import { SCENE_NAME, STANDING_EVIDENCE_NOTE, buildActionPlan, isKnownStepId, planAsText } from '../../src/content/actionPlan.ts';
 import { PROGRAMMES, ledgerRows } from '../../src/content/comparison.ts';
 import { INSTITUTIONS } from '../../src/content/institutions.ts';
 import { COURSES } from '../../src/content/pathways.ts';
@@ -270,4 +270,18 @@ test('within an institution, questions keep ledger order', () => {
   const ledger = p.openQuestions.map((x) => x.label);
   assert.deepEqual(p.steps.find((s) => s.id === 'check-official').sources[0].questions, ledger);
   assert.notDeepEqual(ledger, [...ledger].sort(), 'this case would not detect sorting otherwise');
+});
+
+// ---------- copy as text
+test('the copied text keeps labels, dates, links and the evidence note; ticks show only as ticks', () => {
+  const p = plan({ programmes: [LISTING, STATEMENT], institutions: ['iit-madras'] });
+  const a = planAsText(p, []);
+  const b = planAsText(p, ['talk']);
+  assert.match(a, /\(listed only\): Partially verified, last checked \d{4}-\d{2}-\d{2}/);
+  assert.match(a, /B\.Tech \(at IIT Madras\): Verified/);
+  assert.match(a, /IIT Madras: https:\/\/www\.iitm\.ac\.in/);
+  assert.ok(a.includes(STANDING_EVIDENCE_NOTE));
+  assert.match(b, /\[x\] Talk it through/);
+  assert.equal(a.replace('[ ] Talk', '[x] Talk'), b, 'a tick changes nothing else');
+  assert.match(planAsText(plan({}), []), /Nothing yet/);
 });

@@ -17,14 +17,17 @@ export const RAIL_ITEMS = [
   { id: 'act-courses', label: 'Courses', hue: null as string | null },
   { id: 'act-universities', label: 'Universities', hue: null as string | null },
   { id: 'act-comparison', label: 'Compare', hue: null as string | null },
+  { id: 'act-next-steps', label: 'Next Steps', hue: null as string | null },
 ];
 const ITEMS = RAIL_ITEMS;
 /** Index of the Courses stop (Scene 4). */
-export const RAIL_COURSES_INDEX = ITEMS.length - 3;
+export const RAIL_COURSES_INDEX = ITEMS.length - 4;
 /** Index of the Universities stop (Scene 5). */
-export const RAIL_UNIVERSITIES_INDEX = ITEMS.length - 2;
+export const RAIL_UNIVERSITIES_INDEX = ITEMS.length - 3;
 /** Index of the Compare stop (Scene 6). */
-export const RAIL_COMPARE_INDEX = ITEMS.length - 1;
+export const RAIL_COMPARE_INDEX = ITEMS.length - 2;
+/** Index of the Next Steps stop (Scene 7). */
+export const RAIL_NEXT_INDEX = ITEMS.length - 1;
 
 /**
  * Direction Rail: persistent wayfinding for the journey — two scene stops, then one stop per domain room.

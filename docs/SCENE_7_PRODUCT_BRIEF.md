@@ -32,7 +32,7 @@ Status: **specification only, awaiting approval.** Nothing here is implemented. 
 
 **The arrangement of the page.** Scenes 1 to 3 are in `<Journey />` (pinned with WebGL, or natural-scroll flow with SVG). Scenes 4 to 6 are natural-scroll sections sharing `SceneRailLane`. After them come `<Handoff />` and the interim Counselling and FAQ sections.
 
-**Departure from the original storyboard.** `docs/redesign/02_SCROLL_STORYBOARD.md` placed Scene 7 inside the pinned stage with WebGL needles converging. The built site ended the pinned stage at Scene 3, so this brief uses natural scroll and SVG. It keeps the storyboard's Royal Plum ground and the spirit of its three steps.
+**Departure from the original storyboard.** `docs/redesign/02_SCROLL_STORYBOARD.md` placed Scene 7 inside the pinned stage with WebGL needles converging. The built site ended the pinned stage at Scene 3, so this brief uses natural scroll and SVG. It keeps the spirit of the storyboard's three steps.
 
 ## 3. User journey
 
@@ -51,7 +51,7 @@ Status: **specification only, awaiting approval.** Nothing here is implemented. 
 ### A. Opening
 A composition none of Scenes 4 to 6 use. Those are a left poster with lines falling right (4), a chart plate with stepped title (5), and a split masthead with a horizontal rule (6).
 
-**Scene 7: a logbook spread on Royal Plum.** A single vertical meridian runs a third of the way across the page. Left of it, a narrow margin holds the three section names as a mono index. Right of it, the title sits low in the viewport with generous space above:
+**Scene 7: a logbook spread on Deep Aubergine.** A single vertical meridian runs a third of the way across the page. Left of it, a narrow margin holds the three section names as a mono index. Right of it, the title sits low in the viewport with generous space above:
 
 > **Turn what you found**
 > *into what you check next.*
@@ -133,7 +133,7 @@ No control is hover-only. Display-only text must not look clickable.
 
 ## 7. Visual direction
 
-- **Ground:** Royal Plum `#43205F`, the one saturated ground reserved for this scene in `docs/redesign/08_COLOUR_IDENTITY.md`. Solid, not a gradient strip. Text is Soft Ivory. Rules and the meridian are Champagne. Cyan is focus and selection only.
+- **Ground:** Deep Aubergine `#241333` (changed from Royal Plum after seeing it on screen, by product decision). Solid, not a gradient strip. Text is Soft Ivory. Rules and the meridian are Champagne. Cyan is focus and selection only.
 - **Type:** Instrument Serif for the title and option names, Inter for reasons and steps, JetBrains Mono for dates, stage labels and status. Digits in display text use `<Figures>`. Minimum 12 px text, 11 px mono labels.
 - **Structure:** rules, whitespace and alignment to the meridian. Radius tokens only, on controls.
 - **Icons:** the Lucide family already used in Scene 6.
@@ -187,8 +187,8 @@ Scene 4, 5 and 6 components are otherwise untouched. No new dependencies, backen
 - Section with `aria-labelledby`; heading order continues from Scene 6.
 - The index is a `<nav>` with `aria-current="location"`.
 - Lists are real lists; statuses are words plus a mark, never colour alone.
-- WCAG AA by measured contrast on plum, including Champagne small text, using a new `contrast-measure-action.mjs`.
-- Visible 2 px cyan focus. Cyan must be measured on plum too.
+- WCAG AA by measured contrast on the ground, including Champagne small text, using a new `contrast-measure-action.mjs`.
+- Visible 2 px cyan focus. Cyan must be measured on it too.
 - Changes such as removal and copy are announced through a polite live region.
 - Touch targets at least 44 px. Keyboard reaches everything. Focus is managed on return navigation and after removal.
 - Screen-reader testing is still an uncovered gap in the project and should be done here.
@@ -246,7 +246,7 @@ Scene 4, 5 and 6 components are otherwise untouched. No new dependencies, backen
 - **Repetition.** With 3 options, nearly every question is open for all of them. Grouping by question handles this but must be tested at maximum.
 - **Keeping is not obvious.** Students may not know that "Add to comparison" is what fills this sheet. The copy must say so; changing earlier scenes is out of scope.
 - **Mobile Scene 3 return.** `explore-<domain>` ids exist on the flow presenter (`ExploreFlow.tsx`), but landing and focus there are untested from this new entry point.
-- **Plum contrast.** Champagne and silver small text are unmeasured on plum and may need adjusting.
+- **Ground contrast.** Small text must be measured on the final ground.
 - **Print.** Dark grounds and fixed elements need a dedicated stylesheet; browser coverage is limited.
 - **Existing limits apply.** Chrome on Windows only so far; no Safari, Firefox, real-phone or screen-reader coverage.
 - **Stale project note.** `CLAUDE.md` still describes Scene 6 as awaiting approval on `integrate/scene-6`; it should be corrected separately.

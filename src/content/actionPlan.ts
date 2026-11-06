@@ -212,3 +212,21 @@ export function isKnownStepId(id: unknown): id is string {
   if (['explore', 'explore-courses', 'find-institutions', 'compare-programmes', 'check-offered', 'check-official', 'talk'].includes(id)) return true;
   return id.startsWith('add-another:') && MODES.includes(id.slice('add-another:'.length) as CompareMode);
 }
+
+/** The sheet as plain text, for copying. A tick is the student's own note and changes nothing else. */
+export function planAsText(plan: ActionPlan, completed: readonly string[]): string {
+  const STATUS: Record<VerificationStatus, string> = { verified: 'Verified', partial: 'Partially verified', orientation: 'Orientation', unverified: 'Not verified' };
+  const entry = (e: KeptEntry) => `- ${e.title} (${e.subtitle})${e.listedOnly ? ' (listed only)' : ''}: ${e.status ? STATUS[e.status] : 'Details vary'}${e.lastVerified ? `, last checked ${e.lastVerified}` : ''}`;
+  const all = [...plan.kept.institutions, ...plan.kept.programmes, ...plan.kept.courses];
+  const lines = [`CareersCompus: ${SCENE_NAME}`, '', 'WHAT I KEPT', ...(all.length ? all.map(entry) : ['- Nothing yet']), ''];
+  if (plan.openQuestions.length) {
+    lines.push('STILL OPEN', ...plan.openQuestions.map((q) => `- ${q.label}: ${q.items.map((i) => i.name).join(', ')}`), '');
+  }
+  lines.push('POSSIBLE NEXT STEPS (general guidance)');
+  plan.steps.forEach((s, n) => {
+    lines.push(`${n + 1}. [${completed.includes(s.id) ? 'x' : ' '}] ${s.text}`);
+    for (const x of s.sources) lines.push(`   ${x.institution}: ${x.href} (${x.questions.join(', ')})`);
+  });
+  lines.push('', STANDING_EVIDENCE_NOTE);
+  return lines.join('\n');
+}

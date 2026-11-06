@@ -7,6 +7,7 @@ import { SceneRailLane } from '@/journey/layers/SceneRailLane';
 import { CoursesPathway } from '@/journey/courses/CoursesPathway';
 import { UniversityAtlas } from '@/journey/universities/UniversityAtlas';
 import { ComparisonStudio } from '@/journey/compare/ComparisonStudio';
+import { ActionStudio } from '@/journey/action/ActionStudio';
 import { HowItWorks } from '@/components/home/HowItWorks';
 import { CounsellingCTA } from '@/components/home/CounsellingCTA';
 import { PlatformPrinciples } from '@/components/home/PlatformPrinciples';
@@ -34,6 +35,7 @@ export default function Home() {
           <CoursesPathway />
           <UniversityAtlas />
           <ComparisonStudio />
+          <ActionStudio />
           <SceneRailLane />
         </div>
         <Handoff />
