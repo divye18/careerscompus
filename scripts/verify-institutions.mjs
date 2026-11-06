@@ -8,8 +8,8 @@
  *
  * Usage:
  *   node scripts/verify-institutions.mjs            DRY RUN (default). Needs network. Writes only to data/institutions/dry-run/:
- *                                                   institutions.data.proposed.json (git-ignored), match-log.json,
- *                                                   claim-match-diagnostics.json, report.md, diff-vs-current.md
+ *                                                   institutions.data.proposed.json and claim-match-diagnostics.json
+ *                                                   (both git-ignored), match-log.json, report.md, diff-vs-current.md
  *   node scripts/verify-institutions.mjs --write    ALSO replaces src/content/institutions.data.json and
  *                                                   docs/qa-screenshots/universities/verification-report.md
  *

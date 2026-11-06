@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "qa:visual": "node scripts/visual-check.mjs",
-    "test:evidence": "node --test scripts/tests/evidence.test.mjs scripts/tests/data.test.mjs",
+    "test:evidence": "node --test scripts/tests/evidence.test.mjs scripts/tests/data.test.mjs scripts/tests/pipeline.integration.test.mjs",
     "verify:institutions": "node scripts/verify-institutions.mjs"
   },
   "dependencies": {

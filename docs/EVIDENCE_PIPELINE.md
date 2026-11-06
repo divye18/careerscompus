@@ -14,7 +14,7 @@ This is a dry run and needs network access. It re-checks every claim against the
 node scripts/verify-institutions.mjs --write
 ```
 
-Then run `npm run test:evidence`.
+Then run `npm run test:evidence`. It needs no network: `scripts/tests/pipeline.integration.test.mjs` runs the real pipeline against fixture pages in a temp folder.
 
 ## Dry-run outputs
 
@@ -22,8 +22,8 @@ Then run `npm run test:evidence`.
 |---|---|---|
 | `institutions.data.proposed.json` | **No, git-ignored** | The dataset the run would write. After `--write` it is a duplicate of `src/content/institutions.data.json`, so it is regenerated, not stored. `scripts/tests/data.test.mjs` also checks it when it is present and skips it when it is not |
 | `match-log.json` | Yes | Outcome of every programme pattern |
-| `claim-match-diagnostics.json` | Yes | Match counts for institution-level claims (see below) |
-| `report.md` | Yes | Readable summary of the run |
+| `claim-match-diagnostics.json` | **No, git-ignored** | Machine-readable match counts for institution-level claims (see below). No script, test or app reads it. A dry run regenerates it |
+| `report.md` | Yes | Readable summary of the run, including the table of multi-match claims |
 | `diff-vs-current.md` | Yes | What the run would change compared with the live dataset |
 
 ## Claims that match more than once
@@ -50,14 +50,16 @@ A repeated match shows the phrase appears on the page. It does not make the clai
 
 **The rule.** `isStale()` in `scripts/lib/evidence.mjs` treats a date as stale if it is missing, unreadable, in the future, or more than 180 days old.
 
-**When evidence goes over 180 days:**
+**Three separate things.** Expiry exists only at the first level.
 
-- The data test "verification dates are valid, not in the future and not stale" fails, so `npm run test:evidence` exits non-zero.
-- The next pipeline run marks the previous date `(STALE)` in `diff-vs-current.md`.
-- Nothing else happens. `npm run build`, lint and TypeScript still pass, and there is no CI in this repository, so the failure appears only when someone runs the tests.
+| Level | What it is | Does age affect it? |
+|---|---|---|
+| Test-level evidence expiry | The data test "verification dates are valid, not in the future and not stale", plus a `(STALE)` note in `diff-vs-current.md` on the next pipeline run | **Yes.** After 180 days `npm run test:evidence` exits non-zero |
+| Application verification labels | Verified, Partially verified, Orientation, Not verified, set from what the evidence established | **No.** The app has no date logic, so a Verified fact stays Verified however old its check is |
+| Live website warnings | Any notice telling students a check is old | **None exist.** The site only shows the "Last checked" date, and readers must judge its age themselves |
 
-For data checked on 2026-11-06, day 180 is 2027-05-05 and the test first fails on 2027-05-06 (UTC). The test can therefore start failing with no code change.
+**Test-level expiry in practice.** For data checked on 2026-11-06, day 180 is 2027-05-05 and the test first fails on 2027-05-06 (UTC), with no code change. `npm run build`, lint and TypeScript still pass, and there is no CI in this repository, so the failure appears only when someone runs the tests. The tests are not part of `npm run build`.
 
-**What expiry does not do.** It does not change a fact or a status. The application has no date logic: students keep seeing the same values and labels (a Verified fact stays Verified), with the "Last checked" date beside them. Expiry says the check needs repeating, not that the fact is wrong. The site does not warn students about old checks.
+**What expiry does not do.** It does not change or remove a fact, and it does not change a label. It says the check needs repeating, not that the fact is wrong. Between day 181 and a refresh, the live site keeps showing the same facts and labels with the old date.
 
 **Refreshing.** Run the dry run, review `diff-vs-current.md` and `report.md`, apply with `--write`, then run `npm run test:evidence`. Refreshing re-checks claims against the live pages, so it can change the data: a claim whose evidence has gone is dropped or recorded as missing, with its reason. Do not edit the date by hand.
