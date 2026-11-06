@@ -38,8 +38,8 @@ What the recommendation borrows from the others: #12's cream/purple warmth (day 
 |---|---|---|---|
 | Night ground | `ink-950` Midnight | `#101014` | Near-black with a violet cast; never pure #000 |
 | Night ground (raised) | `ink-900` | `#1A1A22` | Surfaces/cards/inputs on Midnight |
-| Night atmosphere | `aubergine-900` Deep Aubergine | `#241333` | Grounds for Discover/Universities; the "colour of night" |
-| Accent environment | `plum-700` Royal Plum | `#43205F` | The only saturated full-bleed ground (Scene 7) |
+| Night atmosphere | `aubergine-900` Deep Aubergine | `#241333` | Grounds for Discover/Universities and the dedicated ground of Scene 7 (Next Steps); the "colour of night" |
+| Accent environment | `plum-700` Royal Plum | `#43205F` | Reserved accent. Not used as a full-bleed ground: Scene 7 moved to Deep Aubergine by product decision |
 | Day ground | `ivory-50` Soft Ivory | `#F4F0E8` | Paper; light scenes |
 | Day surface | `ivory-100` | `#ECE6DA` | Panels on ivory |
 | Neutral | `silver-400` Cool Silver | `#A7A9B5` | Secondary text/hairlines on dark |
@@ -90,7 +90,7 @@ Rule: domain hues identify; **cyan selects**. A selected domain gets a cyan ring
 - **Depth** comes from light (radial key light, rim light on the compass), scale and typography — not shadows or blur. One allowed shadow: soft `0 20px 60px rgba(0,0,0,0.45)` under floating objects on night grounds.
 
 ## 6. Scene-by-scene colour atmospheres
-Rhythm: **night → deeper night → jewel rooms → dawn paper → night sky → daylight lab → plum signal → warm paper.**
+Rhythm: **night → deeper night → jewel rooms → dawn paper → night sky → daylight lab → aubergine route sheet → warm paper.**
 
 | Scene | Ground | Text | Accent use | Transition in |
 |---|---|---|---|---|
@@ -100,8 +100,8 @@ Rhythm: **night → deeper night → jewel rooms → dawn paper → night sky �
 | 4 Courses | **Dawn: Ivory paper** (first light scene) | Ink | Route line in ink; cyan-800 "you are here" marker; domain ink colours for stops | Night lifts to paper (a horizon wipe, not a fade-through-grey) |
 | 5 Universities | **Night sky: Aubergine** | Ivory/silver | Institutions as champagne points of light; cyan only for the hovered/selected point | Paper darkens to aubergine like dusk |
 | 6 Compare | **Daylight lab: Ivory with ivory-100 ledger** | Ink, mono for values | Cyan-800 difference markers; champagne-800 rules | Aubergine → ivory as two stars slide into ledger anchors |
-| 7 Next step | **Accent environment: Royal Plum** | Ivory | The converged single needle in cyan — the brightest cyan moment of the page | Ivory → plum; meridians converge |
-| 8 Guidance | **Warm paper: Ivory** with a band of ink for the form panel | Ink / ivory (inside the panel) | One optional cyan "signal" CTA; otherwise monochrome actions | Plum settles into paper; footer returns to Midnight |
+| 7 Next Steps | **Deep Aubergine** | Ivory | Champagne route meridian and beads; cyan for focus, selection and ticks only | Midnight → aubergine; the route line follows the scroll |
+| 8 Guidance | **Warm paper: Ivory** with a band of ink for the form panel | Ink / ivory (inside the panel) | One optional cyan "signal" CTA; otherwise monochrome actions | Aubergine settles into paper; footer returns to Midnight |
 
 No two consecutive scenes share a ground, and the darkest/brightest moments (Arrival, Next step) bracket the journey.
 
