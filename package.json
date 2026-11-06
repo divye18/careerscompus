@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "qa:visual": "node scripts/visual-check.mjs"
+    "qa:visual": "node scripts/visual-check.mjs",
+    "test:evidence": "node --test scripts/tests/evidence.test.mjs scripts/tests/data.test.mjs",
+    "verify:institutions": "node scripts/verify-institutions.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "^9.8.1",

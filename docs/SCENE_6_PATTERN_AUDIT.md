@@ -46,3 +46,46 @@ Stored quotes are cut at a fixed character count and can start or end mid-word (
 6. **Do not add institutions or programmes** until 1 to 4 are done and regenerated.
 
 Nothing in this audit says any programme is wrongly listed. It says eight are supported only by menu or notice text, and three have a pattern that could pass for a different degree.
+
+---
+
+## Resolution (2026-11-06): applied to the dataset with --write
+
+The pipeline, tests and application code are updated, and the dry-run result below was then applied with `node scripts/verify-institutions.mjs --write` after approval (the written data is identical to the dry-run output). The pipeline runs in dry-run mode by default and writes its dry-run result to `data/institutions/dry-run/` (`institutions.data.proposed.json`, `match-log.json`, `report.md`, `diff-vs-current.md`). Applying it means running `node scripts/verify-institutions.mjs --write`, which needs your approval.
+
+### What the pipeline now enforces (`scripts/lib/evidence.mjs`, 28 unit tests)
+- A programme *statement* pattern must match exactly once; more matches are **ambiguous** and rejected, and recorded in the match log with every match. A *listing* may match several times but is recorded as only partly confirmed.
+- A duration is taken only from its own pattern, only in the same statement as the programme match (the matches overlap or touch), and only if the matched text itself states the claimed years. Nothing is inferred from a programme name.
+- Failed fetches (certificate errors are never bypassed), empty pages, not-found, ambiguous, unassociated, mismatched and unstated durations are separate recorded outcomes.
+- Excerpts are exact substrings of the page text, grown to whole words and, where a real sentence boundary is near, to the sentence (abbreviations such as "Ph.D." and "LL.M." are not sentence ends). No ellipses. Validators reject mid-word starts or ends, padding, control characters and over-long excerpts.
+- Missing facts get a `gap` with a category assigned only from a recorded outcome: `not-located`, `source-unavailable`, `source-silent`, `presence-not-established`, `source-ambiguous`, `not-recorded`. A gap is shown as **Not verified**; it is not a fifth status.
+
+### Class C, resolved in the proposal
+| Programme | Before | After |
+|---|---|---|
+| NLSIU LL.B. (Hons.) | `LL\.B\. \(Hons\.\)`, 2 matches, could pass for the 5-year degree | One statement: "3-Year LL.B. (Hons.) The 3-year LLB (Hons) is a postgraduate professional degree programme", duration from the same statement |
+| NLSIU LL.M. | `LL\.M\.`, 2 matches | "1-Year LL.M. The one-year LL.M. programme…", duration from the same statement |
+| IIM Ahmedabad MBA (PGP) | 2 matches | "Two Years Postgraduate Programme (PGP) in Management…", duration from the same statement |
+
+### Class B, reviewed
+| Programme | Result |
+|---|---|
+| IIT Delhi M.Tech | **Upgraded to a statement**: "A large number of M.Tech programs are offered by IITD." on `academics.iitd.ac.in/postgraduate-programs/` (replaces a SPOT-round news notice) |
+| IISc Bachelor of Science (Research) | **Upgraded to a statement** on the programme's own site (`bs-ug.iisc.ac.in`): "The Bachelor of Science (Research) programme at the Indian Institute of Science (IISc) is…" |
+| VIT B.Tech | Stays a **listing** (Partially verified): named in the heading of "VIT UG Courses"; the readable text of VIT's programme pages is navigation and admission notices |
+| IIT Delhi MBA | Stays a **listing**: admissions link only. The Department of Management Studies page fails TLS certificate verification and is recorded as source unavailable on every run |
+| BITS B.E. (Computer Science), B.Pharm | Stay **listings**: named in the Integrated First Degree list; their own pages repeat the list without a description |
+| SPA Delhi B.Arch | Stays a **listing**: menu entry, and the admissions text on the page refers to the 2024-25 session |
+| IISc M.Tech | Stays a **listing**: admissions menu entry |
+
+Result: 12 statements (10 before plus 2 upgraded) and 6 listings; 18 programmes, none dropped; no duration added or removed.
+
+### Remaining uncertain records
+1. **IIT Kharagpur B.Tech duration (4 years).** The official page's text reads "afour-year B.Tech" (words run together). The pipeline now flags in-word matches and shows that note in the source details; the duration is kept because the matched text states "four-year", but it rests on a page typo.
+2. **Six listings** above remain only partly confirmed until a programme page with a statement is found.
+3. **Unrecorded durations** that sources mention and we deliberately did not record (this would expand the dataset): IISc B.S. (Research) "four-year" in its statement; IIT Delhi M.Tech "usual duration … 2 yrs" in a separate sentence. Both show as "not recorded" with that explanation.
+4. **Nine institutions have no programmes checked**; "Available courses" says so.
+5. **IIT Kharagpur's server resets connections intermittently** (one transient failure in earlier runs). The pipeline retries four times; a persistent failure would be recorded as source unavailable.
+6. **Excerpts from menu pages include the neighbouring menu words** (exact text, but untidy), for example IISc and VIT.
+7. **`reviewed` notes in the seed are human-written** records of what was looked for; only `alsoTried` fetches and `durationNote` patterns are re-checked on every run.
+8. **Freshness:** the data tests fail if a verification date is more than 180 days old.

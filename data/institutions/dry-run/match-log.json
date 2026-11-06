@@ -1,0 +1,166 @@
+[
+ {
+  "id": "iit-delhi--m-tech",
+  "kind": "statement",
+  "url": "https://academics.iitd.ac.in/postgraduate-programs/",
+  "pattern": "A large number of M\\.Tech programs are offered by IITD\\.",
+  "status": "matched",
+  "matchCount": 1
+ },
+ {
+  "id": "iit-delhi--mba",
+  "kind": "listing",
+  "url": "https://home.iitd.ac.in/pg-admissions.php",
+  "pattern": "MBA Admission",
+  "status": "matched",
+  "matchCount": 1
+ },
+ {
+  "id": "iit-delhi--mba (also tried)",
+  "kind": "listing",
+  "url": "https://dms.iitd.ac.in/admission-mba/",
+  "pattern": "MBA",
+  "status": "page-unavailable",
+  "matchCount": 0,
+  "reason": "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+ },
+ {
+  "id": "iit-madras--b-tech",
+  "kind": "statement",
+  "url": "https://www.iitm.ac.in/academics/study-at-iitm/undergraduate-programmes",
+  "pattern": "B\\.Tech \\(Duration",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "iit-madras--m-tech",
+  "kind": "statement",
+  "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+  "pattern": "M\\.Tech: Duration",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "iit-madras--m-sc",
+  "kind": "statement",
+  "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+  "pattern": "M\\.Sc: Duration",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "iit-madras--mba",
+  "kind": "statement",
+  "url": "https://www.iitm.ac.in/academics/study-at-iitm/postgraduate-programmes",
+  "pattern": "MBA: Duration",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "iit-kharagpur--b-tech",
+  "kind": "statement",
+  "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2",
+  "pattern": "B\\.Tech \\(Bachelor of Technology\\)",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok",
+  "durationWarning": "duration matched inside a longer word on the page"
+ },
+ {
+  "id": "iit-kharagpur--b-arch",
+  "kind": "statement",
+  "url": "https://www.iitkgp.ac.in/studyprogrammes/view/2",
+  "pattern": "B\\.Arch degree",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "iisc-bengaluru--bachelor-of-science-research",
+  "kind": "statement",
+  "url": "https://bs-ug.iisc.ac.in/",
+  "pattern": "The Bachelor of Science \\(Research\\) programme at the Indian Institute of Science \\(IISc\\) is",
+  "status": "matched",
+  "matchCount": 1
+ },
+ {
+  "id": "iisc-bengaluru--m-tech",
+  "kind": "listing",
+  "url": "https://www.iisc.ac.in/admissions/programmes/",
+  "pattern": "Post-graduate \\(PG\\) Course Programmes M\\.Tech\\. and M\\.Des\\.",
+  "status": "matched",
+  "matchCount": 2
+ },
+ {
+  "id": "spa-delhi--b-arch",
+  "kind": "listing",
+  "url": "https://spa.ac.in/en/academics/programs/under-graduate-programmes",
+  "pattern": "Under-graduate Programs Bachelor of Architecture Bachelor of Planning",
+  "status": "matched",
+  "matchCount": 1
+ },
+ {
+  "id": "nlsiu-bengaluru--b-a-ll-b-hons",
+  "kind": "statement",
+  "url": "https://www.nls.ac.in/programmes/",
+  "pattern": "B\\.A\\., LL\\.B\\. \\(Hons\\.\\)",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "nlsiu-bengaluru--ll-b-hons",
+  "kind": "statement",
+  "url": "https://www.nls.ac.in/programmes/",
+  "pattern": "3-Year LL\\.B\\. \\(Hons\\.\\) The 3-year LLB \\(Hons\\) is a postgraduate professional degree programme",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "nlsiu-bengaluru--ll-m",
+  "kind": "statement",
+  "url": "https://www.nls.ac.in/programmes/",
+  "pattern": "1-Year LL\\.M\\. The one-year LL\\.M\\. programme",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "iim-ahmedabad--mba-pgp",
+  "kind": "statement",
+  "url": "https://www.iima.ac.in/academics/mba",
+  "pattern": "Two Years Postgraduate Programme \\(PGP\\) in Management",
+  "status": "matched",
+  "matchCount": 1,
+  "duration": "ok"
+ },
+ {
+  "id": "bits-pilani--b-e-computer-science",
+  "kind": "listing",
+  "url": "https://www.bits-pilani.ac.in/academics/integrated-first-degree/",
+  "pattern": "B\\.E\\.\\s?\\(Computer Science\\)",
+  "status": "matched",
+  "matchCount": 2
+ },
+ {
+  "id": "bits-pilani--b-pharm",
+  "kind": "listing",
+  "url": "https://www.bits-pilani.ac.in/academics/integrated-first-degree/",
+  "pattern": "B\\.Pharm\\.\\(Pharmacy\\)",
+  "status": "matched",
+  "matchCount": 2
+ },
+ {
+  "id": "vit-vellore--b-tech",
+  "kind": "listing",
+  "url": "https://vit.ac.in/all-courses/ug",
+  "pattern": "VIT UG Courses [0-9-]+: B\\.Tech",
+  "status": "matched",
+  "matchCount": 1
+ }
+]

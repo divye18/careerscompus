@@ -16,14 +16,14 @@
  */
 
 import { DOMAINS } from './domains';
-import { INSTITUTIONS, REGIONS, TYPE_SINGULAR, type Institution, type SourceNote, type VerifiedCourse } from './institutions';
+import { INSTITUTIONS, REGIONS, TYPE_SINGULAR, type Gap, type Institution, type SourceNote, type VerifiedCourse } from './institutions';
 import { COURSES, LEVELS, type Course } from './pathways';
 
 export type CompareMode = 'institutions' | 'courses' | 'programmes';
 export const MAX_COLUMNS = 3;
 
 export type Cell =
-  | { state: 'verified'; value: string; norm: string; sources: readonly SourceNote[]; lastVerified: string; derived?: string; href?: string }
+  | { state: 'verified'; value: string; norm: string; sources: readonly SourceNote[]; lastVerified: string; derived?: string; href?: string; partial?: boolean }
   | { state: 'orientation'; value: string }
   | { state: 'unavailable'; reason: string }
   | { state: 'notApplicable'; reason: string };
@@ -55,9 +55,11 @@ export const PROGRAMMES: readonly Programme[] = INSTITUTIONS.flatMap((institutio
 const unavailable = (reason: string): Cell => ({ state: 'unavailable', reason });
 const notApplicable = (reason: string): Cell => ({ state: 'notApplicable', reason });
 const sourcesFor = (i: Institution, field: string) => i.dataSources.filter((s) => s.field === field);
+/** The recorded reason a fact is missing (from the verification pipeline), or the honest fallback when none was recorded. */
+const gapReason = (g: Gap | undefined, fallback: string) => g?.detail ?? fallback;
 
 const WHY = {
-  notOnPages: 'Not confirmed on the official pages we checked.',
+  notRecorded: 'No official statement of this has been recorded yet.',
   accreditation: 'Accreditation changes over time and has to come from the accrediting body. No record checked yet.',
   recognition: 'No official recognition record checked yet.',
   scholarships: 'No official scholarship information checked yet.',
@@ -92,7 +94,7 @@ const regionCell = (i: Institution): Cell => ({
 const typeCell = (i: Institution): Cell =>
   i.institutionType
     ? { state: 'verified', value: TYPE_SINGULAR[i.institutionType], norm: i.institutionType, sources: sourcesFor(i, 'institutionType'), lastVerified: i.lastVerified }
-    : unavailable(WHY.notOnPages);
+    : unavailable(gapReason(i.gaps.institutionType, WHY.notRecorded));
 
 const websiteCell = (i: Institution): Cell => ({
   state: 'verified',
@@ -119,7 +121,7 @@ const INSTITUTION_PARAMS: readonly ParamDef<Institution>[] = [
     cell: (i) =>
       i.establishedYear !== null
         ? { state: 'verified', value: String(i.establishedYear), norm: String(i.establishedYear), sources: sourcesFor(i, 'establishedYear'), lastVerified: i.lastVerified }
-        : unavailable(i.notes.establishedYear ?? WHY.notOnPages),
+        : unavailable(gapReason(i.gaps.establishedYear, i.notes.establishedYear ?? WHY.notRecorded)),
   },
   { id: 'website', group: 'identity', label: 'Official website', cell: websiteCell },
   {
@@ -136,7 +138,7 @@ const INSTITUTION_PARAMS: readonly ParamDef<Institution>[] = [
             sources: i.dataSources.filter((s) => s.field.startsWith('academicDomains:')),
             lastVerified: i.lastVerified,
           }
-        : unavailable(WHY.notOnPages),
+        : unavailable(gapReason(i.gaps.academicDomains, WHY.notRecorded)),
   },
   {
     id: 'courses',
@@ -152,7 +154,7 @@ const INSTITUTION_PARAMS: readonly ParamDef<Institution>[] = [
             sources: i.dataSources.filter((s) => s.field.startsWith('course:')),
             lastVerified: i.lastVerified,
           }
-        : unavailable('Course lists are being verified one institution at a time.'),
+        : unavailable(gapReason(i.gaps.availableCourses, 'Course lists are being verified one institution at a time.')),
   },
   { id: 'duration', group: 'academic', label: 'Course duration', cell: () => notApplicable(WHY.perProgramme) },
   { id: 'eligibility', group: 'academic', label: 'Eligibility', cell: () => notApplicable(WHY.perProgramme) },
@@ -180,7 +182,15 @@ const PROGRAMME_PARAMS: readonly ParamDef<Programme>[] = [
     id: 'programme',
     group: 'identity',
     label: 'Programme',
-    cell: (p) => ({ state: 'verified', value: p.course.name, norm: p.course.id, sources: sourcesFor(p.institution, `course:${p.id}`), lastVerified: p.institution.lastVerified }),
+    cell: (p) => ({
+      state: 'verified',
+      value: p.course.name,
+      norm: p.course.id,
+      sources: sourcesFor(p.institution, `course:${p.id}`),
+      lastVerified: p.institution.lastVerified,
+      // a programme only named in a menu or list is partly confirmed, and says so
+      ...(p.course.evidence === 'listing' ? { partial: true, derived: p.course.evidenceNote ?? 'Named in a programme list; no programme page we checked describes it.' } : p.course.evidenceNote ? { derived: p.course.evidenceNote } : {}),
+    }),
   },
   onInstitution('institution', 'Institution', nameCell),
   onInstitution('location', 'Location', locationCell, { comparable: true }),
@@ -201,8 +211,9 @@ const PROGRAMME_PARAMS: readonly ParamDef<Programme>[] = [
             norm: String(p.course.durationYears),
             sources: sourcesFor(p.institution, `duration:${p.id}`),
             lastVerified: p.institution.lastVerified,
+            ...(p.course.durationNote ? { derived: p.course.durationNote } : {}),
           }
-        : unavailable('The official page we checked does not state it.'),
+        : unavailable(gapReason(p.course.durationGap, 'No duration has been recorded for this programme.')),
   },
   { id: 'eligibility', group: 'academic', label: 'Eligibility', cell: () => unavailable('Differs by programme and year. No official record checked yet.') },
   { id: 'entrance', group: 'academic', label: 'Entrance examinations', cell: () => unavailable('Differs by programme and year. No official record checked yet.') },
@@ -231,14 +242,18 @@ const COURSE_PARAMS: readonly ParamDef<Course>[] = [
     label: 'Confirmed at',
     note: 'Partial: institutions whose official pages we checked.',
     cell: (c) => {
-      const hits = PROGRAMMES.filter((p) => p.course.pathwayId === c.id);
-      if (!hits.length) return unavailable('No institution confirmed for this course yet.');
+      const all = PROGRAMMES.filter((p) => p.course.pathwayId === c.id);
+      // a programme that is only named in a menu or list does not count as confirmed
+      const hits = all.filter((p) => p.course.evidence !== 'listing');
+      const listed = all.filter((p) => p.course.evidence === 'listing');
+      if (!hits.length) return unavailable(listed.length ? `Only named in a menu or list at ${listed.map((p) => p.institution.shortName).join(', ')}; no programme page we checked describes it.` : 'No institution confirmed for this course yet.');
       return {
         state: 'verified',
         value: hits.map((p) => p.institution.shortName).join(', '),
         norm: hits.map((p) => p.id).sort().join('|'),
         sources: hits.flatMap((p) => sourcesFor(p.institution, `course:${p.id}`)),
         lastVerified: hits[0].institution.lastVerified,
+        ...(listed.length ? { derived: `Also named in a menu or list, but not described on a programme page, at ${listed.map((p) => p.institution.shortName).join(', ')}.` } : {}),
       };
     },
   },

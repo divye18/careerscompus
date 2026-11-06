@@ -194,7 +194,7 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
               <ul className="mt-1 space-y-1" aria-label={`Confirmed courses at ${inst.shortName}`}>
                 {inst.availableCourses.map((c) => (
                   <li key={c.id} className="flex items-center justify-between gap-3">
-                    <span>{c.name}</span>
+                    <span>{c.name}{c.evidence === 'listing' && <span className="ml-2 text-[12px] text-ivory/75">(named in a menu only)</span>}</span>
                     <CompareProgrammeToggle id={c.id} name={`${c.name} at ${inst.shortName}`} />
                   </li>
                 ))}

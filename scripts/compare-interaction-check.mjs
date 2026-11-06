@@ -81,7 +81,7 @@ let r = await row('established');
 ok('two-institution comparison works', r.cells.length === 2);
 ok('verified value and missing value sit side by side', r.cells[0].state === 'verified' && /1961/.test(r.cells[0].text) && r.cells[1].state === 'unavailable' && /not verified/i.test(r.cells[1].text));
 ok('one verified + one missing is NOT a difference', r.differs === false && !r.cells.some((c) => c.marked));
-ok('the reason for a missing value is shown', /Not confirmed on the official pages/.test(r.cells[1].text));
+ok('the reason for a missing value is the recorded one, not a generic claim of having checked', /No unambiguous statement of the founding year has been recorded|No official statement of this has been recorded/.test(r.cells[1].text) && !/Not confirmed on the official pages we checked/.test(r.cells[1].text));
 if (!mobile) {
   const sem = await p.evaluate(() => { const t = [...document.querySelectorAll('#studio-workspace table')][0]; return { caption: !!t.querySelector('caption'), cols: t.querySelectorAll('thead th[scope="col"]').length, rowHeads: t.querySelectorAll('tbody th[scope="row"]').length, groups: t.querySelectorAll('th[scope="rowgroup"]').length }; });
   ok('real table semantics: caption, column, row and group headers', sem.caption && sem.cols === 3 && sem.rowHeads >= 6 && sem.groups >= 2, JSON.stringify(sem));
@@ -187,7 +187,17 @@ r = await row('duration');
 ok('same duration on two verified programmes is not a difference', r.differs === false && r.cells.every((c) => c.state === 'verified' && /4 years/.test(c.text)));
 await add('programme', 'vit-vellore--b-tech');
 r = await row('duration');
-ok('unstated duration stays Not verified, not a difference', r.differs === false && r.cells[2].state === 'unavailable' && /does not state/.test(r.cells[2].text));
+ok('unstated duration stays Not verified, not a difference', r.differs === false && r.cells[2].state === 'unavailable' && /does not give a duration|No duration has been recorded/.test(r.cells[2].text));
+if (data.evidenceSchema >= 2) {
+  const progRow = await row('programme');
+  ok('a programme only named in a menu (VIT B.Tech) is Partially verified, the statements are Verified', /partially verified/i.test(progRow.cells[2].text) && progRow.cells.slice(0, 2).every((x) => /verified/i.test(x.text) && !/partially/i.test(x.text)), progRow.cells.map((x) => x.text.replace(/\n/g, ' ').slice(0, 60)).join(' | '));
+  const vitSrc = ws.locator('[data-row="programme"]:visible [data-state="verified"]').nth(2).locator('details summary');
+  await vitSrc.click();
+  await p.waitForTimeout(200);
+  ok('its source says it is only listed, not described', /Listed, not described/.test(await ws.locator('[data-row="programme"]:visible').innerText()));
+} else {
+  console.log('SKIP  listing-evidence checks: the current dataset predates evidence kinds (they run once it is regenerated)');
+}
 await ws.getByRole('button', { name: 'Replace B.Tech' }).last().click();
 await p.waitForTimeout(150);
 await ws.locator('button[data-option="iit-kharagpur--b-arch"]').click();

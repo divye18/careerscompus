@@ -63,7 +63,7 @@ function CellBody({ cell, figure, partial, what }: { cell: Cell; figure: boolean
           ) : (
             <p className={figure ? 'font-atlas text-[28px] leading-none text-ivory' : 'text-[15px] leading-snug text-ivory'}>{figure ? <Figures>{cell.value}</Figures> : cell.value}</p>
           )}
-          <Evidence cell={cell} what={what} partial={partial} />
+          <Evidence cell={cell} what={what} partial={partial || Boolean(cell.partial)} />
         </>
       );
     case 'orientation':

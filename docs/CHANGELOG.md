@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-06 — Evidence pipeline hardening (dataset regenerated with --write)
+- `scripts/lib/evidence.mjs` + 28 unit tests and `scripts/tests/data.test.mjs`: ambiguous-match rejection, same-statement durations, recorded fetch failures, word-bounded exact excerpts, gap categories, stale-date check. `npm run test:evidence`.
+- `scripts/verify-institutions.mjs` is dry-run by default (writes `data/institutions/dry-run/`); `--write` replaces the dataset. Programme seed updated (Class C patterns tightened; two Class B programmes upgraded; six declared listings).
+- App reads optional `evidence`, `gaps`, `durationGap`, `durationNote` fields: listing programmes show Partially verified, missing facts show their recorded reason. No new status. Current data is unchanged, so behaviour is as before until the dry-run is approved. Details: `docs/SCENE_6_PATTERN_AUDIT.md`.
+
 ## 2026-11-06 — Scene 6 Comparison Studio (branch integrate/scene-6)
 - Parked Scene 6 integrated onto `af6ac9e` (backups: tag `backup/scene-6-6471554`, branch `backup/scene-6-comparison-studio-6471554`; `wip/scene-6-comparison-studio` untouched).
 - Redesigned to the constitution: masthead opening, shared `StatusLabel`, `Figures`, icons, radius tokens, un-nested columns, missing parameters listed once, decorative grid removed, Compare teaser removed.

@@ -69,7 +69,23 @@ export interface SourceNote {
   quote: string;
 }
 
-/** A programme confirmed on the institution's own pages. The list per institution is PARTIAL, never exhaustive. */
+/**
+ * Why a fact is missing, assigned only from a recorded outcome of the verification pipeline (never guessed):
+ *  not-located               an official page was fetched and the statement was not on it
+ *  source-unavailable        the official page could not be fetched or had no readable text
+ *  source-silent             the statement we matched does not give this detail
+ *  presence-not-established  a programme is only named in a menu or list
+ *  source-ambiguous          sources disagree, or describe something else
+ *  not-recorded              nothing has been recorded for it yet
+ * `detail` is the full explanation shown to students. This is not a fifth verification status: a gap is shown as Not verified.
+ */
+export type GapCategory = 'not-located' | 'source-unavailable' | 'source-silent' | 'presence-not-established' | 'source-ambiguous' | 'not-recorded';
+export interface Gap {
+  category: GapCategory;
+  detail: string;
+}
+
+/** A programme found on the institution's own pages. The list per institution is PARTIAL, never exhaustive. */
 export interface VerifiedCourse {
   /** `<institutionId>--<slug>` */
   id: string;
@@ -78,6 +94,14 @@ export interface VerifiedCourse {
   pathwayId: string | null;
   /** only when the official page states it; null otherwise */
   durationYears: number | null;
+  /** "statement": a statement about the programme matched once. "listing": only named in a menu or list (partly confirmed). Absent in older data. */
+  evidence?: 'statement' | 'listing';
+  /** what was reviewed, for a listing */
+  evidenceNote?: string;
+  /** a caution about how the duration was read from the page (for example words run together) */
+  durationNote?: string;
+  /** why durationYears is null */
+  durationGap?: Gap;
 }
 
 export interface Institution {
@@ -102,6 +126,8 @@ export interface Institution {
   dataSources: readonly SourceNote[];
   /** known, specific reasons a field is unavailable (e.g. official pages disagree) */
   notes: { readonly establishedYear?: string };
+  /** recorded reasons for missing facts, by field; empty in older data */
+  gaps: Readonly<Record<string, Gap>>;
   /** ISO date the facts were last checked against the official pages */
   lastVerified: string;
 }
@@ -126,6 +152,7 @@ export const INSTITUTIONS: readonly Institution[] = raw.institutions
     coordinates: null,
     dataSources: r.sources,
     notes: r.notes,
+    gaps: (r as unknown as { gaps?: Record<string, Gap> }).gaps ?? {},
     lastVerified: r.lastVerified,
   }))
   .sort((a, b) => a.shortName.localeCompare(b.shortName));
