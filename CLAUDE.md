@@ -32,7 +32,7 @@
 - QA: `courses-check.mjs`, `courses-interaction-check.mjs [url] desktop|mobile|reduced|nowebgl`, `courses-transitions.mjs`, `courses-perf.mjs`, `contrast-measure-courses.mjs` (need `npx next start -p 3100`).
 
 ## Scene 5 (University Atlas) — done (M4)
-- Code in `src/journey/universities/`, content in `src/content/institutions.ts`; data is GENERATED: edit `data/institutions/seed.json` and `programmes.seed.json`, run `node scripts/verify-institutions.mjs` (network; DRY RUN by default, writes only `data/institutions/dry-run/`), review it, then `node scripts/verify-institutions.mjs --write` to apply. Run `npm run test:evidence` after. Never hand-edit `institutions.data.json`; never add a fact without evidence. Do not start Scene 6+ without approval.
+- Code in `src/journey/universities/`, content in `src/content/institutions.ts`; data is GENERATED: edit `data/institutions/seed.json` and `programmes.seed.json`, run `node scripts/verify-institutions.mjs` (network; DRY RUN by default, writes only `data/institutions/dry-run/`), review it, then `node scripts/verify-institutions.mjs --write` to apply. Run `npm run test:evidence` after (it fails once verification dates pass 180 days; see `docs/EVIDENCE_PIPELINE.md`). Never hand-edit `institutions.data.json`; never add a fact without evidence. Do not start Scene 6+ without approval.
 - QA: `universities-check.mjs`, `universities-interaction-check.mjs [url] desktop|mobile|reduced|nowebgl`, `universities-transitions.mjs`, `universities-perf.mjs`, `contrast-measure-universities.mjs`.
 
 ## Design Constitution (binding on all work)

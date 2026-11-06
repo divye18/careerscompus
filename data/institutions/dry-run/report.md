@@ -1,4 +1,4 @@
-# Institution data verification (2026-11-06) 
+# Institution data verification (2026-11-06) (DRY RUN: nothing in src/ was changed)
 
 Every kept claim matched a pattern on the live official page; quotes are exact, word-bounded excerpts. Anything not listed as verified is shown to students as unavailable, with its recorded reason.
 
@@ -47,3 +47,48 @@ Kept: 17 of 17
 | bits-pilani--b-e-computer-science | listing | matched | 2 |  |
 | bits-pilani--b-pharm | listing | matched | 2 |  |
 | vit-vellore--b-tech | listing | matched | 1 |  |
+
+## Institution-level claim match counts (diagnostic only)
+
+These claims always use the FIRST match. This section records how many places each pattern matched; it never changes a fact. 62 claims were checked: 24 matched once, 36 matched the same phrase several times (the page simply repeats it), 2 matched different wording (review these).
+
+| Institution | Claim | Matches | Shape | Distinct wordings |
+|---|---|---|---|---|
+| iit-delhi | name | 9 | repeated | indian institute of technology delhi |
+| iit-delhi | city | 6 | varied | hauz khas / new delhi |
+| iit-delhi | academicDomains:technology | 9 | repeated | institute of technology |
+| iit-bombay | name | 2 | repeated | iit bombay was established |
+| iit-bombay | academicDomains:technology | 2 | repeated | indian institute of technology |
+| iit-madras | city | 4 | repeated | chennai |
+| iit-kanpur | name | 4 | repeated | indian institute of technology kanpur |
+| iit-kanpur | city | 4 | repeated | indian institute of technology kanpur |
+| iit-kanpur | academicDomains:technology | 4 | repeated | institute of technology |
+| iit-kharagpur | name | 4 | repeated | indian institute of technology kharagpur |
+| iit-kharagpur | city | 4 | repeated | technology kharagpur |
+| iit-kharagpur | academicDomains:technology | 8 | repeated | institute of technology |
+| iit-guwahati | name | 4 | repeated | indian institute of technology guwahati |
+| iit-guwahati | city | 4 | repeated | technology guwahati |
+| iit-guwahati | academicDomains:technology | 4 | repeated | institute of technology |
+| iisc-bengaluru | name | 3 | repeated | indian institute of science |
+| iisc-bengaluru | city | 2 | repeated | bengaluru |
+| iisc-bengaluru | academicDomains:science | 3 | repeated | indian institute of science |
+| university-of-delhi | name | 13 | varied | delhi university / university of delhi |
+| university-of-delhi | city | 3 | repeated | delhi university |
+| aiims-delhi | name | 3 | repeated | all india institute of medical sciences |
+| aiims-delhi | city | 2 | repeated | medical sciences, new delhi |
+| aiims-delhi | academicDomains:medicine | 4 | repeated | institute of medical sciences |
+| spa-delhi | name | 5 | repeated | school of planning and architecture |
+| spa-delhi | city | 2 | repeated | architecture, new delhi |
+| spa-delhi | academicDomains:architecture | 5 | repeated | planning and architecture |
+| nlsiu-bengaluru | name | 7 | repeated | national law school of india university |
+| nlsiu-bengaluru | city | 3 | repeated | university, bengaluru |
+| nlsiu-bengaluru | academicDomains:law | 7 | repeated | national law school |
+| iim-ahmedabad | name | 3 | repeated | indian institute of management ahmedabad |
+| iim-ahmedabad | city | 3 | repeated | management ahmedabad |
+| iim-ahmedabad | academicDomains:business | 3 | repeated | indian institute of management |
+| vit-vellore | city | 8 | repeated | vellore |
+| banaras-hindu-university | name | 6 | repeated | banaras hindu university |
+| aiims-bhopal | name | 15 | repeated | aiims bhopal |
+| aiims-bhopal | city | 15 | repeated | aiims bhopal |
+| anna-university | name | 191 | repeated | anna university |
+| anna-university | city | 25 | repeated | anna university, chennai |

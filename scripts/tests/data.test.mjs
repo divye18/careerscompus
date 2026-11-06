@@ -1,5 +1,5 @@
 // Invariants of the generated institution data. Run: node --test scripts/tests/
-// Checks src/content/institutions.data.json and, when present, the dry-run output data/institutions/dry-run/institutions.data.proposed.json.
+// Checks src/content/institutions.data.json and, when present, the git-ignored dry-run output data/institutions/dry-run/institutions.data.proposed.json.
 // Older data (no evidenceSchema) is checked for the invariants it can meet; excerpt quality there is reported as a todo until regenerated.
 import test from 'node:test';
 import assert from 'node:assert/strict';

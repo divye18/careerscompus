@@ -8,7 +8,8 @@
  *
  * Usage:
  *   node scripts/verify-institutions.mjs            DRY RUN (default). Needs network. Writes only to data/institutions/dry-run/:
- *                                                   institutions.data.proposed.json, match-log.json, report.md, diff-vs-current.md
+ *                                                   institutions.data.proposed.json (git-ignored), match-log.json,
+ *                                                   claim-match-diagnostics.json, report.md, diff-vs-current.md
  *   node scripts/verify-institutions.mjs --write    ALSO replaces src/content/institutions.data.json and
  *                                                   docs/qa-screenshots/universities/verification-report.md
  *
@@ -20,9 +21,11 @@
  *   kind "listing"              the programme is only named in a menu or list: recorded as partly confirmed
  *   duration                    only from its own pattern, in the same statement as the programme match, stating the years
  * Failed fetches, empty pages, ambiguous matches and unassociated durations are recorded, never silently dropped.
+ * Institution-level claims (name, city, type, year, domain) use the FIRST match, as always. How many places each pattern matched
+ * is recorded in claim-match-diagnostics.json (diagnostic only: it never changes which match is used, or any fact).
  */
 import fs from 'node:fs';
-import { associateDuration, excerptAround, excerptProblems, findMatches, gap, isGluedMatch, isStale, matchProgramme, parseYears, programmeNameIn } from './lib/evidence.mjs';
+import { associateDuration, excerptAround, excerptProblems, findMatches, gap, isGluedMatch, isStale, matchDiagnostics, matchProgramme, parseYears, programmeNameIn } from './lib/evidence.mjs';
 
 const WRITE = process.argv.includes('--write');
 const DRY = 'data/institutions/dry-run';
@@ -74,9 +77,17 @@ async function check(ev) {
   if (!p.text || p.text.trim().length < 200) return { ok: false, status: 'empty-page', why: 'the page text is empty or almost empty' };
   const ms = findMatches(p.text, ev.re);
   if (!ms.length) return { ok: false, status: 'not-found', why: 'pattern not found' };
-  const { excerpt, problems } = makeExcerpt(p.text, ms[0], ev.re);
+  const { excerpt, problems } = makeExcerpt(p.text, ms[0], ev.re); // the FIRST match is always the one used
   if (problems.length) return { ok: false, status: 'bad-excerpt', why: problems.join('; ') };
-  return { ok: true, url: ev.url, quote: excerpt, matchCount: ms.length };
+  return { ok: true, url: ev.url, quote: excerpt, matchCount: ms.length, diag: matchDiagnostics(p.text, ev.re) };
+}
+
+/** Diagnostics for institution-level claims (name, city, type, year, domain). Recorded, never used to choose a match. */
+const claimLog = [];
+async function checkClaim(institution, field, ev) {
+  const r = await check(ev);
+  if (ev && r?.ok) claimLog.push({ institution, field, url: ev.url, pattern: ev.re, ...r.diag });
+  return r;
 }
 
 const gapFor = (r, what) =>
@@ -96,8 +107,8 @@ try { previous = JSON.parse(fs.readFileSync(CURRENT, 'utf8')); } catch { /* firs
 
 for (const s of seed.institutions) {
   const home = await page(s.website);
-  const nm = await check(s.nameEv);
-  const ct = await check(s.cityEv);
+  const nm = await checkClaim(s.id, 'name', s.nameEv);
+  const ct = await checkClaim(s.id, 'city', s.cityEv);
   if (!nm?.ok || !ct?.ok || !home.ok || !CITY_STATE[s.city]) {
     report.push(`| ${s.short} | DROPPED | name:${nm?.ok ? 'ok' : nm?.why} city:${ct?.ok ? 'ok' : ct?.why} website:${home.ok ? 'ok' : home.err} |`);
     continue;
@@ -109,13 +120,13 @@ for (const s of seed.institutions) {
   const notes = extra.notes[s.id] ?? {};
 
   if (s.type) {
-    const r = await check(s.type);
+    const r = await checkClaim(s.id, 'institutionType', s.type);
     if (r.ok) { rec.institutionType = s.type.value; sources.push({ field: 'institutionType', url: r.url, quote: r.quote }); }
     else { miss.push(`type(${r.why})`); gaps.institutionType = gapFor(r, 'its type'); }
   } else { miss.push('type(no evidence recorded)'); gaps.institutionType = gap('not-recorded', 'No statement of the institution type has been recorded.'); }
 
   if (s.established) {
-    const r = await check(s.established);
+    const r = await checkClaim(s.id, 'establishedYear', s.established);
     if (r.ok) { rec.establishedYear = s.established.value; sources.push({ field: 'establishedYear', url: r.url, quote: r.quote }); }
     else { miss.push(`established(${r.why})`); gaps.establishedYear = gapFor(r, 'its founding year'); }
   } else {
@@ -124,7 +135,7 @@ for (const s of seed.institutions) {
   }
 
   for (const d of s.domains) {
-    const r = await check(d);
+    const r = await checkClaim(s.id, `academicDomains:${d.id}`, d);
     if (r.ok) { rec.academicDomains.push(d.id); sources.push({ field: `academicDomains:${d.id}`, url: r.url, quote: r.quote }); }
     else { miss.push(`domain ${d.id}(${r.why})`); gaps[`academicDomains:${d.id}`] = gapFor(r, `the ${d.id} domain`); }
   }
@@ -252,7 +263,11 @@ const diffMd = `# Proposed changes versus the dataset in the repository\n\nPrevi
 fs.mkdirSync(DRY, { recursive: true });
 fs.writeFileSync(`${DRY}/institutions.data.proposed.json`, JSON.stringify(data, null, 1) + '\n');
 fs.writeFileSync(`${DRY}/match-log.json`, JSON.stringify(matchLog, null, 1) + '\n');
-fs.writeFileSync(`${DRY}/report.md`, reportMd);
+fs.writeFileSync(`${DRY}/claim-match-diagnostics.json`, JSON.stringify(claimLog, null, 1) + '\n');
+const multi = claimLog.filter((c) => c.count > 1);
+const shapeCount = (shape) => claimLog.filter((c) => c.shape === shape).length;
+const claimMd = `\n## Institution-level claim match counts (diagnostic only)\n\nThese claims always use the FIRST match. This section records how many places each pattern matched; it never changes a fact. ${claimLog.length} claims were checked: ${shapeCount('single')} matched once, ${shapeCount('repeated')} matched the same phrase several times (the page simply repeats it), ${shapeCount('varied')} matched different wording (review these).\n\n| Institution | Claim | Matches | Shape | Distinct wordings |\n|---|---|---|---|---|\n${multi.map((c) => `| ${c.institution} | ${c.field} | ${c.count} | ${c.shape} | ${c.variants.join(' / ')} |`).join('\n') || '| (none) | | | | |'}\n`;
+fs.writeFileSync(`${DRY}/report.md`, reportMd + claimMd);
 fs.writeFileSync(`${DRY}/diff-vs-current.md`, diffMd);
 if (WRITE) {
   fs.writeFileSync(CURRENT, JSON.stringify(data, null, 1) + '\n');

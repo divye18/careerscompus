@@ -21,6 +21,28 @@ export function findMatches(text, re) {
 }
 
 /**
+ * Diagnostics for how many places a claim pattern matches. DIAGNOSTIC ONLY: it never decides which match is used. The
+ * pipeline always uses the first match (`selectedIndex` 0), exactly as before, and this function reports that choice so it
+ * is visible rather than silent.
+ *   shape "single"           one match
+ *   shape "repeated"         several matches, all the same phrase (ignoring case): the page simply repeats it
+ *   shape "varied"           several matches with different wording: one pattern is matching different things
+ * `others` are bounded context excerpts of the matches that were NOT used.
+ */
+export function matchDiagnostics(text, re, { maxOthers = 3, context = 40 } = {}) {
+  const ms = findMatches(text, re);
+  const variants = [...new Set(ms.map((m) => m.text.toLowerCase()))];
+  return {
+    count: ms.length,
+    selectedIndex: ms.length ? 0 : null,
+    shape: ms.length === 0 ? 'none' : ms.length === 1 ? 'single' : variants.length === 1 ? 'repeated' : 'varied',
+    distinctTexts: variants.length,
+    variants: variants.slice(0, 5),
+    others: ms.slice(1, 1 + maxOthers).map((m) => ({ at: m.index, around: text.slice(Math.max(0, m.index - context), Math.min(text.length, m.end + context)) })),
+  };
+}
+
+/**
  * Is the punctuation at `i` the end of a sentence? A full stop inside an abbreviation ("Ph.D.", "LL.M.", "B.Tech.",
  * "Dr.") is not, and the next word must start like a sentence (capital, digit or opening quote) or the text must end.
  */

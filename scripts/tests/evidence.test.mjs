@@ -199,3 +199,33 @@ test('a different wording on the page needs a declared alias, and the alias is r
   assert.equal(programmeNameIn(text, 'MBA (PGP)', ['Postgraduate Programme (PGP)']), 'Postgraduate Programme (PGP)');
   assert.equal(programmeNameIn('Under-graduate Programs Bachelor of Architecture Bachelor of Planning', 'B.Arch', ['Bachelor of Architecture']), 'Bachelor of Architecture');
 });
+
+// ---------- multi-match diagnostics (diagnostic only: they never change which match is used)
+import { matchDiagnostics } from '../lib/evidence.mjs';
+test('diagnostics: no match, one match, a repeated phrase and varied wording are told apart', () => {
+  assert.equal(matchDiagnostics('nothing here', 'Anna University').shape, 'none');
+  assert.equal(matchDiagnostics('x Anna University y', 'Anna University').shape, 'single');
+  const rep = matchDiagnostics('Anna University and anna university and ANNA UNIVERSITY', 'Anna University');
+  assert.equal(rep.count, 3);
+  assert.equal(rep.shape, 'repeated');
+  assert.equal(rep.distinctTexts, 1);
+  const varied = matchDiagnostics('Delhi University and University of Delhi', 'Delhi University|University of Delhi');
+  assert.equal(varied.shape, 'varied');
+  assert.equal(varied.distinctTexts, 2);
+});
+test('diagnostics never change which match is used: the first match is selected and the same as findMatches', () => {
+  const text = 'a Chennai b Chennai c Chennai';
+  const d = matchDiagnostics(text, 'Chennai');
+  assert.equal(d.selectedIndex, 0);
+  assert.equal(findMatches(text, 'Chennai')[0].index, 2);
+  assert.equal(d.others[0].at, 12, 'the unused matches are reported after the selected one');
+  assert.equal(matchDiagnostics(text, 'Chennai').count, 3, 'calling it does not alter anything');
+});
+test('diagnostics bound the amount of context and the number of unused matches reported', () => {
+  const text = ('Vellore ' + 'filler '.repeat(40)).repeat(10);
+  const d = matchDiagnostics(text, 'Vellore', { maxOthers: 2, context: 15 });
+  assert.equal(d.others.length, 2);
+  assert.ok(d.others.every((o) => o.around.length <= 15 + 7 + 15));
+  assert.equal(d.count, 10);
+  assert.equal(matchDiagnostics('', 'x').count, 0);
+});
