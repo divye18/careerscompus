@@ -78,7 +78,7 @@ function Picker({ mode, aNoun, target, selected, onPick, onClose }: { mode: Comp
         </button>
       </div>
       {mode === 'programmes' && (
-        <p className="mt-1 text-[13px] leading-snug text-ivory/80">Only programmes confirmed on an institution’s own pages can be compared here. This list is partial, not a full catalogue.</p>
+        <p className="mt-1 text-[13px] leading-snug text-ivory/80">Only programmes found on an institution’s own pages can be compared here. Some are only listed there, without a description, and show as partially verified. This list is partial, not a full catalogue.</p>
       )}
       {mode === 'courses' && <p className="mt-1 text-[13px] leading-snug text-ivory/80">These are the general course pathways from earlier in the journey. They are orientation, not verified records.</p>}
       <div className="mt-4 gap-8 sm:columns-2 lg:columns-3 xl:columns-4">
@@ -396,7 +396,7 @@ export function ComparisonStudio() {
               <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-ivory/85">
                 {mode === 'institutions' && `Add two or three of the ${INSTITUTIONS.length} verified institutions above, or add them from the university atlas as you explore.`}
                 {mode === 'courses' && 'Add two or three course pathways above, or add a course from the pathway chart as you explore it.'}
-                {mode === 'programmes' && `Add two or three of the ${PROGRAMMES.length} programmes confirmed so far. Only verified institution and course pairs are offered.`}
+                {mode === 'programmes' && `Add two or three of the ${PROGRAMMES.length} programmes found so far. Only institution and programme pairs found on the institution’s own pages are offered.`}
               </p>
               <dl className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
                 {GROUP_ORDER.map((g) => (

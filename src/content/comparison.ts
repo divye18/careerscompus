@@ -144,7 +144,7 @@ const INSTITUTION_PARAMS: readonly ParamDef<Institution>[] = [
     id: 'courses',
     group: 'academic',
     label: 'Available courses',
-    note: 'Partial: only what we confirmed so far.',
+    note: 'Partial: only what we found so far.',
     cell: (i) =>
       i.availableCourses.length
         ? {
