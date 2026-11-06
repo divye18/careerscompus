@@ -27,7 +27,7 @@ export function FAQSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white rounded-xl border border-slate-200 overflow-hidden"
+              className="bg-white rounded-atlas-lg border border-slate-200 overflow-hidden"
             >
               <button 
                 className="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none"

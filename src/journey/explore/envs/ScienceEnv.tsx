@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ArtFrame, Label } from './shared';
+import { ArtCaption, ArtFrame, Label } from './shared';
 
 /**
  * SCIENCE & RESEARCH — an exploratory research notebook, not glowing planets.
@@ -46,10 +46,11 @@ function ScienceArtImpl() {
   return (
     <ArtFrame
       viewBox={SCIENCE_VIEWBOX}
+      caption={<ArtCaption>Fig. 07 · Models and measurement · Schematic</ArtCaption>}
       overlay={
         <span
           aria-hidden="true"
-          className="absolute group-data-[active=true]/room:animate-[atlas-spin_120s_linear_infinite]"
+          className="absolute group-data-[opened=true]/room:animate-[atlas-turn-in_2.8s_ease-out_1]"
           style={{ left: '3%', top: '9%', width: '52%', aspectRatio: '1' }}
         >
           <svg viewBox="-260 -260 520 520" className="h-full w-full" fill="none" stroke="currentColor" strokeWidth={1.3}>
@@ -99,7 +100,6 @@ function ScienceArtImpl() {
       <path d="M582 596C640 596 660 560 690 530 S740 480 770 520 S830 592 870 590 S930 575 958 572" strokeWidth={1.8} />
       <Label x={770} y={466} anchor="middle" size={10} opacity={0.9}>ΔE = hν</Label>
       <Label x={960} y={622} anchor="end" size={10} opacity={0.6}>energy →</Label>
-      <Label x={40} y={660} size={10} opacity={0.55}>FIG. 07 — MODELS &amp; MEASUREMENT (SCHEMATIC)</Label>
     </ArtFrame>
   );
 }

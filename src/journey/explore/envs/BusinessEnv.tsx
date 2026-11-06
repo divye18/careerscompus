@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ArtFrame, Label } from './shared';
+import { ArtCaption, ArtFrame, Label } from './shared';
 
 /**
  * BUSINESS & MANAGEMENT — an editorial strategy plate.
@@ -33,7 +33,8 @@ const BARS = [64, 92, 78, 120, 104, 150, 132, 176, 160, 206, 188, 232];
 
 function BusinessArtImpl() {
   return (
-    <ArtFrame viewBox={BUSINESS_VIEWBOX}>
+    <ArtFrame viewBox={BUSINESS_VIEWBOX}
+      caption={<ArtCaption>Fig. 03 · Scenarios · Illustrative, not data</ArtCaption>}>
       {/* layered information plates */}
       <rect x={70} y={44} width={860} height={330} rx={4} className="stroke-ivory" strokeOpacity={0.07} />
       <rect x={52} y={62} width={860} height={330} rx={4} className="stroke-ivory" strokeOpacity={0.11} />
@@ -64,8 +65,6 @@ function BusinessArtImpl() {
           <Label x={Number(x) + 14} y={Number(y) + 4} size={13} opacity={0.95} className="fill-champagne">{String(t)}</Label>
         </g>
       ))}
-      <Label x={40} y={420} size={10} opacity={0.55}>FIG. 03 — SCENARIOS (ILLUSTRATIVE, NOT DATA)</Label>
-      <Label x={1360} y={420} anchor="end" size={10} opacity={0.55}>DECISION · RISK · RETURN</Label>
     </ArtFrame>
   );
 }

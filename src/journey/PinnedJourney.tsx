@@ -62,8 +62,8 @@ export function PinnedJourney({ onWorldFail }: { onWorldFail?: () => void }) {
             style={{ opacity: cue, display: cueDisplay }}
             aria-hidden="true"
           >
-            <span className="block h-9 w-px origin-top bg-silver/60 animate-[atlas-cue_1.8s_ease-in-out_infinite]" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-silver">
+            <span className="block h-9 w-px origin-top bg-silver/60 animate-[atlas-cue_1.8s_ease-in-out_3]" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-silver">
               Scroll
             </span>
           </motion.div>

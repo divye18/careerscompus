@@ -46,13 +46,13 @@ export function FinalCTA() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/#act-discovery" 
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--color-royal-blue)] hover:bg-[#1E2A78] text-white font-bold rounded-lg transition-all hover:-translate-y-1 shadow-[0_4px_25px_rgba(49,85,217,0.4)]"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--color-royal-blue)] hover:bg-[#1E2A78] text-white font-bold rounded-atlas transition-all hover:-translate-y-1 shadow-[0_4px_25px_rgba(49,85,217,0.4)]"
             >
               Explore Careers <ArrowRight className="w-4 h-4" />
             </Link>
             <Link 
               href="/#act-guidance"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/80 backdrop-blur-md border border-[var(--color-royal-deep)]/20 hover:bg-white text-[var(--color-royal-deep)] font-medium rounded-lg transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/80 backdrop-blur-md border border-[var(--color-royal-deep)]/20 hover:bg-white text-[var(--color-royal-deep)] font-medium rounded-atlas transition-colors"
             >
               Get Guidance
             </Link>

@@ -34,7 +34,7 @@ export interface Domain {
 }
 
 export const EXPLORE_DISCLAIMER =
-  'General orientation only. Programme names and requirements vary by institution — always check official sources.';
+  'Programme names and requirements vary by institution, so always check official sources.';
 
 export const DOMAINS: readonly Domain[] = [
   {

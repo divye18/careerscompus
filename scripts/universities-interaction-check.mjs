@@ -48,7 +48,7 @@ await regionBtn.focus(); await p.keyboard.press('Enter');
 ok('Enter selects a region (aria-pressed)', (await regionBtn.getAttribute('aria-pressed')) === 'true');
 await p.waitForTimeout(300);
 const infoText = await sec.innerText();
-ok('region panel shows the verified count and the grouping note', /5 verified institutions/.test(infoText) && /Tamil Nadu, Karnataka/.test(infoText));
+ok('region panel shows the verified count and the grouping note', /5 institutions checked/.test(infoText) && /Tamil Nadu, Karnataka/.test(infoText));
 
 // institution by keyboard
 const iitm = mobile ? sec.locator('ol[aria-label="Institutions"] button', { hasText: 'IIT Madras' }) : sec.locator('button[aria-label^="Indian Institute of Technology Madras"]');

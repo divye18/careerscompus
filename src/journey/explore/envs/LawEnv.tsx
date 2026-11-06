@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ArtFrame, Label } from './shared';
+import { ArtCaption, ArtFrame, Label } from './shared';
 
 /**
  * LAW & PUBLIC POLICY — institutions, justice and governance.
@@ -30,7 +30,8 @@ const COLS = [0, 1, 2, 3, 4, 5];
 
 function LawArtImpl() {
   return (
-    <ArtFrame viewBox={LAW_VIEWBOX}>
+    <ArtFrame viewBox={LAW_VIEWBOX}
+      caption={<ArtCaption>Fig. 05 · Institutions · Illustrative</ArtCaption>}>
       {/* document layers behind the façade (mirrored) */}
       {[-1, 0, 1].map((k) => (
         <g key={k} transform={`rotate(${k * 2.2} 500 340)`}>
@@ -43,8 +44,8 @@ function LawArtImpl() {
           <path d={`M680 ${270 + i * 36}H810`} />
         </g>
       ))}
-      <Label x={190} y={252} size={10} opacity={0.55}>§ 1 — RIGHTS</Label>
-      <Label x={810} y={252} anchor="end" size={10} opacity={0.55}>§ 2 — DUTIES</Label>
+      <Label x={190} y={252} size={10} opacity={0.55}>§ 1 · RIGHTS</Label>
+      <Label x={810} y={252} anchor="end" size={10} opacity={0.55}>§ 2 · DUTIES</Label>
       {/* pediment */}
       <path d="M170 196L500 66L830 196Z" strokeWidth={1.8} />
       <path d="M214 184L500 80L786 184" strokeOpacity={0.35} />
@@ -77,7 +78,6 @@ function LawArtImpl() {
       <rect x={90} y={570} width={820} height={22} className="stroke-current" strokeOpacity={0.6} />
       {/* axis of symmetry */}
       <path d="M500 40V620" className="stroke-ivory" strokeOpacity={0.18} strokeDasharray="2 8" />
-      <Label x={500} y={650} anchor="middle" size={10} opacity={0.55}>FIG. 05 — INSTITUTIONS (ILLUSTRATIVE)</Label>
     </ArtFrame>
   );
 }

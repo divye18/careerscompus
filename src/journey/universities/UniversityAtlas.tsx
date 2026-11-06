@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from 'react';
 import { DOMAINS } from '@/content/domains';
 import {
-  DATA_LAST_VERIFIED,
   INSTITUTIONS,
   REGIONS,
   TYPE_LABELS,
@@ -14,7 +13,10 @@ import {
   type RegionId,
 } from '@/content/institutions';
 import type { DomainId } from '@/theme/tokens';
+import type { VerificationStatus } from '@/content/verification';
+import { Figures } from '../Figures';
 import { goTo } from '../scroll';
+import { StatusLabel, StatusLegend } from '../StatusLabel';
 import { AtlasIntro } from './AtlasIntro';
 import { AV_H, AV_W, CAPTIONS, HUBS, HUB_EDGES, PLACED, pct } from './atlasLayout';
 
@@ -80,7 +82,7 @@ function Chip({ on, disabled, onClick, children, title }: { on: boolean; disable
       disabled={disabled}
       title={title}
       onClick={onClick}
-      className={`inline-flex min-h-[44px] items-center gap-2 rounded-md border px-3 text-[14px] transition-colors ${focusRing} ${
+      className={`inline-flex min-h-[44px] items-center gap-2 rounded-atlas-sm border px-3 text-[14px] transition-colors ${focusRing} ${
         on ? 'border-cyan text-ivory' : 'border-ivory/20 text-ivory/85 hover:border-ivory/50 hover:text-ivory'
       } disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/20`}
     >
@@ -91,11 +93,14 @@ function Chip({ on, disabled, onClick, children, title }: { on: boolean; disable
 
 const Count = ({ n }: { n: number }) => <span className="font-mono text-[11px] text-silver">{n}</span>;
 
-function Fact({ label, children }: { label: string; children: ReactNode }) {
+function Fact({ label, status, children }: { label: string; status: VerificationStatus; children: ReactNode }) {
   return (
     <div>
-      <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-champagne">{label}</dt>
-      <dd className="mt-1 text-[15px] leading-snug text-ivory/90">{children}</dd>
+      <dt className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-champagne">{label}</span>
+        <StatusLabel state={status} />
+      </dt>
+      <dd className="mt-1.5 text-[15px] leading-snug text-ivory/90">{children}</dd>
     </div>
   );
 }
@@ -109,7 +114,7 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
     return (
       <div>
         <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-champagne">{region ? region.label : 'The atlas'}</p>
-        <h3 className="mt-2 font-atlas text-[30px] leading-[1.05] text-ivory">{region ? `${regionCount} verified ${regionCount === 1 ? 'institution' : 'institutions'}` : `${INSTITUTIONS.length} institutions so far`}</h3>
+        <h3 className="mt-2 font-atlas text-[30px] leading-[1.05] text-ivory"><Figures>{region ? `${regionCount} ${regionCount === 1 ? 'institution' : 'institutions'} checked` : `${INSTITUTIONS.length} institutions so far`}</Figures></h3>
         <p className="mt-3 text-[15px] leading-relaxed text-ivory/85">
           {region
             ? region.id === 'international'
@@ -120,9 +125,6 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
         {visibleCount === 0 && (
           <p className="mt-3 text-[15px] leading-relaxed text-ivory/85">No verified institution matches these filters. Try removing one, or reset.</p>
         )}
-        <p className="mt-4 font-mono text-[10px] leading-relaxed tracking-wide text-ivory/70">
-          Positions on the atlas are schematic, for orientation only. They are not locations on a map.
-        </p>
       </div>
     );
   }
@@ -132,7 +134,7 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
       <button
         type="button"
         onClick={() => dispatch({ t: 'close' })}
-        className={`-ml-1 inline-flex min-h-[44px] items-center rounded-md px-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ivory/85 hover:text-ivory ${focusRing}`}
+        className={`-ml-1 inline-flex min-h-[44px] items-center rounded-atlas-sm px-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ivory/85 hover:text-ivory ${focusRing}`}
       >
         ← Back to the atlas
       </button>
@@ -141,9 +143,9 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
       </p>
       <h3 className="mt-2 font-atlas text-[clamp(28px,2.6vw,36px)] leading-[1.05] text-ivory">{inst.name}</h3>
       <dl className="mt-5 space-y-4">
-        <Fact label="Institution type">{inst.institutionType ? TYPE_LABELS[inst.institutionType] : <Soon />}</Fact>
-        <Fact label="Established">{inst.establishedYear ?? <Soon />}</Fact>
-        <Fact label="Official website">
+        <Fact label="Institution type" status={inst.institutionType ? 'verified' : 'unverified'}>{inst.institutionType ? TYPE_LABELS[inst.institutionType] : <Soon />}</Fact>
+        <Fact label="Established" status={inst.establishedYear !== null ? 'verified' : 'unverified'}>{inst.establishedYear ?? <Soon />}</Fact>
+        <Fact label="Official website" status="verified">
           <a
             href={inst.officialWebsite}
             target="_blank"
@@ -154,7 +156,7 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </Fact>
-        <Fact label="Academic domains">
+        <Fact label="Academic domains" status={inst.academicDomains.length ? 'partial' : 'unverified'}>
           {inst.academicDomains.length ? (
             <ul className="mt-1 flex flex-wrap gap-1.5" aria-label="Academic domains">
               {inst.academicDomains.map((d) => (
@@ -177,11 +179,11 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
             <Soon />
           )}
         </Fact>
-        <Fact label="Available courses">{inst.availableCourses.length ? inst.availableCourses.join(', ') : <span className="text-ivory/70">Course lists are being verified institution by institution. {COMING}.</span>}</Fact>
-        <Fact label="Admission information">
+        <Fact label="Available courses" status={inst.availableCourses.length ? 'partial' : 'unverified'}>{inst.availableCourses.length ? inst.availableCourses.join(', ') : <span className="text-ivory/70">Course lists are being verified institution by institution. {COMING}.</span>}</Fact>
+        <Fact label="Admission information" status="unverified">
           <Soon />
         </Fact>
-        <Fact label="Accreditation & recognition">
+        <Fact label="Accreditation & recognition" status="unverified">
           <Soon />
         </Fact>
       </dl>
@@ -195,13 +197,14 @@ function InfoPanel({ s, dispatch, visibleCount, regionCount }: { s: State; dispa
             .filter((x) => x.field !== 'officialWebsite')
             .map((x) => (
               <li key={`${x.field}-${x.url}`} className="leading-snug">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-silver">{x.field.replace('academicDomains:', 'domain: ')}</span>{' '}
+                <span className="font-mono text-[11px] uppercase tracking-wider text-silver">{x.field.replace('academicDomains:', 'domain: ')}</span>{' '}
                 <a href={x.url} target="_blank" rel="noopener noreferrer" className={`break-all rounded-sm underline decoration-champagne/60 underline-offset-2 hover:decoration-ivory ${focusRing}`}>
                   {x.url.replace(/^https?:\/\//, '')}
                 </a>
               </li>
             ))}
         </ul>
+        <StatusLegend states={['verified', 'partial', 'unverified']} className="mt-4 space-y-3 border-t border-ivory/15 pt-4" />
       </details>
     </div>
   );
@@ -258,7 +261,7 @@ export function UniversityAtlas() {
           aria-expanded={filtersOpen}
           aria-controls="atlas-filters"
           onClick={() => setFiltersOpen((o) => !o)}
-          className={`flex min-h-[44px] w-full items-center justify-between rounded-md border border-ivory/25 px-4 text-sm font-semibold text-ivory lg:hidden ${focusRing}`}
+          className={`flex min-h-[44px] w-full items-center justify-between rounded-atlas-sm border border-ivory/25 px-4 text-sm font-semibold text-ivory lg:hidden ${focusRing}`}
         >
           <span>Filters{s.type || s.domain ? ` · ${(s.type ? 1 : 0) + (s.domain ? 1 : 0)} active` : ''}</span>
           <span aria-hidden="true" className="font-mono text-[11px] text-champagne">{filtersOpen ? 'HIDE' : 'SHOW'}</span>
@@ -294,7 +297,7 @@ export function UniversityAtlas() {
             type="button"
             onClick={() => dispatch({ t: 'reset' })}
             disabled={!hasFilter}
-            className={`inline-flex min-h-[44px] items-center justify-center rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/30 ${focusRing}`}
+            className={`inline-flex min-h-[44px] items-center justify-center rounded-atlas border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/30 ${focusRing}`}
           >
             Reset filters
           </button>
@@ -348,7 +351,7 @@ export function UniversityAtlas() {
                     aria-hidden="true"
                     onClick={() => dispatch({ t: 'region', v: r.id })}
                     style={{ ...pct(CAPTIONS[r.id].x, CAPTIONS[r.id].y), transform: 'translate(-50%,-50%)' }}
-                    className={`absolute z-[2] cursor-pointer whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.18em] transition-colors ${s.region === r.id ? 'text-ivory' : 'text-champagne hover:text-ivory'}`}
+                    className={`absolute z-[2] cursor-pointer whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.18em] transition-colors ${s.region === r.id ? 'text-ivory' : 'text-champagne hover:text-ivory'}`}
                   >
                     {r.label} <span className="text-silver">{n}</span>
                   </span>
@@ -379,9 +382,7 @@ export function UniversityAtlas() {
                 );
               })}
             </div>
-            <p className="mt-3 font-mono text-[10px] leading-relaxed tracking-wide text-ivory/70">
-              Schematic atlas — regions are arranged for orientation, not geography. {INSTITUTIONS.length} institutions verified so far (last checked {DATA_LAST_VERIFIED}).
-            </p>
+            <p className="mt-3 text-[13px] leading-snug text-ivory/80">Schematic atlas. Regions are arranged for orientation, not geography.</p>
           </div>
 
           {/* MOBILE / TABLET: regional exploration list */}
@@ -411,7 +412,7 @@ export function UniversityAtlas() {
                         </span>
                         <span className="min-w-0">
                           <span className="block font-atlas text-[21px] leading-[1.1] text-ivory">{i.shortName}</span>
-                          <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.14em] text-silver">{i.city}, {i.state}</span>
+                          <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.14em] text-silver">{i.city}, {i.state}</span>
                         </span>
                       </button>
                     </li>
@@ -429,16 +430,14 @@ export function UniversityAtlas() {
           <div ref={panel} className="scroll-mt-20 border-t border-champagne/30 pt-6 lg:sticky lg:top-24 lg:self-start lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
             <InfoPanel s={s} dispatch={dispatch} visibleCount={visible.size} regionCount={regionCount(s.region ?? 'north')} />
             {s.region && (
-              <button type="button" onClick={() => dispatch({ t: 'allRegions' })} className={`mt-4 inline-flex min-h-[44px] items-center rounded-md px-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ivory/85 hover:text-ivory ${focusRing}`}>
+              <button type="button" onClick={() => dispatch({ t: 'allRegions' })} className={`mt-4 inline-flex min-h-[44px] items-center rounded-atlas-sm px-1 font-mono text-[11px] uppercase tracking-[0.14em] text-ivory/85 hover:text-ivory ${focusRing}`}>
                 Show all regions
               </button>
             )}
           </div>
         </div>
 
-        <p className="mt-8 font-mono text-[10px] leading-relaxed tracking-wide text-ivory/70 lg:hidden">
-          Schematic, not a map. {INSTITUTIONS.length} institutions verified so far (last checked {DATA_LAST_VERIFIED}). Anything not shown has not been verified yet.
-        </p>
+        <p className="mt-8 text-[13px] leading-snug text-ivory/80 lg:hidden">Schematic, not a map. Anything not shown has not been verified yet.</p>
         <p className="sr-only" role="status" aria-live="polite">{live}</p>
       </div>
 

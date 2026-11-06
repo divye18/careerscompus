@@ -46,7 +46,7 @@ export function FlowJourney({ reducedMotion, reason }: { reducedMotion: boolean;
           <div className="mt-10 lg:mt-0 lg:col-span-5">
             <CompassSVG
               m={zero}
-              sway={!reducedMotion}
+              settle={!reducedMotion}
               className="mx-auto block w-[min(74vw,340px)] sm:w-[min(60vw,400px)] lg:w-full lg:max-w-[480px]"
             />
           </div>
@@ -77,7 +77,7 @@ export function FlowJourney({ reducedMotion, reason }: { reducedMotion: boolean;
               m={m}
               active={shown}
               selected={selected}
-              sway={false}
+              settle={false}
               className="mx-auto block w-full max-w-[440px] lg:max-w-[520px]"
             />
 
@@ -95,7 +95,7 @@ export function FlowJourney({ reducedMotion, reason }: { reducedMotion: boolean;
                         onFocus={() => setHovered(i)}
                         onBlur={() => setHovered(null)}
                         onClick={() => setSelected((s) => (s === i ? null : i))}
-                        className={`flex min-h-[52px] w-full items-center gap-3 rounded-md border bg-ink-900 px-3.5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan ${
+                        className={`flex min-h-[52px] w-full items-center gap-3 rounded-atlas-sm border bg-ink-900 px-3.5 text-left transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan ${
                           isSel ? 'border-cyan' : shown === i ? 'border-ivory/40' : 'border-ivory/12'
                         }`}
                       >
@@ -119,7 +119,7 @@ export function FlowJourney({ reducedMotion, reason }: { reducedMotion: boolean;
                     <button
                       type="button"
                       onClick={() => goTo(`explore-${DOMAINS[shown].id}`)}
-                      className="mt-3 inline-flex min-h-[44px] items-center rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                      className="mt-3 inline-flex min-h-[44px] items-center rounded-atlas border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
                     >
                       Step inside {DOMAINS[shown].name} →
                     </button>

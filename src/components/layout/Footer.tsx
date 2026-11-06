@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-// Only the homepage exists. Items with an href jump to real homepage sections;
-// items without one are shown as "Soon" instead of linking to pages that 404.
+// Only the homepage exists. Every link jumps to a real, finished homepage section. Pages that do not exist yet are
+// plain text marked "coming soon", never a link, and nothing points at sections that are hidden or unfinished.
 interface FooterItem { label: string; href?: string }
 
 const QUICK_LINKS: FooterItem[] = [
@@ -9,17 +9,10 @@ const QUICK_LINKS: FooterItem[] = [
   { label: 'Courses', href: '/#act-courses' },
   { label: 'Universities', href: '/#act-universities' },
   { label: 'Careers', href: '/#act-discovery' },
-  { label: 'Compare', href: '/#act-comparison' },
   { label: 'Counselling', href: '/#act-guidance' },
-  { label: 'About' },
-  { label: 'Contact' },
 ];
 
-const TOP_STREAMS: FooterItem[] = ['Engineering', 'Medical', 'Management', 'Law', 'Science', 'Commerce', 'Arts', 'Design'].map(
-  (label) => ({ label, href: '/#act-courses' })
-);
-
-const LEGAL: FooterItem[] = [{ label: 'Privacy Policy' }, { label: 'Terms of Service' }, { label: 'Sitemap' }];
+const LEGAL: FooterItem[] = [{ label: 'Privacy Policy' }, { label: 'Terms of Service' }];
 
 function FooterLink({ item }: { item: FooterItem }) {
   const base = 'inline-flex items-center min-h-[44px] text-sm';
@@ -31,9 +24,9 @@ function FooterLink({ item }: { item: FooterItem }) {
     );
   }
   return (
-    <span className={`${base} gap-2 text-silver/70`}>
+    <span className={`${base} gap-2 text-silver/80`}>
       {item.label}
-      <span className="text-[11px] uppercase tracking-wider border border-ivory/20 rounded px-1.5 py-0.5">Soon</span>
+      <span className="text-[12px]">(coming soon)</span>
     </span>
   );
 }
@@ -42,7 +35,7 @@ export function Footer() {
   return (
     <footer className="bg-ink-950 text-silver pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
           
           {/* Column 1: Brand */}
           <div className="space-y-6">
@@ -73,19 +66,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Top Streams */}
-          <div>
-            <h3 className="text-ivory font-mono text-xs font-normal uppercase tracking-[0.16em] mb-6">Top Streams</h3>
-            <ul>
-              {TOP_STREAMS.map((stream) => (
-                <li key={stream.label}>
-                  <FooterLink item={stream} />
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4: Contact */}
+          {/* Column 3: Contact */}
           <div>
             <h3 className="text-ivory font-mono text-xs font-normal uppercase tracking-[0.16em] mb-6">Contact</h3>
             <p className="text-sm leading-relaxed">

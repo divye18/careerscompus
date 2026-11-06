@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
+import { MotionPreferences } from '@/components/MotionPreferences';
 import { color } from '@/theme/tokens';
-import { SITE_URL } from '@/lib/site';
+import { IS_PRODUCTION_SITE, SITE_URL } from '@/lib/site';
 import { Inter, Instrument_Serif, JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 
@@ -41,6 +42,7 @@ export const metadata: Metadata = {
   description,
   applicationName: 'CareersCompus',
   alternates: { canonical: '/' },
+  robots: IS_PRODUCTION_SITE ? { index: true, follow: true } : { index: false, follow: false },
   openGraph: { type: 'website', siteName: 'CareersCompus', title: 'CareersCompus | Find Your Direction', description, url: '/', locale: 'en_IN' },
   twitter: { card: 'summary', title: 'CareersCompus | Find Your Direction', description },
 };
@@ -55,7 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${plusJakarta.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
       <body className={`font-sans antialiased bg-background text-foreground`}>
-        {children}
+        <MotionPreferences>{children}</MotionPreferences>
       </body>
     </html>
   );

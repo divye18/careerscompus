@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const link =
-  'inline-flex min-h-[44px] items-center justify-center rounded-lg px-5 text-sm font-semibold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-cyan';
+  'inline-flex min-h-[44px] items-center justify-center rounded-atlas px-5 text-sm font-semibold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-cyan';
 
 /** Only the homepage exists so far, so every way out of this page leads to one of its real sections. */
 export default function NotFound() {

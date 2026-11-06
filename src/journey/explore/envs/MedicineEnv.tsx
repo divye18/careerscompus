@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ArtFrame, Label, Pulse } from './shared';
+import { ArtCaption, ArtFrame, Label, Pulse } from './shared';
 
 /**
  * MEDICINE & HEALTHCARE — a clinical, human-centred research plate.
@@ -16,15 +16,6 @@ function MedicineBackdropImpl() {
         style={{
           background:
             'radial-gradient(38% 46% at 50% 46%, color-mix(in srgb, var(--hue) 26%, transparent) 0%, transparent 72%), radial-gradient(22% 28% at 26% 70%, color-mix(in srgb, var(--hue) 12%, transparent) 0%, transparent 70%), radial-gradient(24% 30% at 78% 26%, color-mix(in srgb, var(--hue) 10%, transparent) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          backgroundImage: 'radial-gradient(circle, color-mix(in srgb, var(--hue) 22%, transparent) 1px, transparent 1.5px)',
-          backgroundSize: '34px 34px',
-          maskImage: 'radial-gradient(ellipse 60% 60% at 50% 48%, black 10%, transparent 75%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 60% 60% at 50% 48%, black 10%, transparent 75%)',
         }}
       />
     </div>
@@ -45,11 +36,12 @@ function MedicineArtImpl() {
   return (
     <ArtFrame
       viewBox={MEDICINE_VIEWBOX}
+      caption={<ArtCaption>Fig. 02 · Cell schematic · Illustrative</ArtCaption>}
       overlay={
         <>
           <span
             aria-hidden="true"
-            className="absolute rounded-full border border-dashed border-current opacity-40 group-data-[active=true]/room:animate-[atlas-spin_90s_linear_infinite]"
+            className="absolute rounded-full border border-dashed border-current opacity-40 group-data-[opened=true]/room:animate-[atlas-turn-in_2.4s_ease-out_1]"
             style={{ left: '28%', top: '4.5%', width: '44%', aspectRatio: '1' }}
           />
           <Pulse left={50} top={42.8} size={14} />
@@ -91,8 +83,6 @@ function MedicineArtImpl() {
       {/* ECG-style rhythm trace */}
       <path d={ECG} strokeOpacity={0.9} strokeWidth={1.8} />
       <path d="M20 590H980" className="stroke-ivory" strokeOpacity={0.12} strokeDasharray="2 8" />
-      <Label x={20} y={640} size={10} opacity={0.55}>FIG. 02 — CELL SCHEMATIC (ILLUSTRATIVE)</Label>
-      <Label x={980} y={640} anchor="end" size={10} opacity={0.55}>RHYTHM · RESEARCH · CARE</Label>
     </ArtFrame>
   );
 }

@@ -7,6 +7,8 @@ import type { DomainId } from '@/theme/tokens';
 import { COURSES, ENTRANCE_PLACEHOLDER, LEVELS, PATHWAY_DISCLAIMER, coursesFor, type Course, type LevelId } from '@/content/pathways';
 import { DomainGlyph } from '../DomainGlyph';
 import { goTo } from '../scroll';
+import { Figures } from '../Figures';
+import { StatusLabel, StatusLegend } from '../StatusLabel';
 import { PathwayConverge } from './PathwayConverge';
 import { EMPTY_SEL, hasAny, pathReducer } from './pathwayState';
 import { usePathEdges } from './usePathEdges';
@@ -61,8 +63,8 @@ function Station({
           />
         </span>
         <span data-label={`${stage}:${id}`} className="min-w-0">
-          <span className={`inline-block font-atlas text-[21px] leading-[1.1] transition-colors ${selected ? 'text-ivory' : 'text-ivory/85 group-hover:text-ivory'}`}>{label}</span>
-          {sub && <span className="mt-1 block font-mono text-[10px] uppercase leading-snug tracking-[0.14em] text-silver">{sub}</span>}
+          <span className={`inline-block font-atlas text-[21px] leading-[1.1] transition-colors ${selected ? 'text-ivory' : 'text-ivory/85 group-hover:text-ivory'}`}><Figures>{label}</Figures></span>
+          {sub && <span className="mt-1 block font-mono text-[11px] uppercase leading-snug tracking-[0.14em] text-silver">{sub}</span>}
         </span>
       </button>
     </li>
@@ -196,7 +198,7 @@ export function CoursesPathway() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => dispatch({ t: 'domain', v: d.id })}
-                      className={`inline-flex min-h-[44px] items-center gap-2 rounded-md border px-3 text-[14px] transition-colors ${focusRing} ${
+                      className={`inline-flex min-h-[44px] items-center gap-2 rounded-atlas-sm border px-3 text-[14px] transition-colors ${focusRing} ${
                         on ? 'border-cyan text-ivory' : 'border-ivory/20 text-ivory/85 hover:border-ivory/50 hover:text-ivory'
                       }`}
                     >
@@ -245,7 +247,7 @@ export function CoursesPathway() {
                 type="button"
                 onClick={() => dispatch({ t: 'back' })}
                 disabled={!hasAny(sel)}
-                className={`inline-flex min-h-[44px] items-center rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/30 ${focusRing}`}
+                className={`inline-flex min-h-[44px] items-center rounded-atlas border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/30 ${focusRing}`}
               >
                 ← Back one step
               </button>
@@ -253,7 +255,7 @@ export function CoursesPathway() {
                 type="button"
                 onClick={() => dispatch({ t: 'reset' })}
                 disabled={!hasAny(sel)}
-                className={`inline-flex min-h-[44px] items-center rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/30 ${focusRing}`}
+                className={`inline-flex min-h-[44px] items-center rounded-atlas border border-ivory/30 px-4 text-sm font-semibold text-ivory transition-colors hover:border-ivory/60 disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:border-ivory/30 ${focusRing}`}
               >
                 Start over
               </button>
@@ -297,8 +299,8 @@ export function CoursesPathway() {
                 <Hint>{sel.level ? 'Now choose a direction' : sel.domain ? 'Now choose where you are' : 'Choose where you are and a direction'}</Hint>
               )}
               {fallback && (
-                <li className="pt-2 font-mono text-[10px] uppercase leading-snug tracking-[0.12em] text-silver">
-                  No common route from {level?.label} is listed for this direction yet — showing its programmes.
+                <li className="pt-2 text-[13px] leading-snug text-ivory/80">
+                  No common route from {level?.label} is listed for this direction yet, so all its programmes are shown.
                 </li>
               )}
             </Stage>
@@ -320,7 +322,7 @@ export function CoursesPathway() {
               ) : (
                 <Hint>Choose a course</Hint>
               )}
-              {course?.specNote && <li className="pt-2 font-mono text-[10px] uppercase leading-snug tracking-[0.12em] text-silver">{course.specNote}</li>}
+              {course?.specNote && <li className="pt-2 text-[13px] leading-snug text-ivory/80">{course.specNote}</li>}
             </Stage>
 
             <Stage n={4} title="Career direction">
@@ -350,10 +352,11 @@ export function CoursesPathway() {
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-champagne">
               {course ? `Subjects in ${course.name}` : 'About this step'}
             </p>
+            {course && <StatusLabel state="orientation" className="mt-2" />}
             {course ? (
-              <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={`Subjects you may study in ${course.name}`}>
+              <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1" aria-label={`Subjects you may study in ${course.name}`}>
                 {course.subjects.map((s) => (
-                  <li key={s} className="rounded border border-ivory/20 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wider text-ivory/85">
+                  <li key={s} className="text-[14px] leading-snug text-ivory/85 before:mr-3 before:text-silver before:content-['/'] first:before:hidden">
                     {s}
                   </li>
                 ))}
@@ -366,6 +369,7 @@ export function CoursesPathway() {
           </div>
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-champagne">Entrance & eligibility</p>
+            {course && <StatusLabel state={course.entrance ? 'verified' : 'unverified'} className="mt-2" />}
             {course?.entrance ? (
               <p className="mt-3 text-[15px] leading-relaxed text-ivory/85">
                 {course.entrance.exams.join(', ')}. <span className="text-silver">Source: {course.entrance.source} (verified {course.entrance.verifiedOn}).</span>
@@ -376,9 +380,10 @@ export function CoursesPathway() {
           </div>
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-champagne">Your pathway</p>
+            {career && <StatusLabel state="orientation" className="mt-2" />}
             <p className="mt-3 text-[15px] leading-relaxed text-ivory/85">
               {career
-                ? `${crumbs.map((c) => c.label).join(' → ')}. A possible pathway — check institution-specific eligibility.`
+                ? `Your route: ${crumbs.map((c) => c.label).join(', ')}. This is a possible pathway, so check institution-specific eligibility.`
                 : specialisation
                   ? `${specialisation.name} can point towards the career directions shown. Choose one to complete the route.`
                   : course
@@ -389,7 +394,7 @@ export function CoursesPathway() {
               <button
                 type="button"
                 onClick={() => goTo('act-guidance')}
-                className={`inline-flex min-h-[44px] items-center rounded-lg bg-ivory px-5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100 ${focusRing}`}
+                className={`inline-flex min-h-[44px] items-center rounded-atlas bg-ivory px-5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100 ${focusRing}`}
               >
                 Get Guidance
               </button>
@@ -398,19 +403,20 @@ export function CoursesPathway() {
                 aria-disabled="true"
                 title="Course pages open when the courses library launches"
                 onClick={(e) => e.preventDefault()}
-                className={`inline-flex min-h-[44px] cursor-not-allowed items-center gap-2 rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory/90 ${focusRing}`}
+                className={`inline-flex min-h-[44px] cursor-not-allowed items-center gap-2 rounded-atlas border border-ivory/30 px-4 text-sm font-semibold text-ivory/90 ${focusRing}`}
               >
                 Explore this course
-                <span className="rounded border border-ivory/25 px-1.5 py-px font-mono text-[10px] uppercase tracking-wider text-ivory/80">Soon</span>
+                <span className="font-mono text-[11px] uppercase tracking-wider text-ivory/80">Soon</span>
               </button>
             </div>
           </div>
         </div>
 
         {/* legend + honesty line */}
-        <div className="mt-6 flex flex-col gap-2 font-mono text-[10px] leading-relaxed tracking-wide text-ivory/70 lg:flex-row lg:items-center lg:justify-between">
-          <p>{PATHWAY_DISCLAIMER}</p>
-          <p aria-hidden="true" className="hidden shrink-0 items-center gap-3 uppercase tracking-[0.12em] lg:flex">
+        <StatusLegend states={['orientation', 'unverified']} className="mt-8 grid gap-4 sm:grid-cols-2 lg:gap-10" />
+        <div className="mt-5 flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+          <p className="max-w-[60ch] text-[13px] leading-snug text-ivory/80">{PATHWAY_DISCLAIMER}</p>
+          <p aria-hidden="true" className="hidden shrink-0 items-center gap-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ivory/75 lg:flex">
             <span className="inline-block h-px w-8 bg-champagne" /> your route
             <span className="inline-block w-8 border-t border-dashed border-champagne/60" /> other possible routes
           </p>

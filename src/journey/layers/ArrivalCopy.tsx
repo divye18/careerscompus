@@ -32,9 +32,9 @@ function Out({ exit, i, children, className }: { exit?: MotionValue<number>; i: 
 
 /** Approved button system — night ground: ivory primary, transparent bordered secondary. */
 export const btnPrimaryNight =
-  'min-h-[48px] inline-flex items-center justify-center rounded-lg bg-ivory px-8 py-3 font-semibold text-ink-950 transition-colors hover:bg-ivory-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan';
+  'min-h-[48px] inline-flex items-center justify-center rounded-atlas bg-ivory px-8 py-3 font-semibold text-ink-950 transition-colors hover:bg-ivory-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan';
 export const btnSecondaryNight =
-  'min-h-[48px] inline-flex items-center justify-center rounded-lg border border-ivory/30 bg-transparent px-8 py-3 font-semibold text-ivory transition-colors hover:border-ivory/60 hover:bg-ivory/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan';
+  'min-h-[48px] inline-flex items-center justify-center rounded-atlas border border-ivory/30 bg-transparent px-8 py-3 font-semibold text-ivory transition-colors hover:border-ivory/60 hover:bg-ivory/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan';
 
 export function ArrivalCopy({ exit, align = 'left' }: { exit?: MotionValue<number>; align?: 'left' | 'center' }) {
   const center = align === 'center';

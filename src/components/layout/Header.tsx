@@ -10,8 +10,9 @@ const NAV_LINKS = [
   { label: 'Courses', href: '/#act-courses' },
   { label: 'Universities', href: '/#act-universities' },
   { label: 'Careers', href: '/#act-discovery' },
-  { label: 'Compare', href: '/#act-comparison' },
 ];
+
+const NAV_IDS = NAV_LINKS.map((l) => l.href.split('#')[1]);
 
 function jumpTo(id: string) {
   const el = document.getElementById(id);
@@ -23,6 +24,34 @@ function jumpTo(id: string) {
 function focusHeroSearch() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   document.querySelector<HTMLInputElement>('input[role="combobox"]')?.focus({ preventScroll: true });
+}
+
+/**
+ * The section nearest the middle of the viewport, among the ones the nav points at. Observed with one band across the
+ * viewport middle, so React state changes only when the reader crosses into another section.
+ */
+function useActiveSection(ids: readonly string[]): string | null {
+  const [active, setActive] = useState<string | null>(null);
+  useEffect(() => {
+    const inBand = new Set<string>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) inBand.add(e.target.id);
+          else inBand.delete(e.target.id);
+        }
+        const next = ids.find((id) => inBand.has(id)) ?? null;
+        setActive((a) => (a === next ? a : next));
+      },
+      { rootMargin: '-45% 0px -54% 0px', threshold: 0 }
+    );
+    const observe = () => ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    observe();
+    // the journey swaps presenters after hydration, so look again once
+    const t = window.setTimeout(observe, 800);
+    return () => { window.clearTimeout(t); io.disconnect(); };
+  }, [ids]);
+  return active;
 }
 
 type Theme = 'night' | 'day';
@@ -116,6 +145,7 @@ export function Header() {
     };
   }, [isMobileMenuOpen]);
   const theme = useHeaderTheme();
+  const activeId = useActiveSection(NAV_IDS);
   const night = theme === 'night';
 
   // text / surface classes per environment (tokens only)
@@ -139,7 +169,7 @@ export function Header() {
           </Link>
 
           <nav aria-label="Primary" className="hidden lg:flex items-center gap-8">
-            {LINK_LIST(NAV_LINKS, link, focus)}
+            {LINK_LIST(NAV_LINKS, link, focus, activeId, night)}
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
@@ -147,7 +177,7 @@ export function Header() {
               type="button"
               onClick={focusHeroSearch}
               aria-label="Search"
-              className={`hidden sm:inline-flex h-11 w-11 items-center justify-center rounded-md outline-none transition-colors focus-visible:outline-2 focus-visible:outline-solid ${focus} ${link}`}
+              className={`hidden sm:inline-flex h-11 w-11 items-center justify-center rounded-atlas-sm outline-none transition-colors focus-visible:outline-2 focus-visible:outline-solid ${focus} ${link}`}
             >
               <Search className="w-5 h-5" />
             </button>
@@ -155,14 +185,14 @@ export function Header() {
             <button
               type="button"
               onClick={() => jumpTo('act-guidance')}
-              className={`hidden sm:inline-flex min-h-[44px] items-center justify-center rounded-lg px-5 text-sm font-semibold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 ${focus} ${cta}`}
+              className={`hidden sm:inline-flex min-h-[44px] items-center justify-center rounded-atlas px-5 text-sm font-semibold transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 ${focus} ${cta}`}
             >
               Get Guidance
             </button>
 
             <button
               ref={menuButton}
-              className={`lg:hidden min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md outline-none focus-visible:outline-2 focus-visible:outline-solid ${focus}`}
+              className={`lg:hidden min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-atlas-sm outline-none focus-visible:outline-2 focus-visible:outline-solid ${focus}`}
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="Open mobile menu"
             >
@@ -193,7 +223,7 @@ export function Header() {
               </Link>
               <button
                 aria-label="Close mobile menu"
-                className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-md text-silver hover:text-ivory outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
+                className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-atlas-sm text-silver hover:text-ivory outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <X className="w-6 h-6" />
@@ -207,6 +237,7 @@ export function Header() {
                     <Link
                       href={l.href}
                       onClick={() => setIsMobileMenuOpen(false)}
+                      aria-current={activeId && l.href.endsWith('#' + activeId) ? 'location' : undefined}
                       className="block min-h-[56px] py-3 font-atlas text-[32px] leading-none text-ivory border-b border-ivory/10 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
                     >
                       {l.label}
@@ -216,7 +247,7 @@ export function Header() {
               </nav>
               <div className="mt-auto pt-8">
                 <button
-                  className="w-full min-h-[52px] rounded-lg bg-ivory text-ink-950 font-semibold text-lg hover:bg-ivory-100 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
+                  className="w-full min-h-[52px] rounded-atlas bg-ivory text-ink-950 font-semibold text-lg hover:bg-ivory-100 transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     setTimeout(() => jumpTo('act-guidance'), 250);
@@ -233,14 +264,18 @@ export function Header() {
   );
 }
 
-function LINK_LIST(links: typeof NAV_LINKS, link: string, focus: string) {
-  return links.map((l) => (
-    <Link
-      key={l.label}
-      href={l.href}
-      className={`inline-flex min-h-[44px] items-center text-sm font-medium transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-4 ${focus} ${link}`}
-    >
-      {l.label}
-    </Link>
-  ));
+function LINK_LIST(links: typeof NAV_LINKS, link: string, focus: string, activeId: string | null, night: boolean) {
+  return links.map((l) => {
+    const current = l.href.endsWith('#' + activeId);
+    return (
+      <Link
+        key={l.label}
+        href={l.href}
+        aria-current={current ? 'location' : undefined}
+        className={`inline-flex min-h-[44px] items-center border-b-2 text-sm font-medium transition-colors outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-4 ${focus} ${link} ${current ? (night ? 'border-champagne' : 'border-champagne-800') : 'border-transparent'}`}
+      >
+        {l.label}
+      </Link>
+    );
+  });
 }

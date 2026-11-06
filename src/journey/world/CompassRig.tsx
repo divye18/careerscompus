@@ -5,7 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import type * as THREE from 'three';
 import { useJourney } from '../JourneyContext';
 import { DOMAINS } from '@/content/domains';
-import { activeDomain, deg2rad, exploreIn, morphAt, rigLayout, spokeState, tipGlow } from '../choreography';
+import { activeDomain, deg2rad, exploreIn, idleTime, morphAt, rigLayout, spokeState, tipGlow } from '../choreography';
 import { makeFaceTexture } from './faceTexture';
 import { CompassAssets } from './compassAssets';
 
@@ -33,12 +33,13 @@ function Spoke({ i, assets }: { i: number; assets: CompassAssets }) {
     const H = state.size.height;
     if (!W || !H) return;
 
+    const t = idleTime(state.clock.elapsedTime);
     const p = progress.get();
     const m = morphAt(p);
     const x3 = exploreIn(p);
     const act = activeDomain(p);
     const L = rigLayout(W, H, m, 'wide', x3);
-    const s = spokeState(i, m, state.clock.elapsedTime, L, { x3, active: act });
+    const s = spokeState(i, m, t, L, { x3, active: act });
     const emph = hover.get() === i ? 1 : 0;
     const bz = L.bezelPx;
 
@@ -59,7 +60,7 @@ function Spoke({ i, assets }: { i: number; assets: CompassAssets }) {
     bd.scale.setScalar(Math.max(r, 0.0001));
     bd.position.y = len;
 
-    const glow = 0.2 + 0.12 * Math.sin(state.clock.elapsedTime * 1.6 + i * 0.9) + emph * 0.45;
+    const glow = 0.2 + 0.12 * Math.sin(t * 1.6 + i * 0.9) + emph * 0.45;
     assets.setSpoke(i, s.color, s.opacity, glow, selected.get() === i || (x3 > 0.5 && act === i), DOMAINS[i].hue);
 
     // Primary needle only: cyan light at the tip (Arrival), fading as it becomes a meridian.
@@ -69,7 +70,7 @@ function Spoke({ i, assets }: { i: number; assets: CompassAssets }) {
       const o = tipGlow(m);
       tc.visible = th.visible = o > 0.01;
       const core = 4.2 / bz;
-      const halo = (10 + Math.sin(state.clock.elapsedTime * 2.2) * 1.2) / bz;
+      const halo = (10 + Math.sin(t * 2.2) * 1.2) / bz;
       tc.scale.setScalar(core);
       th.scale.setScalar(halo);
       tc.position.y = th.position.y = len;
@@ -133,7 +134,7 @@ export function CompassRig() {
     const g = root.current;
     if (!g) return;
     const dt = Math.min(rawDelta, 0.05); // clamp: large deltas after stalls overshoot lerps
-    const t = state.clock.elapsedTime;
+    const t = idleTime(state.clock.elapsedTime);
     const W = state.size.width;
     const H = state.size.height;
     if (!W || !H) return;

@@ -69,12 +69,12 @@ function Mark({
         </span>
         <span
           aria-hidden="true"
-          className="absolute -inset-1 rounded-full border opacity-0 group-hover:opacity-100 group-hover:animate-[atlas-ping_2.4s_ease-out_infinite] group-focus-visible:opacity-100 group-focus-visible:animate-[atlas-ping_2.4s_ease-out_infinite] transition-opacity duration-300"
+          className="absolute -inset-1 rounded-full border opacity-0 group-hover:opacity-100 group-hover:animate-[atlas-ping_1.2s_ease-out_1_forwards] group-focus-visible:opacity-100 group-focus-visible:animate-[atlas-ping_1.2s_ease-out_1_forwards] transition-opacity duration-300"
           style={{ borderColor: d.hue }}
         />
       </button>
       <span aria-hidden="true" className={`pointer-events-none absolute whitespace-nowrap ${LABEL_POS[side]}`}>
-        <span className="block font-mono text-[10px] tracking-[0.18em] text-silver">0{i + 1}</span>
+        <span className="block font-mono text-[11px] tracking-[0.18em] text-silver">0{i + 1}</span>
         <span className="block font-atlas text-[clamp(20px,1.8vw,26px)] leading-none text-ivory">{d.name}</span>
       </span>
     </motion.div>
@@ -122,7 +122,7 @@ export function DomainMarks() {
               {DOMAINS[shown].name}
             </p>
             <p className="mt-2 text-[15px] leading-snug text-ivory/85">{DOMAINS[shown].blurb}</p>
-            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-silver">Select to step inside</p>
+            <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em] text-silver">Select to step inside</p>
           </div>
         ) : (
           <p className="text-[13px] leading-snug text-silver">Hover to preview a direction. Select one to step inside.</p>

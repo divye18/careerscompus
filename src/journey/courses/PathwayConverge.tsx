@@ -3,71 +3,102 @@
 import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { DOMAINS } from '@/content/domains';
+import { useIsWide } from '../useIsWide';
 
 /**
- * Scene 3 → Scene 4 hand-over. Seven hue lines (one per career world) run down from the top of the scene and
- * converge into a single champagne line — "career discovery" becoming "educational planning". The lines draw
- * with natural scroll (MotionValue → pathLength, no React state, no scroll hijack). Reduced motion: fully drawn.
+ * Scene 3 → Scene 4 hand-over and Scene 4's opening: a poster-scale headline, flush left. Seven hue lines (one per career
+ * world) fall in from the scene above, merge into one champagne line, and that line sweeps under the headline to the
+ * left margin, where the route chart's first rail begins. It says "these worlds become one route" and it leads the eye
+ * into the chart. Natural scroll draws it (MotionValue → pathLength, no React state). Reduced motion: fully drawn.
  *
- * The title sits clear of the lines (above the merge) so no text ever overlaps a line.
+ * No text is ever crossed by a line: the headline column stops before the lines begin, and the sweep runs below it.
  */
-const VB_W = 1000;
-const VB_H = 360;
-const MERGE = { x: 500, y: 250 };
+interface Geometry {
+  w: number;
+  h: number;
+  tops: readonly number[];
+  merge: readonly [number, number];
+  trunk: string;
+  end: readonly [number, number];
+}
 
-const xs = DOMAINS.map((_, i) => 110 + (i * (VB_W - 220)) / (DOMAINS.length - 1));
+const WIDE: Geometry = {
+  w: 1000,
+  h: 500,
+  tops: DOMAINS.map((_, i) => 612 + i * 60),
+  merge: [790, 262],
+  trunk: 'M790 262 C790 392, 762 472, 650 476 L34 476 C18 476, 9 484, 9 498',
+  end: [9, 498],
+};
 
-function Branch({ i, hue, p, still }: { i: number; hue: string; p: MotionValue<number>; still: boolean }) {
-  const x = xs[i];
-  const d = `M${x} 0 C${x} 110, ${MERGE.x} 120, ${MERGE.x} ${MERGE.y}`;
-  const len = useTransform(p, [0.04 + i * 0.012, 0.62], [0, 1]);
-  const op = useTransform(p, [0.04 + i * 0.012, 0.14 + i * 0.012], [0, 0.9]);
+const NARROW: Geometry = {
+  w: 350,
+  h: 176,
+  tops: DOMAINS.map((_, i) => 96 + i * 40),
+  merge: [216, 104],
+  trunk: 'M216 104 C216 140, 200 158, 168 158 L24 158 C14 158, 9 164, 9 174',
+  end: [9, 174],
+};
+
+function Line({ d, stroke, width, p, from, to, still }: { d: string; stroke: string; width: number; p: MotionValue<number>; from: number; to: number; still: boolean }) {
+  const len = useTransform(p, [from, to], [0, 1]);
+  const op = useTransform(p, [from, from + 0.05], [0, 1]);
+  return <motion.path d={d} fill="none" stroke={stroke} strokeWidth={width} strokeLinecap="round" style={still ? undefined : { pathLength: len, opacity: op }} />;
+}
+
+function Bead({ at, r, p, from, still }: { at: readonly [number, number]; r: number; p: MotionValue<number>; from: number; still: boolean }) {
+  const op = useTransform(p, [from, from + 0.08], [0, 1]);
+  return <motion.circle cx={at[0]} cy={at[1]} r={r} fill="var(--color-champagne)" style={still ? undefined : { opacity: op }} />;
+}
+
+function Drawing({ g, p, still }: { g: Geometry; p: MotionValue<number>; still: boolean }) {
+  const [mx, my] = g.merge;
   return (
-    <>
-      <motion.path d={d} fill="none" stroke={hue} strokeWidth={1.4} strokeLinecap="round" style={still ? undefined : { pathLength: len, opacity: op }} opacity={still ? 0.9 : undefined} />
-      <circle cx={x} cy={0} r={3.4} fill={hue} opacity={0.9} />
-    </>
+    <svg viewBox={`0 0 ${g.w} ${g.h}`} preserveAspectRatio="xMinYMin meet" aria-hidden="true" className="absolute inset-0 h-full w-full overflow-visible">
+      {DOMAINS.map((d, i) => {
+        const x = g.tops[i];
+        return (
+          <g key={d.id}>
+            <Line d={`M${x} 4 C${x} ${my * 0.46}, ${mx} ${my * 0.52}, ${mx} ${my}`} stroke={d.hue} width={1.4} p={p} from={0.02 + i * 0.012} to={0.55} still={still} />
+            <circle cx={x} cy={4} r={3.2} fill={d.hue} />
+          </g>
+        );
+      })}
+      <Line d={g.trunk} stroke="var(--color-champagne)" width={1.6} p={p} from={0.5} to={0.98} still={still} />
+      <Bead at={g.merge} r={4} p={p} from={0.48} still={still} />
+      <Bead at={g.end} r={3.4} p={p} from={0.9} still={still} />
+    </svg>
   );
 }
 
 export function PathwayConverge() {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion() ?? false;
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.95', 'end 0.55'] });
-  const trunk = useTransform(scrollYProgress, [0.55, 1], [0, 1]);
-  const bead = useTransform(scrollYProgress, [0.85, 1], [0, 1]);
+  const wide = useIsWide();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.95', 'end 0.6'] });
 
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-[1240px] px-5 sm:px-8">
-      <div className="pt-12 sm:pt-16 text-center">
-        <p className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.2em] text-champagne">
-          04 <span aria-hidden="true" className="mx-2 text-silver">—</span> Pathways
-        </p>
-        <h2 className="mx-auto mt-3 max-w-3xl font-atlas text-[clamp(38px,6.4vw,76px)] font-normal leading-[1] tracking-[-0.01em] text-ivory">
-          Every career has a pathway. <span className="italic text-champagne">Discover yours.</span>
-        </h2>
-        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-ivory/80">
-          You have seen what a career can look like. Now see how people can get there: from where you are today, through a course, to
-          a direction you can aim for.
-        </p>
-      </div>
-
-      <div aria-hidden="true" className="relative mt-6 h-[clamp(170px,26vw,300px)] w-full">
-        <svg viewBox={`0 0 ${VB_W} ${VB_H}`} preserveAspectRatio="xMidYMax meet" className="absolute inset-0 h-full w-full overflow-visible">
-          {DOMAINS.map((d, i) => (
-            <Branch key={d.id} i={i} hue={d.hue} p={scrollYProgress} still={reduce} />
-          ))}
-          <motion.path
-            d={`M${MERGE.x} ${MERGE.y} L${MERGE.x} ${VB_H}`}
-            fill="none"
-            stroke="var(--color-champagne)"
-            strokeWidth={1.6}
-            strokeLinecap="round"
-            style={reduce ? undefined : { pathLength: trunk }}
-          />
-          <motion.circle cx={MERGE.x} cy={MERGE.y} r={5} fill="var(--color-champagne)" style={reduce ? undefined : { opacity: bead }} />
-          <circle cx={MERGE.x} cy={VB_H - 1} r={3} fill="var(--color-champagne)" />
-        </svg>
+    <div ref={ref} className="relative mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:pr-[clamp(72px,9vw,150px)]">
+      <div className="[container-type:inline-size]">
+        <div className="relative lg:aspect-[1000/500]">
+          {wide && <Drawing key="wide" g={WIDE} p={scrollYProgress} still={reduce} />}
+          <div className="relative pt-14 sm:pt-20 lg:w-[60%] lg:pt-[5.5cqw]">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-champagne sm:text-xs">
+              04 <span aria-hidden="true" className="mx-2 text-silver">—</span> Pathways
+            </p>
+            <h2 className="mt-3 font-atlas text-[clamp(46px,13vw,84px)] font-normal leading-[0.98] tracking-[-0.012em] text-ivory lg:text-[8.4cqw]">
+              <span className="block">Every career</span>
+              <span className="block">has a pathway.</span>
+              <span className="block italic text-champagne">Discover yours.</span>
+            </h2>
+            <p className="mt-5 max-w-[32em] text-[17px] leading-relaxed text-ivory/85">
+              You have seen what a career can look like. Now see how people can get there: from where you are today, through a course, to a direction you can aim for.
+            </p>
+          </div>
+        </div>
+        <div aria-hidden="true" className="relative mt-6 w-full max-w-[520px] lg:hidden" style={{ aspectRatio: `${NARROW.w} / ${NARROW.h}` }}>
+          {!wide && <Drawing key="narrow" g={NARROW} p={scrollYProgress} still={reduce} />}
+        </div>
       </div>
     </div>
   );

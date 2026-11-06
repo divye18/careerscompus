@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { EXPLORE_DISCLAIMER, DOMAINS, type Domain } from '@/content/domains';
 import { goTo } from '../scroll';
+import { StatusLabel } from '../StatusLabel';
 import { ENVS } from './registry';
 
 /**
@@ -20,9 +21,9 @@ export const RoomHead = memo(function RoomHead({ d, index, compact = false }: { 
       <h3 className={`mt-3 font-atlas font-normal text-ivory ${spec.nameClass}`}>{d.longName}</h3>
       <p className={`${compact ? 'mt-3 text-[17px]' : 'mt-3 text-lg'} leading-snug text-ivory`}>{d.blurb}</p>
       <p className={`${compact ? 'mt-2 text-[14px]' : 'mt-3 text-[15px]'} leading-relaxed text-ivory/75`}>{d.involves}</p>
-      <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={`${d.name} disciplines`}>
+      <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1" aria-label={`${d.name} disciplines`}>
         {d.fields.map((f) => (
-          <li key={f} className="rounded border border-ivory/20 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-ivory/80">
+          <li key={f} className="text-[14px] leading-snug text-ivory/85 before:mr-3 before:text-silver before:content-['/'] first:before:hidden">
             {f}
           </li>
         ))}
@@ -31,7 +32,7 @@ export const RoomHead = memo(function RoomHead({ d, index, compact = false }: { 
         <button
           type="button"
           onClick={() => goTo('act-guidance')}
-          className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-ivory px-5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
+          className="inline-flex min-h-[44px] items-center justify-center rounded-atlas bg-ivory px-5 text-sm font-semibold text-ink-950 transition-colors hover:bg-ivory-100 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
         >
           Get Guidance
         </button>
@@ -40,10 +41,10 @@ export const RoomHead = memo(function RoomHead({ d, index, compact = false }: { 
           aria-disabled="true"
           title="Career pages open when the careers library launches"
           onClick={(e) => e.preventDefault()}
-          className="inline-flex min-h-[44px] cursor-not-allowed items-center gap-2 rounded-lg border border-ivory/30 px-4 text-sm font-semibold text-ivory/90 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
+          className="inline-flex min-h-[44px] cursor-not-allowed items-center gap-2 rounded-atlas border border-ivory/30 px-4 text-sm font-semibold text-ivory/90 outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
         >
           Explore Careers
-          <span className="rounded border border-ivory/25 px-1.5 py-px font-mono text-[10px] uppercase tracking-wider text-ivory/80">Soon</span>
+          <span className="font-mono text-[11px] uppercase tracking-wider text-ivory/80">Soon</span>
         </button>
       </div>
     </div>
@@ -53,7 +54,7 @@ export const RoomHead = memo(function RoomHead({ d, index, compact = false }: { 
 function List({ title, items }: { title: string; items: readonly string[] }) {
   return (
     <div>
-      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ivory/90">{title}</p>
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ivory/90">{title}</p>
       <ul className="mt-2 space-y-1.5">
         {items.map((it) => (
           <li key={it} className="flex gap-2.5 text-[14px] leading-snug text-ivory/85">
@@ -71,7 +72,10 @@ export const RoomDetail = memo(function RoomDetail({ d, cols = false }: { d: Dom
     <div className={cols ? 'grid grid-cols-2 gap-x-8 gap-y-3' : 'space-y-5'}>
       <List title="Paths in" items={d.paths} />
       <List title="Ways it shows up" items={d.roles} />
-      <p className={`font-mono text-[10px] leading-relaxed tracking-wide text-ivory/70 ${cols ? 'col-span-2 max-w-[46ch]' : ''}`}>{EXPLORE_DISCLAIMER}</p>
+      <div className={cols ? 'col-span-2' : ''}>
+        <StatusLabel state="orientation" />
+        <p className="mt-1 max-w-[46ch] text-[12px] leading-snug text-ivory/80">{EXPLORE_DISCLAIMER}</p>
+      </div>
     </div>
   );
 });

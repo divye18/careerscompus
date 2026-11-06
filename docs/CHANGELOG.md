@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-06 — Stabilisation milestone
+- Interim How It Works, Principles and Final CTA hidden (`SHOW_INTERIM_SECTIONS`); nav/footer links to unfinished content removed; active nav state; footer reduced to working links.
+- All endless animation made one-shot or removed; Technology sweep runs once; reduced motion honoured site-wide.
+- Scene 4 and 5 openings recomposed; digits via `Figures`; no 10px text; four-state `StatusLabel`; radius tokens in live components; display-only chips as text.
+- www to non-www 308, HSTS, production-only indexing; dead components and `clsx`, `tailwind-merge`, `@react-three/drei` removed.
+- Details, open items and the screenshot-footprint proposal: `docs/WEBSITE_QUALITY_AUDIT.md` section 10.
+
 ## 2026-11-04 — Stabilisation
 - Checkpoint commit `b542ade` of all pre-existing work.
 - Removed unused/obsolete: `src/components/campus/*` (imported only by itself), `src/components/home/CinematicEnvironment.tsx` (no importers; old dark-theme background; had `any`, `Math.random` in render, setState-in-effect), `fix_careers.js`, `fix_compass.js` (broken scratch scripts). Recoverable from `b542ade`.

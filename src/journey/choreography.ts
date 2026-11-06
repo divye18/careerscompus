@@ -226,6 +226,20 @@ export function rigLayout(W: number, H: number, m: number, kind: LayoutKind = 'w
   };
 }
 
+/**
+ * Clock for the compass's idle life. It runs at normal speed just after the compass appears, then decelerates and stops
+ * for good: the instrument settles and stays still instead of floating forever (DESIGN_CONSTITUTION section 10).
+ * Scroll and pointer response are unaffected.
+ */
+const IDLE_FULL_S = 2;
+const IDLE_STOP_S = 12;
+export function idleTime(t: number): number {
+  if (t <= IDLE_FULL_S) return t;
+  const span = IDLE_STOP_S - IDLE_FULL_S;
+  const x = Math.min(1, (t - IDLE_FULL_S) / span);
+  return IDLE_FULL_S + span * (x - x ** 3 + x ** 4 / 2);
+}
+
 /** Explore pose for the needles: they fold into a short dial of seven ticks; the active one reaches out. */
 export interface ExploreSpoke {
   x3: number;

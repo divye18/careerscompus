@@ -94,14 +94,15 @@ export function CompassSVG({
   selected = null,
   className,
   label = 'A compass whose needles open out into seven career directions',
-  sway = true,
+  settle = true,
 }: {
   m: MotionValue<number>;
   active?: number | null;
   selected?: number | null;
   className?: string;
   label?: string;
-  sway?: boolean;
+  /** run the single needle-settling motion on appearing */
+  settle?: boolean;
 }) {
   const uid = useId().replace(/:/g, '');
   const body = useRef<SVGGElement>(null);
@@ -146,7 +147,7 @@ export function CompassSVG({
         strokeDasharray="2 6"
       />
 
-      <g className={sway ? 'atlas-sway' : undefined} style={{ transformOrigin: '50% 50%' }}>
+      <g className={settle ? 'atlas-settle' : undefined} style={{ transformOrigin: '50% 50%' }}>
         {/* body (local units: bezel radius = 1) */}
         <g ref={body}>
           <circle r="1" fill="none" stroke={`url(#${uid}-brass)`} strokeWidth="0.15" />

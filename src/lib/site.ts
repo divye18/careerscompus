@@ -1,5 +1,14 @@
+/** Production origin. Canonical URLs and the sitemap always use it, on every deployment. */
+export const SITE_URL = 'https://careerscompus.in';
+
 /**
- * Canonical origin of the site. Docs name https://careerscompus.in as the production domain; a deployment on another
- * host (staging, preview) sets NEXT_PUBLIC_SITE_URL so canonical URLs and the sitemap do not point at the wrong place.
+ * Only the production deployment may be indexed. Everything else (preview, staging, local) is noindex by default, so a
+ * forgotten setting fails safe. Vercel sets VERCEL_ENV; on any other host set SITE_ENV=production for production only.
  */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://careerscompus.in').replace(/\/$/, '');
+export const IS_PRODUCTION_SITE = process.env.SITE_ENV === 'production' || process.env.VERCEL_ENV === 'production';
+
+/**
+ * How It Works, Platform Principles and the Final CTA are older Light Royal sections that Scenes 6 to 8 will replace.
+ * They are hidden, with their code intact. Set NEXT_PUBLIC_SHOW_INTERIM_SECTIONS=1 at build time to show them again.
+ */
+export const SHOW_INTERIM_SECTIONS = process.env.NEXT_PUBLIC_SHOW_INTERIM_SECTIONS === '1';

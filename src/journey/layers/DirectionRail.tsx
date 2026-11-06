@@ -73,7 +73,7 @@ export function RailNav({ active, className }: { active: number; className: stri
                 className="group flex min-h-[44px] items-center gap-3 outline-none"
               >
                 <span
-                  className={`font-mono text-[10px] uppercase tracking-[0.18em] transition-[opacity,transform] duration-300 ${
+                  className={`font-mono text-[11px] uppercase tracking-[0.18em] transition-[opacity,transform] duration-300 ${
                     on
                       ? 'opacity-100 text-ivory'
                       : 'opacity-0 -translate-x-1 text-silver group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100'

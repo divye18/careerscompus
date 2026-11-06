@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { ArtFrame, GridLayer, Label } from './shared';
+import { ArtCaption, ArtFrame, GridLayer, Label } from './shared';
 
 /**
  * ARCHITECTURE & INFRASTRUCTURE — an architectural drawing table brought to life.
@@ -42,7 +42,8 @@ function Box({ x, y, w, d, h, strong = false }: { x: number; y: number; w: numbe
 function ArchitectureArtImpl() {
   const vp = [500, 238] as const;
   return (
-    <ArtFrame viewBox={ARCH_VIEWBOX}>
+    <ArtFrame viewBox={ARCH_VIEWBOX}
+      caption={<ArtCaption className="left-[8%]">Fig. 06 · Massing study · Illustrative</ArtCaption>}>
       {/* one-point perspective floor */}
       {Array.from({ length: 13 }, (_, k) => (
         <path key={`r${k}`} d={`M${vp[0]} ${vp[1]}L${-120 + k * 100} 700`} className="stroke-ivory" strokeOpacity={0.12} />
@@ -82,13 +83,12 @@ function ArchitectureArtImpl() {
         <Label x={0} y={-28} anchor="middle" size={10}>N</Label>
       </g>
       {/* title block */}
-      <g transform="translate(640 590)" className="stroke-ivory" strokeOpacity={0.55}>
+      <g transform="translate(640 590)" className="stroke-ivory max-lg:hidden" strokeOpacity={0.55}>
         <rect width={340} height={84} />
-        <path d="M0 28H340M0 56H340M200 28V84" />
+        <path d="M0 28H340M0 56H340" />
       </g>
       <Label x={652} y={614} size={10} opacity={0.85}>SHEET A-06 · MASSING STUDY</Label>
       <Label x={652} y={642} size={10} opacity={0.6}>SCALE 1:100 (ILLUSTRATIVE)</Label>
-      <Label x={852} y={642} size={10} opacity={0.6}>PLAN · SECTION</Label>
       <Label x={652} y={670} size={10} opacity={0.6}>DRAWN FOR CAREERSCOMPUS</Label>
     </ArtFrame>
   );

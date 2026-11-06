@@ -228,6 +228,8 @@ Landmarks correct, one `h1`, no heading skips, no unnamed buttons, no unlabelled
 
 ## 8. Recommended fixes, ranked
 
+*Status after the stabilisation milestone: see section 10. Everything below is done except I7 (icon family), the Scene 6 review, Optional refinements and the launch items.*
+
 | Priority | Fix | Effort | Needs |
 |---|---|---|---|
 | **P0** | Decide how interim sections are handled until Scenes 6-8 (D1) | Small to hide; large to replace | Your decision |
@@ -264,3 +266,46 @@ Branch `wip/scene-6-comparison-studio`, commit `6471554`. **Not complete and not
 Also on that branch: 18 programme records and 10 durations through the evidence pipeline.
 
 Unfinished: 1280 contrast after the last script change; the 1280 Scene 6 performance reading (1 fps) is invalid and must be re-measured, as the browser was probably throttled; docs; full screenshot inspection.
+
+
+---
+
+## 10. Stabilisation milestone (2026-11-06)
+
+Controlled stabilisation on `redesign/meridian-atlas`. Scene 6 was not touched. Before and after screenshots: `docs/qa-screenshots/stabilisation/before` and `.../after` (1440, 1280, 768, 390).
+
+### Fixed
+
+| Item | What changed |
+|---|---|
+| D1 interim sections | How It Works, Platform Principles and Final CTA are hidden behind `SHOW_INTERIM_SECTIONS` (code kept). Header "Compare" and footer Compare, About, Contact, Sitemap and the eight identical "Top Streams" links are removed, so nothing points at hidden or unfinished content |
+| I1 continuous animation | Every endless loop removed or made one-shot: room pulses, float, 60/90/120 s spins, the Technology scan (now crosses the die once on first open, ends stable), hover ping, scroll cue (3 repeats), fallback compass sway (settles once), 3D compass idle drift and glow (`idleTime` stops it after about 12 s) |
+| Reduced motion | `MotionConfig reducedMotion="user"` site-wide and a `[data-interim]` rule so the legacy `whileInView` fades are fully visible (they measured opacity 0.44) |
+| I2 openings | Scene 4: poster-scale left-aligned headline with hue lines that merge into one rail leading into the chart. Scene 5: chart plate left, stepped title right, regional hubs drawn from the atlas's own layout, with three real facts |
+| I3 figures | `Figures` sets digits in JetBrains Mono ("17 institutions" no longer reads "l7"); route labels use it too |
+| I4 label floor | No `text-[10px]` remains; SVG annotations scale with their artwork and are hidden on phones and tablets, with readable fixed-size captions instead |
+| Status labels | Four-state vocabulary implemented (`StatusLabel`, `StatusLegend`) and applied to the Scene 5 info panel and Scene 4 panels |
+| I5 radius | Live components moved onto `rounded-atlas-sm / atlas / atlas-lg` |
+| I6 chips | Display-only discipline and subject chips are now plain slash-separated text; bordered boxes remain only for controls. The bordered "Soon" badge inside disabled buttons is plain text |
+| I8 dot grids | Medicine and Design backdrop dot grids removed. The Scene 5 atlas grid is kept: it is the chart's coordinate system |
+| I9 active nav | `aria-current="location"` plus an underline follows the section in view |
+| I11 footer | Three columns, working links only, "coming soon" as plain text |
+| Dead code | `components/ui/*`, `lib/utils.ts`, four unused home components, and the dependencies `clsx`, `tailwind-merge`, `@react-three/drei` removed |
+| SEO and domain | www to non-www 308, HSTS, production-only indexing, noindex and disallow-all elsewhere, canonical `https://careerscompus.in` |
+
+### Intentionally left open
+
+- **I7 icon family**: the lucide icons, text arrows and `DomainGlyph` still coexist. Unifying them touches approved Scenes 1 to 3; needs your approval.
+- **Scene 6**: still parked. It must adopt the four labels, `Figures`, the radius tokens and a distinct opening before it resumes.
+- **Interim sections still shown**: Compare teaser, Counselling and FAQ remain (not on the hide list); they are still Light Royal and will be replaced by Scenes 6 to 8. The Counselling form has no backend.
+- **`@types/three`** is still in `dependencies` (should be a devDependency); Plus Jakarta Sans remains for the interim sections.
+- **Access protection for previews** is a hosting setting I could not and did not touch.
+- **Scene 2 4 px overflow** with classic scrollbars was not re-investigated.
+
+### P3: `docs/qa-screenshots` footprint (proposal only, nothing deleted)
+
+The tracked folder is 981 files: 955 JPEGs (76 MB, average 81 KB, 29 over 200 KB) and 4 WebM clips (19.4 MB), roughly 88 MB of git pack. 99 JPEGs are byte-identical duplicates. Proposal, in order of safety: (1) remove byte-identical duplicates; (2) keep only the latest run per script and device, since earlier runs are in git history; (3) move the four WebM clips to a release asset or storage outside git; (4) re-encode JPEGs over 200 KB at quality 78. This would plausibly cut the working tree by more than half. Git history keeps the size unless it is rewritten, which I do not recommend. Keep the `after` set above, the `audit` baseline and each scene's final run as the visual-regression evidence. Awaiting your approval.
+
+### Measured after the changes
+
+Lint, `tsc --noEmit` and `next build` pass; `check-tokens` OK; `site-audit`: 0 overflow, 0 clipped text, 0 console errors at 1440, 1280, 768, 390 and both touch profiles; interim contrast 58/58; Explore, Courses (desktop, mobile) and Universities (desktop, mobile) interaction suites all pass. Performance in headed Chrome: idle 60.2 fps; pinned scroll 58.9 fps median over 5 runs at 1440 (min 48.8; a single cold run reads about 39); Scenes 4 and 5 at 59.8 to 60 fps.

@@ -79,7 +79,7 @@ export function ExploreFlow() {
               data-index={i}
               aria-label={d.longName}
               style={{ ...hueStyle(d.hue), containIntrinsicSize: '420px 1100px' }}
-              className="relative scroll-mt-20 w-[min(86vw,420px)] shrink-0 snap-center overflow-hidden rounded-md border border-ivory/12 bg-[color-mix(in_srgb,var(--hue)_9%,var(--color-ink-950))] [content-visibility:auto] sm:w-[min(520px,70vw)]"
+              className="relative scroll-mt-20 w-[min(86vw,420px)] shrink-0 snap-center overflow-hidden rounded-atlas-sm border border-ivory/12 bg-[color-mix(in_srgb,var(--hue)_9%,var(--color-ink-950))] [content-visibility:auto] sm:w-[min(520px,70vw)]"
             >
               {/* artwork stage */}
               <div className="relative w-full overflow-hidden" style={{ aspectRatio: spec.ratio === '1400 / 440' ? '10 / 6' : spec.ratio }}>
@@ -107,7 +107,7 @@ export function ExploreFlow() {
             aria-label={d.name}
             aria-current={current === i ? 'true' : undefined}
             onClick={() => jump(i)}
-            className="group flex h-11 w-11 items-center justify-center rounded-md outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
+            className="group flex h-11 w-11 items-center justify-center rounded-atlas-sm outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
           >
             <span
               aria-hidden="true"

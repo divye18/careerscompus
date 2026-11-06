@@ -8,17 +8,6 @@ import { PINNED_SCROLL_VH, activeDomain, domainWeight, exploreC, range, smoothst
 import { ENVS } from './registry';
 import { RoomDetail, RoomHead } from './ContentBlocks';
 
-/** Index of the active room (−1 before Explore). React state changes only when the room changes. */
-export function useActiveDomain(): number {
-  const { progress } = useJourney();
-  const [active, setActive] = useState(-1);
-  useMotionValueEvent(progress, 'change', (p) => {
-    const n = activeDomain(p);
-    setActive((a) => (a === n ? a : n));
-  });
-  return active;
-}
-
 const hueStyle = (hue: string) => ({ '--hue': hue }) as CSSProperties;
 
 /**
@@ -74,17 +63,25 @@ export function StageEndFade() {
 
 /** Room CONTENT: artwork + text, above the compass layer. Only the active room is interactive. */
 export function ExploreContent() {
-  const active = useActiveDomain();
+  const { progress } = useJourney();
+  const [active, setActive] = useState(-1); // index of the active room (-1 before Explore)
+  const [opened, setOpened] = useState(0); // bitmask of rooms opened at least once on this page view
+  // React state changes only when the room changes, never per frame.
+  useMotionValueEvent(progress, 'change', (p) => {
+    const n = activeDomain(p);
+    setActive((a) => (a === n ? a : n));
+    if (n >= 0) setOpened((o) => o | (1 << n));
+  });
   return (
     <>
       {DOMAINS.map((d, i) => (
-        <ContentRoom key={d.id} i={i} isActive={active === i} />
+        <ContentRoom key={d.id} i={i} isActive={active === i} isOpened={Boolean(opened & (1 << i))} />
       ))}
     </>
   );
 }
 
-const ContentRoom = memo(function ContentRoom({ i, isActive }: { i: number; isActive: boolean }) {
+const ContentRoom = memo(function ContentRoom({ i, isActive, isOpened }: { i: number; isActive: boolean; isOpened: boolean }) {
   const { progress } = useJourney();
   const d = DOMAINS[i];
   const spec = ENVS[d.id];
@@ -103,6 +100,7 @@ const ContentRoom = memo(function ContentRoom({ i, isActive }: { i: number; isAc
       style={{ ...hueStyle(d.hue), opacity: w }}
       data-room={d.id}
       data-active={isActive ? 'true' : 'false'}
+      data-opened={isOpened ? 'true' : 'false'}
     >
       <motion.div aria-hidden="true" className={`absolute [will-change:transform] ${spec.art}`} style={{ x: artX, aspectRatio: spec.ratio }}>
         <Art />

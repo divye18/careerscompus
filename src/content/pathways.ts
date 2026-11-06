@@ -66,7 +66,7 @@ export interface Course {
 }
 
 export const PATHWAY_DISCLAIMER =
-  'Possible pathways for orientation only. Eligibility, entrance routes and programme details vary by institution and year, so check each institution’s official information.';
+  'Possible pathways, not official routes. Eligibility, entrance routes and programme details vary by institution and year, so check each institution’s official information.';
 export const ENTRANCE_PLACEHOLDER =
   'Entrance and eligibility details are not listed yet. They differ by institution, so check official sources. Verified guidance will appear here.';
 

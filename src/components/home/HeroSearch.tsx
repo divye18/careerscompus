@@ -125,7 +125,7 @@ export function HeroSearch() {
         <label htmlFor={`${listId}-input`} className="sr-only">
           Search courses, colleges, universities or careers
         </label>
-        <div className="flex items-center gap-2 h-14 pl-4 pr-1.5 sm:pr-2 bg-ink-900 border border-ivory/15 rounded-lg focus-within:border-cyan focus-within:ring-2 focus-within:ring-cyan/25 transition-[border-color,box-shadow]">
+        <div className="flex items-center gap-2 h-14 pl-4 pr-1.5 sm:pr-2 bg-ink-900 border border-ivory/15 rounded-atlas focus-within:border-cyan focus-within:ring-2 focus-within:ring-cyan/25 transition-[border-color,box-shadow]">
           <Search className="hidden sm:block w-5 h-5 shrink-0 text-silver" aria-hidden="true" />
           <div className="relative flex-1 min-w-0 h-full">
             <input
@@ -164,7 +164,7 @@ export function HeroSearch() {
               type="button"
               onClick={clear}
               aria-label="Clear search"
-              className="shrink-0 w-11 h-11 inline-flex items-center justify-center rounded-md text-silver hover:text-ivory hover:bg-ivory/5 transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
+              className="shrink-0 w-11 h-11 inline-flex items-center justify-center rounded-atlas-sm text-silver hover:text-ivory hover:bg-ivory/5 transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-cyan"
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>
@@ -172,7 +172,7 @@ export function HeroSearch() {
           <button
             type="submit"
             aria-label="Search"
-            className="shrink-0 h-11 w-11 sm:w-auto sm:px-5 inline-flex items-center justify-center rounded-md bg-ivory hover:bg-ivory-100 text-ink-950 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
+            className="shrink-0 h-11 w-11 sm:w-auto sm:px-5 inline-flex items-center justify-center rounded-atlas-sm bg-ivory hover:bg-ivory-100 text-ink-950 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
           >
             <Search className="sm:hidden w-5 h-5" aria-hidden="true" />
             <span className="hidden sm:inline">Search</span>
@@ -180,7 +180,7 @@ export function HeroSearch() {
         </div>
 
         {showList && (
-          <div className="absolute left-0 right-0 top-full mt-2 z-30 bg-ink-900 border border-ivory/12 rounded-lg shadow-[0_20px_60px_rgb(0_0_0/0.45)] overflow-hidden">
+          <div className="absolute left-0 right-0 top-full mt-2 z-30 bg-ink-900 border border-ivory/12 rounded-atlas shadow-[0_20px_60px_rgb(0_0_0/0.45)] overflow-hidden">
             {results.length > 0 ? (
               <ul id={`${listId}-list`} role="listbox" aria-label="Sample suggestions">
                 {results.map((r, i) => (
@@ -200,7 +200,7 @@ export function HeroSearch() {
                     }`}
                   >
                     <span>{r.label}</span>
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-silver border border-ivory/15 px-2 py-0.5 rounded">
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-silver border border-ivory/15 px-2 py-0.5 rounded">
                       {r.kind}
                     </span>
                   </li>
@@ -227,7 +227,7 @@ export function HeroSearch() {
               key={tag}
               type="button"
               onClick={() => entry && choose(entry)}
-              className="min-h-[44px] px-3 rounded-md text-sm text-ivory/85 bg-transparent border border-ivory/15 hover:border-champagne/70 hover:text-ivory transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
+              className="min-h-[44px] px-3 rounded-atlas-sm text-sm text-ivory/85 bg-transparent border border-ivory/15 hover:border-champagne/70 hover:text-ivory transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-cyan"
             >
               {tag}
             </button>

@@ -15,15 +15,6 @@ function DesignBackdropImpl() {
         className="absolute -right-[6%] top-[8%] h-[70%] w-[46%] rotate-[-6deg]"
         style={{ background: 'linear-gradient(135deg, color-mix(in srgb, var(--hue) 20%, transparent), transparent 70%)' }}
       />
-      <div
-        className="absolute inset-0 opacity-70"
-        style={{
-          backgroundImage: 'radial-gradient(circle, color-mix(in srgb, var(--hue) 18%, transparent) 1.2px, transparent 1.6px)',
-          backgroundSize: '28px 28px',
-          maskImage: 'linear-gradient(115deg, transparent 20%, black 55%, transparent 90%)',
-          WebkitMaskImage: 'linear-gradient(115deg, transparent 20%, black 55%, transparent 90%)',
-        }}
-      />
     </div>
   );
 }
@@ -36,13 +27,13 @@ function DesignArtImpl() {
       {/* geometric composition */}
       <span
         aria-hidden="true"
-        className="absolute rounded-full bg-current group-data-[active=true]/room:animate-[atlas-float_9s_ease-in-out_infinite]"
+        className="absolute rounded-full bg-current"
         style={{ left: '8%', top: '8%', width: '46%', aspectRatio: '1', opacity: 0.92 }}
       />
       <span aria-hidden="true" className="absolute bg-champagne" style={{ left: '46%', top: '30%', width: '34%', aspectRatio: '1', borderTopLeftRadius: '100%', opacity: 0.95 }} />
       <span
         aria-hidden="true"
-        className="absolute rotate-[18deg] border border-ivory/60 group-data-[active=true]/room:animate-[atlas-spin_60s_linear_infinite]"
+        className="absolute rotate-[18deg] border border-ivory/60 group-data-[opened=true]/room:animate-[atlas-turn-in_2.2s_ease-out_1]"
         style={{ left: '56%', top: '2%', width: '34%', aspectRatio: '1' }}
       />
       <span aria-hidden="true" className="absolute bg-silver/90" style={{ left: '4%', top: '58%', width: '22%', aspectRatio: '1', clipPath: 'polygon(50% 0, 100% 100%, 0 100%)' }} />
@@ -67,18 +58,18 @@ function DesignArtImpl() {
         ))}
       </svg>
       {/* colour study */}
-      <div className="absolute left-[8%] top-[90%] flex items-center gap-[1.2cqw]" aria-hidden="true">
+      <div className="absolute bottom-[1%] left-[8%] flex items-center gap-[1.2cqw]" aria-hidden="true">
         {SWATCHES.map((c, i) => (
           <div key={c} className="flex flex-col items-center gap-[0.8cqw]">
             <span className={`${c} block rounded-full`} style={{ width: '4.2cqw', height: '4.2cqw' }} />
-            <span className="text-ivory/60" style={{ ...mono, fontSize: '1.3cqw', letterSpacing: '0.1em' }}>
+            <span className="text-ivory/60" style={{ ...mono, fontSize: 'max(11px, 1.3cqw)', letterSpacing: '0.1em' }}>
               0{i + 1}
             </span>
           </div>
         ))}
       </div>
-      <span className="absolute right-[4%] top-[93%] text-ivory/80" style={{ ...mono, fontSize: '1.3cqw', letterSpacing: '0.12em' }} aria-hidden="true">
-        STUDY — FORM · COLOUR · TYPE
+      <span className="absolute bottom-[1%] right-[4%] text-ivory/80 max-lg:hidden" style={{ ...mono, fontSize: 'max(11px, 1.3cqw)', letterSpacing: '0.12em' }} aria-hidden="true">
+        STUDY · FORM · COLOUR · TYPE
       </span>
     </div>
   );

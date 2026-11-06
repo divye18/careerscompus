@@ -1,10 +1,10 @@
 import { memo } from 'react';
-import { ArtFrame, Label, Pulse } from './shared';
+import { ArtCaption, ArtFrame, Label, Pulse } from './shared';
 
 /**
  * TECHNOLOGY — a precision-engineered circuit environment.
  * Language: fine technical grid, a processor die with pinned edges, orthogonal traces with 45° bends,
- * vias, labelled blocks, a slow signal sweep.
+ * vias, labelled blocks, a signal sweep that crosses the die once when the room first opens.
  */
 export const TECH_VIEWBOX = '0 0 1000 700';
 
@@ -41,11 +41,12 @@ function TechnologyArtImpl() {
   return (
     <ArtFrame
       viewBox={TECH_VIEWBOX}
+      caption={<ArtCaption>Fig. 01 · Processor die · Schematic</ArtCaption>}
       overlay={
         <>
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div
-              className="absolute inset-y-[8%] left-0 w-[16%] opacity-0 group-data-[active=true]/room:opacity-100 group-data-[active=true]/room:animate-[atlas-scan_7s_linear_infinite]"
+              className="absolute inset-y-[8%] left-0 w-[16%] opacity-0 group-data-[opened=true]/room:animate-[atlas-scan_3.6s_ease-in-out_0.25s_1_both]"
               style={{
                 background: 'linear-gradient(to right, transparent, color-mix(in srgb, currentColor 11%, transparent) 50%, transparent)',
                 maskImage: 'linear-gradient(to bottom, transparent, black 25%, black 75%, transparent)',
@@ -114,7 +115,7 @@ function TechnologyArtImpl() {
       {/* labels with leaders */}
       <path d="M426 264H400" className="stroke-ivory" strokeOpacity={0.35} />
       <Label x={396} y={268} anchor="end" size={10}>CORE 0·3</Label>
-      <Label x={500} y={160} anchor="middle" size={10}>DIE — SCHEMATIC</Label>
+      <Label x={500} y={160} anchor="middle" size={10}>DIE · SCHEMATIC</Label>
       <Label x={500} y={598} anchor="middle" size={10} opacity={0.5}>BUS · I/O · CACHE</Label>
     </ArtFrame>
   );

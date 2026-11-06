@@ -7,15 +7,22 @@ import type { CSSProperties, ReactNode } from 'react';
  * viewBox and a few compositor-only motion overlays. Colour comes from the domain hue (`--hue`, set
  * by the parent) and design tokens (ivory / champagne / silver) — no literal colours here.
  *
- * Artwork is prop-less and memoised so it never re-renders. Motion is switched on by CSS: the active room
- * carries `data-active="true"` and its overlays use `group-data-[active=true]/room:animate-…`. Overlays are
- * plain elements animated with transform/opacity so they never repaint the SVG. Without a `group/room`
- * ancestor (mobile track, reduced motion) everything is static.
+ * Artwork is prop-less and memoised so it never re-renders. Motion runs once: a room carries `data-opened="true"`
+ * from the first time it opens, and its overlays use `group-data-[opened=true]/room:animate-…` with a single iteration,
+ * so nothing loops and nothing replays. Overlays are plain elements animated with transform/opacity so they never
+ * repaint the SVG. Without a `group/room` ancestor (mobile track, reduced motion) everything is static.
  */
 
 export const mono: CSSProperties = { fontFamily: 'var(--font-mono)' };
 
-/** Mono label inside an artwork (SVG text). */
+/** Annotations scale with their artwork, so they are drawn larger than their nominal size. */
+const ART_TEXT_SCALE = 1.5;
+
+/**
+ * Annotation inside an artwork (SVG text): illustration detail, aria-hidden, never the only place a fact appears.
+ * It scales with the drawing, so it stays below the UI label floor and is hidden on phones and small tablets, where it
+ * cannot be read. Anything a student must read goes in the frame's `caption` instead.
+ */
 export function Label({
   x,
   y,
@@ -34,14 +41,19 @@ export function Label({
   className?: string;
 }) {
   return (
-    <text x={x} y={y} textAnchor={anchor} fontSize={size} opacity={opacity} className={className} style={{ ...mono, letterSpacing: '0.12em' }}>
+    <text x={x} y={y} textAnchor={anchor} fontSize={size * ART_TEXT_SCALE} opacity={opacity} className={`max-lg:hidden ${className}`} style={{ ...mono, letterSpacing: '0.12em' }}>
       {children}
     </text>
   );
 }
 
+/** A figure caption: fixed, readable type at any artwork size. */
+export function ArtCaption({ children, className = 'left-1' }: { children: ReactNode; className?: string }) {
+  return <p className={`absolute bottom-1 m-0 font-mono text-[11px] uppercase leading-tight tracking-[0.1em] text-ivory/75 ${className}`}>{children}</p>;
+}
+
 /** Artwork frame: a viewBox-sized svg plus an overlay layer positioned in viewBox percentages. */
-export function ArtFrame({ viewBox, children, overlay }: { viewBox: string; children: ReactNode; overlay?: ReactNode }) {
+export function ArtFrame({ viewBox, children, overlay, caption }: { viewBox: string; children: ReactNode; overlay?: ReactNode; caption?: ReactNode }) {
   return (
     <div className="relative h-full w-full overflow-hidden" style={{ color: 'var(--hue)' }}>
       <svg
@@ -57,6 +69,7 @@ export function ArtFrame({ viewBox, children, overlay }: { viewBox: string; chil
         {children}
       </svg>
       {overlay}
+      {caption}
     </div>
   );
 }
@@ -78,12 +91,12 @@ export function GridLayer({ id, size, opacity, style }: { id: string; size: numb
   );
 }
 
-/** Small pulsing node at a viewBox-percentage position (compositor-only animation). */
+/** Small node at a viewBox-percentage position. It signals once when the room first opens (compositor-only). */
 export function Pulse({ left, top, delay = 0, size = 8 }: { left: number; top: number; delay?: number; size?: number }) {
   return (
     <span
       aria-hidden="true"
-      className="absolute rounded-full bg-current opacity-80 group-data-[active=true]/room:animate-[atlas-pulse_2.8s_ease-in-out_infinite]"
+      className="absolute rounded-full bg-current opacity-80 group-data-[opened=true]/room:animate-[atlas-signal_1.4s_ease-out_1]"
       style={{ left: `${left}%`, top: `${top}%`, width: size, height: size, marginLeft: -size / 2, marginTop: -size / 2, animationDelay: `${delay}s` }}
     />
   );

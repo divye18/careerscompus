@@ -2,6 +2,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Journey } from '@/journey/Journey';
 import { Handoff } from '@/journey/Handoff';
+import { SHOW_INTERIM_SECTIONS } from '@/lib/site';
 import { SceneRailLane } from '@/journey/layers/SceneRailLane';
 import { CoursesPathway } from '@/journey/courses/CoursesPathway';
 import { UniversityAtlas } from '@/journey/universities/UniversityAtlas';
@@ -22,7 +23,7 @@ export default function Home() {
     <>
       <a
         href="#main"
-        className="sr-only rounded-lg bg-ivory px-4 py-3 text-sm font-semibold text-ink-950 outline-none focus-visible:not-sr-only focus-visible:fixed focus-visible:px-4 focus-visible:py-3 focus-visible:left-3 focus-visible:top-3 focus-visible:z-[70] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-cyan"
+        className="sr-only rounded-atlas bg-ivory px-4 py-3 text-sm font-semibold text-ink-950 outline-none focus-visible:not-sr-only focus-visible:fixed focus-visible:px-4 focus-visible:py-3 focus-visible:left-3 focus-visible:top-3 focus-visible:z-[70] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-cyan"
       >
         Skip to main content
       </a>
@@ -36,20 +37,22 @@ export default function Home() {
         </div>
         <Handoff />
 
-        <div id="act-comparison" className="scroll-mt-16 py-16 sm:py-24">
+        <div id="act-comparison" data-interim className="scroll-mt-16 py-16 sm:py-24">
           <CompareTeaser />
-          <HowItWorks />
+          {SHOW_INTERIM_SECTIONS && <HowItWorks />}
         </div>
-        <div id="act-guidance" className="scroll-mt-16">
+        <div id="act-guidance" data-interim className="scroll-mt-16">
           <CounsellingCTA />
         </div>
-        <div id="act-trust" className="scroll-mt-16 py-16 sm:py-24">
-          <PlatformPrinciples />
+        <div id="act-trust" data-interim className="scroll-mt-16 py-16 sm:py-24">
+          {SHOW_INTERIM_SECTIONS && <PlatformPrinciples />}
           <FAQSection />
         </div>
-        <div id="act-future" className="scroll-mt-16">
-          <FinalCTA />
-        </div>
+        {SHOW_INTERIM_SECTIONS && (
+          <div id="act-future" data-interim className="scroll-mt-16">
+            <FinalCTA />
+          </div>
+        )}
       </main>
       <Footer />
     </>
