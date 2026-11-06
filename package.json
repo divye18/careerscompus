@@ -9,7 +9,9 @@
     "lint": "eslint",
     "qa:visual": "node scripts/visual-check.mjs",
     "test:evidence": "node --test scripts/tests/evidence.test.mjs scripts/tests/data.test.mjs scripts/tests/pipeline.integration.test.mjs",
-    "verify:institutions": "node scripts/verify-institutions.mjs"
+    "verify:institutions": "node scripts/verify-institutions.mjs",
+    "test:action": "node --import ./scripts/tests/ts-hooks.mjs --test scripts/tests/actionPlan.test.mjs scripts/tests/actionStore.test.mjs",
+    "test": "npm run test:evidence && npm run test:action"
   },
   "dependencies": {
     "@react-three/fiber": "^9.8.1",
