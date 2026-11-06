@@ -40,9 +40,11 @@ for (const w of [1440, 1280, 768, 390, 375, 360]) {
     const root = document.getElementById('act-next-steps');
     const over = [...root.querySelectorAll('*')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.right > cw + 0.5 && !e.closest('[aria-hidden="true"]'); }).map((e) => e.tagName + ':' + e.textContent.trim().slice(0, 20)).slice(0, 4);
     const small = [...root.querySelectorAll('button,summary,a')].filter((e) => { const r = e.getBoundingClientRect(); return r.height > 0 && r.height < 43.5; }).length;
-    return { overflow: document.documentElement.scrollWidth - cw, over, small };
+    const lineX = (() => { const r = root.querySelector('[data-meridian]').getBoundingClientRect(); return r.left + r.width / 2; })();
+    const beads = [...root.querySelectorAll('h3 > span[data-no-print]')].map((e) => { const r = e.getBoundingClientRect(); return Math.round(Math.abs(r.left + r.width / 2 - lineX) * 10) / 10; });
+    return { overflow: document.documentElement.scrollWidth - cw, over, small, beadOffsetPx: Math.max(...beads) };
   });
-  if (m.overflow > 0 || m.over.length || m.small) bad++;
+  if (m.overflow > 0 || m.over.length || m.small || m.beadOffsetPx > 1.5) bad++;
   console.log(w, JSON.stringify(m));
   if (w === 1440) {
     const geo = await p.evaluate(() => { const r = document.getElementById('act-next-steps').getBoundingClientRect(); return { top: r.top + scrollY, bottom: r.bottom + scrollY }; });

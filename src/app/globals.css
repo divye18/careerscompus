@@ -260,10 +260,10 @@
   100% { transform: translateX(660%); opacity: 0; }
 }
 
-/* Scene 7: "Print this sheet" prints only the route sheet, on a light ground. */
+/* Scene 7: "Print this sheet" prints only the route sheet, on a light ground. Printing the page any other way is unaffected. */
 @media print {
-  body * { visibility: hidden; }
-  [data-print-sheet], [data-print-sheet] * { visibility: visible; color: #000 !important; background: transparent !important; border-color: #888 !important; }
-  [data-print-sheet] { position: absolute; inset: 0 0 auto 0; padding: 0; }
-  [data-print-sheet] [data-no-print] { display: none !important; }
+  body.cc-print-sheet * { visibility: hidden; }
+  body.cc-print-sheet [data-print-sheet], body.cc-print-sheet [data-print-sheet] * { visibility: visible; color: #000 !important; background: transparent !important; border-color: #888 !important; }
+  body.cc-print-sheet [data-print-sheet] { position: absolute; inset: 0 0 auto 0; padding: 0; }
+  body.cc-print-sheet [data-print-sheet] [data-no-print] { display: none !important; }
 }

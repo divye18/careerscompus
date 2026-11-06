@@ -69,6 +69,8 @@ export function ActionStudio() {
     document.querySelectorAll<HTMLDetailsElement>('#act-next-steps details').forEach((d) => {
       d.open = true;
     });
+    document.body.classList.add('cc-print-sheet');
+    window.addEventListener('afterprint', () => document.body.classList.remove('cc-print-sheet'), { once: true });
     window.print();
   };
   const remove = (r: Removed) => {

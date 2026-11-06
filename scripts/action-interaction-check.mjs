@@ -148,6 +148,21 @@ ok('index marks Still open when it is in view', (await current()).join() === '#n
 await scrollTo(() => { const r = document.getElementById('act-next-steps').getBoundingClientRect(); window.scrollTo({ top: r.top + scrollY - innerHeight * 0.7, behavior: 'instant' }); });
 ok('index marks nothing when scrolled back above the stages', (await current()).length === 0, (await current()).join());
 
+// ---------- print is scoped to "Print this sheet"
+if (!mobile) {
+  const headerVis = () => p.evaluate(() => getComputedStyle(document.querySelector('header')).visibility);
+  await p.emulateMedia({ media: 'print' });
+  ok('printing the page normally is unaffected', (await headerVis()) === 'visible');
+  await p.emulateMedia({ media: 'screen' });
+  await p.evaluate(() => { window.print = () => {}; });
+  await S.getByRole('button', { name: 'Print this sheet' }).click();
+  await p.emulateMedia({ media: 'print' });
+  ok('"Print this sheet" prints only the sheet', (await headerVis()) === 'hidden' && (await S.evaluate((e) => getComputedStyle(e).visibility)) === 'visible');
+  await p.evaluate(() => window.dispatchEvent(new Event('afterprint')));
+  ok('the print scope ends after printing', (await headerVis()) === 'visible');
+  await p.emulateMedia({ media: 'screen' });
+}
+
 // ---------- structure, targets, heading order
 const a11y = await S.evaluate((root) => {
   const small = [...root.querySelectorAll('button,summary,a')].filter((e) => { const r = e.getBoundingClientRect(); const c = getComputedStyle(e); return r.height > 0 && r.height < 43.5 && c.display !== 'none'; }).map((e) => e.textContent.trim().slice(0, 24));
